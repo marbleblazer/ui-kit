@@ -1,0 +1,10 @@
+deploy_dev:
+    stage: deploy
+    script:
+        - npm i
+        - npm run build-storybook
+        - rm -rf /var/www/apps/chirp-fleet-frontend/storybook-static/*
+        - rsync -av --progress -r storybook-static/* /var/www/apps/uploader-frontend/storybook-static
+
+    only:
+        - dev

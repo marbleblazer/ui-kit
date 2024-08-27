@@ -1,0 +1,26 @@
+/* Общие стили для полосы прокрутки */
+::-webkit-scrollbar {
+    width: 4px; /* Ширина полосы прокрутки */
+    height: 4px;
+}
+
+/* Стиль ползунка */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(53, 53, 53, 1); /* Цвет ползунка */
+    border-radius: 6px; /* Закругление углов ползунка */
+}
+
+/* Стиль трека (фоновой области полосы прокрутки) */
+::-webkit-scrollbar-track {
+    background-color: #000; /* Цвет трека */
+}
+
+/* Стиль ползунка при наведении курсора */
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(68, 68, 68, 1); /* Цвет ползунка при наведении курсора */
+}
+
+/* Стиль ползунка при активации (клике) */
+::-webkit-scrollbar-thumb:active {
+    background-color: rgba(68, 68, 68, 1); /* Цвет ползунка при активации (клике) */
+}

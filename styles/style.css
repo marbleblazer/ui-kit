@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+}
+
+.wkit-dialog__overlay {
+  z-index: 10000 !important;
+}
