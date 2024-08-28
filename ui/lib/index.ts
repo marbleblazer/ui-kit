@@ -17,3 +17,13 @@ export { ThemeSwitch } from './theme-switch';
 export { Button } from './button';
 
 export { ActionDialog } from './action-dialog';
+
+export { AlertsCount } from './alerts-count';
+
+export { Autocomplete } from './autocomplete';
+
+export { TextField } from './text-field';
+
+export { Badge, SimpleBadge } from './badge';
+
+export { Loader } from './loader';
