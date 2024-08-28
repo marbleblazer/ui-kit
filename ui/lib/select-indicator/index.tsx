@@ -1,4 +1,4 @@
-import { CaretDownIcon } from '@ui/icons/CaretDownIcon';
+import { CaretDownIcon } from '@ui/icons';
 import * as S from './style';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
 export const SelectIndicator: React.FC<Props> = ({ className }) => {
     return (
         <S.Root className={className}>
-            {/* TODO */}
             <CaretDownIcon />
         </S.Root>
     );

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Stack, IconButton, useTheme } from '@mui/material';
-import { StepIcon } from '@ui/icons/StepIcon';
+import { StepIcon } from '@ui/icons';
 
 export interface StepperProps {
     activeStep: number;
