@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SelectIndicator } from '@ui/select-indicator';
+import { SelectIndicator } from '@ui/lib';
 
 const meta: Meta<typeof SelectIndicator> = {
     title: 'UI/SelectIndicator',

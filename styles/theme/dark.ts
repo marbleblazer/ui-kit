@@ -1,5 +1,5 @@
 import { ThemeOptions } from '@mui/material';
-import { CurrentTheme } from '../constants';
+import { CurrentTheme } from '@styles/constants';
 
 export const darkTheme: ThemeOptions = {
     palette: {

@@ -27,6 +27,9 @@
             "@ui/*": [
                 "./ui/*"
             ],
+            "@styles/*": [
+                "./styles/*"
+            ],
         }
     },
     "include": [
@@ -34,7 +37,8 @@
         "./vite.config.ts",
         ".storybook/*",
         "stories",
-        "styles"
+        "styles",
+        "theme.d.ts"
     ],
     "references": [
         {

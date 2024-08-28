@@ -13,8 +13,7 @@ export default defineConfig(({ mode }) => {
         resolve: {
             alias: {
                 '@ui': path.resolve(__dirname, 'ui'),
-                '@helpers': path.resolve(__dirname, 'helpers'),
-                '@styles': path.resolve(__dirname, 'styles/index.scss'),
+                '@styles': path.resolve(__dirname, 'styles'),
             },
         },
 

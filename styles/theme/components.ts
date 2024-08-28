@@ -1,5 +1,5 @@
 import { ThemeOptions } from '@mui/material';
-import { SelectIndicator } from '@ui/select-indicator';
+import { SelectIndicator } from '@ui/lib';
 
 type ComponentCreator = (palette: ThemeOptions['palette']) => ThemeOptions['components'];
 

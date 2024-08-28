@@ -1,0 +1,12 @@
+@import './fonts.scss';
+@import './react-toastify.scss';
+@import './scrollbar.scss';
+@import './sleekplan.scss';
+
+body {
+    margin: 0;
+}
+
+.wkit-dialog__overlay {
+    z-index: 10000 !important;
+}
