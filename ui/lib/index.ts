@@ -27,3 +27,16 @@ export { TextField } from './text-field';
 export { Badge, SimpleBadge } from './badge';
 
 export { Loader } from './loader';
+
+export { Modal } from './modal';
+
+export { ConfirmationDialog } from './confirmation-dialog';
+
+export {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    CloseButton as DialogCloseButton,
+} from './dialog';
