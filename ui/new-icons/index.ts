@@ -14,3 +14,5 @@ export * from './GatewayCardIcon';
 export * from './GpsTrackerCardIcon';
 export * from './SmartPlugCardIcon';
 export * from './WeatherStationCardIcon';
+
+export * from './TrashIcon';

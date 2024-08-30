@@ -123,6 +123,15 @@ export const createComponents: ComponentCreator = (palette) => ({
             },
         },
     },
+    MuiMenuItem: {
+        styleOverrides: {
+            root: {
+                '&:hover': {
+                    backgroundColor: palette?.additionalColors.buttonSecondary,
+                },
+            },
+        },
+    },
     MuiSnackbarContent: {
         styleOverrides: {
             root: {

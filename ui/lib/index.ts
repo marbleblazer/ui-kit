@@ -40,3 +40,7 @@ export {
     DialogTitle,
     CloseButton as DialogCloseButton,
 } from './dialog';
+
+export { Select } from './select';
+
+export { InputLabel } from './input-label';
