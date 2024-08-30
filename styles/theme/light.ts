@@ -78,5 +78,10 @@ export const lightTheme: ThemeOptions = {
             light: 'rgba(255, 255, 255, 1)', // #ffffff
             dark: 'rgba(255, 255, 255, 1)', // #ffffff
         },
+        widgetValues: {
+            min: 'rgba(166, 173, 219, 1)', // #A6ADDB
+            avg: 'rgba(236, 227, 209, 1)', // #ECE3D1
+            max: 'rgba(255, 163, 134, 1)', // #FFA386
+        },
     },
 };

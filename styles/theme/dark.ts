@@ -78,5 +78,10 @@ export const darkTheme: ThemeOptions = {
             light: 'rgba(35, 35, 35, 1)', // #232323
             dark: 'rgba(16, 16, 16, 1)', // #101010
         },
+        widgetValues: {
+            min: 'rgba(166, 173, 219, 1)', // #A6ADDB
+            avg: 'rgba(236, 227, 209, 1)', // #ECE3D1
+            max: 'rgba(255, 163, 134, 1)', // #FFA386
+        },
     },
 };

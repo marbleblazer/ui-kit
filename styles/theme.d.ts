@@ -50,6 +50,11 @@ export interface CustomPalette {
         pink: string;
         mutedGreen: string;
     };
+    widgetValues: {
+        min: string;
+        avg: string;
+        max: string;
+    };
 }
 
 export interface CustomTheme extends MUITheme {
