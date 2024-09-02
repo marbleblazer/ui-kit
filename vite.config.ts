@@ -12,8 +12,7 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
-                '@ui': path.resolve(__dirname, 'ui'),
-                '@styles': path.resolve(__dirname, 'styles'),
+                '@chirp/ui': path.resolve(__dirname, 'src'),
             },
         },
 

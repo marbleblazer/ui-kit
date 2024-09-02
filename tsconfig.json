@@ -24,11 +24,8 @@
         "noImplicitAny": true,
         "baseUrl": "./",
         "paths": {
-            "@ui/*": [
-                "./ui/*"
-            ],
-            "@styles/*": [
-                "./styles/*"
+            "@chirp/ui/*": [
+                "./src/*"
             ],
         }
     },
