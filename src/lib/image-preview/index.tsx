@@ -7,10 +7,10 @@ export interface IImagePreviewProps {
     onLoad?: (file: File) => void;
     previewUrl?: string;
     withBorder?: boolean;
-    onDelete?: () => void;
+    onRemove?: () => void;
 }
 
-export const ImagePreview: FC<IImagePreviewProps> = ({ previewUrl, withBorder, onDelete, onLoad }) => {
+export const ImagePreview: FC<IImagePreviewProps> = ({ previewUrl, withBorder, onRemove, onLoad }) => {
     const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0] && onLoad) {
             const reader = new FileReader();
@@ -25,7 +25,14 @@ export const ImagePreview: FC<IImagePreviewProps> = ({ previewUrl, withBorder, o
     return (
         <S.ImageWrapper borderRadius={8} border={withBorder ? 6 : 0}>
             {previewUrl && previewUrl?.length > 0 ? (
-                <S.Image src={previewUrl} />
+                <>
+                    <S.Image src={previewUrl} />
+                    {onRemove && (
+                        <S.DeleteBtn variant="secondary" onClick={onRemove} size="small">
+                            <TrashIcon />
+                        </S.DeleteBtn>
+                    )}
+                </>
             ) : (
                 onLoad && (
                     <S.EmptyFallbackWrapper>
@@ -35,11 +42,6 @@ export const ImagePreview: FC<IImagePreviewProps> = ({ previewUrl, withBorder, o
                         <Typography variant="body2">Add an image</Typography>
                     </S.EmptyFallbackWrapper>
                 )
-            )}
-            {onDelete && (
-                <S.DeleteBtn variant="secondary" onClick={onDelete} size="small">
-                    <TrashIcon />
-                </S.DeleteBtn>
             )}
         </S.ImageWrapper>
     );

@@ -30,6 +30,6 @@ export const WithPreview: Story = {
 
 export const WithDeleteIcon: Story = {
     render: () => (
-        <ImagePreview onDelete={() => null} withBorder previewUrl="https://chirpwireless.io/images/footer/tim-lg.png" />
+        <ImagePreview onRemove={() => null} withBorder previewUrl="https://chirpwireless.io/images/footer/tim-lg.png" />
     ),
 };
