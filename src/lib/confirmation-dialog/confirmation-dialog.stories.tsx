@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TrashIcon } from '@chirp/ui/new-icons';
+import { TrashIcon } from '@chirp/ui/assets/new-icons';
 import { ConfirmationDialog, TextField } from '@chirp/ui/lib';
 
 const meta: Meta<typeof ConfirmationDialog> = {

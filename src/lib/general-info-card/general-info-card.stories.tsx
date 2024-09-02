@@ -1,8 +1,8 @@
 import { Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { GeneralInfoCard } from '@chirp/ui/lib';
-import { DeviceIcon, PlusIcon, WarningIcon } from '@chirp/ui/new-icons';
-import { QuestionIcon } from '@chirp/ui/new-icons/QuestionIcon';
+import { DeviceIcon, PlusIcon, WarningIcon } from '@chirp/ui/assets/new-icons';
+import { QuestionIcon } from '@chirp/ui/assets/new-icons/QuestionIcon';
 
 const meta: Meta<typeof GeneralInfoCard> = {
     title: 'UI/GeneralInfoCard',
