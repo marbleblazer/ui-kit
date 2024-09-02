@@ -10,6 +10,13 @@ declare module '@mui/material/styles' {
     export interface PaletteOptions extends CustomPalette {}
 }
 
+declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+        paragraphPrimary: true;
+        paragraphSecondary: true;
+    }
+}
+
 export interface CustomPalette {
     primaryColors: {
         accent: string;
