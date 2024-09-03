@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MapIcon } from '@chirp/ui/assets/icons';
+import { EyeIcon, MapIcon } from '@chirp/ui/assets/icons';
 import { Button } from '@chirp/ui/lib';
 
 const meta: Meta<typeof Button> = {
@@ -22,17 +22,17 @@ export const SmallSize: Story = {
         </Button>
     ),
 };
-export const MediumSize: Story = {
+export const SmallSizeWithIcons: Story = {
     render: () => (
-        <Button size="medium" variant="primary">
+        <Button size="small" variant="primary" startIcon={<MapIcon />} endIcon={<EyeIcon />}>
             test
         </Button>
     ),
 };
 
-export const BigSize: Story = {
+export const LargeSize: Story = {
     render: () => (
-        <Button size="big" variant="primary">
+        <Button size="large" variant="primary">
             test
         </Button>
     ),
@@ -46,18 +46,10 @@ export const PrimaryVariant: Story = {
     ),
 };
 
-export const GroupedVariant: Story = {
+export const PrimaryVariantWithStartIcon: Story = {
     render: () => (
-        <Button size="medium" variant="grouped">
+        <Button size="medium" variant="primary" startIcon={<MapIcon />} fullWidth>
             test
-        </Button>
-    ),
-};
-
-export const IconVariant: Story = {
-    render: () => (
-        <Button size="medium" variant="icon">
-            <MapIcon />
         </Button>
     ),
 };
@@ -78,25 +70,9 @@ export const SecondaryVariant: Story = {
     ),
 };
 
-export const SidebarVariant: Story = {
-    render: () => (
-        <Button size="medium" variant="sidebar">
-            test
-        </Button>
-    ),
-};
-
 export const TertiaryVariant: Story = {
     render: () => (
         <Button size="medium" variant="tertiary">
-            test
-        </Button>
-    ),
-};
-
-export const TextVariant: Story = {
-    render: () => (
-        <Button size="medium" variant="text">
             test
         </Button>
     ),

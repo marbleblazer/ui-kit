@@ -10,6 +10,14 @@ declare module '@mui/material/styles' {
     export interface PaletteOptions extends CustomPalette {}
 }
 
+declare module '@mui/material/Button' {
+    interface ButtonPropsVariantOverrides {
+        primary: true;
+        secondary: true;
+        tertiary: true;
+    }
+}
+
 export interface CustomPalette {
     primaryColors: {
         accent: string;

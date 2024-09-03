@@ -26,9 +26,13 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiButton: {
         styleOverrides: {
             root: {
-                borderRadius: 0,
-                textTransform: 'uppercase',
-                padding: '12px 24px',
+                borderRadius: '6px',
+                '.MuiButton-endIcon': {
+                    marginLeft: '4px',
+                },
+                '.MuiButton-startIcon': {
+                    marginRight: '4px',
+                },
             },
         },
     },
