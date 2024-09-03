@@ -1,5 +1,3 @@
 import { ButtonProps } from '@mui/material';
 
-export interface IButtonProps extends ButtonProps {
-    // fullWidth?: boolean;
-}
+export interface IButtonProps extends ButtonProps {}

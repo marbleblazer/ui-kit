@@ -36,6 +36,17 @@ export const createComponents: ComponentCreator = (palette) => ({
             },
         },
     },
+    MuiIconButton: {
+        styleOverrides: {
+            root: {
+                borderRadius: '6px',
+                svg: {
+                    width: '20px',
+                    height: '20px',
+                },
+            },
+        },
+    },
     MuiSelect: {
         defaultProps: {
             IconComponent: SelectIndicator,

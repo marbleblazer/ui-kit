@@ -16,6 +16,8 @@ export { ThemeSwitch } from './theme-switch';
 
 export { Button } from './button';
 
+export { IconButton } from './icon-button';
+
 export { ActionDialog } from './action-dialog';
 
 export { AlertsCount } from './alerts-count';

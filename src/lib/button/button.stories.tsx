@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { EyeIcon, MapIcon } from '@chirp/ui/assets/icons';
 import { Button } from '@chirp/ui/lib';
+import { Box } from '@mui/material';
 
 const meta: Meta<typeof Button> = {
     title: 'UI/Button',
@@ -48,7 +49,7 @@ export const PrimaryVariant: Story = {
 
 export const PrimaryVariantWithStartIcon: Story = {
     render: () => (
-        <Button size="medium" variant="primary" startIcon={<MapIcon />} fullWidth>
+        <Button size="medium" variant="primary" startIcon={<MapIcon />}>
             test
         </Button>
     ),
@@ -75,5 +76,14 @@ export const TertiaryVariant: Story = {
         <Button size="medium" variant="tertiary">
             test
         </Button>
+    ),
+};
+export const FullWidth: Story = {
+    render: () => (
+        <Box width="400px" bgcolor="gray" p={2}>
+            <Button size="medium" variant="primary" fullWidth>
+                test
+            </Button>
+        </Box>
     ),
 };
