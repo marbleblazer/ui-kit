@@ -11,6 +11,9 @@ declare module '@mui/material/styles' {
 }
 
 export interface CustomPalette {
+    shadow: {
+        primary: string;
+    };
     primaryColors: {
         accent: string;
         accentHover: string;
