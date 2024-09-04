@@ -56,3 +56,5 @@ export { FilterItem } from './filter-item';
 export { TextSkeleton } from './text-skeleton';
 
 export { Widget } from './Widget';
+
+export { SearchInput } from './search-input';

@@ -147,6 +147,16 @@ export const createComponents: ComponentCreator = (palette) => ({
             },
         },
     },
+    MuiTextField: {
+        styleOverrides: {
+            root: {
+                '.MuiInputAdornment-root': {
+                    width: '20px',
+                    height: '20px',
+                },
+            },
+        },
+    },
     MuiSnackbarContent: {
         styleOverrides: {
             root: {
