@@ -78,6 +78,15 @@ export const TertiaryVariant: Story = {
         </Button>
     ),
 };
+
+export const TextVariant: Story = {
+    render: () => (
+        <Button size="medium" variant="text">
+            test
+        </Button>
+    ),
+};
+
 export const FullWidth: Story = {
     render: () => (
         <Box width="400px" bgcolor="gray" p={2}>

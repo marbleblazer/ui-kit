@@ -103,6 +103,10 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
     }),
 
+    ...(variant === 'text' && {
+        padding: 0,
+    }),
+
     ...(variant === 'outlined' && {
         background: 'transparent',
         color: theme.palette.primaryColors.accent,
