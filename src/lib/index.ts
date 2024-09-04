@@ -60,3 +60,5 @@ export { Widget } from './Widget';
 export { SearchInput } from './search-input';
 
 export { Switch } from './switch';
+
+export { Dropdown } from './dropdown';

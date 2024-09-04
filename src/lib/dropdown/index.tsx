@@ -1,0 +1,47 @@
+import { PropsWithChildren, useRef } from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import * as S from './style';
+
+export interface IDropdownProps<T> {
+    items: T[];
+    isOpened?: boolean;
+    gap?: string;
+
+    onOpen: () => void;
+    onClose: () => void;
+    onSelect?: (val: T) => void;
+    resolveTitle: (val: T) => string;
+}
+
+export const Dropdown = <T,>({
+    children,
+    isOpened = false,
+    onClose,
+    items,
+    resolveTitle,
+    gap = '5px',
+}: PropsWithChildren<IDropdownProps<T>>) => {
+    const controlWrapperRef = useRef(null);
+    return (
+        <>
+            <div ref={controlWrapperRef}>{children}</div>
+            <S.Menu
+                sx={{
+                    mt: gap,
+                }}
+                open={isOpened}
+                onClose={onClose}
+                anchorEl={controlWrapperRef.current}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+            >
+                {items?.map((item, idx) => (
+                    <MenuItem key={idx} onClick={onClose}>
+                        {resolveTitle(item)}
+                    </MenuItem>
+                ))}
+            </S.Menu>
+        </>
+    );
+};
