@@ -3,6 +3,7 @@ import { Box, Popover, MenuItem, SelectProps } from '@mui/material';
 import { SimpleTreeView } from '@mui/x-tree-view';
 import { Select } from '../select';
 import * as S from './style';
+import { SelectIndicator } from '../select-indicator';
 
 type TreeNodeType = {
     id: string;
@@ -74,6 +75,9 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({ options, onChange, width
                 <SimpleTreeView
                     sx={{ width: selectRef.current?.getBoundingClientRect().width }}
                     selectedItems={selectedNode?.id}
+                    slots={{
+                        expandIcon: SelectIndicator,
+                    }}
                 >
                     {renderTree(options)}
                 </SimpleTreeView>
