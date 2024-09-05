@@ -8,6 +8,7 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
     border: 'none',
     fontFamily: theme.typography.fontFamily,
     marginTop: '16px',
+
     'MuiButtonBase-root-MuiMenuItem-root': {
         backgroundColor: 'red',
     },

@@ -126,8 +126,10 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiMenuItem: {
         styleOverrides: {
             root: {
+                padding: '14px 16px',
                 '&:hover': {
                     backgroundColor: palette?.additionalColors.buttonSecondary,
+                    color: palette?.primaryColors.accent,
                 },
             },
         },
@@ -168,7 +170,12 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiPaper: {
         styleOverrides: {
             root: {
-                backgroundColor: palette?.darkShades.ternary,
+                backgroundColor:
+                    palette?.mode === 'dark' ? palette?.darkShades.quaternary : palette?.background?.default,
+                border: '1px solid',
+                borderColor: palette?.borders.secondary,
+                backgroundImage: 'none',
+                marginTop: '4px',
             },
         },
     },

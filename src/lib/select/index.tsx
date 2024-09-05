@@ -20,7 +20,15 @@ export const Select: FC<SelectProps> = ({ label, labelId, ...props }) => {
                     },
                 }}
             />
-            <S.Select {...props} />
+            <S.Select
+                {...props}
+                sx={{
+                    '.MuiPaper-root': {
+                        margin: 2,
+                        padding: '0px 14px',
+                    },
+                }}
+            />
         </FormControl>
     );
 };
