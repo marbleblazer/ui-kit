@@ -1,17 +1,24 @@
 import { styled } from '@mui/material';
-import { TextField as MuiTextField } from '@mui/material';
-import { StandardTextFieldProps } from '@mui/material/TextField/TextField';
+import MuiPhoneNumber, { MuiPhoneNumberProps } from 'material-ui-phone-number';
 
-export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, placeholder }) => ({
-    borderRadius: '8px',
+type PhoneFieldPropsType = MuiPhoneNumberProps & {
+    dialCode?: string;
+};
+
+export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, dialCode }) => ({
     fontFamily: theme?.typography.fontFamily,
     marginTop: '16px',
+    border: 'none',
 
-    '.MuiInputBase-root:focus': {
+    '.MuiInputBase-root.Mui-focused': {
         borderColor: theme.palette.borders.secondary,
     },
 
     '.MuiInputBase-root': {
+        border: '1px solid',
+        borderRadius: '8px',
+        borderColor: theme.palette.mode === 'dark' ? theme.palette.darkShades.fifth : theme.palette.darkShades.ternary,
+
         '&:hover:not(.Mui-disabled)': {
             backgroundColor:
                 theme.palette.mode === 'dark' ? theme.palette.darkShades.fifth : theme.palette.darkShades.ternary,
@@ -22,8 +29,55 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         },
     },
 
+    '& svg': { height: '20px' },
+
     '& .MuiInputBase-root': {
         height: 'auto',
+
+        '&.MuiInput-root': {
+            marginTop: '0',
+
+            '.MuiPhoneNumber-positionStart': {
+                left: '8px',
+            },
+
+            '&:before, &:after': {
+                display: 'none',
+                borderBottom: 'none',
+            },
+        },
+    },
+
+    '.MuiInputAdornment-positionEnd': {
+        order: 1,
+        width: '8px',
+        height: '20px',
+        paddingRight: '8px',
+        transform: 'translate(-12px)',
+        svg: {
+            width: '20px',
+            height: '20px',
+        },
+    },
+    '.MuiInputAdornment-positionStart': {
+        order: 0,
+        button: {
+            '&::before': {
+                content: dialCode ? `"+${dialCode}"` : '""',
+                fontSize: '13px',
+                lineHeight: '20px',
+                fontFamily: theme?.typography.fontFamily,
+                color: theme.palette.text.primary,
+            },
+
+            svg: {
+                display: 'none',
+            },
+        },
+    },
+
+    '.MuiFormLabel-root': {
+        '&.Mui-focused': {},
     },
 
     '.MuiFormControl-root.MuiTextField-root': {
@@ -42,16 +96,6 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
             paddingBottom: '10px',
         },
     },
-
-    '& .MuiSelect-select .notranslate::after': placeholder
-        ? {
-              content: `"${placeholder}"`,
-              color: theme.palette.text.primary,
-              opacity: 0.7,
-              fontSize: '13px',
-              lineHeight: '20px',
-          }
-        : {},
 
     '.MuiSelect-icon': {
         right: '16px',
@@ -73,22 +117,21 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
-
+    '.MuiPhoneNumber-flagButton': {
+        height: 'auto',
+        width: 'auto',
+    },
+    '& .MuiButtonBase-root': {
+        zIndex: 1,
+        padding: '12px 8px 10px 8px',
+    },
     input: {
-        padding: '12px 16px 10px 16px',
+        order: 2,
+        padding: '12px 16px 10px 0px',
         fontSize: '13px',
         lineHeight: '20px',
         fontFamily: theme?.typography.fontFamily,
         color: theme.palette.text.primary,
-        borderRadius: '8px',
-        border: '1px solid',
-        borderColor: theme.palette.mode === 'dark' ? theme.palette.info.main : theme.palette.info.light,
-    },
-
-    '.MuiInputBase-root.Mui-error': {
-        input: {
-            borderColor: theme.palette.alerts.alert,
-        },
     },
 
     fieldset: {
@@ -102,14 +145,12 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
             padding: 0,
         },
     },
-    'label,.MuiInputLabel-root.Mui-focused': {
+    label: {
         padding: 0,
         left: '-12px',
         backgroundColor: 'transparent',
         color: theme.palette.lightShades.ternary,
-        '&:focus': {
-            color: theme.palette.lightShades.ternary,
-        },
+
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',
             lineHeight: '20px',
