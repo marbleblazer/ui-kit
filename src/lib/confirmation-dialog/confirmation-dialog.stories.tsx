@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TrashIcon } from '@chirp/ui/assets/new-icons';
 import { ConfirmationDialog, TextField } from '@chirp/ui/lib';
+import { SuccessIcon } from '@chirp/ui/assets/icons';
 
 const meta: Meta<typeof ConfirmationDialog> = {
     title: 'UI/ConfirmationDialog',
@@ -17,7 +18,14 @@ type Story = StoryObj<typeof ConfirmationDialog>;
 
 export const Success: Story = {
     render: () => (
-        <ConfirmationDialog isOpen title="Title" subTitle="Description" onConfirm={() => {}} onCancel={() => {}}>
+        <ConfirmationDialog
+            isOpen
+            title="Title"
+            subTitle="Description"
+            onConfirm={() => {}}
+            onCancel={() => {}}
+            icon={<SuccessIcon />}
+        >
             <TextField>12</TextField>
         </ConfirmationDialog>
     ),
