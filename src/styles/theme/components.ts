@@ -26,9 +26,24 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiButton: {
         styleOverrides: {
             root: {
-                borderRadius: 0,
-                textTransform: 'uppercase',
-                padding: '12px 24px',
+                borderRadius: '6px',
+                '.MuiButton-endIcon': {
+                    marginLeft: '4px',
+                },
+                '.MuiButton-startIcon': {
+                    marginRight: '4px',
+                },
+            },
+        },
+    },
+    MuiIconButton: {
+        styleOverrides: {
+            root: {
+                borderRadius: '6px',
+                svg: {
+                    width: '20px',
+                    height: '20px',
+                },
             },
         },
     },
@@ -128,6 +143,16 @@ export const createComponents: ComponentCreator = (palette) => ({
             root: {
                 '&:hover': {
                     backgroundColor: palette?.additionalColors.buttonSecondary,
+                },
+            },
+        },
+    },
+    MuiTextField: {
+        styleOverrides: {
+            root: {
+                '.MuiInputAdornment-root': {
+                    width: '20px',
+                    height: '20px',
                 },
             },
         },

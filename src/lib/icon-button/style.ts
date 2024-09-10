@@ -1,12 +1,11 @@
-import { styled, Button } from '@mui/material';
+import { styled, IconButton } from '@mui/material';
 
-import { IButtonProps } from './types';
+import { IIconButtonProps } from './types';
 
-export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, size, variant }) => ({
+export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size, variant }) => ({
     cursor: 'pointer',
     fontFamily: theme.typography.body1.fontFamily,
     transition: 'all 0.125s',
-    width: fullWidth ? '100%' : '',
 
     '.MuiButton-icon': {
         '& > svg': {
@@ -16,32 +15,17 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     },
 
     ...(size === 'large' && {
-        fontSize: '13px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.065px',
-        padding: '14px 20px',
+        padding: '14px',
         maxHeight: '48px',
     }),
 
     ...(size === 'medium' && {
-        fontSize: '13px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.065px',
-        padding: '8px 16px',
+        padding: '8px',
         maxHeight: '36px',
     }),
 
     ...(size === 'small' && {
-        fontSize: '12px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.05px',
-        padding: '4px 12px',
+        padding: '4px',
         maxHeight: '28px',
     }),
 
@@ -101,10 +85,6 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         '&:focus-visible': {
             borderColor: theme.palette.borders.secondary,
         },
-    }),
-
-    ...(variant === 'text' && {
-        padding: 0,
     }),
 
     ...(variant === 'outlined' && {
