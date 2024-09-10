@@ -83,5 +83,8 @@ export const darkTheme: ThemeOptions = {
             light: 'rgba(35, 35, 35, 1)', // #232323
             dark: 'rgba(16, 16, 16, 1)', // #101010
         },
+        shadow: {
+            primary: '0px 3px 40px 2px rgba(0, 0, 0, 0.14), 0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
+        },
     },
 };

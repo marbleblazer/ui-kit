@@ -26,6 +26,9 @@ declare module '@mui/material/Button' {
 }
 
 export interface CustomPalette {
+    shadow: {
+        primary: string;
+    };
     primaryColors: {
         accent: string;
         accentHover: string;
