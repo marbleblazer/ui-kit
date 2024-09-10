@@ -70,3 +70,5 @@ export { EmptyFallback } from './empty-fallback';
 export { ImagePreview } from './image-preview';
 
 export { Tooltip } from './tooltip';
+
+export { TreeSelect } from './tree-select';

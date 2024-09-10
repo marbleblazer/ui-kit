@@ -22,6 +22,7 @@
         "@mui/lab": "^5.0.0-alpha.170",
         "@mui/material": "^5.15.15",
         "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+        "@mui/x-tree-view": "^7.15.0",
         "@nivo/bar": "^0.87.0",
         "@nivo/core": "^0.87.0",
         "@nivo/legends": "^0.87.0",
