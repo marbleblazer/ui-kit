@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material';
 import { PropsWithChildren, ReactNode } from 'react';
 
 import * as S from './style';
 import { CloseIcon } from '@chirp/ui/assets/icons';
 import { Button } from '../button';
+import { ModalTitle } from '../modal/modal-title';
 
 type Props = {
     isOpen: boolean;
@@ -36,14 +36,8 @@ export const ConfirmationDialog: React.FC<Props> = ({
             </S.CloseIconButton>
             {icon && <S.IconWrapper>{icon}</S.IconWrapper>}
             <S.Content>
-                <Typography fontSize="16px" lineHeight="20px">
-                    {title}
-                </Typography>
-                {subTitle && (
-                    <Typography fontSize="12px" lineHeight="16px" color="lightShades.quaternary">
-                        {subTitle}
-                    </Typography>
-                )}
+                <ModalTitle title={title} subTitle={subTitle} />
+
                 {children}
             </S.Content>
             <S.ButtonGroup>
