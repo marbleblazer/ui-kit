@@ -72,3 +72,5 @@ export { ImagePreview } from './image-preview';
 export { Tooltip } from './tooltip';
 
 export { TreeSelect } from './tree-select';
+
+export { PhoneField } from './phone-field';

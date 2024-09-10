@@ -4,14 +4,19 @@ import { CurrentTheme } from '@chirp/ui/styles/constants';
 
 export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
     backgroundColor: theme.palette.mode === CurrentTheme.Dark ? theme.palette.info.main : theme.palette.info.light,
+    '&:hover:not(.Mui-disabled)': {
+        backgroundColor:
+            theme.palette.mode === CurrentTheme.Dark
+                ? theme.palette.darkShades.fifth
+                : theme.palette.darkShades.ternary,
+    },
+    '&.Mui-disabled': {
+        opacity: '0.3 !important',
+    },
     borderRadius: '8px',
     border: 'none',
     fontFamily: theme.typography.fontFamily,
     marginTop: '16px',
-
-    'MuiButtonBase-root-MuiMenuItem-root': {
-        backgroundColor: 'red',
-    },
 
     '.MuiSelect-select': {
         paddingTop: '12px',

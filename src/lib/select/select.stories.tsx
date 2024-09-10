@@ -38,3 +38,28 @@ export const Default: Story = {
         </Box>
     ),
 };
+
+export const Disabled: Story = {
+    render: () => (
+        <Box sx={{ width: '400px' }}>
+            <Select
+                disabled
+                fullWidth
+                sx={{ maxHeight: '100px' }}
+                label="Select sub-location (optional)"
+                error={false}
+                placeholder="Select sub-location (optional)"
+            >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>30</MenuItem>
+                <MenuItem value={40}>40</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={60}>60</MenuItem>
+                <MenuItem value={70}>70</MenuItem>
+                <MenuItem value={90}>80</MenuItem>
+                <MenuItem value={90}>90</MenuItem>
+            </Select>
+        </Box>
+    ),
+};
