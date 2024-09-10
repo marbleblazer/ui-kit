@@ -56,3 +56,5 @@ export { TextSkeleton } from './text-skeleton';
 export { Widget } from './Widget';
 
 export { Typography } from './typogrphy';
+
+export { ImagePreview } from './image-preview';
