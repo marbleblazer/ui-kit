@@ -11,8 +11,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ children, ...props }) => {
                         padding: '20px',
                         /* 10px as was set in Figma is too small */
                         ...theme.typography.caption,
-                        background: theme.palette.darkShades.ternary,
-                        color: theme.palette.lightShades.primary,
+                        background: theme.palette.background.secondary,
+                        color: theme.palette.text.secondary,
                         borderRadius: '12px',
                         backdropFilter: 'blur(10px)',
                         boxShadow: theme.palette.shadow.primary,

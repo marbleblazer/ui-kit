@@ -8,15 +8,14 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
     marginTop: '16px',
 
     '.MuiInputBase-root:focus': {
-        borderColor: theme.palette.border.secondary,
+        borderColor: theme.palette.border.tertiaryInput,
     },
 
     '.MuiInputBase-root': {
         '&:hover:not(.Mui-disabled)': {
-            backgroundColor:
-                theme.palette.mode === 'dark' ? theme.palette.darkShades.fifth : theme.palette.darkShades.ternary,
+            backgroundColor: theme.palette.background.fifth,
         },
-        backgroundColor: theme.palette.mode === 'dark' ? theme.palette.info.main : theme.palette.info.light,
+        backgroundColor: theme.palette.background.fifthInput,
         '&.Mui-disabled': {
             opacity: '0.3 !important',
         },
@@ -69,7 +68,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         borderBottomLeftRadius: '8px',
         border: 'none',
         borderRadius: '8px',
-        boxShadow: `0 0 0 100px ${theme.palette.darkShades.quaternary} inset!important`,
+        boxShadow: `0 0 0 100px ${theme.palette.background.primary} inset!important`,
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
@@ -82,12 +81,12 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         color: theme.palette.text.primary,
         borderRadius: '8px',
         border: '1px solid',
-        borderColor: theme.palette.mode === 'dark' ? theme.palette.info.main : theme.palette.info.light,
+        borderColor: theme.palette.border.tertiaryInput,
     },
 
     '.MuiInputBase-root.Mui-error': {
         input: {
-            borderColor: theme.palette.alerts.alert,
+            borderColor: theme.palette.alerts.red,
         },
     },
 
@@ -106,9 +105,9 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         padding: 0,
         left: '-12px',
         backgroundColor: 'transparent',
-        color: theme.palette.lightShades.ternary,
+        color: theme.palette.text.secondary,
         '&:focus': {
-            color: theme.palette.lightShades.ternary,
+            color: theme.palette.text.secondary,
         },
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',

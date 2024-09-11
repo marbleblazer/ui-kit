@@ -5,10 +5,9 @@ export const ImageWrapper = styled(Box)(({ theme }) => ({
     borderRadius: '8px',
     width: '160px',
     height: '160px',
-    borderColor: theme.palette.darkShades.secondary,
+    borderColor: theme.palette.primaryColors.secondary,
     position: 'relative',
-    backgroundColor:
-        theme.palette.mode === 'dark' ? theme.palette.darkShades.quaternary : theme.palette.background.default,
+    backgroundColor: theme.palette.background.fifthInput,
 }));
 
 export const Image = styled('img')({
@@ -26,7 +25,7 @@ export const DeleteBtn = styled(Button)(({ theme }) => ({
     maxHeight: '32px',
     height: 'auto',
     padding: '5.5px',
-    color: theme.palette.primaryColors.accent,
+    color: theme.palette.accent.accent,
     '&:hover': {
         backgroundColor: 'transparent',
     },
@@ -41,7 +40,7 @@ export const EmptyFallbackWrapper = styled(Stack)(({ theme }) => ({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    color: theme.palette.mode === 'dark' ? theme.palette.lightShades.ternary : theme.palette.darkShades.secondary,
+    color: theme.palette.text.tertiary,
     svg: {
         transform: 'rotate(45deg)',
         width: '31px',

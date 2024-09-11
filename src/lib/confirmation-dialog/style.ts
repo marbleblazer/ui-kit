@@ -16,15 +16,14 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
         margin: '0px',
         padding: '0px 20px 20px',
         borderRadius: '12px',
-        backgroundColor: theme.palette.darkShades.ternary,
+        backgroundColor: theme.palette.background.secondary,
     },
 }));
 
-export const CloseIconButton = styled(IconButton)(({ theme }) => ({
+export const CloseIconButton = styled(IconButton)(() => ({
     position: 'absolute',
     top: '12px',
     right: '12px',
-    color: theme.palette.lightShades.ternary,
 
     '&:hover': {
         backgroundColor: 'transparent',
@@ -38,10 +37,10 @@ export const IconWrapper = styled(Stack)(({ theme }) => ({
     height: '72px',
     borderRadius: '50%',
     marginTop: '20px',
-    color: theme.palette.primaryColors.accent,
+    color: theme.palette.accent.accent,
     backgroundImage: `linear-gradient(180deg,
-    ${alpha(theme.palette.primaryColors.accent, 0.2)} 0%,
-    ${alpha(theme.palette.primaryColors.accent, 0)} 100%)`,
+    ${alpha(theme.palette.accent.accent, 0.2)} 0%,
+    ${alpha(theme.palette.accent.accent, 0)} 100%)`,
 }));
 
 export const Content = styled(Stack)(() => ({

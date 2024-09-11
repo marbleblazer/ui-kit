@@ -22,9 +22,9 @@ export const DeviceWidget: Story = {
         <GeneralInfoCard
             key="Devices"
             header={
-                <Stack alignItems="center" direction="row" color="lightShades.ternary" gap="8px">
+                <Stack alignItems="center" direction="row" color="text.fifth" gap="8px">
                     <DeviceIcon />
-                    <Typography color="lightShades.ternary" variant="body1">
+                    <Typography color="text.fifth" variant="body1">
                         Devices
                     </Typography>
                 </Stack>
@@ -32,12 +32,12 @@ export const DeviceWidget: Story = {
             headerAction={() => alert('headerAction')}
             headerActionContent={<PlusIcon />}
             footer={
-                <Stack alignItems="center" direction="row" color="alerts.warning" gap="8px">
-                    <Stack alignItems="center" direction="row" color="alerts.warning" gap="8px">
+                <Stack alignItems="center" direction="row" color="alerts.yellow" gap="8px">
+                    <Stack alignItems="center" direction="row" color="alerts.yellow" gap="8px">
                         <WarningIcon />
                         <Typography variant="h3">12</Typography>
                     </Stack>
-                    <Typography color="lightShades.ternary" variant="overline">
+                    <Typography color="text.fifth" variant="overline">
                         1 device needs attention
                     </Typography>
                 </Stack>
@@ -52,8 +52,8 @@ export const ClaimWidget: Story = {
             <GeneralInfoCard
                 key="Data Credits"
                 header={
-                    <Stack alignItems="center" direction="row" color="lightShades.ternary" gap="8px">
-                        <Typography color="lightShades.ternary" variant="body1">
+                    <Stack alignItems="center" direction="row" color="text.fifth" gap="8px">
+                        <Typography color="text.fifth" variant="body1">
                             Available rewards
                         </Typography>
                         <QuestionIcon />

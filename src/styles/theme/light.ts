@@ -10,6 +10,9 @@ export const lightTheme: ThemeOptions = {
             dark: '#101010',
             // contrastText: '#656565',
         },
+        info: {
+            main: '#FF4D14',
+        },
         shadow: {
             primary: '0px 3px 40px 2px rgba(0, 0, 0, 0.14), 0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
         },

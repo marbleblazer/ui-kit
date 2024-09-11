@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Link } from '@chirp/ui/lib';
+import { Link, Typography } from '@chirp/ui/lib';
 
 const meta: Meta<typeof Link> = {
     title: 'UI/Link',
@@ -17,7 +17,7 @@ type Story = StoryObj<typeof Link>;
 export const DefaultLink: Story = {
     render: () => (
         <Link href="/" className="story-component">
-            some
+            <Typography>some</Typography>
         </Link>
     ),
 };

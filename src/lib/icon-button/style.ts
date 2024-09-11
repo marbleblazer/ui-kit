@@ -30,12 +30,12 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
     }),
 
     ...(variant === 'primary' && {
-        background: theme.palette.primaryColors.accent,
-        color: theme.palette.secondary.main,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
+        background: theme.palette.accent.accent,
+        color: theme.palette.primary.light,
+        border: `1px solid ${theme.palette.accent.accent}`,
 
         '&:hover, &:active': {
-            background: theme.palette.primaryColors.accentHover,
+            background: theme.palette.accent.accentHover,
         },
 
         '&:disabled': {
@@ -49,11 +49,12 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
     ...(variant === 'secondary' && {
         background: theme.palette.accent.accent10,
-        color: theme.palette.primaryColors.accent,
+        color: theme.palette.accent.accent,
         border: `1px solid transparent`,
 
         '&:hover, &:active': {
-            background: theme.palette.additionalColors.buttonSecondaryHv,
+            background: theme.palette.accent.accent10,
+            borderColor: theme.palette.accent.accent,
         },
 
         '&:disabled': {
@@ -70,12 +71,13 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
     }),
 
     ...(variant === 'tertiary' && {
-        background: theme.palette.darkShades.primary,
-        color: theme.palette.lightShades.primary,
-        border: `1px solid ${theme.palette.darkShades.primary}`,
+        background: theme.palette.primaryColors.primary,
+        color: theme.palette.text.primary,
+        border: `1px solid ${theme.palette.primaryColors.primary}`,
 
         '&:hover, &:active': {
-            color: theme.palette.primaryColors.accent,
+            background: theme.palette.primaryColors.primary,
+            color: theme.palette.accent.accent,
         },
 
         '&:disabled': {
@@ -89,12 +91,13 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
     ...(variant === 'outlined' && {
         background: 'transparent',
-        color: theme.palette.primaryColors.accent,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
+        color: theme.palette.accent.accent,
+        border: `1px solid ${theme.palette.accent.accent}`,
 
         '&:hover, &:active': {
-            color: theme.palette.primaryColors.accentHover,
-            borderColor: theme.palette.primaryColors.accentHover,
+            background: 'transparent',
+            color: theme.palette.accent.accentHover,
+            borderColor: theme.palette.accent.accentHover,
         },
 
         '&:disabled': {

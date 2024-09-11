@@ -11,19 +11,18 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
     border: 'none',
 
     '.MuiInputBase-root.Mui-focused': {
-        borderColor: theme.palette.border.secondary,
+        borderColor: theme.palette.border.tertiaryInput,
     },
 
     '.MuiInputBase-root': {
         border: '1px solid',
         borderRadius: '8px',
-        borderColor: theme.palette.mode === 'dark' ? theme.palette.darkShades.fifth : theme.palette.darkShades.ternary,
+        borderColor: theme.palette.border.tertiaryInput,
 
         '&:hover:not(.Mui-disabled)': {
-            backgroundColor:
-                theme.palette.mode === 'dark' ? theme.palette.darkShades.fifth : theme.palette.darkShades.ternary,
+            backgroundColor: theme.palette.background.fifth,
         },
-        backgroundColor: theme.palette.mode === 'dark' ? theme.palette.info.main : theme.palette.info.light,
+        backgroundColor: theme.palette.background.fifthInput,
         '&.Mui-disabled': {
             opacity: '0.3 !important',
         },
@@ -48,12 +47,16 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
         },
     },
 
+    '.MuiInputAdornment-root': {
+        width: 'auto',
+        height: 'auto',
+    },
     '.MuiInputAdornment-positionEnd': {
         order: 1,
         width: '8px',
         height: '20px',
         paddingRight: '8px',
-        transform: 'translate(-12px)',
+        transform: 'translate(-18px)',
         svg: {
             width: '20px',
             height: '20px',
@@ -113,7 +116,7 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
         borderBottomLeftRadius: '8px',
         border: 'none',
         borderRadius: '8px',
-        boxShadow: `0 0 0 100px ${theme.palette.darkShades.quaternary} inset!important`,
+        boxShadow: `0 0 0 100px ${theme.palette.background.primary} inset!important`,
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
@@ -149,7 +152,7 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
         padding: 0,
         left: '-12px',
         backgroundColor: 'transparent',
-        color: theme.palette.lightShades.ternary,
+        color: theme.palette.text.secondary,
 
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',

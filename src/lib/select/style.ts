@@ -1,14 +1,10 @@
 import { styled } from '@mui/material';
 import { Select as MuiSelect } from '@mui/material';
-import { CurrentTheme } from '@chirp/ui/styles/constants';
 
 export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
-    backgroundColor: theme.palette.mode === CurrentTheme.Dark ? theme.palette.info.main : theme.palette.info.light,
+    backgroundColor: theme.palette.background.fifthInput,
     '&:hover:not(.Mui-disabled)': {
-        backgroundColor:
-            theme.palette.mode === CurrentTheme.Dark
-                ? theme.palette.darkShades.fifth
-                : theme.palette.darkShades.ternary,
+        backgroundColor: theme.palette.background.fifth,
     },
     '&.Mui-disabled': {
         opacity: '0.3 !important',
@@ -72,7 +68,7 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
         padding: 0,
         left: '-12px',
         backgroundColor: 'transparent',
-        color: theme.palette.lightShades.ternary,
+        color: theme.palette.text.secondary,
 
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',

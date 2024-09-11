@@ -10,14 +10,10 @@ interface IModalTitleProps {
 
 export const ModalTitle: FC<IModalTitleProps> = ({ title, subTitle, margin, size = 'medium' }) => (
     <Stack gap="8px" sx={{ margin }}>
-        <Typography variant={size === 'big' ? 'h3' : 'subtitle1'} textAlign="center" color="lightShades.secondary">
+        <Typography variant={size === 'big' ? 'h3' : 'subtitle1'} textAlign="center" color="text.primary">
             {title}
         </Typography>
-        <Typography
-            variant={size === 'big' ? 'subtitle1' : 'caption'}
-            textAlign="center"
-            color="lightShades.quaternary"
-        >
+        <Typography variant={size === 'big' ? 'subtitle1' : 'caption'} textAlign="center" color="text.tertiary">
             {subTitle}
         </Typography>
     </Stack>

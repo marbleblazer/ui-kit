@@ -4,8 +4,6 @@ export { Avatar } from './avatar';
 
 export { Link } from './link';
 
-export { SettingsCard, SettingsContainer } from './settings-card';
-
 export { SkeletonContainer, SkeletonDiagonalStripe, type SkeletonProps, Skeleton } from './skeleton';
 
 export { type StepperProps, Stepper } from './stepper';
@@ -51,13 +49,9 @@ export { GeneralInfoCard } from './general-info-card';
 
 export { Toggle, MobileToggle } from './toggle';
 
-export { FilterItem } from './filter-item';
-
 export { TextSkeleton } from './text-skeleton';
 
 export { SearchInput } from './search-input';
-
-export { Switch } from './switch';
 
 export { Dropdown } from './dropdown';
 

@@ -1,6 +1,6 @@
 import { PropsWithChildren, useRef } from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import * as S from './style';
+import { Menu } from '@mui/material';
 
 export interface IDropdownProps<T> {
     items: T[];
@@ -25,7 +25,7 @@ export const Dropdown = <T,>({
     return (
         <>
             <div ref={controlWrapperRef}>{children}</div>
-            <S.Menu
+            <Menu
                 sx={{
                     mt: gap,
                 }}
@@ -41,7 +41,7 @@ export const Dropdown = <T,>({
                         {resolveTitle(item)}
                     </MenuItem>
                 ))}
-            </S.Menu>
+            </Menu>
         </>
     );
 };
