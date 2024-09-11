@@ -3,7 +3,7 @@ import { styled, TextField as MUITextField } from '@mui/material';
 export const TextField = styled(MUITextField)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.darkShades.ternary : 'transparent',
     color: theme.palette.mode === 'dark' ? theme.palette.lightShades.ternary : theme.palette.lightShades.quaternary,
-    borderColor: theme.palette.mode === 'dark' ? theme.palette.borders.secondary : theme.palette.borders.primary,
+    borderColor: theme.palette.mode === 'dark' ? theme.palette.border.secondary : theme.palette.border.primary,
     borderRadius: '6px',
 
     svg: {

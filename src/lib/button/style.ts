@@ -46,12 +46,12 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     }),
 
     ...(variant === 'primary' && {
-        background: theme.palette.primaryColors.accent,
-        color: theme.palette.secondary.main,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
+        background: theme.palette.accent.accent,
+        color: theme.palette.text.primary,
+        border: `1px solid ${theme.palette.accent.accent}`,
 
         '&:hover, &:active': {
-            background: theme.palette.primaryColors.accentHover,
+            background: theme.palette.accent.accentHover,
         },
 
         '&:disabled': {
@@ -59,17 +59,18 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
     ...(variant === 'secondary' && {
-        background: theme.palette.additionalColors.buttonSecondary,
-        color: theme.palette.primaryColors.accent,
+        background: theme.palette.accent.accent10,
+        color: theme.palette.accent.accent,
         border: `1px solid transparent`,
 
         '&:hover, &:active': {
-            background: theme.palette.additionalColors.buttonSecondaryHv,
+            background: theme.palette.accent.accent10,
+            borderColor: theme.palette.accent.accent,
         },
 
         '&:disabled': {
@@ -77,7 +78,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
 
         ...(size === 'small' && {
@@ -86,12 +87,13 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     }),
 
     ...(variant === 'tertiary' && {
-        background: theme.palette.darkShades.primary,
-        color: theme.palette.lightShades.primary,
-        border: `1px solid ${theme.palette.darkShades.primary}`,
+        background: theme.palette.primaryColors.primary,
+        color: theme.palette.text.primary,
+        border: `1px solid ${theme.palette.primaryColors.primary}`,
 
         '&:hover, &:active': {
-            color: theme.palette.primaryColors.accent,
+            background: theme.palette.primaryColors.primary,
+            color: theme.palette.accent.accent,
         },
 
         '&:disabled': {
@@ -99,7 +101,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
@@ -109,12 +111,13 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
     ...(variant === 'outlined' && {
         background: 'transparent',
-        color: theme.palette.primaryColors.accent,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
+        color: theme.palette.accent.accent,
+        border: `1px solid ${theme.palette.accent.accent}`,
 
         '&:hover, &:active': {
-            color: theme.palette.primaryColors.accentHover,
-            borderColor: theme.palette.primaryColors.accentHover,
+            background: 'transparent',
+            color: theme.palette.accent.accentHover,
+            borderColor: theme.palette.accent.accentHover,
         },
 
         '&:disabled': {
@@ -122,7 +125,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 

@@ -1,4 +1,4 @@
-import { Theme as MUITheme } from '@mui/material';
+import { Theme as MUITheme, TypeText, TypeBackground } from '@mui/material';
 
 declare module '@emotion/react' {
     export interface Theme extends MUITheme {}
@@ -8,6 +8,10 @@ declare module '@mui/material/styles' {
     export interface Palette extends CustomPalette {}
 
     export interface PaletteOptions extends CustomPalette {}
+
+    export interface TypeBackground extends TypeBackground, CustomTypeBackground {}
+
+    export interface TypeText extends TypeText, CustomTypeText {}
 }
 
 declare module '@mui/material/Typography' {
@@ -25,53 +29,50 @@ declare module '@mui/material/Button' {
     }
 }
 
+type CustomTypeText = {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    quaternary: string;
+    fifth: string;
+};
+
+type CustomTypeBackground = {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    fifth: string;
+    fifthInput: string;
+};
+
 export interface CustomPalette {
     shadow: {
         primary: string;
     };
+    background: CustomTypeBackground;
     primaryColors: {
+        primary: string;
+        secondary: string;
+        tertiary: string;
+        quaternary: string;
+        fifth: string;
+    };
+    accent: {
         accent: string;
+        accent10: string;
+        accent16: string;
         accentHover: string;
     };
-    darkShades: {
+    border: {
         primary: string;
         secondary: string;
-        ternary: string;
-        quaternary: string;
-        fifth?: string;
+        tertiaryInput: string;
     };
-    lightShades: {
-        primary: string;
-        secondary: string;
-        ternary: string;
-        quaternary: string;
-    };
-    borders: {
-        primary: string;
-        secondary: string;
-        ternary: string;
-    };
+    text: CustomTypeText;
     alerts: {
-        success: string;
-        warning: string;
-        alert: string;
-    };
-    additionalColors: {
-        buttonSecondary: string;
-        buttonSecondaryHv: string;
-        blue: string;
-        lightYellow: string;
+        green: string;
         yellow: string;
-        lightBlue: string;
-        air: string;
-        purple: string;
-        pink: string;
-        mutedGreen: string;
-    };
-    widgetValues: {
-        min: string;
-        avg: string;
-        max: string;
+        red: string;
     };
 }
 

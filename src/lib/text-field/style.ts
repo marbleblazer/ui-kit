@@ -8,7 +8,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
     marginTop: '16px',
 
     '.MuiInputBase-root:focus': {
-        borderColor: theme.palette.borders.secondary,
+        borderColor: theme.palette.border.secondary,
     },
 
     '.MuiInputBase-root': {

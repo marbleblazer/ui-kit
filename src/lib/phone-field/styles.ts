@@ -11,7 +11,7 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
     border: 'none',
 
     '.MuiInputBase-root.Mui-focused': {
-        borderColor: theme.palette.borders.secondary,
+        borderColor: theme.palette.border.secondary,
     },
 
     '.MuiInputBase-root': {

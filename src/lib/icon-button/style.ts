@@ -43,12 +43,12 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
     ...(variant === 'secondary' && {
-        background: theme.palette.additionalColors.buttonSecondary,
+        background: theme.palette.accent.accent10,
         color: theme.palette.primaryColors.accent,
         border: `1px solid transparent`,
 
@@ -61,7 +61,7 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
 
         ...(size === 'small' && {
@@ -83,7 +83,7 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
@@ -102,7 +102,7 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 

@@ -13,7 +13,7 @@ export const TreeItem = styled(MUITreeItem)(({ theme }) => ({
             },
         },
         '&:hover': {
-            backgroundColor: theme.palette?.additionalColors.buttonSecondary,
+            backgroundColor: theme.palette?.accent.accent10,
             color: theme.palette?.primaryColors.accent,
         },
     },

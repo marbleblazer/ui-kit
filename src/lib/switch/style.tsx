@@ -33,14 +33,13 @@ export const Switch = styled(MUISwitch)(({ theme }) => ({
         '.MuiSwitch-input': {
             left: 0,
         },
-        color: theme.palette.mode === 'dark' ? theme.palette.lightShades.secondary : theme.palette.borders.secondary,
+        color: theme.palette.mode === 'dark' ? theme.palette.lightShades.secondary : theme.palette.border.secondary,
 
         '&.Mui-checked': {
             transform: 'translateX(-100%)',
             left: '100%',
             transition: 'left 0.2s',
-            color:
-                theme.palette.mode === 'dark' ? theme.palette.lightShades.secondary : theme.palette.borders.secondary,
+            color: theme.palette.mode === 'dark' ? theme.palette.lightShades.secondary : theme.palette.border.secondary,
 
             '& + .MuiSwitch-track': {
                 backgroundColor:

@@ -12,7 +12,7 @@ export const createComponents: ComponentCreator = (palette) => ({
                     width: '4px',
                 },
                 '& ::-webkit-scrollbar-track': {
-                    backgroundColor: palette?.darkShades?.primary ?? '000',
+                    backgroundColor: palette?.primaryColors.primary ?? '000',
                 },
                 '& ::-webkit-scrollbar-thumb': {
                     backgroundColor: palette?.text?.secondary,
@@ -120,21 +120,18 @@ export const createComponents: ComponentCreator = (palette) => ({
         styleOverrides: {
             tooltip: {
                 borderRadius: 0,
-                background: palette?.darkShades.ternary,
+                background: palette?.background?.secondary,
                 padding: '8px 16px',
                 fontSize: '14px',
                 lineHeight: '20px',
                 color: palette?.text?.primary,
-            },
-            arrow: {
-                color: palette?.darkShades.ternary,
             },
         },
     },
     MuiDivider: {
         styleOverrides: {
             root: {
-                borderColor: palette?.borders.primary,
+                borderColor: palette?.border.primary,
             },
         },
     },
@@ -143,8 +140,8 @@ export const createComponents: ComponentCreator = (palette) => ({
             root: {
                 padding: '14px 16px',
                 '&:hover': {
-                    backgroundColor: palette?.additionalColors.buttonSecondary,
-                    color: palette?.primaryColors.accent,
+                    backgroundColor: palette?.accent?.accent16,
+                    color: palette?.accent.accent,
                 },
             },
         },
@@ -159,33 +156,33 @@ export const createComponents: ComponentCreator = (palette) => ({
             },
         },
     },
-    MuiSnackbarContent: {
-        styleOverrides: {
-            root: {
-                background: palette?.primaryColors.accent,
-                borderRadius: '12px',
-                color: palette?.lightShades.primary,
-                fontFamily: '"Alliance No.2", Arial, sans-serif',
-                fontSize: '13px',
-                lineHeight: '20px',
-                padding: '6px 8px 6px 20px',
-                width: '100%',
-                minHeight: '48px',
-            },
-            message: {
-                padding: 0,
-            },
-            action: {
-                marginRight: 0,
-            },
-        },
-    },
+    // MuiSnackbarContent: {
+    //     styleOverrides: {
+    //         root: {
+    //             background: palette?.primaryColors.accent,
+    //             borderRadius: '12px',
+    //             color: palette?.lightShades.primary,
+    //             fontFamily: '"Alliance No.2", Arial, sans-serif',
+    //             fontSize: '13px',
+    //             lineHeight: '20px',
+    //             padding: '6px 8px 6px 20px',
+    //             width: '100%',
+    //             minHeight: '48px',
+    //         },
+    //         message: {
+    //             padding: 0,
+    //         },
+    //         action: {
+    //             marginRight: 0,
+    //         },
+    //     },
+    // },
     MuiAutocomplete: {
         defaultProps: {
             slotProps: {
                 paper: {
                     sx: {
-                        backgroundColor: palette?.darkShades.ternary,
+                        backgroundColor: palette?.background?.fifthInput,
                     },
                 },
             },
@@ -195,10 +192,7 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiPaper: {
         styleOverrides: {
             root: {
-                backgroundColor:
-                    palette?.mode === 'dark' ? palette?.darkShades.quaternary : palette?.background?.default,
-                border: '1px solid',
-                borderColor: palette?.borders.secondary,
+                backgroundColor: palette?.background?.fifthInput,
                 backgroundImage: 'none',
                 marginTop: '4px',
             },
