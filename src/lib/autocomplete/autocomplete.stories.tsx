@@ -27,6 +27,7 @@ export const Default: Story = {
                 open={isOpen}
                 disabled={false}
                 onOpen={() => setIsOpen(true)}
+                sx={{ width: 300 }}
                 onClose={() => setIsOpen(false)}
                 options={['lorem', 'ipsum', 'not', 'know']}
                 onChange={(_, newValue) => setInputValue(newValue as string)}

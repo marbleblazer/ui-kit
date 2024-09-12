@@ -1,4 +1,25 @@
 import { ThemeOptions } from '@mui/material';
+import { FontStyleOptions, TypographyStyleOptions } from '@mui/material/styles/createTypography';
+
+type TypographyVariant =
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'paragraphPrimary'
+    | 'paragraphSecondary'
+    | 'subtitle1'
+    | 'subtitle2'
+    | 'body1'
+    | 'body2'
+    | 'caption'
+    | 'button'
+    | 'overline';
+
+export interface CustomThemeTypography
+    extends Partial<Record<TypographyVariant, TypographyStyleOptions> & FontStyleOptions> {}
 
 export interface CustomThemeOptions extends ThemeOptions {
     breakpoints: {
@@ -12,6 +33,7 @@ export interface CustomThemeOptions extends ThemeOptions {
             xxl: number;
         };
     };
+    typography: CustomThemeTypography;
 }
 
 export const themeTemplate: CustomThemeOptions = {
@@ -30,21 +52,30 @@ export const themeTemplate: CustomThemeOptions = {
             fontWeight: 500,
         },
         h3: {
-            fontSize: 40,
-            lineHeight: '48px',
-            fontWeight: 500,
-            letterSpacing: '0.18px',
-        },
-        h4: {
             fontSize: 20,
             lineHeight: '24px',
-            fontWeight: 400,
+            fontWeight: 500,
             letterSpacing: '0.15px',
         },
-        h5: {
+        h4: {
             fontSize: 18,
+            lineHeight: '20px',
             fontWeight: 400,
             letterSpacing: '0.3px',
+        },
+        paragraphPrimary: {
+            fontSize: 14,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+            fontFamily: '"Simplon mono", Arial, sans-serif',
+        },
+        paragraphSecondary: {
+            fontSize: 12,
+            lineHeight: '16px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+            fontFamily: '"Simplon mono", Arial, sans-serif',
         },
         subtitle1: {
             fontSize: 16,
@@ -72,12 +103,12 @@ export const themeTemplate: CustomThemeOptions = {
             fontFamily: '"Alliance No.2", Arial, sans-serif',
         },
         button: {
-            fontSize: 16,
-            lineHeight: '20px',
-            fontWeight: 500,
+            fontSize: 13,
+            lineHeight: '16px',
+            fontWeight: 400,
             textTransform: 'none',
-            letterSpacing: '1px',
-            fontFamily: '"Simplon mono", Arial, sans-serif',
+            letterSpacing: '0.4px',
+            fontFamily: '"Alliance No.2", Arial, sans-serif',
         },
         caption: {
             fontSize: 12,
@@ -90,7 +121,7 @@ export const themeTemplate: CustomThemeOptions = {
             fontSize: 10,
             lineHeight: '13px',
             fontWeight: 400,
-            letterSpacing: '1px',
+            letterSpacing: '0.5px',
             fontFamily: '"Alliance No.2", Arial, sans-serif',
         },
     },

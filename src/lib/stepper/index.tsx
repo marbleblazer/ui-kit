@@ -23,7 +23,7 @@ export const Stepper: FC<StepperProps> = ({ activeStep, handleSetStep, steps }) 
                     key={step}
                     sx={{
                         color:
-                            activeStep === step ? theme.palette.primaryColors.accent : theme.palette.darkShades.fifth,
+                            activeStep === step ? theme.palette.accent.accent : theme.palette.primaryColors.secondary,
                         width: '6px',
                         padding: '0',
                         cursor: handleSetStep ? 'pointer' : 'default',

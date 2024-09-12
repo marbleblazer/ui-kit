@@ -2,6 +2,7 @@ import { FC, ReactNode } from 'react';
 
 import * as S from './style';
 import { ChirpModalIcon } from '@chirp/ui/assets/icons';
+import { ModalTitle } from './modal-title';
 
 type Props = {
     title: string;
@@ -14,10 +15,7 @@ export const Modal: FC<Props> = ({ title, description, actionComponent }) => {
         <S.Container>
             <S.Modal>
                 <ChirpModalIcon />
-                <S.Title mt="24px" mb="12px">
-                    {title}
-                </S.Title>
-                <S.Description mb="24px">{description}</S.Description>
+                <ModalTitle title={title} subTitle={description} margin="24px 0" />
                 {actionComponent}
             </S.Modal>
         </S.Container>

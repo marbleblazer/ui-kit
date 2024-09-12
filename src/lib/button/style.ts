@@ -1,22 +1,21 @@
-import { ButtonBase, styled } from '@mui/material';
+import { styled, Button } from '@mui/material';
 
-import { ButtonProps } from './types';
-import { CurrentTheme } from '@chirp/ui/styles/constants';
+import { IButtonProps } from './types';
 
-export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !== 'fullWidth' })<
-    Pick<ButtonProps, 'fullWidth' | 'size' | 'variant'>
->(({ fullWidth, theme, size, variant }) => ({
-    borderRadius: '6px',
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
+export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, size, variant }) => ({
     cursor: 'pointer',
     fontFamily: theme.typography.body1.fontFamily,
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
 
-    ...(size === 'big' && {
+    '.MuiButton-icon': {
+        '& > svg': {
+            width: '20px',
+            height: '20px',
+        },
+    },
+
+    ...(size === 'large' && {
         fontSize: '13px',
         fontStyle: 'normal',
         fontWeight: 500,
@@ -37,7 +36,7 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
     }),
 
     ...(size === 'small' && {
-        fontSize: '12x',
+        fontSize: '12px',
         fontStyle: 'normal',
         fontWeight: 500,
         lineHeight: '20px',
@@ -47,12 +46,12 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
     }),
 
     ...(variant === 'primary' && {
-        background: theme.palette.primaryColors.accent,
-        color: theme.palette.secondary.main,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
+        background: theme.palette.accent.accent,
+        color: theme.palette.primary.light,
+        border: `1px solid ${theme.palette.accent.accent}`,
 
         '&:hover, &:active': {
-            background: theme.palette.primaryColors.accentHover,
+            background: theme.palette.accent.accentHover,
         },
 
         '&:disabled': {
@@ -60,17 +59,18 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
     ...(variant === 'secondary' && {
-        background: theme.palette.additionalColors.buttonSecondary,
-        color: theme.palette.primaryColors.accent,
+        background: theme.palette.accent.accent10,
+        color: theme.palette.accent.accent,
         border: `1px solid transparent`,
 
         '&:hover, &:active': {
-            background: theme.palette.additionalColors.buttonSecondaryHv,
+            background: theme.palette.accent.accent10,
+            borderColor: theme.palette.accent.accent,
         },
 
         '&:disabled': {
@@ -78,42 +78,22 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
 
         ...(size === 'small' && {
             padding: '8px',
         }),
-    }),
-
-    ...(variant === 'sidebar' && {
-        background: theme.palette.darkShades.secondary,
-        color: theme.palette.lightShades.ternary,
-        border: `1px solid transparent`,
-
-        '&:hover, &:active': {
-            background:
-                theme.palette.mode === CurrentTheme.Dark
-                    ? theme.palette.darkShades.ternary
-                    : theme.palette.darkShades.secondary,
-        },
-
-        '&:disabled': {
-            opacity: '0.3',
-        },
-
-        '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
-        },
     }),
 
     ...(variant === 'tertiary' && {
-        background: theme.palette.darkShades.primary,
-        color: theme.palette.lightShades.primary,
-        border: `1px solid ${theme.palette.darkShades.primary}`,
+        background: theme.palette.primaryColors.primary,
+        color: theme.palette.text.primary,
+        border: `1px solid ${theme.palette.primaryColors.primary}`,
 
         '&:hover, &:active': {
-            color: theme.palette.primaryColors.accent,
+            background: theme.palette.primaryColors.primary,
+            color: theme.palette.accent.accent,
         },
 
         '&:disabled': {
@@ -121,40 +101,7 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
-        },
-    }),
-
-    ...(variant === 'icon' && {
-        background: theme.palette.darkShades.primary,
-        color:
-            theme.palette.mode === CurrentTheme.Dark ? theme.palette.lightShades.ternary : theme.palette.text.primary,
-        border: `1px solid ${theme.palette.darkShades.primary}`,
-
-        ...(size === 'small' && {
-            padding: '4px',
-            maxWidth: fullWidth ? '100%' : '28px',
-            width: fullWidth ? '100%' : 'auto',
-        }),
-
-        ...(size === 'medium' && {
-            padding: '8px',
-            maxWidth: fullWidth ? '100%' : '36px',
-            width: fullWidth ? '100%' : 'auto',
-        }),
-
-        ...(size === 'big' && {
-            padding: '14px',
-            maxWidth: fullWidth ? '100%' : '48px',
-            width: fullWidth ? '100%' : 'auto',
-        }),
-
-        '&:hover, &:active': {
-            color: theme.palette.primaryColors.accent,
-        },
-
-        '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
@@ -164,12 +111,13 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
 
     ...(variant === 'outlined' && {
         background: 'transparent',
-        color: theme.palette.primaryColors.accent,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
+        color: theme.palette.accent.accent,
+        border: `1px solid ${theme.palette.accent.accent}`,
 
         '&:hover, &:active': {
-            color: theme.palette.primaryColors.accentHover,
-            borderColor: theme.palette.primaryColors.accentHover,
+            background: 'transparent',
+            color: theme.palette.accent.accentHover,
+            borderColor: theme.palette.accent.accentHover,
         },
 
         '&:disabled': {
@@ -177,25 +125,7 @@ export const Button = styled(ButtonBase, { shouldForwardProp: (prop) => prop !==
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
-        },
-    }),
-
-    ...(variant === 'grouped' && {
-        background: theme.palette.primaryColors.accent,
-        color: theme.palette.lightShades.primary,
-        border: `1px solid ${theme.palette.primaryColors.accent}`,
-
-        '&:hover, &:active': {
-            background: theme.palette.primaryColors.accentHover,
-        },
-
-        '&:disabled': {
-            opacity: '0.3',
-        },
-
-        '&:focus-visible': {
-            borderColor: theme.palette.borders.secondary,
+            borderColor: theme.palette.border.secondary,
         },
     }),
 
