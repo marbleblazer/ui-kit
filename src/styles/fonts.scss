@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Alliance No.2';
+    src:
+        local('Alliance No.2'),
+        url('@chirp/ui/assets/fonts/alliance_no_2/alliance_no_2_regular.woff2') format('woff2'),
+        url('@chirp/ui/assets//fonts/alliance_no_2/alliance_no_2_regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Alliance No.2';
+    src:
+        local('Alliance No.2'),
+        url('@chirp/ui/assets/fonts/alliance_no_2/alliance_no_2_medium.woff2') format('woff2'),
+        url('@chirp/ui/assets//fonts/alliance_no_2/alliance_no_2_medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Simplon mono';
+    src:
+        local('Simplon mono'),
+        local('Simplon-mono'),
+        url('@chirp/ui/assets//fonts/simplon_mono/simplon_mono_regular.woff2') format('woff2'),
+        url('@chirp/ui/assets//fonts/simplon_mono/simplon_mono_regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Simplon mono';
+    src:
+        local('Simplon mono'),
+        local('Simplon-mono'),
+        url('@chirp/ui/assets//fonts/simplon_mono/simplon_mono_medium.woff2') format('woff2'),
+        url('@chirp/ui/assets//fonts/simplon_mono/simplon_mono_medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}

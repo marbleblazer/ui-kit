@@ -1,0 +1,16 @@
+#sleek-widget-wrap {
+  width: 400px;
+  height: 420px;
+  top: auto;
+  bottom: 10px;
+  left: 10px;
+  right: auto;
+  background-color: #1a1a1a;
+}
+
+@media screen and (max-width: 450px) {
+  #sleek-widget-wrap {
+    top: auto !important;
+    bottom: 0 !important;
+  }
+}
