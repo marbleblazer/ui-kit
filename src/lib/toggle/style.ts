@@ -42,7 +42,7 @@ export const Checkmark = styled('span', {
         ? `${replaceRgbaOpacity(theme.palette.lightShades.ternary as string, 0.5)}`
         : checked
           ? theme.palette.primaryColors.accent
-          : theme.palette.borders.primary,
+          : theme.palette.border.primary,
 }));
 
 export const CheckmarkPin = styled(Box, {

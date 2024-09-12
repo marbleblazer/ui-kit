@@ -1,8 +1,8 @@
 import * as S from './style';
-import { ButtonProps } from './types';
+import { IButtonProps } from './types';
 
-export const Button: React.FC<ButtonProps> = ({ children, ...props }) => (
-    <S.Button {...props} disableRipple>
+export const Button: React.FC<IButtonProps> = ({ children, ...props }) => (
+    <S.ButtonWrapper {...props} disableRipple>
         {children}
-    </S.Button>
+    </S.ButtonWrapper>
 );

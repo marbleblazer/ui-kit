@@ -34,7 +34,7 @@
         "./vite.config.ts",
         ".storybook/*",
         "stories",
-        "src/theme.d.ts"
+        "src/styles/theme.d.ts"
     ],
     "references": [
         {

@@ -2,7 +2,7 @@ import { Box, styled } from '@mui/material';
 
 export const AlertsCount = styled(Box)(({ theme }) => ({
     position: 'absolute',
-    backgroundColor: theme.palette.primaryColors.accent,
+    backgroundColor: theme.palette.accent.accent,
     borderRadius: '4px',
     padding: '1px 3px',
     fontSize: '10px',

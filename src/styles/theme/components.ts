@@ -12,7 +12,7 @@ export const createComponents: ComponentCreator = (palette) => ({
                     width: '4px',
                 },
                 '& ::-webkit-scrollbar-track': {
-                    backgroundColor: palette?.darkShades?.primary ?? '000',
+                    backgroundColor: palette?.primaryColors.primary ?? '000',
                 },
                 '& ::-webkit-scrollbar-thumb': {
                     backgroundColor: palette?.text?.secondary,
@@ -26,9 +26,24 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiButton: {
         styleOverrides: {
             root: {
-                borderRadius: 0,
-                textTransform: 'uppercase',
-                padding: '12px 24px',
+                borderRadius: '6px',
+                '.MuiButton-endIcon': {
+                    marginLeft: '4px',
+                },
+                '.MuiButton-startIcon': {
+                    marginRight: '4px',
+                },
+            },
+        },
+    },
+    MuiIconButton: {
+        styleOverrides: {
+            root: {
+                borderRadius: '6px',
+                svg: {
+                    width: '20px',
+                    height: '20px',
+                },
             },
         },
     },
@@ -105,60 +120,69 @@ export const createComponents: ComponentCreator = (palette) => ({
         styleOverrides: {
             tooltip: {
                 borderRadius: 0,
-                background: palette?.darkShades.ternary,
+                background: palette?.background?.secondary,
                 padding: '8px 16px',
                 fontSize: '14px',
                 lineHeight: '20px',
                 color: palette?.text?.primary,
-            },
-            arrow: {
-                color: palette?.darkShades.ternary,
             },
         },
     },
     MuiDivider: {
         styleOverrides: {
             root: {
-                borderColor: palette?.borders.primary,
+                borderColor: palette?.border.primary,
             },
         },
     },
     MuiMenuItem: {
         styleOverrides: {
             root: {
+                padding: '14px 16px',
                 '&:hover': {
-                    backgroundColor: palette?.additionalColors.buttonSecondary,
+                    backgroundColor: palette?.accent?.accent16,
+                    color: palette?.accent.accent,
                 },
             },
         },
     },
-    MuiSnackbarContent: {
+    MuiTextField: {
         styleOverrides: {
             root: {
-                background: palette?.primaryColors.accent,
-                borderRadius: '12px',
-                color: palette?.lightShades.primary,
-                fontFamily: '"Alliance No.2", Arial, sans-serif',
-                fontSize: '13px',
-                lineHeight: '20px',
-                padding: '6px 8px 6px 20px',
-                width: '100%',
-                minHeight: '48px',
-            },
-            message: {
-                padding: 0,
-            },
-            action: {
-                marginRight: 0,
+                '.MuiInputAdornment-root': {
+                    width: '20px',
+                    height: '20px',
+                },
             },
         },
     },
+    // MuiSnackbarContent: {
+    //     styleOverrides: {
+    //         root: {
+    //             background: palette?.primaryColors.accent,
+    //             borderRadius: '12px',
+    //             color: palette?.lightShades.primary,
+    //             fontFamily: '"Alliance No.2", Arial, sans-serif',
+    //             fontSize: '13px',
+    //             lineHeight: '20px',
+    //             padding: '6px 8px 6px 20px',
+    //             width: '100%',
+    //             minHeight: '48px',
+    //         },
+    //         message: {
+    //             padding: 0,
+    //         },
+    //         action: {
+    //             marginRight: 0,
+    //         },
+    //     },
+    // },
     MuiAutocomplete: {
         defaultProps: {
             slotProps: {
                 paper: {
                     sx: {
-                        backgroundColor: palette?.darkShades.ternary,
+                        backgroundColor: palette?.background?.fifthInput,
                     },
                 },
             },
@@ -168,7 +192,9 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiPaper: {
         styleOverrides: {
             root: {
-                backgroundColor: palette?.darkShades.ternary,
+                backgroundColor: palette?.background?.fifthInput,
+                backgroundImage: 'none',
+                marginTop: '4px',
             },
         },
     },

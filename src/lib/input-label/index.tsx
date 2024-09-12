@@ -19,7 +19,7 @@ export const InputLabel: React.FC<Props> = ({ labelId, label, className, sx }) =
             sx={{
                 padding: 0,
                 backgroundColor: 'transparent',
-                color: palette.lightShades.quaternary,
+                color: palette.text.quaternary,
                 ...sx,
             }}
         >
