@@ -6,9 +6,14 @@ export { Cell } from '../../style';
 export const TableWrapper = styled(Box)(({ theme }) => ({
     width: '100%',
     overflowX: 'hidden',
-    padding: '0 20px 20px',
-    borderRadius: '12px',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: 'transparent',
+    td: {
+        color: theme.palette.text.primary,
+        padding: '18px 12px',
+        '&:first-of-type': {
+            paddingLeft: '0',
+        },
+    },
 
     [theme.breakpoints.between('md', 'lg')]: {
         overflowX: 'visible',
@@ -23,7 +28,7 @@ export const GroupedRow = styled(TableRow)(({ theme }) => ({
         padding: '24px 0 12px',
         border: 'none',
         letterSpacing: '0.06px',
-        color: theme.palette.accent.accent,
+        color: theme.palette.text.primary,
         width: '50px',
     },
 
