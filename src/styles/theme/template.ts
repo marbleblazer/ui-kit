@@ -1,7 +1,7 @@
 import { ThemeOptions } from '@mui/material';
 import { FontStyleOptions, TypographyStyleOptions } from '@mui/material/styles/createTypography';
 
-type TypographyVariant =
+export type TypographyVariant =
     | 'h1'
     | 'h2'
     | 'h3'

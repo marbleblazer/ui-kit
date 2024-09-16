@@ -39,3 +39,5 @@ export { default as UserManagementIcon } from './user-management.svg?react';
 export { default as WarningIcon } from './warning.svg?react';
 export { default as FullScreenIcon } from './full-screen.svg?react';
 export { default as LeftArrowIcon } from './left-arrow.svg?react';
+export { default as ChevronLeftIcon } from './chevron-left.svg?react';
+export { default as ChevronRightIcon } from './chevron-right.svg?react';
