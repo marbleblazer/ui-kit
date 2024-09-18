@@ -23,6 +23,10 @@
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "baseUrl": "./",
+        "types": [
+            "node",
+            "vite/client"
+        ],
         "paths": {
             "@chirp/ui/*": [
                 "./src/*"

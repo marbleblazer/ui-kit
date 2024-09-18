@@ -23,6 +23,8 @@
         "@mui/material": "^5.15.15",
         "@mui/styled-engine-sc": "^6.0.0-alpha.18",
         "@mui/x-tree-view": "^7.15.0",
+        "mapbox-gl": "^3.6.0",
+        "mapbox-gl-controls": "^2.3.5",
         "material-ui-phone-number": "^3.0.0",
         "moment": "^2.30.1",
         "react": "^18.2.0",

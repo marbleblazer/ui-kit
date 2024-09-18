@@ -68,3 +68,5 @@ export { TreeSelect } from './tree-select';
 export { PhoneField } from './phone-field';
 
 export { Tabs } from './tabs';
+
+export { Map } from './map';

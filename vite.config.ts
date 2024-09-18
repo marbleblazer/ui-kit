@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
         server: {
             port: 3000,
         },
+        define: {
+            'process.env': {},
+        },
         resolve: {
             alias: {
                 '@chirp/ui': path.resolve(__dirname, 'src'),
