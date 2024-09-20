@@ -24,3 +24,13 @@ export const Default: Story = {
         );
     },
 };
+
+export const Drawable: Story = {
+    render: () => {
+        return (
+            <Box sx={{ width: '1200px', height: '1200px' }}>
+                <Map coordinates={{ lon: 49.108891, lat: 55.796391 }} setCoordinates={() => {}} isDrawable />
+            </Box>
+        );
+    },
+};

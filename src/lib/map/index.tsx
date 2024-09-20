@@ -1,40 +1,66 @@
 import { Box, useTheme } from '@mui/material';
-import mapboxgl, { LngLat } from 'mapbox-gl';
+import mapboxgl, { LngLat, MapEventType } from 'mapbox-gl';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { getMapStyleId } from '@chirp/ui/helpers/mapUtils';
 import { useBreakpoints } from '@chirp/ui/hooks/useBreakpoints';
+import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
 import * as S from './style';
 import { Coordinates } from './map.types';
+import { MapDrawModeTabs } from './map-draw-tabs';
+import { AnyObject } from '@chirp/ui/helpers/global';
+import { customDrawStyles } from './constance';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
 type Props = {
     coordinates?: Coordinates;
     scrollZoom?: boolean;
+    isDrawable?: boolean;
+
     setCoordinates: (coords: Coordinates) => void;
     onChange?: () => void;
 };
 
-export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, setCoordinates, onChange = () => {} }) => {
+export const Map: React.FC<Props> = ({
+    coordinates,
+    scrollZoom = true,
+    setCoordinates,
+    onChange = () => {},
+    isDrawable = false,
+}) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     const map = useRef<mapboxgl.Map>(null);
+    const drawRef = useRef<MapboxDraw | null>(null);
+    const [_, setActiveDrawMode] = useState('');
     const { isMobile } = useBreakpoints();
     const [newCoordinates, setNewCoordinates] = useState<LngLat | null>(null);
 
     const { palette } = useTheme();
 
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='15' height='19' viewBox='0 0 15 19' fill='none'>
-      <path
-        d='M14.75 7.45098C14.75 8.73696 14.2998 10.0885 13.607 11.4033C12.9151 12.7163 11.9896 13.9769 11.0591 15.0768C10.1293 16.1759 9.19871 17.1095 8.50031 17.7684C8.15127 18.0977 7.86063 18.3581 7.6576 18.5358C7.59699 18.5888 7.5442 18.6345 7.5 18.6725C7.4558 18.6345 7.403 18.5888 7.34238 18.5358C7.13935 18.3581 6.8487 18.0977 6.49965 17.7684C5.80123 17.1095 4.87063 16.1759 3.94076 15.0768C3.01027 13.9769 2.08479 12.7163 1.39294 11.4033C0.700079 10.0885 0.249937 8.73697 0.25 7.45099C0.25011 5.18593 1.06503 3.3908 2.36836 2.161C3.67379 0.929208 5.48494 0.25 7.5 0.25C11.5136 0.25 14.75 3.12781 14.75 7.45098Z'
-        fill='#FF4D14'
-        stroke='#101010'
-        strokeWidth='0.5'
-      />
-      <circle cx='7.5' cy='7.5' r='2.5' fill='#101010' />
-    </svg>`;
+    const svg = `<svg width="154" height="154" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle opacity="0.05" cx="76.9788" cy="76.9788" r="76.9788" fill="#FF4D14" />
+    <circle opacity="0.05" cx="76.9787" cy="76.9787" r="40.2658" fill="#FF4D14" />
+    <g filter="url(#filter0_f_168_47899)">
+        <circle cx="76.8285" cy="76.8295" r="19.391" fill="#FF4D14" />
+    </g>
+    <circle cx="76.3866" cy="76.3868" r="11.5468" fill="#FF4D14" stroke="#101010" stroke-width="0.592144" />
+    <path
+        d="M79.6839 74.6045C79.5225 72.9444 78.1789 71.6494 76.5459 71.6494C75.6775 71.6494 74.9345 71.9703 74.3204 72.6084C73.7063 73.2465 72.2085 74.9414 71.6494 80.5278L78.527 80.5316C78.6505 79.2997 78.8607 78.2306 79.1131 77.313L82.308 76.5065L79.6839 74.6045ZM76.7082 76.1441C76.0752 76.1441 75.5621 75.6087 75.5621 74.948C75.5621 74.2873 76.0752 73.7518 76.7082 73.7518C77.3412 73.7518 77.8543 74.2873 77.8543 74.948C77.8534 75.6087 77.3403 76.1441 76.7082 76.1441Z"
+        fill="#101010" />
+    <defs>
+        <filter id="filter0_f_168_47899" x="46.3569" y="46.3579" width="60.9431" height="60.9434"
+            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feGaussianBlur stdDeviation="5.54028" result="effect1_foregroundBlur_168_47899" />
+        </filter>
+    </defs>
+</svg>`;
 
     const customMarker = document && document.createElement('div');
     customMarker.innerHTML = svg;
@@ -49,7 +75,6 @@ export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, setCoordi
             zoom: 6,
             minZoom: 4,
             scrollZoom,
-            projection: { name: 'equirectangular' },
             logoPosition: 'bottom-right',
             maxBounds: [
                 [-180, -72],
@@ -62,6 +87,36 @@ export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, setCoordi
             trackResize: true,
             crossSourceCollisions: false,
             cooperativeGestures: isMobile,
+        });
+        // Инициализация контролов рисования
+        let modes = MapboxDraw.modes;
+        modes = GeodesicDraw.enable(modes);
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            modes: {
+                ...modes,
+            },
+            styles: customDrawStyles,
+        });
+
+        drawRef.current = draw;
+
+        map.current.on('load', () => {
+            if (map.current) {
+                map.current.addControl(draw, 'top-left');
+                // Слушаем события создания, обновления и удаления
+                map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
+                    console.log('Создано:', e.features);
+                });
+
+                map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
+                    console.log('Обновлено:', e.features);
+                });
+
+                map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
+                    console.log('Удалено:', e.features);
+                });
+            }
         });
 
         map.current.addControl(
@@ -97,7 +152,7 @@ export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, setCoordi
             map.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
         });
 
-        map.current.on('click', addMarker);
+        // map.current.on('click', addMarker);
     }, []);
 
     useEffect(() => {
@@ -107,9 +162,19 @@ export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, setCoordi
         onChange();
     }, [marker, newCoordinates]);
 
+    const handleChangeMode = (key: string) => {
+        if (!map.current) return;
+
+        setActiveDrawMode(key);
+        drawRef.current?.changeMode(key);
+    };
+
     return (
         <S.MapContainer width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>
             <Box width="100%" height="100%" ref={mapContainer} className="map-container" />
+            {isDrawable && (
+                <MapDrawModeTabs activeMode={drawRef?.current?.getMode?.()} onChangeMode={handleChangeMode} />
+            )}
         </S.MapContainer>
     );
 };

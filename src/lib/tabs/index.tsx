@@ -2,15 +2,25 @@ import { SxProps, Theme } from '@mui/material';
 
 import * as S from './style';
 
-type Props<T extends string> = {
+type Props<T> = {
     items: T[];
-    activeTab: T;
-    setActiveTab(tab: T): void;
+    activeTab?: string | false;
+    setActiveTab(tab: string): void;
+    resolvedTitle?(tab: T): string;
+    resolvedValue?(tab: T): string;
     sx?: SxProps<Theme>;
     variant?: 'fullWidth' | 'standard' | 'scrollable';
 };
 
-export const Tabs = <T extends string>({ items, activeTab, setActiveTab, sx, variant }: Props<T>) => {
+export const Tabs = <T,>({
+    items,
+    activeTab,
+    setActiveTab,
+    sx,
+    variant,
+    resolvedTitle = (tab) => tab as string,
+    resolvedValue = (tab) => tab as string,
+}: Props<T>) => {
     return (
         <S.Tabs
             className="tabs"
@@ -19,8 +29,8 @@ export const Tabs = <T extends string>({ items, activeTab, setActiveTab, sx, var
             sx={sx}
             variant={variant}
         >
-            {items.map((tab) => (
-                <S.Tab key={tab} label={tab} value={tab} />
+            {items.map((tab, index) => (
+                <S.Tab key={`${resolvedTitle(tab)}-${index}}`} label={resolvedTitle(tab)} value={resolvedValue(tab)} />
             ))}
         </S.Tabs>
     );

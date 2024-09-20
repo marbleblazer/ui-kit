@@ -5,6 +5,9 @@ import { CurrentTheme, SIDEBAR_WIDTH } from '@chirp/ui/styles/constants';
 import fullScreenIcon from '@chirp/ui/assets/fleet-icons/full-screen.svg';
 import minusIcon from '@chirp/ui/assets/fleet-icons/minus.svg';
 import plusIcon from '@chirp/ui/assets/fleet-icons/plus.svg';
+import fullScreenDarkIcon from '@chirp/ui/assets/fleet-icons/full-screen-dark.svg';
+import minusDarkIcon from '@chirp/ui/assets/fleet-icons/minus-dark.svg';
+import plusDarkIcon from '@chirp/ui/assets/fleet-icons/plus-dark.svg';
 import locationUserIcon from '@chirp/ui/assets/fleet-icons/location-user.svg';
 
 interface Props {
@@ -128,8 +131,7 @@ export const MapContainer = styled(Box, {
     '.mapboxgl-ctrl-zoom-in': {
         marginBottom: '2px',
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url(${plusIcon})` : 'url(/assets/plus-dark.svg)',
+            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url(${plusIcon})` : `url(${plusDarkIcon})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
@@ -137,8 +139,7 @@ export const MapContainer = styled(Box, {
 
     '.mapboxgl-ctrl-zoom-out': {
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url(${minusIcon})` : 'url(/assets/minus-dark.svg)',
+            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url(${minusIcon})` : `url(${minusDarkIcon})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
@@ -150,7 +151,7 @@ export const MapContainer = styled(Box, {
         },
         '& span': {
             backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url(${fullScreenIcon})` : `url(${fullScreenIcon})`,
+                theme.palette.mode === CurrentTheme.Dark ? `url(${fullScreenIcon})` : `url(${fullScreenDarkIcon})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
@@ -172,7 +173,10 @@ export const MapContainer = styled(Box, {
         cursor: 'pointer',
         display: 'flex',
         border: 'none',
-
+        '&:disabled': {
+            opacity: 0.3,
+            cursor: 'default',
+        },
         span: {
             width: '20px',
             height: '20px',
@@ -184,7 +188,8 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl button.mapboxgl-ctrl-shrink .mapboxgl-ctrl-icon': {
-        backgroundImage: `url(${fullScreenIcon})`,
+        backgroundImage:
+            theme.palette.mode === CurrentTheme.Dark ? `url(${fullScreenIcon})` : `url(${fullScreenDarkIcon})`,
     },
 
     '.mapboxgl-ctrl-geolocate': {
@@ -204,7 +209,7 @@ export const MapContainer = styled(Box, {
         width: '32px',
         height: '32px',
         borderRadius: '50%',
-        backgroundImage: 'url(/assets/location-dark.svg)!important',
+        backgroundImage: `url(${locationUserIcon})!important`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
 
@@ -377,4 +382,11 @@ export const MapContainer = styled(Box, {
             color: theme.palette.text.tertiary,
             padding: '8px',
         },
+}));
+
+export const MapDrawModeTabsWrapper = styled(Box)(() => ({
+    position: 'absolute',
+    top: '12px',
+    left: '50%',
+    transform: 'translate(-50%)',
 }));
