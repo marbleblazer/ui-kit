@@ -8,7 +8,6 @@ export const darkTheme: ThemeOptions = {
             main: '#FF4D14',
             light: '#ffffff',
             dark: '#101010',
-            // contrastText: '#656565',
         },
         shadow: {
             primary: '0px 3px 40px 2px rgba(0, 0, 0, 0.14), 0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
@@ -17,8 +16,8 @@ export const darkTheme: ThemeOptions = {
             main: '#FF4D14',
         },
         background: {
-            // default: '#F4F4F4',
-            // paper: '#353535',
+            default: '#F4F4F4',
+            paper: '#353535',
             primary: '#F4F4F4',
             secondary: '#232323',
             tertiary: '#171717',

@@ -156,27 +156,6 @@ export const createComponents: ComponentCreator = (palette) => ({
             },
         },
     },
-    // MuiSnackbarContent: {
-    //     styleOverrides: {
-    //         root: {
-    //             background: palette?.primaryColors.accent,
-    //             borderRadius: '12px',
-    //             color: palette?.lightShades.primary,
-    //             fontFamily: '"Alliance No.2", Arial, sans-serif',
-    //             fontSize: '13px',
-    //             lineHeight: '20px',
-    //             padding: '6px 8px 6px 20px',
-    //             width: '100%',
-    //             minHeight: '48px',
-    //         },
-    //         message: {
-    //             padding: 0,
-    //         },
-    //         action: {
-    //             marginRight: 0,
-    //         },
-    //     },
-    // },
     MuiAutocomplete: {
         defaultProps: {
             slotProps: {
