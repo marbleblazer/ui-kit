@@ -3,8 +3,14 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "dev": "storybook dev -p 6006 --no-open",
+        "build": "vite build",
         "dev:open": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "lint": "eslint . --ext ts,tsx --max-warnings 0 && stylelint \"**/*.scss\"",
@@ -12,7 +18,7 @@
         "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
         "lint-staged": "lint-staged"
     },
-    "dependencies": {
+    "peerDependencies": {
         "@emotion/cache": "^10.0.29",
         "@emotion/react": "^11.9.3",
         "@emotion/server": "^11.11.0",
@@ -57,6 +63,7 @@
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-prettier": "^5.1.1",
         "eslint-plugin-storybook": "^0.6.15",
+        "glob": "^11.0.0",
         "latest": "^0.2.0",
         "lint-staged": "^15.2.0",
         "prettier": "^3.1.1",
@@ -65,6 +72,10 @@
         "stylelint": "^16.0.2",
         "typescript": "^5.3.3",
         "vite": "^5.0.10",
+        "vite-plugin-dts": "^4.2.1",
         "vite-plugin-svgr": "^4.2.0"
-    }
+    },
+    "sideEffects": [
+        "**/*.css"
+    ]
 }

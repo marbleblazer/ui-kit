@@ -4,14 +4,15 @@ import { defineConfig } from 'vite';
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
+import dts from 'vite-plugin-dts';
+import { extname, relative } from 'path';
+import { fileURLToPath } from 'node:url';
+import { glob } from 'glob';
 
 export default defineConfig(({ mode }) => {
     return {
         server: {
             port: 3000,
-        },
-        define: {
-            'process.env': {},
         },
         resolve: {
             alias: {
@@ -26,6 +27,34 @@ export default defineConfig(({ mode }) => {
                 localsConvention: 'camelCase',
             },
         },
-        plugins: [react(), svgr()],
+        plugins: [react(), svgr(), dts()],
+
+        lib: {
+            entry: 'src/index.ts',
+            name: 'UIKit',
+            fileName: 'ui-kit',
+            formats: ['es', 'cjs'],
+        },
+        rollupOptions: {
+            input: Object.fromEntries(
+                glob
+                    .sync('src/**/*.{ts,tsx}', {
+                        ignore: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
+                    })
+                    .map((file) => [
+                        // The name of the entry point
+                        // lib/nested/foo.ts becomes nested/foo
+                        relative('src', file.slice(0, file.length - extname(file).length)),
+                        // The absolute path to the entry file
+                        // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+                        fileURLToPath(new URL(file, import.meta.url)),
+                    ]),
+            ),
+            external: ['react', 'react-dom', '@mui/material'],
+            output: {
+                assetFileNames: 'assets/[name][extname]',
+                entryFileNames: '[name].js',
+            },
+        },
     };
 });
