@@ -8,7 +8,7 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
         minWidth: '360px',
         padding: '40px',
         borderRadius: '12px',
-        background: theme.palette.background.default,
+        background: theme.palette.background.secondary,
 
         [theme.breakpoints.down('sm')]: {
             width: '100%',
@@ -23,7 +23,7 @@ export const Card = styled(Stack)(({ theme }) => ({
     alignItems: 'center',
     maxWidth: '360px',
     width: '100%',
-    background: theme.palette.background.default,
+    background: theme.palette.background.secondary,
 }));
 
 export const IconWrapper = styled(Stack)(({ theme }) => ({
