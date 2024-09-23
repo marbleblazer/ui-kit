@@ -47,15 +47,13 @@ export { InputLabel } from './input-label';
 
 export { GeneralInfoCard } from './general-info-card';
 
-export { Toggle, MobileToggle } from './toggle';
-
 export { TextSkeleton } from './text-skeleton';
 
 export { SearchInput } from './search-input';
 
 export { Dropdown } from './dropdown';
 
-export { Typography } from './typogrphy';
+export { Typography } from './typogrpahy';
 
 export { EmptyFallback } from './empty-fallback';
 

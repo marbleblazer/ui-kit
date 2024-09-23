@@ -145,7 +145,7 @@ export const GatewayIconBig = () => {
                 width="172"
                 height="172"
                 rx="12"
-                fill={palette.mode === CurrentTheme.Dark ? palette.darkShades.secondary : palette.darkShades.primary}
+                fill={palette.mode === CurrentTheme.Dark ? palette.text.secondary : palette.text.primary}
             />
             <g filter="url(#filter0_d_7638_32213)">
                 <g clipPath="url(#clip0_7638_32213)">
