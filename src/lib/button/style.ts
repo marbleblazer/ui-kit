@@ -49,7 +49,6 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         background: theme.palette.accent.accent,
         color: theme.palette.primary.light,
         border: `1px solid ${theme.palette.accent.accent}`,
-        borderColor: 'var(--mui-pallete-accent-accent)',
 
         '&:hover, &:active': {
             background: theme.palette.accent.accentHover,
