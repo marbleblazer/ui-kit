@@ -8,7 +8,10 @@
             "DOM.Iterable"
         ],
         "module": "ESNext",
-        "skipLibCheck": true,
+        "declaration": true,
+        "declarationMap": false, // Отключение карт деклараций
+        "emitDeclarationOnly": true, // Только генерация типов
+        "skipLibCheck": true, // Пропуск проверки библиотек
         /* Bundler mode */
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
@@ -23,18 +26,30 @@
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "baseUrl": "./",
+        "types": [
+            "node",
+            "vite/client"
+        ],
         "paths": {
+            "@mui/material/*": [
+                "./node_modules/@mui/material/*"
+            ],
+            "@mui/system/*": [
+                "./node_modules/@mui/system/*"
+            ],
             "@chirp/ui/*": [
                 "./src/*"
             ],
         }
     },
     "include": [
-        "src",
+        "./src",
         "./vite.config.ts",
         ".storybook/*",
-        "stories",
         "src/styles/theme.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
     ],
     "references": [
         {

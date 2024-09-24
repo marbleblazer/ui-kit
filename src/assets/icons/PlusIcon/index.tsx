@@ -9,8 +9,7 @@ interface PlusIconProps {
 
 export const PlusIcon = ({ color, width, height }: PlusIconProps) => {
     const { palette } = useTheme();
-    const currentColor =
-        color ?? (palette.mode === CurrentTheme.Light ? palette.text.primary : palette.lightShades.primary);
+    const currentColor = color ?? (palette.mode === CurrentTheme.Light ? palette.text.primary : palette.text.primary);
 
     return (
         <svg

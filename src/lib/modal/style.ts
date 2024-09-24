@@ -1,9 +1,8 @@
-import { styled } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 import { Box, Typography } from '@mui/material';
-import { replaceRgbaOpacity } from '@chirp/ui/helpers/replaceRgbaOpacity';
 
 export const Container = styled(Box)(({ theme }) => ({
-    background: replaceRgbaOpacity(theme.palette.background.fifth as string, 0.5),
+    background: `${alpha(theme.palette.background.fifth as string, 0.5)}`,
     backdropFilter: 'blur(5px)',
     position: 'absolute',
     top: 0,

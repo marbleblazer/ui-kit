@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import MuiPhoneNumber, { MuiPhoneNumberProps } from 'material-ui-phone-number';
+import MuiPhoneNumber, { MuiPhoneNumberProps } from 'mui-phone-number';
 
 type PhoneFieldPropsType = MuiPhoneNumberProps & {
     dialCode?: string;

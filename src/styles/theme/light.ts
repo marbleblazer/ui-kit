@@ -8,7 +8,6 @@ export const lightTheme: ThemeOptions = {
             main: '#FF4D14',
             light: '#ffffff',
             dark: '#101010',
-            // contrastText: '#656565',
         },
         info: {
             main: '#FF4D14',

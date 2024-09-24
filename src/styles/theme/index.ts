@@ -7,13 +7,13 @@ import { themeMixins } from './mixins';
 import { themeTemplate } from './template';
 
 export const getTheme = (mode: PaletteMode = 'light'): Theme => {
-  const { palette } = mode === 'light' ? lightTheme : darkTheme;
-  const options = {
-    ...themeTemplate,
-    ...themeMixins,
-    palette,
-    components: createComponents(palette),
-  };
+    const { palette } = mode === 'light' ? lightTheme : darkTheme;
+    const options = {
+        ...themeTemplate,
+        ...themeMixins,
+        palette,
+        components: createComponents(palette),
+    };
 
-  return createTheme(options);
+    return createTheme(options);
 };

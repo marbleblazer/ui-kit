@@ -1,10 +1,11 @@
-deploy_dev:
-    stage: deploy
-    script:
-        - npm i
-        - npm run build-storybook
-        - rm -rf /var/www/apps/chirp-fleet-frontend/storybook-static/*
-        - rsync -av --progress -r storybook-static/* /var/www/apps/uploader-frontend/storybook-static
+stages:
+    - publish
 
+publish:
+    stage: publish
+    script:
+        - npm install
+        - npm run build
+        - npm publish --registry https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/packages/npm/
     only:
         - dev
