@@ -1,6 +1,6 @@
 import { Box, useTheme } from '@mui/material';
-import mapboxgl, { LngLat, MapEventType } from 'mapbox-gl';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import mapboxgl, { MapEventType } from 'mapbox-gl';
+import { useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { getMapStyleId } from '@chirp/ui/helpers/mapUtils';
@@ -21,24 +21,16 @@ type Props = {
     scrollZoom?: boolean;
     isDrawable?: boolean;
 
-    setCoordinates: (coords: Coordinates) => void;
     onChange?: () => void;
 };
 
-export const Map: React.FC<Props> = ({
-    coordinates,
-    scrollZoom = true,
-    setCoordinates,
-    onChange = () => {},
-    isDrawable = false,
-}) => {
+export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, onChange = () => {}, isDrawable = false }) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     const map = useRef<mapboxgl.Map>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
     const [_, setActiveDrawMode] = useState('');
     const { isMobile } = useBreakpoints();
-    const [newCoordinates, setNewCoordinates] = useState<LngLat | null>(null);
 
     const { palette } = useTheme();
 
@@ -64,7 +56,6 @@ export const Map: React.FC<Props> = ({
 
     const customMarker = document && document.createElement('div');
     customMarker.innerHTML = svg;
-    const marker = useMemo(() => new mapboxgl.Marker(customMarker), []);
 
     useEffect(() => {
         if (map.current) return;
@@ -107,14 +98,17 @@ export const Map: React.FC<Props> = ({
                 // Слушаем события создания, обновления и удаления
                 map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
                     console.log('Создано:', e.features);
+                    onChange();
                 });
 
                 map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
                     console.log('Обновлено:', e.features);
+                    onChange();
                 });
 
                 map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
                     console.log('Удалено:', e.features);
+                    onChange();
                 });
             }
         });
@@ -138,29 +132,12 @@ export const Map: React.FC<Props> = ({
         map.current.addControl(geolocate, 'bottom-right');
         map.current.getCanvas().style.cursor = 'pointer';
 
-        const addMarker = (event: mapboxgl.MapTouchEvent | mapboxgl.MapMouseEvent) => {
-            if (!map.current) return;
-            const coords = event.lngLat;
-            const latlng = new mapboxgl.LngLat(coords.lng, coords.lat);
-            setCoordinates({ lat: coords.lat, lon: coords.lng });
-            setNewCoordinates(latlng);
-        };
-
         geolocate.on('geolocate', (e: any) => {
             if (!map.current) return;
             const latlng = new mapboxgl.LngLat(e.coords.longitude as number, e.coords.latitude as number);
             map.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
         });
-
-        // map.current.on('click', addMarker);
     }, []);
-
-    useEffect(() => {
-        if (!newCoordinates || !map.current) return;
-
-        marker.setLngLat(newCoordinates).addTo(map.current);
-        onChange();
-    }, [marker, newCoordinates]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current) return;

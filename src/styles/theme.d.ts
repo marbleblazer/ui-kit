@@ -1,5 +1,7 @@
-import { Theme as MUITheme, TypeText, TypeBackground } from '@mui/material';
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-svgr/client" />
 
+import { Theme as MUITheme, TypeText, TypeBackground } from '@mui/material';
 declare module '@emotion/react' {
     export interface Theme extends MUITheme {}
 }
