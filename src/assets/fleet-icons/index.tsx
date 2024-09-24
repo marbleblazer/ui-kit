@@ -43,3 +43,5 @@ export { default as PenIcon } from './pen.svg?react';
 export { default as TrashIcon } from './trash.svg?react';
 export { default as OpenEyeIcon } from './open-eye.svg?react';
 export { default as CloseEyeIcon } from './close-eye.svg?react';
+export { default as ChevronLeftIcon } from './chevron-left.svg?react';
+export { default as ChevronRightIcon } from './chevron-right.svg?react';

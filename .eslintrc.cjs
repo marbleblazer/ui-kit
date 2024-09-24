@@ -65,9 +65,9 @@ module.exports = {
             'error',
             {
                 zones: [
-                    { target: './shared', from: ['./app/*', './accounts/*'] },
-                    { target: './accounts', from: './app/*' },
-                    { target: './accounts/user', from: './accounts/admin/*' },
+                    // { target: './shared', from: ['./app/*', './accounts/*'] },
+                    // { target: './accounts', from: './app/*' },
+                    // { target: './accounts/user', from: './accounts/admin/*' },
                 ],
             },
         ],
