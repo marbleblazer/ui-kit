@@ -1,7 +1,7 @@
 import { ThemeOptions } from '@mui/material';
 import { FontStyleOptions, TypographyStyleOptions } from '@mui/material/styles/createTypography';
 
-export type TypographyVariant =
+export type CustomTypographyVariant =
     | 'h1'
     | 'h2'
     | 'h3'
@@ -19,7 +19,7 @@ export type TypographyVariant =
     | 'overline';
 
 export interface CustomThemeTypography
-    extends Partial<Record<TypographyVariant, TypographyStyleOptions> & FontStyleOptions> {}
+    extends Partial<Record<CustomTypographyVariant, TypographyStyleOptions> & FontStyleOptions> {}
 
 export interface CustomThemeOptions extends ThemeOptions {
     breakpoints: {
