@@ -12,6 +12,17 @@ declare module '@mui/material/styles' {
     export interface TypeBackground extends TypeBackground, CustomTypeBackground {}
 
     export interface TypeText extends TypeText, CustomTypeText {}
+
+    interface TypographyVariants {
+        paragraphPrimary: React.CSSProperties;
+        paragraphSecondary: React.CSSProperties;
+    }
+
+    // allow configuration using `createTheme`
+    interface TypographyVariantsOptions {
+        paragraphPrimary?: React.CSSProperties;
+        paragraphSecondary?: React.CSSProperties;
+    }
 }
 
 declare module '@mui/material/Typography' {

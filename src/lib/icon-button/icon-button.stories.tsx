@@ -68,3 +68,10 @@ export const Tertiary: Story = {
         </IconButton>
     ),
 };
+export const Gray: Story = {
+    render: () => (
+        <IconButton variant="gray">
+            <DcIcon />
+        </IconButton>
+    ),
+};

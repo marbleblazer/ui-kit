@@ -109,6 +109,25 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
         },
     }),
 
+    ...(variant === 'gray' && {
+        background: 'transparent',
+        color: theme.palette.text.quaternary,
+        border: 'none',
+
+        '&:hover, &:active': {
+            background: 'transparent',
+            color: theme.palette.accent.accentHover,
+        },
+
+        '&:disabled': {
+            opacity: '0.3',
+        },
+
+        '&:focus-visible': {
+            borderColor: theme.palette.border.secondary,
+        },
+    }),
+
     [theme.breakpoints.down('md')]: {
         lineHeight: '16px',
     },

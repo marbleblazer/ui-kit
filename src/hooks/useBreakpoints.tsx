@@ -8,6 +8,7 @@ export interface UseBreakpointsResult {
     isExtraLarge: boolean;
 }
 
+//  'xs' | 'sm' | 'md' | 'lg' | 'xl',
 export const useBreakpoints = (): UseBreakpointsResult => {
     const theme = useTheme();
     const isSmallMobile = useMediaQuery(theme.breakpoints.down('sm'));

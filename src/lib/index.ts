@@ -70,3 +70,11 @@ export { PhoneField } from './phone-field';
 export { Tabs } from './tabs';
 
 export { Map } from './map';
+
+export { default as ListItem } from './list-item';
+
+export { Checkbox } from './checkbox';
+
+export { Table, TableVirtualized, type TableColumn, type TableColumnDef } from './table';
+
+export { RangePicker, RangePickerMenu } from './range-picker';
