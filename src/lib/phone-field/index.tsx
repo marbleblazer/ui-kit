@@ -1,4 +1,4 @@
-import { MuiPhoneNumberProps } from 'material-ui-phone-number';
+import { MuiPhoneNumberProps } from 'mui-phone-number';
 import { FormControl, InputAdornment } from '@mui/material';
 import { FC, useState } from 'react';
 

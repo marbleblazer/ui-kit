@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 /// <reference types="vite-plugin-svgr/client" />
 
 import { defineConfig } from 'vite';
@@ -29,32 +30,40 @@ export default defineConfig(({ mode }) => {
         },
         plugins: [react(), svgr(), dts()],
 
-        lib: {
-            entry: 'src/index.ts',
-            name: 'UIKit',
-            fileName: 'ui-kit',
-            formats: ['es', 'cjs'],
-        },
-        rollupOptions: {
-            input: Object.fromEntries(
-                glob
-                    .sync('src/**/*.{ts,tsx}', {
-                        ignore: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
-                    })
-                    .map((file) => [
-                        // The name of the entry point
-                        // lib/nested/foo.ts becomes nested/foo
-                        relative('src', file.slice(0, file.length - extname(file).length)),
-                        // The absolute path to the entry file
-                        // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
-                        fileURLToPath(new URL(file, import.meta.url)),
-                    ]),
-            ),
-            external: ['react', 'react-dom', '@mui/material'],
-            output: {
-                assetFileNames: 'assets/[name][extname]',
-                entryFileNames: '[name].js',
+        build: {
+            lib: {
+                entry: path.resolve(__dirname, 'src/index.ts'),
+                name: '@chirp-fleet/ui-kit',
+                fileName: 'ui-kit',
+                formats: ['es', 'cjs'],
             },
+            rollupOptions: {
+                input: Object.fromEntries(
+                    glob
+                        .sync('src/**/*.{ts,tsx}', {
+                            ignore: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
+                        })
+                        .map((file) => [
+                            // The name of the entry point
+                            // lib/nested/foo.ts becomes nested/foo
+                            relative('src', file.slice(0, file.length - extname(file).length)),
+                            // The absolute path to the entry file
+                            // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+                            fileURLToPath(new URL(file, import.meta.url)),
+                        ]),
+                ),
+                external: ['react', 'react-dom', '@mui/material', '@mui/system'],  // Внешние зависимости
+                output: {
+                    assetFileNames: 'assets/[name][extname]',
+                    entryFileNames: '[name].js',
+                    globals: {
+                        react: 'React',
+                        'react-dom': 'ReactDOM',
+                        '@mui/material': 'MaterialUI',
+                        '@mui/system': 'MaterialUISystem'
+                    }
+                },
         },
+    }
     };
 });

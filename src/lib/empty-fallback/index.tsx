@@ -1,6 +1,6 @@
 import { Stack, useTheme } from '@mui/material';
 import { FC } from 'react';
-import { Typography } from '../typogrphy';
+import { Typography } from '../typogrpahy';
 
 interface IEmptyFallbackProps {
     title?: string;
