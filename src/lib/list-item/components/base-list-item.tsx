@@ -1,8 +1,8 @@
 import { ListItemProps as MUIListItemProps, Stack } from '@mui/material';
 import { FC } from 'react';
 import * as S from '../style';
-import { Typography } from '../../typogrphy';
 import { Checkbox, IChecboxProps } from '../../checkbox';
+import { Typography } from '../../typogrpahy';
 
 interface IListItemProps extends MUIListItemProps {
     title: string;

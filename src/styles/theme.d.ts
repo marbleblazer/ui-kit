@@ -89,6 +89,6 @@ export interface CustomPalette {
     };
 }
 
-export interface CustomTheme extends MUITheme {
+export interface CustomThemeInterface extends MUITheme {
     palette: CustomPalette;
 }

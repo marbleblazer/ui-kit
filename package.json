@@ -1,23 +1,28 @@
 {
     "name": "@chirp/ui",
-    "private": true,
-    "version": "0.0.0",
+    "version": "0.0.15",
     "type": "module",
-    "main": "dist/index.js",
     "declaration": true,
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
     ],
+    "publishConfig": {
+        "registry": "https://gitlab.com/api/v4/projects/61179435/packages/npm/"
+    },
     "scripts": {
         "dev": "storybook dev -p 6006 --no-open",
         "build": "vite build",
+        "build:css": "sass src/styles/style.scss dist/style.css",
         "dev:open": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "lint": "eslint . --ext ts,tsx --max-warnings 0 && stylelint \"**/*.scss\"",
         "lint:fix": "eslint . --ext ts,tsx --fix --max-warnings 0 --no-ignore",
         "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
-        "lint-staged": "lint-staged"
+        "lint-staged": "lint-staged",
+        "publish-ui": "npm publish"
     },
     "peerDependencies": {
         "@emotion/cache": "^10.0.29",
@@ -45,6 +50,7 @@
         "sass-embedded": "^1.77.8"
     },
     "devDependencies": {
+        "@mui/system": "^6.1.1",
         "@storybook/addon-essentials": "7.6.7",
         "@storybook/addon-interactions": "7.6.7",
         "@storybook/addon-links": "7.6.7",
@@ -54,7 +60,6 @@
         "@storybook/react-vite": "7.6.7",
         "@storybook/test": "7.6.7",
         "@types/d3-shape": "^3.1.0",
-        "@mui/system": "^6.1.1",
         "@types/mapbox__mapbox-gl-draw": "^1.4.8",
         "@types/node": "^20.10.5",
         "@types/react": "^18.2.45",
@@ -71,8 +76,9 @@
         "glob": "^11.0.0",
         "latest": "^0.2.0",
         "lint-staged": "^15.2.0",
-        "prettier": "^3.1.1",
         "sass": "^1.77.8",
+        "prettier": "^3.1.1",
+        "rollup-plugin-postcss": "^4.0.2",
         "storybook": "7.6.7",
         "stylelint": "^16.0.2",
         "typescript": "^5.3.3",

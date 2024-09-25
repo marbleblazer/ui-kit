@@ -9,8 +9,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { CustomDatepickerHeader } from './components/custom-header';
 import { DatePickerWrapper } from './styles';
 import { TextField } from '../text-field';
-import { Typography } from '../typogrphy';
 import { Button } from '../button';
+import { Typography } from '../typogrpahy';
 
 export interface RangePickerProps {
     initialStartDate?: Date;
