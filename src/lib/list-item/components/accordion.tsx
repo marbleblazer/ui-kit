@@ -1,9 +1,9 @@
 import { AccordionDetails, ListItemProps as MUIListItemProps, Stack } from '@mui/material';
 import { FC } from 'react';
 import * as S from '../style';
-import { Typography } from '../../typogrphy';
 import { SelectIndicator } from '../../select-indicator';
 import { Checkbox, IChecboxProps } from '../../checkbox';
+import { Typography } from '../../typogrpahy';
 
 interface IAccordionProps extends MUIListItemProps {
     title: string;

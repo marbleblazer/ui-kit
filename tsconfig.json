@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
+        "target": "ESNext",
         "useDefineForClassFields": true,
         "lib": [
             "ES2020",
@@ -9,15 +9,16 @@
         ],
         "module": "ESNext",
         "declaration": true,
-        "declarationMap": false, // Отключение карт деклараций
-        "emitDeclarationOnly": true, // Только генерация типов
-        "skipLibCheck": true, // Пропуск проверки библиотек
-        /* Bundler mode */
-        "moduleResolution": "bundler",
+        "outDir": "./dist",
+        "emitDeclarationOnly": true,
+        "skipLibCheck": true,
+        // "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
+        "esModuleInterop": true,
+        "noEmit": false,
+        "moduleResolution": "node", // Убедитесь, что разрешение модулей настроено корректно
         "jsx": "react-jsx",
         /* Linting */
         "strict": true,
@@ -43,6 +44,7 @@
         }
     },
     "include": [
+        "src/**/*",
         "./src",
         "./vite.config.ts",
         ".storybook/*",
