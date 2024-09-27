@@ -17,3 +17,11 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
     render: () => <SearchInput value="" onChange={() => {}} />,
 };
+
+export const WithCustomPlaceholder: Story = {
+    render: () => <SearchInput placeholder="Search by name" value="" onChange={() => {}} />,
+};
+
+export const LoadingMode: Story = {
+    render: () => <SearchInput isLoading placeholder="Search by name" value="" onChange={() => {}} />,
+};
