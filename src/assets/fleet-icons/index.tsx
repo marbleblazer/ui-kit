@@ -45,3 +45,4 @@ export { default as OpenEyeIcon } from './open-eye.svg?react';
 export { default as CloseEyeIcon } from './close-eye.svg?react';
 export { default as ChevronLeftIcon } from './chevron-left.svg?react';
 export { default as ChevronRightIcon } from './chevron-right.svg?react';
+export { default as EmptyFallbackCoverIcon } from './empty-fallback-cover.svg?react';
