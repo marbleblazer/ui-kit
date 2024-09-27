@@ -1,13 +1,20 @@
-import { SearchIcon } from '@chirp/ui/assets/icons';
 import { InputAdornment } from '@mui/material';
 import * as S from './style';
+import { LoaderCircleIcon, SearchIcon } from '@chirp/ui/assets/fleet-icons';
 
 interface ISearchInputProps {
     value: string;
     onChange: (value: string) => void;
+    placeholder?: string;
+    isLoading?: boolean;
 }
 
-export const SearchInput: React.FC<ISearchInputProps> = ({ value, onChange }) => {
+export const SearchInput: React.FC<ISearchInputProps> = ({
+    value,
+    onChange,
+    placeholder = 'Search location',
+    isLoading = false,
+}) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { value } = e.target;
@@ -15,17 +22,15 @@ export const SearchInput: React.FC<ISearchInputProps> = ({ value, onChange }) =>
     };
 
     return (
-        // TODO: change source to ui-kit
-        <S.TextField
+        <S.SearchInputWrapper
             fullWidth
-            placeholder="Search location"
+            placeholder={placeholder}
             InputProps={{
                 value,
                 onChange: handleInputChange,
                 startAdornment: (
                     <InputAdornment position="start">
-                        {/* TODO: change to new Icon */}
-                        <SearchIcon />
+                        {isLoading ? <LoaderCircleIcon /> : <SearchIcon />}
                     </InputAdornment>
                 ),
             }}

@@ -42,6 +42,9 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         },
     },
 
+    '.MuiInputAdornment-root.MuiInputAdornment-positionStart': {
+        marginRight: '4px',
+    },
     '& .MuiSelect-select .notranslate::after': placeholder
         ? {
               content: `"${placeholder}"`,
@@ -80,9 +83,9 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         fontFamily: theme?.typography.fontFamily,
         color: theme.palette.text.primary,
         borderRadius: '8px',
-        border: '1px solid',
-        borderColor: theme.palette.border.tertiaryInput,
     },
+    border: '1px solid',
+    borderColor: theme.palette.border.tertiaryInput,
 
     '.MuiInputBase-root.Mui-error': {
         input: {

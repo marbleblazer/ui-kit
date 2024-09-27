@@ -1,17 +1,22 @@
-import { styled, TextField as MUITextField } from '@mui/material';
+import { styled } from '@mui/material';
+import { TextField } from '../text-field';
 
-export const TextField = styled(MUITextField)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.secondary : 'transparent',
-    // color: theme.palette.border.secondary,
-    borderColor: theme.palette.border.secondary,
+export const SearchInputWrapper = styled(TextField)(({ theme }) => ({
+    backgroundColor: 'transparent',
+    borderColor: theme.palette.border.primary,
     borderRadius: '6px',
 
     svg: {
-        color: theme.palette.background.primary,
+        color: theme.palette.text.tertiary,
     },
 
     '.MuiInputBase-root': {
         paddingLeft: '12px',
+        backgroundColor: 'transparent',
+        'input::placeholder': {
+            color: theme.palette.text.tertiary,
+            opacity: 1,
+        },
     },
 
     '.MuiInputBase-input': {
