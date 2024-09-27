@@ -3,7 +3,7 @@ import mapboxgl, { MapEventType } from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import { getMapStyleId } from '@chirp/ui/helpers/mapUtils';
+import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
 import { useBreakpoints } from '@chirp/ui/hooks/useBreakpoints';
 import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
@@ -22,9 +22,17 @@ type Props = {
     isDrawable?: boolean;
 
     onChange?: () => void;
+    accessToken?: string;
+    getMapStyleId?: (themeMode: string) => string;
 };
 
-export const Map: React.FC<Props> = ({ coordinates, scrollZoom = true, onChange = () => {}, isDrawable = false }) => {
+export const Map: React.FC<Props> = ({
+    coordinates,
+    scrollZoom = true,
+    onChange = () => {},
+    isDrawable = false,
+    getMapStyleId = getUiKitMapStyleId,
+}) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     const map = useRef<mapboxgl.Map>(null);

@@ -60,7 +60,7 @@ export const getCoverageZoomLvl = (zoom: number) => {
     }
 };
 
-export const getMapStyleId = (themeMode: PaletteMode): string => {
+export const getUiKitMapStyleId = (themeMode: PaletteMode): string => {
     return `mapbox://styles/${import.meta.env.VITE_UI_MAPBOX_USER_NAME}/${
         themeMode === CurrentTheme.Dark
             ? import.meta.env.VITE_UI_DARK_MAP_STYLE_ID
