@@ -25,3 +25,15 @@ export const Default: Story = {
         </Box>
     ),
 };
+
+export const WithoutBackground: Story = {
+    render: () => (
+        <Box width="1200px" height="1200px">
+            <EmptyFallback
+                title="You don’t have favourite widgets"
+                subTitle="texttexttexttexttexttexttexttexttexttext"
+                withBackground={false}
+            />
+        </Box>
+    ),
+};

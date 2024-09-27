@@ -6,9 +6,10 @@ import emptyFallbackCoverIcon from '@chirp/ui/assets/fleet-icons/empty-fallback-
 interface IEmptyFallbackProps {
     title?: string;
     subTitle?: string;
+    withBackground?: boolean;
 }
 
-export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle }) => {
+export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle, withBackground = true }) => {
     const theme = useTheme();
 
     return (
@@ -19,7 +20,7 @@ export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle }) => {
             width="100%"
             justifyContent="center"
             sx={{
-                backgroundImage: `url("${emptyFallbackCoverIcon}")`,
+                backgroundImage: withBackground ? `url("${emptyFallbackCoverIcon}")` : 'none',
                 backgroundRepeat: 'repeat',
             }}
         >
