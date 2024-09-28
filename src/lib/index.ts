@@ -30,6 +30,8 @@ export { Loader } from './loader';
 
 export { Modal } from './modal';
 
+export { ModalTitle } from './modal/modal-title';
+
 export { ConfirmationDialog } from './confirmation-dialog';
 
 export {

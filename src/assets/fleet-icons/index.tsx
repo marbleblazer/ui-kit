@@ -48,3 +48,4 @@ export { default as ChevronRightIcon } from './chevron-right.svg?react';
 export { default as EmptyFallbackCoverIcon } from './empty-fallback-cover.svg?react';
 export { default as SearchIcon } from './search.svg?react';
 export { default as LoaderCircleIcon } from './loader-circle.svg?react';
+export { default as PlusIcon } from './plus.svg?react';
