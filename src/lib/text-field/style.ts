@@ -108,10 +108,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         padding: 0,
         left: '-12px',
         backgroundColor: 'transparent',
-        color: theme.palette.text.secondary,
-        '&:focus': {
-            color: theme.palette.text.secondary,
-        },
+        color: theme.palette.text.quaternary,
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',
             lineHeight: '20px',

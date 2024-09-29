@@ -22,7 +22,7 @@ export const lightTheme: ThemeOptions = {
             secondary: '#FFFFFF',
             tertiary: '#FFFFFF',
             fifth: '#E5E5E5',
-            fifthInput: '#E5E5E5',
+            fifthInput: '#F4F4F4',
         },
         primaryColors: {
             primary: '#FFFFFF',

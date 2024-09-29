@@ -6,6 +6,8 @@ export const SearchInputWrapper = styled(TextField)(({ theme }) => ({
     borderColor: theme.palette.border.primary,
     borderRadius: '6px',
 
+    marginTop: 0,
+
     svg: {
         color: theme.palette.text.tertiary,
     },
