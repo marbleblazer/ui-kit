@@ -135,7 +135,7 @@ export const MapContainer = styled(Box, {
     '.mapboxgl-ctrl-zoom-in': {
         marginBottom: '2px',
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url(${plusIcon})` : `url(${plusDarkIcon})`,
+            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url("${plusIcon}")` : `url("${plusDarkIcon}")`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
@@ -143,7 +143,8 @@ export const MapContainer = styled(Box, {
 
     '.mapboxgl-ctrl-zoom-out': {
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url(${minusIcon})` : `url(${minusDarkIcon})`,
+            backgroundImage:
+                theme.palette.mode === CurrentTheme.Dark ? `url("${minusIcon}")` : `url("${minusDarkIcon}")`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
@@ -155,7 +156,7 @@ export const MapContainer = styled(Box, {
         },
         '& span': {
             backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url(${fullScreenIcon})` : `url(${fullScreenDarkIcon})`,
+                theme.palette.mode === CurrentTheme.Dark ? `url("${fullScreenIcon}")` : `url("${fullScreenDarkIcon}")`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
@@ -193,15 +194,15 @@ export const MapContainer = styled(Box, {
 
     '.mapboxgl-ctrl button.mapboxgl-ctrl-shrink .mapboxgl-ctrl-icon': {
         backgroundImage:
-            theme.palette.mode === CurrentTheme.Dark ? `url(${fullScreenIcon})` : `url(${fullScreenDarkIcon})`,
+            theme.palette.mode === CurrentTheme.Dark ? `url("${fullScreenIcon}")` : `url("${fullScreenDarkIcon}")`,
     },
 
     '.mapboxgl-ctrl-geolocate': {
         '& span': {
             backgroundImage:
                 theme.palette.mode === CurrentTheme.Dark
-                    ? `url(${locationUserIcon})!important`
-                    : `url(${locationUserIcon})!important`,
+                    ? `url("${locationUserIcon}")!important`
+                    : `url("${locationUserIcon}")!important`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
         },
