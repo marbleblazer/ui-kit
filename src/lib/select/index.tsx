@@ -1,10 +1,11 @@
-import { FormControl, SelectProps } from '@mui/material';
+import { FormControl, SelectProps, useTheme } from '@mui/material';
 import { FC } from 'react';
 
 import { InputLabel } from '../input-label';
 import * as S from './style';
 
 export const Select: FC<SelectProps> = ({ label, labelId, ...props }) => {
+    const theme = useTheme();
     return (
         <FormControl fullWidth>
             <InputLabel
@@ -13,10 +14,11 @@ export const Select: FC<SelectProps> = ({ label, labelId, ...props }) => {
                 className={props.error ? 'Mui-error' : undefined}
                 sx={{
                     '&.MuiInputLabel-shrink': {
-                        fontSize: '14px',
                         lineHeight: '20px',
-                        top: '8px',
-                        left: '-12px',
+                        transform: 'none',
+                        left: 0,
+                        top: '3.5px',
+                        ...theme.typography.overline,
                     },
                 }}
             />

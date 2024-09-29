@@ -8,13 +8,6 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
         backgroundColor: theme.palette.background.fifth,
     },
 
-    '&.MuiFormControl-root .MuiFormLabel-root': {
-        transform: 'none',
-        left: 0,
-        top: '-16px',
-        ...theme.typography.overline,
-    },
-
     '&.Mui-disabled': {
         opacity: '0.3 !important',
     },
