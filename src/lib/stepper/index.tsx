@@ -17,7 +17,7 @@ export const Stepper: FC<StepperProps> = ({ activeStep, handleSetStep, steps }) 
     }
 
     return (
-        <Stack direction="row" gap="8px" height="24px" alignItems="center" justifyContent="center" mb="32px">
+        <Stack direction="row" gap="8px" height="24px" alignItems="center" justifyContent="center">
             {steps.map((step) => (
                 <IconButton
                     key={step}
@@ -27,6 +27,9 @@ export const Stepper: FC<StepperProps> = ({ activeStep, handleSetStep, steps }) 
                         width: '6px',
                         padding: '0',
                         cursor: handleSetStep ? 'pointer' : 'default',
+                        '&:hover': {
+                            backgroundColor: 'transparent',
+                        },
                     }}
                     onClick={() => handleSetStep?.(step)}
                 >
