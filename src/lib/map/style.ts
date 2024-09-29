@@ -36,10 +36,14 @@ export const MapContainer = styled(Box, {
         width: isSidebarOpen ? `calc(100% + ${SIDEBAR_WIDTH}px)` : '100%',
     },
 
+    'canvas:focus-visible': {
+        outline: 'none',
+    },
+
     '.mapboxgl-control-container': {
         position: 'absolute',
         right: '10px',
-        bottom: '35px',
+        bottom: '10px',
     },
     '.spider-leg-container .spider-leg-line': {
         backgroundColor: '#f4f4f4',

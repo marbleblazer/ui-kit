@@ -20,8 +20,9 @@ type Props = {
     coordinates?: Coordinates;
     scrollZoom?: boolean;
     isDrawable?: boolean;
+    isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
 
-    onChange?: () => void;
+    onChange?: (value: GeoJSON.Feature[]) => void;
     accessToken?: string;
     getMapStyleId?: (themeMode: string) => string;
 };
@@ -31,6 +32,7 @@ export const Map: React.FC<Props> = ({
     scrollZoom = true,
     onChange = () => {},
     isDrawable = false,
+    isSingleDraw = true,
     getMapStyleId = getUiKitMapStyleId,
 }) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -106,17 +108,17 @@ export const Map: React.FC<Props> = ({
                 // Слушаем события создания, обновления и удаления
                 map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
                     console.log('Создано:', e.features);
-                    onChange();
+                    onChange(e.features as GeoJSON.Feature[]);
                 });
 
                 map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
                     console.log('Обновлено:', e.features);
-                    onChange();
+                    onChange(e.features as GeoJSON.Feature[]);
                 });
 
                 map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
                     console.log('Удалено:', e.features);
-                    onChange();
+                    onChange(e.features as GeoJSON.Feature[]);
                 });
             }
         });
@@ -148,10 +150,10 @@ export const Map: React.FC<Props> = ({
     }, []);
 
     const handleChangeMode = (key: string) => {
-        if (!map.current) return;
-
+        if (!map.current || !drawRef.current) return;
+        isSingleDraw && drawRef.current?.deleteAll();
         setActiveDrawMode(key);
-        drawRef.current?.changeMode(key);
+        drawRef.current.changeMode(key);
     };
 
     return (
