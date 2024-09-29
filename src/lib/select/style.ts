@@ -3,16 +3,25 @@ import { Select as MuiSelect } from '@mui/material';
 
 export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
     backgroundColor: theme.palette.background.fifthInput,
+
     '&:hover:not(.Mui-disabled)': {
         backgroundColor: theme.palette.background.fifth,
     },
+
+    '&.MuiFormControl-root .MuiFormLabel-root': {
+        transform: 'none',
+        left: 0,
+        top: '-16px',
+        ...theme.typography.overline,
+    },
+
     '&.Mui-disabled': {
         opacity: '0.3 !important',
     },
     borderRadius: '8px',
     border: 'none',
     fontFamily: theme.typography.fontFamily,
-    marginTop: '16px',
+    marginTop: '20px',
 
     '.MuiSelect-select': {
         paddingTop: '12px',
