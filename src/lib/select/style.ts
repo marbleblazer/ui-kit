@@ -39,6 +39,7 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
         : {},
 
     '.MuiSelect-icon': {
+        color: theme.palette.text.tertiary,
         right: '16px',
     },
 

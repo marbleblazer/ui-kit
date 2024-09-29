@@ -15,6 +15,7 @@ export const SearchInputWrapper = styled(TextField)(({ theme }) => ({
     '.MuiInputBase-root': {
         paddingLeft: '12px',
         backgroundColor: 'transparent',
+
         'input::placeholder': {
             color: theme.palette.text.tertiary,
             opacity: 1,

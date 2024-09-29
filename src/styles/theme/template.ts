@@ -122,6 +122,7 @@ export const themeTemplate: CustomThemeOptions = {
             lineHeight: '13px',
             fontWeight: 400,
             letterSpacing: '0.5px',
+            textTransform: 'none',
             fontFamily: '"Alliance No.2", Arial, sans-serif',
         },
     },

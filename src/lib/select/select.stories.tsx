@@ -24,6 +24,7 @@ export const Default: Story = {
                 label="Select sub-location (optional)"
                 error={false}
                 placeholder="Select sub-location (optional)"
+                MenuProps={{ PaperProps: { sx: { maxHeight: '100px' } } }}
             >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>

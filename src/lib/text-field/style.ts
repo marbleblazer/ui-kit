@@ -5,13 +5,14 @@ import { StandardTextFieldProps } from '@mui/material/TextField/TextField';
 export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, placeholder }) => ({
     borderRadius: '8px',
     fontFamily: theme?.typography.fontFamily,
-    marginTop: '16px',
+    marginTop: '20px',
 
     '.MuiInputBase-root:focus': {
         borderColor: theme.palette.border.tertiaryInput,
     },
 
     '.MuiInputBase-root': {
+        borderRadius: '8px',
         '&:hover:not(.Mui-disabled)': {
             backgroundColor: theme.palette.background.fifth,
         },
@@ -23,6 +24,13 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
 
     '& .MuiInputBase-root': {
         height: 'auto',
+    },
+
+    '&.MuiFormControl-root .MuiFormLabel-root': {
+        transform: 'none',
+        left: 0,
+        top: '-16px',
+        ...theme.typography.overline,
     },
 
     '.MuiFormControl-root.MuiTextField-root': {
