@@ -114,14 +114,6 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
     },
     'label,.MuiInputLabel-root.Mui-focused': {
         padding: 0,
-        left: '-12px',
-        backgroundColor: 'transparent',
         color: theme.palette.text.quaternary,
-        '&.MuiInputLabel-shrink': {
-            fontSize: '14px',
-            lineHeight: '20px',
-            top: '-8px',
-            left: '-12px',
-        },
     },
 }));

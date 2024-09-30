@@ -55,6 +55,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:disabled': {
+            color: theme.palette.primary.light,
             opacity: '0.3',
         },
 
@@ -74,6 +75,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:disabled': {
+            color: theme.palette.accent.accent,
             opacity: '0.3',
         },
 
@@ -97,6 +99,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:disabled': {
+            color: theme.palette.text.primary,
             opacity: '0.3',
         },
 
@@ -121,6 +124,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:disabled': {
+            color: theme.palette.accent.accent,
             opacity: '0.3',
         },
 
