@@ -2,17 +2,19 @@ import { Box, useTheme } from '@mui/material';
 import mapboxgl, { MapEventType } from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import bboxTurf from '@turf/bbox';
+import circleTurf from '@turf/circle';
 
 import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
 import { useBreakpoints } from '@chirp/ui/hooks/useBreakpoints';
 import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-
 import * as S from './style';
 import { Coordinates } from './map.types';
 import { MapDrawModeTabs } from './map-draw-tabs';
 import { AnyObject } from '@chirp/ui/helpers/global';
 import { customDrawStyles } from './constance';
+import { mapMarkerSvgString } from './mp-marker-string';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -21,7 +23,7 @@ type Props = {
     scrollZoom?: boolean;
     isDrawable?: boolean;
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
-
+    data?: GeoJSON.Feature; // only one feature, if you want provide feature collection - develop it
     onChange?: (value: GeoJSON.Feature[]) => void;
     accessToken?: string;
     getMapStyleId?: (themeMode: string) => string;
@@ -31,6 +33,7 @@ export const Map: React.FC<Props> = ({
     coordinates,
     scrollZoom = true,
     onChange = () => {},
+    data,
     isDrawable = false,
     isSingleDraw = true,
     getMapStyleId = getUiKitMapStyleId,
@@ -44,28 +47,8 @@ export const Map: React.FC<Props> = ({
 
     const { palette } = useTheme();
 
-    const svg = `<svg width="154" height="154" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle opacity="0.05" cx="76.9788" cy="76.9788" r="76.9788" fill="#FF4D14" />
-    <circle opacity="0.05" cx="76.9787" cy="76.9787" r="40.2658" fill="#FF4D14" />
-    <g filter="url(#filter0_f_168_47899)">
-        <circle cx="76.8285" cy="76.8295" r="19.391" fill="#FF4D14" />
-    </g>
-    <circle cx="76.3866" cy="76.3868" r="11.5468" fill="#FF4D14" stroke="#101010" stroke-width="0.592144" />
-    <path
-        d="M79.6839 74.6045C79.5225 72.9444 78.1789 71.6494 76.5459 71.6494C75.6775 71.6494 74.9345 71.9703 74.3204 72.6084C73.7063 73.2465 72.2085 74.9414 71.6494 80.5278L78.527 80.5316C78.6505 79.2997 78.8607 78.2306 79.1131 77.313L82.308 76.5065L79.6839 74.6045ZM76.7082 76.1441C76.0752 76.1441 75.5621 75.6087 75.5621 74.948C75.5621 74.2873 76.0752 73.7518 76.7082 73.7518C77.3412 73.7518 77.8543 74.2873 77.8543 74.948C77.8534 75.6087 77.3403 76.1441 76.7082 76.1441Z"
-        fill="#101010" />
-    <defs>
-        <filter id="filter0_f_168_47899" x="46.3569" y="46.3579" width="60.9431" height="60.9434"
-            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
-            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-            <feGaussianBlur stdDeviation="5.54028" result="effect1_foregroundBlur_168_47899" />
-        </filter>
-    </defs>
-</svg>`;
-
     const customMarker = document && document.createElement('div');
-    customMarker.innerHTML = svg;
+    customMarker.innerHTML = mapMarkerSvgString;
 
     useEffect(() => {
         if (map.current) return;
@@ -84,7 +67,7 @@ export const Map: React.FC<Props> = ({
             center:
                 coordinates?.lat && coordinates?.lon
                     ? [coordinates.lon, coordinates.lat]
-                    : [9.56413004748697, 51.65120378622913],
+                    : [19.56413004748697, 11.65120378622913],
             trackResize: true,
             crossSourceCollisions: false,
             cooperativeGestures: isMobile,
@@ -148,6 +131,32 @@ export const Map: React.FC<Props> = ({
             map.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
         });
     }, []);
+
+    useEffect(() => {
+        if (!map.current || !data) return;
+
+        map.current.on('load', () => {
+            if (!map.current || !data) return;
+            if (isDrawable) {
+                if (drawRef.current) drawRef.current.add(data);
+            } else {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
+            }
+
+            if (GeodesicDraw.isCircle(data)) {
+                const circleCenter = GeodesicDraw.getCircleCenter(data);
+                const circleRadius = GeodesicDraw.getCircleRadius(data);
+                const circle = circleTurf(circleCenter, circleRadius, { units: 'kilometres', steps: 64 });
+                const bbox = bboxTurf(circle);
+                const [west, south, east, north] = bbox;
+                map.current.fitBounds([west, south, east, north], { padding: 50 });
+            } else if (data.geometry.type === 'Polygon' || data.geometry.type === 'LineString') {
+                const bbox = bboxTurf(data, { recompute: true });
+                const [west, south, east, north] = bbox;
+                map.current.fitBounds([west, south, east, north], { padding: 50 });
+            }
+        });
+    }, [data, isDrawable]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
