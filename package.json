@@ -1,6 +1,6 @@
 {
     "name": "@chirp/ui",
-    "version": "0.0.31",
+    "version": "0.0.33",
     "type": "module",
     "declaration": true,
     "main": "dist/index.cjs.js",
@@ -92,6 +92,8 @@
     ],
     "dependencies": {
         "@turf/bbox": "^7.1.0",
-        "@turf/circle": "^7.1.0"
+        "@turf/centroid": "^7.1.0",
+        "@turf/circle": "^7.1.0",
+        "@turf/distance": "^7.1.0"
     }
 }

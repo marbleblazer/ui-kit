@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import bboxTurf from '@turf/bbox';
 import circleTurf from '@turf/circle';
 
-import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
+import { checkCirclePolygon, getCircleGeometryFromPolygon, getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
 import { useBreakpoints } from '@chirp/ui/hooks/useBreakpoints';
 import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
@@ -24,7 +24,7 @@ type Props = {
     isDrawable?: boolean;
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
     data?: GeoJSON.Feature | null; // only one feature, if you want provide feature collection - develop it
-    onChange?: (value: GeoJSON.Feature[]) => void;
+    onChange?: (value: GeoJSON.Feature) => void;
     accessToken?: string;
     getMapStyleId?: (themeMode: string) => string;
 };
@@ -49,6 +49,19 @@ export const Map: React.FC<Props> = ({
 
     const customMarker = document && document.createElement('div');
     customMarker.innerHTML = mapMarkerSvgString;
+
+    const handleChange = (feature: GeoJSON.Feature) => {
+        if (!map.current) return;
+
+        if (feature.properties && 'circleRadius' in feature.properties) {
+            const circleCenter = GeodesicDraw.getCircleCenter(feature);
+            const circleRadius = GeodesicDraw.getCircleRadius(feature);
+            const circle = circleTurf(circleCenter, circleRadius, { units: 'kilometres', steps: 64 });
+            onChange(circle);
+        } else {
+            onChange(feature);
+        }
+    };
 
     useEffect(() => {
         if (map.current) return;
@@ -90,18 +103,21 @@ export const Map: React.FC<Props> = ({
                 map.current.addControl(draw, 'top-left');
                 // Слушаем события создания, обновления и удаления
                 map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
-                    console.log('Создано:', e.features);
-                    onChange(e.features as GeoJSON.Feature[]);
+                    const features = e.features as GeoJSON.Feature[];
+                    console.log('Создано:', features);
+                    handleChange(features[0]);
                 });
 
                 map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
+                    const features = e.features as GeoJSON.Feature[];
                     console.log('Обновлено:', e.features);
-                    onChange(e.features as GeoJSON.Feature[]);
+                    handleChange(features[0]);
                 });
 
                 map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
+                    const features = e.features as GeoJSON.Feature[];
                     console.log('Удалено:', e.features);
-                    onChange(e.features as GeoJSON.Feature[]);
+                    handleChange(features[0]);
                 });
             }
         });
@@ -135,20 +151,37 @@ export const Map: React.FC<Props> = ({
     const addDataToMap = useCallback(() => {
         if (!map.current || !data) return;
 
-        if (isDrawable) {
-            if (drawRef.current) drawRef.current.add(data);
+        const isCircleData = checkCirclePolygon(data);
+
+        // draw logic
+        if (isCircleData) {
+            const resolvedCircleGeometry = getCircleGeometryFromPolygon(data);
+            if (resolvedCircleGeometry) {
+                const { center, radius } = resolvedCircleGeometry;
+                if (isDrawable) {
+                    if (drawRef.current) {
+                        if (isCircleData) {
+                            const circle = GeodesicDraw.createCircle(center, radius);
+                            drawRef.current.add(circle);
+                        }
+                    }
+                } else {
+                    const circle = circleTurf(center, radius, { units: 'kilometres', steps: 64 });
+                    (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(circle);
+                }
+            }
         } else {
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
+            if (isDrawable) {
+                if (drawRef.current) {
+                    drawRef.current.add(data);
+                }
+            } else {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
+            }
         }
 
-        if (GeodesicDraw.isCircle(data)) {
-            const circleCenter = GeodesicDraw.getCircleCenter(data);
-            const circleRadius = GeodesicDraw.getCircleRadius(data);
-            const circle = circleTurf(circleCenter, circleRadius, { units: 'kilometres', steps: 64 });
-            const bbox = bboxTurf(circle);
-            const [west, south, east, north] = bbox;
-            map.current.fitBounds([west, south, east, north], { padding: 50 });
-        } else if (data.geometry.type === 'Polygon' || data.geometry.type === 'LineString') {
+        // bbox logic
+        if (data.geometry.type === 'Polygon' || data.geometry.type === 'LineString') {
             const bbox = bboxTurf(data, { recompute: true });
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });

@@ -1,6 +1,7 @@
 import { PaletteMode } from '@mui/material';
-
+import centroid from '@turf/centroid';
 import { CurrentTheme } from '../styles/constants';
+import distance from '@turf/distance';
 
 export type MapPoint = {
     lat: number;
@@ -76,4 +77,32 @@ export const removeMapLayer = (map: mapboxgl.Map, name: string) => {
 export const removeMapSource = (map: mapboxgl.Map, name: string) => {
     if (!map.getSource(name)) return;
     map.removeSource(name);
+};
+
+export const checkCirclePolygon = (data: GeoJSON.Feature) => {
+    const center = centroid(data).geometry.coordinates;
+
+    // 2. Проверяем расстояние от каждой точки до центра
+    if (data.geometry.type === 'Polygon') {
+        const coordinates = data.geometry?.coordinates;
+        const distances = coordinates.map((coord) => distance(center, coord[0], { units: 'kilometers' }));
+        // 3. Проверяем отклонения расстояний
+        const averageDistance = distances.reduce((sum, dist) => sum + dist, 0) / distances.length;
+        const isCircle = distances.every((dist) => Math.abs(dist - averageDistance) < 0.01);
+
+        return isCircle;
+    }
+
+    return false;
+};
+
+export const getCircleGeometryFromPolygon = (data: GeoJSON.Feature) => {
+    const center = centroid(data).geometry.coordinates;
+    if (data.geometry.type === 'Polygon') {
+        const firstPoint = data.geometry.coordinates[0][0];
+
+        const radius = distance(center, firstPoint, { units: 'kilometers' });
+
+        return { center, radius };
+    }
 };
