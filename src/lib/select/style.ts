@@ -12,7 +12,8 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
         opacity: '0.3 !important',
     },
     borderRadius: '8px',
-    border: 'none',
+    border: '1px solid',
+    borderColor: theme.palette.border.tertiaryInput,
     fontFamily: theme.typography.fontFamily,
     marginTop: '20px',
 

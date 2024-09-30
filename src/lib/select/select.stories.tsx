@@ -20,7 +20,7 @@ export const Default: Story = {
         <Box sx={{ width: '400px' }}>
             <Select
                 fullWidth
-                sx={{ maxHeight: '100px' }}
+                sx={{ maxHeight: '200px' }}
                 label="Select sub-location (optional)"
                 error={false}
                 placeholder="Select sub-location (optional)"
@@ -46,7 +46,7 @@ export const Disabled: Story = {
             <Select
                 disabled
                 fullWidth
-                sx={{ maxHeight: '100px' }}
+                sx={{ maxHeight: '200px' }}
                 label="Select sub-location (optional)"
                 error={false}
                 placeholder="Select sub-location (optional)"
