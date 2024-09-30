@@ -82,13 +82,11 @@ export const removeMapSource = (map: mapboxgl.Map, name: string) => {
 export const checkCirclePolygon = (data: GeoJSON.Feature) => {
     const center = centroid(data).geometry.coordinates;
 
-    // 2. Проверяем расстояние от каждой точки до центра
     if (data.geometry.type === 'Polygon') {
-        const coordinates = data.geometry?.coordinates;
-        const distances = coordinates.map((coord) => distance(center, coord[0], { units: 'kilometers' }));
-        // 3. Проверяем отклонения расстояний
+        const coordinates = data.geometry?.coordinates[0];
+        const distances = coordinates.map((coord) => distance(center, coord, { units: 'kilometers' }));
         const averageDistance = distances.reduce((sum, dist) => sum + dist, 0) / distances.length;
-        const isCircle = distances.every((dist) => Math.abs(dist - averageDistance) < 0.01);
+        const isCircle = distances.every((dist) => Math.abs(dist - averageDistance) < averageDistance / 10);
 
         return isCircle;
     }
