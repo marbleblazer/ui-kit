@@ -6,7 +6,7 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
     '.MuiPaper-root': {
         width: '360px',
         minWidth: '360px',
-        padding: '40px',
+        padding: '20px',
         borderRadius: '12px',
         background: theme.palette.background.secondary,
 

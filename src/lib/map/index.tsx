@@ -152,7 +152,6 @@ export const Map: React.FC<Props> = ({
         if (!map.current || !data) return;
 
         const isCircleData = checkCirclePolygon(data);
-
         // draw logic
         if (isCircleData) {
             const resolvedCircleGeometry = getCircleGeometryFromPolygon(data);

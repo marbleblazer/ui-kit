@@ -26,7 +26,7 @@ export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProp
                         {...checkobxProps}
                     />
                 ) : null}
-                <Stack>
+                <Stack alignItems="center">
                     <Typography variant="body1" color="text.primary">
                         {title}
                     </Typography>

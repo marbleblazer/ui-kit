@@ -86,7 +86,9 @@ export const checkCirclePolygon = (data: GeoJSON.Feature) => {
         const coordinates = data.geometry?.coordinates[0];
         const distances = coordinates.map((coord) => distance(center, coord, { units: 'kilometers' }));
         const averageDistance = distances.reduce((sum, dist) => sum + dist, 0) / distances.length;
-        const isCircle = distances.every((dist) => Math.abs(dist - averageDistance) < averageDistance / 10);
+        const isCircle =
+            distances.every((dist) => Math.abs(dist - averageDistance) < averageDistance / 10) &&
+            coordinates.length === 65;
 
         return isCircle;
     }
