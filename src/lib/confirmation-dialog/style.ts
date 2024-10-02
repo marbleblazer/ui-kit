@@ -41,6 +41,10 @@ export const IconWrapper = styled(Stack)(({ theme }) => ({
     backgroundImage: `linear-gradient(180deg,
     ${alpha(theme.palette.accent.accent, 0.2)} 0%,
     ${alpha(theme.palette.accent.accent, 0)} 100%)`,
+    svg: {
+        width: '36px',
+        height: '36px',
+    },
 }));
 
 export const Content = styled(Stack)(() => ({

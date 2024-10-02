@@ -193,7 +193,7 @@ export const Map: React.FC<Props> = ({
     }, [data, isDrawable]);
 
     useEffect(() => {
-        if (!map.current || !data) return;
+        if (!map.current) return;
 
         if (map.current.isStyleLoaded()) {
             addDataToMap();
