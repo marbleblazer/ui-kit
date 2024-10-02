@@ -149,7 +149,12 @@ export const Map: React.FC<Props> = ({
     }, []);
 
     const addDataToMap = useCallback(() => {
-        if (!map.current || !data) return;
+        if (!map.current) return;
+
+        if (!data) {
+            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData('');
+            return;
+        }
 
         const isCircleData = checkCirclePolygon(data);
         // draw logic

@@ -13,7 +13,7 @@ interface IListItemProps extends MUIListItemProps {
 export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProps, ...props }) => {
     return (
         <S.ListItem {...props}>
-            <Stack direction="row">
+            <Stack direction="row" alignItems="center">
                 {checkobxProps ? (
                     <Checkbox
                         formControlLabelProps={{
