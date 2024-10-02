@@ -12,8 +12,13 @@ interface IListItemProps extends MUIListItemProps {
 
 export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProps, ...props }) => {
     return (
-        <S.ListItem {...props}>
-            <Stack direction="row" alignItems="center">
+        <S.ListItem
+            {...props}
+            sx={{
+                alignItems: subTitle ? 'flex-start' : 'center',
+            }}
+        >
+            <Stack direction="row">
                 {checkobxProps ? (
                     <Checkbox
                         formControlLabelProps={{
@@ -26,7 +31,7 @@ export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProp
                         {...checkobxProps}
                     />
                 ) : null}
-                <Stack alignItems="center">
+                <Stack>
                     <Typography variant="body1" color="text.primary">
                         {title}
                     </Typography>

@@ -59,7 +59,7 @@ export const AccordionListItem = styled(MUIListItem)(({ theme }) => ({
     // },
 }));
 
-export const Accordion = styled(MUIAccordion)(({ theme }) => ({
+export const Accordion = styled(MUIAccordion)(() => ({
     width: '100%',
     border: 'none',
     backgroundColor: 'transparent',
@@ -76,7 +76,7 @@ export const Accordion = styled(MUIAccordion)(({ theme }) => ({
     },
 }));
 
-export const AccordionSummary = styled(MUIAccordionSummary)(({ theme }) => ({
+export const AccordionSummary = styled(MUIAccordionSummary)(() => ({
     width: '100%',
     position: 'relative',
     minHeight: 'auto',
