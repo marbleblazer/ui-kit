@@ -41,7 +41,7 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
               opacity: 0.7,
               fontSize: '13px',
               lineHeight: '20px',
-              color: theme.palette.text.primary,
+              color: theme.palette.text.quaternary,
           }
         : {},
 

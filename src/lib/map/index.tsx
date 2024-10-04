@@ -104,19 +104,19 @@ export const Map: React.FC<Props> = ({
                 // Слушаем события создания, обновления и удаления
                 map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
                     const features = e.features as GeoJSON.Feature[];
-                    console.log('Создано:', features);
+                    // console.log('Создано:', features);
                     handleChange(features[0]);
                 });
 
                 map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
                     const features = e.features as GeoJSON.Feature[];
-                    console.log('Обновлено:', e.features);
+                    // console.log('Обновлено:', e.features);
                     handleChange(features[0]);
                 });
 
                 map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
                     const features = e.features as GeoJSON.Feature[];
-                    console.log('Удалено:', e.features);
+                    // console.log('Удалено:', e.features);
                     handleChange(features[0]);
                 });
             }
@@ -152,7 +152,17 @@ export const Map: React.FC<Props> = ({
         if (!map.current) return;
 
         if (!data) {
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData('');
+            if (isDrawable) {
+                if (drawRef.current) {
+                    drawRef.current.deleteAll();
+                }
+            } else {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
+                    type: 'FeatureCollection',
+                    features: [],
+                });
+            }
+
             return;
         }
 

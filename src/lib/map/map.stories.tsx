@@ -106,31 +106,32 @@ export const Default: Story = {
 
 export const Drawable: Story = {
     render: () => {
-        const [drawState, setDrawState] = useState<GeoJSON.Feature | null>(null);
+        const [drawState, setDrawState] = useState<GeoJSON.Feature | null>({
+            id: '60c44ec4be05c62bd01c761fa375b33a',
+            type: 'Feature',
+            properties: {},
+            geometry: {
+                coordinates: [
+                    [13.707938391380537, 50.629305557231135],
+                    [18.36757031342043, 49.58805663850933],
+                    [22.78341174564946, 52.400439823673565],
+                    [33.85483956914348, 51.714528001238534],
+                    [38.988345205065315, 51.172665398308254],
+                    [39.904827800820726, 52.33581991843607],
+                ],
+                type: 'LineString',
+            },
+        });
 
         console.log(drawState);
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
+                <button onClick={() => setDrawState(null)}>Давай, сотри все данные</button>
                 <Map
                     onChange={setDrawState}
-                    data={{
-                        id: '60c44ec4be05c62bd01c761fa375b33a',
-                        type: 'Feature',
-                        properties: {},
-                        geometry: {
-                            coordinates: [
-                                [13.707938391380537, 50.629305557231135],
-                                [18.36757031342043, 49.58805663850933],
-                                [22.78341174564946, 52.400439823673565],
-                                [33.85483956914348, 51.714528001238534],
-                                [38.988345205065315, 51.172665398308254],
-                                [39.904827800820726, 52.33581991843607],
-                            ],
-                            type: 'LineString',
-                        },
-                    }}
+                    data={drawState}
                     coordinates={{ lon: 49.108891, lat: 55.796391 }}
-                    isDrawable
+                    // isDrawable
                 />
             </Box>
         );
