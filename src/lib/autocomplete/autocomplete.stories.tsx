@@ -23,8 +23,8 @@ export const Default: Story = {
         return (
             <Autocomplete
                 fullWidth
-                freeSolo
                 open={isOpen}
+                freeSolo
                 disabled={false}
                 onOpen={() => setIsOpen(true)}
                 sx={{ width: 300 }}
@@ -40,7 +40,7 @@ export const Default: Story = {
                         {String(option)}
                     </li>
                 )}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField {...params} placeholder="Search" />}
             />
         );
     },

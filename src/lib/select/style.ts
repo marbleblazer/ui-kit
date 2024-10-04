@@ -10,6 +10,9 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
 
     '&.Mui-disabled': {
         opacity: '0.3 !important',
+        '& + label': {
+            opacity: '0.3 !important',
+        },
     },
     borderRadius: '8px',
     border: '1px solid',
@@ -38,6 +41,7 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
               opacity: 0.7,
               fontSize: '13px',
               lineHeight: '20px',
+              color: theme.palette.text.primary,
           }
         : {},
 

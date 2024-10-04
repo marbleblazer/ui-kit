@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { InputLabel } from '../input-label';
 import * as S from './style';
 
-export const Select: FC<SelectProps> = ({ label, labelId, ...props }) => {
+export const Select: FC<SelectProps> = ({ label, labelId, disabled, ...props }) => {
     const theme = useTheme();
     return (
         <FormControl fullWidth>
@@ -13,6 +13,7 @@ export const Select: FC<SelectProps> = ({ label, labelId, ...props }) => {
                 label={label}
                 className={props.error ? 'Mui-error' : undefined}
                 sx={{
+                    opacity: disabled ? 0.3 : 1,
                     '&.MuiInputLabel-shrink': {
                         lineHeight: '20px',
                         transform: 'none',
@@ -22,7 +23,7 @@ export const Select: FC<SelectProps> = ({ label, labelId, ...props }) => {
                     },
                 }}
             />
-            <S.Select {...props} />
+            <S.Select {...props} disabled={disabled} />
         </FormControl>
     );
 };

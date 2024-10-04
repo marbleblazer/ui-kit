@@ -42,4 +42,4 @@ export const Autocomplete = styled(MuiAutocomplete)(({ theme }) => ({
             },
         },
     },
-}));
+})) as typeof MuiAutocomplete;
