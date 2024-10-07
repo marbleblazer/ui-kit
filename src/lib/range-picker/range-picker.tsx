@@ -100,16 +100,16 @@ export const RangePicker: FC<RangePickerProps> = ({
             <Stack direction="row">
                 <Stack direction="row" gap="8px" alignItems="center">
                     <TextField
-                        label="From"
+                        label="Input"
                         error={!isStartDateValid}
                         value={startInputDate}
                         onChange={(e) => handleInputDateChange(e, 'start')}
                     />
                     <div>
-                        <Divider orientation="horizontal" flexItem sx={{ width: '12px' }} />
+                        <Divider orientation="horizontal" flexItem sx={{ width: '12px', borderColor: theme.palette.text.quaternary }} />
                     </div>
                     <TextField
-                        label="To"
+                        label="Label"
                         error={!isEndDateValid}
                         value={endInputDate}
                         onChange={(e) => handleInputDateChange(e, 'end')}
