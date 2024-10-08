@@ -2,7 +2,7 @@ import * as S from './style';
 
 export const ToastContainer = () => (
     <S.Container
-        autoClose={40000}
+        autoClose={5000}
         closeButton={false}
         closeOnClick={false}
         icon={false}
