@@ -91,7 +91,11 @@
         "vite-plugin-dts": "^4.2.1",
         "vite-plugin-svgr": "^4.2.0"
     },
+    "overrides": {
+        "hoek": "5.0.3"
+    },
     "sideEffects": [
         "**/*.css"
-    ]
+    ],
+    "dependencies": {}
 }
