@@ -1,8 +1,8 @@
 import { styled } from '@mui/material';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer as RTToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-export const Container = styled(ToastContainer)`
+export const ToastContainer = styled(RTToastContainer)`
     &&&.Toastify__toast-container {
         background: transparent;
         width: min(400px, calc(100% - 2rem));

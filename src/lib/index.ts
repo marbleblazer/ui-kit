@@ -81,4 +81,4 @@ export { RangePicker, RangePickerMenu } from './range-picker';
 
 export { Toast } from './toast';
 
-export { ToastContainer } from './toast/toast-container';
+export { ToastContainer } from './toast-container';
