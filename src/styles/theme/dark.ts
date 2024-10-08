@@ -16,9 +16,9 @@ export const darkTheme: ThemeOptions = {
             main: '#FF4D14',
         },
         background: {
-            default: '#F4F4F4',
+            default: '#101010',
             paper: '#353535',
-            primary: '#F4F4F4',
+            primary: '#101010',
             secondary: '#232323',
             tertiary: '#171717',
             fifth: '#444444',
