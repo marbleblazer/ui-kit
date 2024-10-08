@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Toast } from '@chirp/ui/lib';
+import { Button, Toast, ToastContainer } from '@chirp/ui/lib';
+import { toast } from 'react-toastify';
 
 const meta: Meta<typeof Toast> = {
     title: 'UI/Toast',
@@ -15,5 +16,12 @@ export default meta;
 type Story = StoryObj<typeof Toast>;
 
 export const Default: Story = {
-    render: () => <Toast message="Toast message" />,
+    render: () => {
+        return (
+            <>
+                <Button onClick={() => toast(<Toast message="Toast message" />)}>Show</Button>
+                <ToastContainer />
+            </>
+        );
+    },
 };
