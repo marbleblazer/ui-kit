@@ -78,3 +78,5 @@ export { Checkbox } from './checkbox';
 export { Table, TableVirtualized, type TableColumn, type TableColumnDef } from './table';
 
 export { RangePicker, RangePickerMenu } from './range-picker';
+
+export { Toast } from './toast';
