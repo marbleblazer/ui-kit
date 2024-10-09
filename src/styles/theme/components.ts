@@ -8,17 +8,16 @@ export const createComponents: ComponentCreator = (palette) => ({
         styleOverrides: {
             'html, body, #__next': {
                 height: '100%',
+
                 '& ::-webkit-scrollbar': {
                     width: '4px',
                 },
                 '& ::-webkit-scrollbar-track': {
-                    backgroundColor: palette?.primaryColors.primary ?? '000',
+                    backgroundColor: palette?.primaryColors.secondary,
                 },
                 '& ::-webkit-scrollbar-thumb': {
-                    backgroundColor: palette?.text?.secondary,
-                },
-                '& ::-webkit-scrollbar-thumb:hover': {
-                    backgroundColor: palette?.text?.secondary,
+                    borderRadius: '31px',
+                    backgroundColor: palette?.primaryColors?.tertiary,
                 },
             },
         },
