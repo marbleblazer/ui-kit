@@ -49,3 +49,5 @@ export { default as EmptyFallbackCoverIcon } from './empty-fallback-cover.svg?re
 export { default as SearchIcon } from './search.svg?react';
 export { default as LoaderCircleIcon } from './loader-circle.svg?react';
 export { default as PlusIcon } from './plus.svg?react';
+export { default as SystemAttributeIcon } from './system-attribute.svg?react';
+export { default as UserManagmentIcon } from './user-managment.svg?react';
