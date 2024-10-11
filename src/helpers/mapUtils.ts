@@ -79,10 +79,10 @@ export const removeMapSource = (map: mapboxgl.Map, name: string) => {
     map.removeSource(name);
 };
 
-export const checkCirclePolygon = (data: GeoJSON.Feature) => {
+export const checkCirclePolygon = (data: GeoJSON.GeoJSON) => {
     const center = centroid(data).geometry.coordinates;
 
-    if (data.geometry.type === 'Polygon') {
+    if (data.type === 'Feature' && data.geometry.type === 'Polygon') {
         const coordinates = data.geometry?.coordinates[0];
         const distances = coordinates.map((coord) => distance(center, coord, { units: 'kilometers' }));
         const averageDistance = distances.reduce((sum, dist) => sum + dist, 0) / distances.length;
@@ -96,9 +96,9 @@ export const checkCirclePolygon = (data: GeoJSON.Feature) => {
     return false;
 };
 
-export const getCircleGeometryFromPolygon = (data: GeoJSON.Feature) => {
+export const getCircleGeometryFromPolygon = (data: GeoJSON.GeoJSON) => {
     const center = centroid(data).geometry.coordinates;
-    if (data.geometry.type === 'Polygon') {
+    if (data.type === 'Feature' && data.geometry.type === 'Polygon') {
         const firstPoint = data.geometry.coordinates[0][0];
 
         const radius = distance(center, firstPoint, { units: 'kilometers' });

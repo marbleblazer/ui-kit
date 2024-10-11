@@ -13,10 +13,10 @@ interface IListItemProps extends MUIListItemProps {
 export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProps, ...props }) => {
     return (
         <S.ListItem
-            {...props}
             sx={{
                 alignItems: subTitle ? 'flex-start' : 'center',
             }}
+            {...props}
         >
             <Stack direction="row">
                 {checkobxProps ? (

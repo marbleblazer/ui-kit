@@ -23,8 +23,8 @@ type Props = {
     scrollZoom?: boolean;
     isDrawable?: boolean;
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
-    data?: GeoJSON.Feature | null; // only one feature, if you want provide feature collection - develop it
-    onChange?: (value: GeoJSON.Feature) => void;
+    data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
+    onChange?: (value: GeoJSON.GeoJSON) => void;
     accessToken?: string;
     getMapStyleId?: (themeMode: string) => string;
 };
@@ -66,6 +66,7 @@ export const Map: React.FC<Props> = ({
     useEffect(() => {
         if (map.current) return;
         // @ts-ignore
+
         map.current = new mapboxgl.Map({
             container: mapContainer.current || '',
             style: getMapStyleId(palette.mode),
@@ -85,6 +86,7 @@ export const Map: React.FC<Props> = ({
             crossSourceCollisions: false,
             cooperativeGestures: isMobile,
         });
+
         // Инициализация контролов рисования
         let modes = MapboxDraw.modes;
         modes = GeodesicDraw.enable(modes);
@@ -190,16 +192,25 @@ export const Map: React.FC<Props> = ({
                     drawRef.current.add(data);
                 }
             } else {
+                if (data.type === 'FeatureCollection') {
+                    for (const marker of data.features) {
+                        const markerGeometry = marker.geometry;
+                        if (markerGeometry.type === 'Point') {
+                            new mapboxgl.Marker(customMarker)
+                                .setLngLat(markerGeometry.coordinates as [number, number])
+                                .addTo(map.current);
+                        }
+                    }
+                }
+
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
             }
         }
 
         // bbox logic
-        if (data.geometry.type === 'Polygon' || data.geometry.type === 'LineString') {
-            const bbox = bboxTurf(data, { recompute: true });
-            const [west, south, east, north] = bbox;
-            map.current.fitBounds([west, south, east, north], { padding: 50 });
-        }
+        const bbox = bboxTurf(data, { recompute: true });
+        const [west, south, east, north] = bbox;
+        map.current.fitBounds([west, south, east, north], { padding: 50 });
     }, [data, isDrawable]);
 
     useEffect(() => {

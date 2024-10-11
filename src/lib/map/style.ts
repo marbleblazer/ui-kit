@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { CurrentTheme, SIDEBAR_WIDTH } from '@chirp/ui/styles/constants';
 import fullScreenIcon from '@chirp/ui/assets/fleet-icons/full-screen.svg';
 import minusIcon from '@chirp/ui/assets/fleet-icons/minus.svg';
-import plusIcon from '@chirp/ui/assets/fleet-icons/plus.svg';
+import plusIcon from '@chirp/ui/assets/fleet-icons/plus-light.svg';
 import fullScreenDarkIcon from '@chirp/ui/assets/fleet-icons/full-screen-dark.svg';
 import minusDarkIcon from '@chirp/ui/assets/fleet-icons/minus-dark.svg';
 import plusDarkIcon from '@chirp/ui/assets/fleet-icons/plus-dark.svg';
@@ -214,7 +214,7 @@ export const MapContainer = styled(Box, {
         width: '32px',
         height: '32px',
         borderRadius: '50%',
-        backgroundImage: `url(${locationUserIcon})!important`,
+        backgroundImage: `url("${locationUserIcon}")!important`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
 
