@@ -195,11 +195,9 @@ export const Map: React.FC<Props> = ({
         }
 
         // bbox logic
-        if (data.geometry.type === 'Polygon' || data.geometry.type === 'LineString') {
-            const bbox = bboxTurf(data, { recompute: true });
-            const [west, south, east, north] = bbox;
-            map.current.fitBounds([west, south, east, north], { padding: 50 });
-        }
+        const bbox = bboxTurf(data, { recompute: true });
+        const [west, south, east, north] = bbox;
+        map.current.fitBounds([west, south, east, north], { padding: 50 });
     }, [data, isDrawable]);
 
     useEffect(() => {
