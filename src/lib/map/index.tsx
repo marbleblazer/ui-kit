@@ -66,6 +66,7 @@ export const Map: React.FC<Props> = ({
     useEffect(() => {
         if (map.current) return;
         // @ts-ignore
+
         map.current = new mapboxgl.Map({
             container: mapContainer.current || '',
             style: getMapStyleId(palette.mode),
@@ -85,6 +86,7 @@ export const Map: React.FC<Props> = ({
             crossSourceCollisions: false,
             cooperativeGestures: isMobile,
         });
+
         // Инициализация контролов рисования
         let modes = MapboxDraw.modes;
         modes = GeodesicDraw.enable(modes);
@@ -190,6 +192,17 @@ export const Map: React.FC<Props> = ({
                     drawRef.current.add(data);
                 }
             } else {
+                if (data.type === 'FeatureCollection') {
+                    for (const marker of data.features) {
+                        const markerGeometry = marker.geometry;
+                        if (markerGeometry.type === 'Point') {
+                            new mapboxgl.Marker(customMarker)
+                                .setLngLat(markerGeometry.coordinates as [number, number])
+                                .addTo(map.current);
+                        }
+                    }
+                }
+
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
             }
         }
