@@ -23,8 +23,8 @@ type Props = {
     scrollZoom?: boolean;
     isDrawable?: boolean;
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
-    data?: GeoJSON.Feature | null; // only one feature, if you want provide feature collection - develop it
-    onChange?: (value: GeoJSON.Feature) => void;
+    data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
+    onChange?: (value: GeoJSON.GeoJSON) => void;
     accessToken?: string;
     getMapStyleId?: (themeMode: string) => string;
 };
