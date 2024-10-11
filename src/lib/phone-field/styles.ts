@@ -5,9 +5,11 @@ type PhoneFieldPropsType = MuiPhoneNumberProps & {
     dialCode?: string;
 };
 
-export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, dialCode }) => ({
+export const PhoneField = styled(MuiPhoneNumber, {
+    shouldForwardProp: (prop) => prop !== 'dialCode',
+})<PhoneFieldPropsType>(({ theme, dialCode }) => ({
     fontFamily: theme?.typography.fontFamily,
-    marginTop: '16px',
+    marginTop: '20px',
     border: 'none',
 
     '.MuiInputBase-root.Mui-focused': {
@@ -31,7 +33,7 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
     '& svg': { height: '20px' },
 
     '& .MuiInputBase-root': {
-        height: 'auto',
+        height: '40px',
 
         '&.MuiInput-root': {
             marginTop: '0',
@@ -52,11 +54,10 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
         height: 'auto',
     },
     '.MuiInputAdornment-positionEnd': {
+        position: 'absolute',
+        left: '33px',
+        margin: '0',
         order: 1,
-        width: '8px',
-        height: '20px',
-        paddingRight: '8px',
-        transform: 'translate(-18px)',
         svg: {
             width: '20px',
             height: '20px',
@@ -65,12 +66,14 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
     '.MuiInputAdornment-positionStart': {
         order: 0,
         button: {
+            justifyContent: 'flex-end',
             '&::before': {
                 content: dialCode ? `"+${dialCode}"` : '""',
                 fontSize: '13px',
-                lineHeight: '20px',
+                lineHeight: '16px',
                 fontFamily: theme?.typography.fontFamily,
                 color: theme.palette.text.primary,
+                marginRight: '20px',
             },
 
             svg: {
@@ -120,17 +123,21 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
+
     '.MuiPhoneNumber-flagButton': {
         height: 'auto',
         width: 'auto',
     },
+
     '& .MuiButtonBase-root': {
         zIndex: 1,
+        minWidth: '53px !important',
         padding: '12px 8px 10px 8px',
     },
+
     input: {
         order: 2,
-        padding: '12px 16px 10px 0px',
+        padding: '12px 16px 12px 4px',
         fontSize: '13px',
         lineHeight: '20px',
         fontFamily: theme?.typography.fontFamily,
@@ -150,15 +157,15 @@ export const PhoneField = styled(MuiPhoneNumber)<PhoneFieldPropsType>(({ theme, 
     },
     label: {
         padding: 0,
-        left: '-12px',
+        left: '0',
         backgroundColor: 'transparent',
         color: theme.palette.text.secondary,
 
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',
             lineHeight: '20px',
-            top: '-8px',
-            left: '-12px',
+            top: '-16px',
+            left: '0',
         },
     },
 }));
