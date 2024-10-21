@@ -3,10 +3,14 @@ import { FC } from 'react';
 
 import * as S from './style';
 
-export const TextField: FC<StandardTextFieldProps> = (props) => {
-  return (
-    <FormControl fullWidth>
-      <S.TextField {...props} InputLabelProps={{ shrink: true }} />
-    </FormControl>
-  );
+export const TextField: FC<StandardTextFieldProps> = ({ disabled, className, ...props }) => {
+    return (
+        <FormControl fullWidth>
+            <S.TextField
+                {...props}
+                className={disabled ? 'disabled' : '' + ' ' + className}
+                InputLabelProps={{ shrink: true }}
+            />
+        </FormControl>
+    );
 };

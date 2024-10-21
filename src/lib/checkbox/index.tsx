@@ -2,14 +2,14 @@ import { CheckboxProps, FormControlLabel, FormControlLabelProps } from '@mui/mat
 import { Checkbox as MuiCheckbox } from '@mui/material';
 
 import * as S from './style';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { CloseEyeIcon, OpenEyeIcon } from '@chirp/ui/assets/fleet-icons';
 import { CustomTypographyVariant } from '@chirp/ui/styles/theme/template';
 
 export type CheckoxVariantType = 'check' | 'visible';
 
 export interface IChecboxProps extends CheckboxProps {
-    label?: string;
+    label?: ReactNode;
     variant?: CheckoxVariantType;
     labelTypographyVariant?: CustomTypographyVariant;
     formControlLabelProps?: Omit<FormControlLabelProps, 'label' | 'control'>;

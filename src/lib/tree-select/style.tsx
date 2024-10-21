@@ -5,6 +5,9 @@ export const TreeItem = styled(MUITreeItem)(({ theme }) => ({
     '.MuiTreeItem-content': {
         padding: '14px 16px',
         flexDirection: 'row-reverse',
+        color: theme.palette.text.tertiary,
+        ...theme.typography.body1,
+
         '&.Mui-expanded': {
             svg: {
                 transform: 'rotateZ(180deg)',

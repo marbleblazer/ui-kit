@@ -10,6 +10,9 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
     '.MuiInputBase-root:focus': {
         borderColor: theme.palette.border.tertiaryInput,
     },
+    '&.disabled': {
+        opacity: '0.3 !important',
+    },
 
     '.MuiInputBase-root': {
         borderRadius: '8px',
@@ -17,9 +20,6 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
             backgroundColor: theme.palette.background.fifth,
         },
         backgroundColor: theme.palette.background.fifthInput,
-        '&.Mui-disabled': {
-            opacity: '0.3 !important',
-        },
     },
 
     '& .MuiInputBase-root': {
