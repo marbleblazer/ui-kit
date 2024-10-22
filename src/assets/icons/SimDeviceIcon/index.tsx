@@ -4,7 +4,7 @@ import { FC } from 'react';
 interface Props {
     theme?: Theme;
 }
-export const SimDeviceIcon: FC<Props> = ({ theme }) => (
+export const SimDeviceIcon: FC<Props> = () => (
     <svg width="36" height="34" viewBox="0 0 36 34" fill="none" xmlns="http://www.w3.org/2000/svg">
         <mask id="mask0_2365_8348" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="34">
             <path
@@ -100,17 +100,17 @@ export const SimDeviceIcon: FC<Props> = ({ theme }) => (
     </svg>
 );
 
-export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
-    <svg width="118" height="113" viewBox="0 0 118 113" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g filter="url(#filter0_d_2365_21599)">
-            <g clip-path="url(#clip0_2365_21599)">
-                <g filter="url(#filter1_i_2365_21599)">
+export const SimDeviceBigIcon: FC<Props> = () => (
+    <svg width="84" height="79" viewBox="0 0 84 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_d_2480_23161)">
+            <g clip-path="url(#clip0_2480_23161)">
+                <g filter="url(#filter1_i_2480_23161)">
                     <rect
                         x="16.9997"
                         y="-0.000488281"
                         width="83.6842"
                         height="83.6842"
-                        fill="url(#paint0_linear_2365_21599)"
+                        fill="url(#paint0_linear_2480_23161)"
                     />
                 </g>
                 <ellipse cx="103.473" cy="41.842" rx="8.36842" ry="44.6316" fill="black" fill-opacity="0.2" />
@@ -137,23 +137,23 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                     fill-rule="evenodd"
                     clip-rule="evenodd"
                     d="M59.3107 32.3312C53.1596 32.3312 48.5278 35.8696 47.0428 37.5667C46.6189 38.0512 45.8825 38.1003 45.3981 37.6764C44.9136 37.2525 44.8645 36.5161 45.2884 36.0317C47.0897 33.973 52.3167 30 59.3107 30C66.3047 30 71.5317 33.973 73.333 36.0317C73.7569 36.5161 73.7078 37.2525 73.2234 37.6764C72.7389 38.1003 72.0026 38.0512 71.5787 37.5667C70.0937 35.8696 65.4619 32.3312 59.3107 32.3312Z"
-                    fill="url(#paint1_linear_2365_21599)"
+                    fill="url(#paint1_linear_2480_23161)"
                 />
                 <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
                     d="M59.3108 37.9649C54.6164 37.9649 51.9059 40.245 50.7363 41.3885C50.276 41.8386 49.5381 41.8303 49.088 41.37C48.638 40.9097 48.6463 40.1718 49.1066 39.7217C50.4978 38.3614 53.7622 35.6338 59.3108 35.6338C64.8594 35.6338 68.1239 38.3614 69.5151 39.7217C69.9753 40.1718 69.9836 40.9097 69.5336 41.37C69.0835 41.8303 68.3456 41.8386 67.8853 41.3885C66.7158 40.245 64.0052 37.9649 59.3108 37.9649Z"
-                    fill="url(#paint2_linear_2365_21599)"
+                    fill="url(#paint2_linear_2480_23161)"
                 />
                 <path
                     d="M59.3118 49.9456L52.7393 44.3119C53.6782 43.686 57.0584 41.4951 59.3118 41.4951C61.5653 41.4951 64.9454 43.686 65.8844 44.3119L59.3118 49.9456Z"
-                    fill="url(#paint3_linear_2365_21599)"
+                    fill="url(#paint3_linear_2480_23161)"
                 />
             </g>
         </g>
         <defs>
             <filter
-                id="filter0_d_2365_21599"
+                id="filter0_d_2480_23161"
                 x="0.263159"
                 y="0"
                 width="117.474"
@@ -172,11 +172,11 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                 <feGaussianBlur stdDeviation="8.36842" />
                 <feComposite in2="hardAlpha" operator="out" />
                 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0" />
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2365_21599" />
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2365_21599" result="shape" />
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2480_23161" />
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2480_23161" result="shape" />
             </filter>
             <filter
-                id="filter1_i_2365_21599"
+                id="filter1_i_2480_23161"
                 x="16.9997"
                 y="-0.000488281"
                 width="83.6842"
@@ -198,10 +198,10 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                     type="matrix"
                     values="0 0 0 0 0.0416667 0 0 0 0 0.0416667 0 0 0 0 0.0416667 0 0 0 0.4 0"
                 />
-                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2365_21599" />
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2480_23161" />
             </filter>
             <linearGradient
-                id="paint0_linear_2365_21599"
+                id="paint0_linear_2480_23161"
                 x1="34.8415"
                 y1="-0.158693"
                 x2="79.8415"
@@ -212,7 +212,7 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                 <stop offset="1" stop-color="#292929" />
             </linearGradient>
             <linearGradient
-                id="paint1_linear_2365_21599"
+                id="paint1_linear_2480_23161"
                 x1="58.4968"
                 y1="30.0102"
                 x2="59.2324"
@@ -223,7 +223,7 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                 <stop offset="1" stop-color="white" stop-opacity="0.27" />
             </linearGradient>
             <linearGradient
-                id="paint2_linear_2365_21599"
+                id="paint2_linear_2480_23161"
                 x1="58.7105"
                 y1="35.6416"
                 x2="59.2927"
@@ -234,7 +234,7 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                 <stop offset="1" stop-color="white" stop-opacity="0.27" />
             </linearGradient>
             <linearGradient
-                id="paint3_linear_2365_21599"
+                id="paint3_linear_2480_23161"
                 x1="58.938"
                 y1="41.5059"
                 x2="60.686"
@@ -244,7 +244,7 @@ export const SimDeviceBigIcon: FC<Props> = ({ theme }) => (
                 <stop stop-color="white" stop-opacity="0.76" />
                 <stop offset="1" stop-color="white" stop-opacity="0.27" />
             </linearGradient>
-            <clipPath id="clip0_2365_21599">
+            <clipPath id="clip0_2480_23161">
                 <rect x="17" width="84" height="79" rx="8.36842" fill="white" />
             </clipPath>
         </defs>
