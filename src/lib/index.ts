@@ -84,3 +84,5 @@ export { Toast } from './toast';
 export { ToastContainer } from './toast-container';
 
 export { Switch } from './switch';
+
+export { LineChart } from './charts/line-chart';

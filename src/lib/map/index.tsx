@@ -64,6 +64,12 @@ export const Map: React.FC<Props> = ({
     };
 
     useEffect(() => {
+        if (!map.current) return;
+
+        map.current.setStyle(getMapStyleId(palette.mode));
+    }, [palette.mode]);
+
+    useEffect(() => {
         if (map.current) return;
         // @ts-ignore
 
