@@ -51,3 +51,7 @@ export { default as LoaderCircleIcon } from './loader-circle.svg?react';
 export { default as PlusIcon } from './plus.svg?react';
 export { default as SystemAttributeIcon } from './system-attribute.svg?react';
 export { default as UserManagmentIcon } from './user-managment.svg?react';
+export { default as EnergyIcon } from './energy.svg?react';
+export { LoRaWanDeviceBigIcon } from '../icons/LoRaWanDeviceBigIcon';
+export { LoRaDeviceIcon } from '../icons/LoRaDeviceIcon';
+export { SimDeviceIcon, SimDeviceBigIcon } from '../icons/SimDeviceIcon';
