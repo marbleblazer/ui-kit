@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LineChart } from '@chirp/ui/lib';
 
 import { mockdata } from '../mock-data';
+import { Box } from '@mui/material';
 
 const meta: Meta<typeof LineChart> = {
     title: 'UI/LineChart',
@@ -29,13 +30,21 @@ export const Default: Story = {
         };
 
         return (
-            <LineChart
-                data={createData()}
-                xAxisName="Speed"
-                yAxisName="Time"
-                resolvedTooltipTitle={(data) => `${data[0]}`}
-                resolvedTooltipSubtitle={(data) => `${Number(data[1]).toFixed(3)} km/h`}
-            />
+            <Box
+                sx={{
+                    width: '1000px',
+                    height: '800px',
+                }}
+            >
+                <LineChart
+                    style={{ width: '100%', height: '100%' }}
+                    data={createData()}
+                    xAxisName="Speed"
+                    yAxisName="Time"
+                    resolvedTooltipTitle={(data) => `${data[0]}`}
+                    resolvedTooltipSubtitle={(data) => `${Number(data[1]).toFixed(3)} km/h`}
+                />
+            </Box>
         );
     },
 };

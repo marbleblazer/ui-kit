@@ -9,6 +9,7 @@ export const TextField: FC<StandardTextFieldProps> = ({ disabled, className, ...
             <S.TextField
                 {...props}
                 className={disabled ? 'disabled' : '' + ' ' + className}
+                disabled={disabled}
                 InputLabelProps={{ shrink: true }}
             />
         </FormControl>

@@ -3,7 +3,7 @@ import * as echarts from 'echarts/core';
 import { LineChart as EChartsLineChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, TitleComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
-import { FC, memo } from 'react';
+import { CSSProperties, FC, memo } from 'react';
 import { useTheme } from '@mui/material';
 import { EChartsOption } from 'echarts';
 import { TopLevelFormatterParams } from 'echarts/types/dist/shared';
@@ -16,12 +16,13 @@ export interface ILineChartProps {
     data: DataType[];
     xAxisName: string;
     yAxisName: string;
+    style: CSSProperties;
     resolvedTooltipTitle: (data: DataType) => string;
     resolvedTooltipSubtitle: (data: DataType) => string;
 }
 
 const LineChart: FC<ILineChartProps> = memo(
-    ({ data, resolvedTooltipTitle, resolvedTooltipSubtitle, xAxisName, yAxisName }) => {
+    ({ data, resolvedTooltipTitle, resolvedTooltipSubtitle, xAxisName, yAxisName, style }) => {
         const theme = useTheme();
 
         const option: EChartsOption = {
@@ -147,12 +148,7 @@ const LineChart: FC<ILineChartProps> = memo(
 
         return (
             <>
-                <ReactEChartsCore
-                    lazyUpdate={true}
-                    echarts={echarts}
-                    option={option}
-                    style={{ width: '1200px', height: '812px' }}
-                />
+                <ReactEChartsCore lazyUpdate={true} echarts={echarts} option={option} style={style} />
             </>
         );
     },

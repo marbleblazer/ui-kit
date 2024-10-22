@@ -119,7 +119,7 @@ export const PhoneField = styled(MuiPhoneNumber, {
         borderBottomLeftRadius: '8px',
         border: 'none',
         borderRadius: '8px',
-        boxShadow: `0 0 0 100px ${theme.palette.background.primary} inset!important`,
+        boxShadow: `0 0 0 100px ${theme.palette.background.fifthInput} inset!important`,
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
