@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from 'react';
 import * as S from './style';
 import { CloseIcon, TrashIcon } from '@chirp/ui/assets/icons';
-import { Typography } from '@mui/material';
+import { Typography } from '../typogrpahy';
 
 export interface IImagePreviewProps {
     onLoad?: (file: File) => void;
@@ -38,8 +38,9 @@ export const ImagePreview: FC<IImagePreviewProps> = ({ previewUrl, withBorder, o
                     <S.EmptyFallbackWrapper>
                         <S.UploadInput type="file" onChange={handleUploadImage} accept="image/*" />
                         <CloseIcon />
-                        {/* TODO: change source to ui-kit typography after 2092 merge */}
-                        <Typography variant="body2">Add an image</Typography>
+                        <Typography color="text.tertiary" variant="overline">
+                            Add an image
+                        </Typography>
                     </S.EmptyFallbackWrapper>
                 )
             )}

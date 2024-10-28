@@ -110,6 +110,9 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
     ...(variant === 'text' && {
         padding: 0,
+        '&:hover': {
+            backgroundColor: 'transparent',
+        },
     }),
 
     ...(variant === 'outlined' && {

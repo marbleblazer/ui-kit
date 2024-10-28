@@ -64,6 +64,12 @@ export const Map: React.FC<Props> = ({
     };
 
     useEffect(() => {
+        if (!map.current) return;
+
+        map.current.setStyle(getMapStyleId(palette.mode));
+    }, [palette.mode]);
+
+    useEffect(() => {
         if (map.current) return;
         // @ts-ignore
 
@@ -152,6 +158,7 @@ export const Map: React.FC<Props> = ({
 
     const addDataToMap = useCallback(() => {
         if (!map.current) return;
+        let singleMarkerCenter: number[] | null = null;
 
         if (!data) {
             if (isDrawable) {
@@ -196,7 +203,12 @@ export const Map: React.FC<Props> = ({
                     for (const marker of data.features) {
                         const markerGeometry = marker.geometry;
                         if (markerGeometry.type === 'Point') {
-                            new mapboxgl.Marker(customMarker)
+                            if (data.features.length === 1) {
+                                singleMarkerCenter = markerGeometry.coordinates;
+                            }
+                            const customEachMarker = document && document.createElement('div');
+                            customEachMarker.innerHTML = mapMarkerSvgString;
+                            new mapboxgl.Marker(customEachMarker)
                                 .setLngLat(markerGeometry.coordinates as [number, number])
                                 .addTo(map.current);
                         }
@@ -207,10 +219,15 @@ export const Map: React.FC<Props> = ({
             }
         }
 
+        if (singleMarkerCenter?.length === 2) {
+            map.current.flyTo({ center: singleMarkerCenter as [number, number], essential: true });
+        }
         // bbox logic
-        const bbox = bboxTurf(data, { recompute: true });
-        const [west, south, east, north] = bbox;
-        map.current.fitBounds([west, south, east, north], { padding: 50 });
+        else {
+            const bbox = bboxTurf(data, { recompute: true });
+            const [west, south, east, north] = bbox;
+            map.current.fitBounds([west, south, east, north], { padding: 50 });
+        }
     }, [data, isDrawable]);
 
     useEffect(() => {

@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Box, Popover, MenuItem, SelectProps } from '@mui/material';
 import { SimpleTreeView } from '@mui/x-tree-view';
 import { Select } from '../select';
 import * as S from './style';
 import { SelectIndicator } from '../select-indicator';
 
-type TreeNodeType = {
+export type TreeNodeType = {
     id: string;
     label: string;
     children?: TreeNodeType[];
@@ -15,22 +15,29 @@ interface TreeSelectProps {
     options: TreeNodeType[];
     label?: string;
     onChange?: (selectedValue: TreeNodeType) => void;
+    selectedNode?: TreeNodeType;
     width?: number | string;
     selectProps: SelectProps;
+    treeViewMaxHeight?: number;
 }
 
 // FYI: если необходимо, можно воспроизвести работу с дженериком, но нужно будет вынести метод resolveTitle, resolveId
-export const TreeSelect: React.FC<TreeSelectProps> = ({ options, onChange, width = '400px', selectProps }) => {
-    const [selectedNode, setSelectedNode] = useState<TreeNodeType | null>(null);
+export const TreeSelect: React.FC<TreeSelectProps> = ({
+    options,
+    onChange,
+    width = '100%',
+    selectProps,
+    treeViewMaxHeight,
+    selectedNode,
+}) => {
     const [open, setOpen] = React.useState(false);
     const selectRef = useRef<HTMLDivElement | null>(null);
 
     const handleNodeSelect = (node: TreeNodeType, isParent?: boolean) => {
-        setSelectedNode(node);
-        if (onChange) {
-            onChange(node);
+        if (!isParent) {
+            onChange && onChange(node);
+            setOpen(false);
         }
-        !isParent && setOpen(false);
     };
 
     const renderTree = (nodes: TreeNodeType[]) =>
@@ -50,7 +57,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({ options, onChange, width
             <div ref={selectRef}>
                 <Select
                     {...selectProps}
-                    value={selectedNode?.id || null}
+                    value={selectedNode?.id || ''}
                     displayEmpty
                     open={false}
                     onOpen={() => setOpen(true)}
@@ -73,7 +80,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({ options, onChange, width
                 }}
             >
                 <SimpleTreeView
-                    sx={{ width: selectRef.current?.getBoundingClientRect().width }}
+                    sx={{ width: selectRef.current?.getBoundingClientRect().width, maxHeight: treeViewMaxHeight }}
                     selectedItems={selectedNode?.id}
                     slots={{
                         expandIcon: SelectIndicator,

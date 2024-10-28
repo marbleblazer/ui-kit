@@ -84,3 +84,9 @@ export { Toast } from './toast';
 export { ToastContainer } from './toast-container';
 
 export { Switch } from './switch';
+
+export { LineChart } from './charts/line-chart';
+
+export { DonutChart } from './charts/donut-chart';
+
+export { BaseWidget, ListWidget, DonutWidget } from './widgets';
