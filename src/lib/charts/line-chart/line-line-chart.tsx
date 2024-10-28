@@ -16,7 +16,7 @@ export interface ILineChartProps {
     data: DataType[];
     xAxisName: string;
     yAxisName: string;
-    style: CSSProperties;
+    style?: CSSProperties;
     resolvedTooltipTitle: (data: DataType) => string;
     resolvedTooltipSubtitle: (data: DataType) => string;
 }

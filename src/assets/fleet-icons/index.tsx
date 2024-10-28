@@ -55,3 +55,4 @@ export { default as EnergyIcon } from './energy.svg?react';
 export { LoRaWanDeviceBigIcon, LoRaWanDeviceIcon } from '../icons';
 export { SimDeviceIcon, SimDeviceBigIcon } from '../icons';
 export { default as CarIcon } from './car.svg?react';
+export { default as StarFilled } from './star-filled.svg?react';
