@@ -9,7 +9,7 @@ export const PhoneField = styled(MuiPhoneNumber, {
     shouldForwardProp: (prop) => prop !== 'dialCode',
 })<PhoneFieldPropsType>(({ theme, dialCode }) => ({
     fontFamily: theme?.typography.fontFamily,
-    marginTop: '20px',
+    marginTop: '20px !important',
     border: 'none',
 
     '.MuiInputBase-root.Mui-focused': {
@@ -82,8 +82,11 @@ export const PhoneField = styled(MuiPhoneNumber, {
         },
     },
 
-    '.MuiFormLabel-root': {
-        '&.Mui-focused': {},
+    '&.MuiFormControl-root .MuiFormLabel-root': {
+        transform: 'none',
+        left: 0,
+        top: '-16px',
+        ...theme.typography.overline,
     },
 
     '.MuiFormControl-root.MuiTextField-root': {
@@ -119,7 +122,7 @@ export const PhoneField = styled(MuiPhoneNumber, {
         borderBottomLeftRadius: '8px',
         border: 'none',
         borderRadius: '8px',
-        boxShadow: `0 0 0 100px ${theme.palette.background.primary} inset!important`,
+        boxShadow: `0 0 0 100px ${theme.palette.background.fifthInput} inset!important`,
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
@@ -159,7 +162,7 @@ export const PhoneField = styled(MuiPhoneNumber, {
         padding: 0,
         left: '0',
         backgroundColor: 'transparent',
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.quaternary,
 
         '&.MuiInputLabel-shrink': {
             fontSize: '14px',
@@ -167,5 +170,14 @@ export const PhoneField = styled(MuiPhoneNumber, {
             top: '-16px',
             left: '0',
         },
+    },
+
+    'label,.MuiInputLabel-root.Mui-focused': {
+        padding: 0,
+        color: theme.palette.text.quaternary,
+    },
+
+    '&.drop': {
+        color: 'red !important',
     },
 }));
