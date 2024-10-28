@@ -15,8 +15,8 @@ export const TableHead = <TData,>({ columns, enableSorting, sortingState }: Prop
     return (
         <MuiTableHead>
             <S.Row>
-                {columns.map(({ id, columnDef, getCanSort, getToggleSortingHandler }) => {
-                    const { meta, maxSize: maxWidth, header } = columnDef;
+                {columns.map(({ id, columnDef, getCanSort, getToggleSortingHandler, getSize }) => {
+                    const { maxSize: maxWidth, header } = columnDef;
                     const needSorting = enableSorting && getCanSort();
                     const containedSort = sortingState.find((item) => item.id?.toLowerCase() === id?.toLowerCase());
                     let IconComponent = SortIcon;
@@ -26,7 +26,7 @@ export const TableHead = <TData,>({ columns, enableSorting, sortingState }: Prop
                     }
 
                     return (
-                        <S.HeadCell key={id} sx={{ width: meta?.width, maxWidth }}>
+                        <S.HeadCell key={id} sx={{ width: getSize(), maxWidth }}>
                             {needSorting ? (
                                 <TableSortLabel IconComponent={IconComponent} onClick={getToggleSortingHandler()}>
                                     {header}

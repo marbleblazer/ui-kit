@@ -23,6 +23,7 @@ type Props<TData> = {
     isLoading?: boolean;
     enableSorting?: boolean;
     expandedRowIndex?: number;
+    isVirtualized?: boolean;
     onRowClick?(row: TData): void;
     renderExpandableBlock?(row: TData): ReactElement;
     renderEmptyBlock?(): ReactElement;
@@ -35,6 +36,7 @@ export const Table = <TData,>({
     page,
     isLoading,
     enableSorting = false,
+    isVirtualized = false,
     expandedRowIndex: defaultExpandedRowIndex,
     onRowClick,
     renderExpandableBlock,
@@ -70,7 +72,13 @@ export const Table = <TData,>({
     }, [defaultExpandedRowIndex]);
 
     return (
-        <S.TableWrapper sx={{ height: '100%', overflowY: 'auto', ...sx }}>
+        <S.TableWrapper
+            sx={{
+                height: '100%',
+                overflowY: isVirtualized ? 'initial' : 'auto',
+                ...sx,
+            }}
+        >
             {rows.length === 0 && isLoading === false && renderEmptyBlock ? (
                 renderEmptyBlock()
             ) : (
