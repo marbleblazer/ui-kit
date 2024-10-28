@@ -87,4 +87,6 @@ export { Switch } from './switch';
 
 export { LineChart } from './charts/line-chart';
 
-export { BaseWidget, ListWidget } from './widgets';
+export { DonutChart } from './charts/donut-chart';
+
+export { BaseWidget, ListWidget, DonutWidget } from './widgets';
