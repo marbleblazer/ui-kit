@@ -60,6 +60,16 @@ export const ThreeMarkers: Story = {
                                 properties: {
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
+                                    popupData: {
+                                        lastUpdate: '1 minute ago',
+                                        address: '18 Rüdesheimer Straße, 53175 Bonn, Nordrhein-Westfalen, Germany',
+                                        motion: 'Stationary',
+                                        unitName: 'Car_2',
+                                        uniqueId: '1344214',
+                                        model: 'Tesla model 1',
+                                        speed: '1 minute ago',
+                                        driver: 'Anton Driver',
+                                    },
                                 },
                             },
                             {

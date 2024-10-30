@@ -15,6 +15,7 @@ import { MapDrawModeTabs } from './map-draw-tabs';
 import { AnyObject } from '@chirp/ui/helpers/global';
 import { customDrawStyles } from './constance';
 import { mapMarkerSvgString } from './mp-marker-string';
+import { createPopupContent } from './create-popup-content';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -26,6 +27,7 @@ type Props = {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
     onChange?: (value: GeoJSON.GeoJSON) => void;
     accessToken?: string;
+    centeringCoordinates?: Coordinates;
     getMapStyleId?: (themeMode: string) => string;
 };
 
@@ -36,6 +38,7 @@ export const Map: React.FC<Props> = ({
     data,
     isDrawable = false,
     isSingleDraw = true,
+    centeringCoordinates,
     getMapStyleId = getUiKitMapStyleId,
 }) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -202,14 +205,21 @@ export const Map: React.FC<Props> = ({
                 if (data.type === 'FeatureCollection') {
                     for (const marker of data.features) {
                         const markerGeometry = marker.geometry;
+                        const popupData: Record<string, string> = marker?.properties?.popupData;
                         if (markerGeometry.type === 'Point') {
                             if (data.features.length === 1) {
                                 singleMarkerCenter = markerGeometry.coordinates;
                             }
                             const customEachMarker = document && document.createElement('div');
                             customEachMarker.innerHTML = mapMarkerSvgString;
+
+                            const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(
+                                createPopupContent(popupData),
+                            );
+
                             new mapboxgl.Marker(customEachMarker)
                                 .setLngLat(markerGeometry.coordinates as [number, number])
+                                .setPopup(popup)
                                 .addTo(map.current);
                         }
                     }
@@ -247,6 +257,12 @@ export const Map: React.FC<Props> = ({
         setActiveDrawMode(key);
         drawRef.current.changeMode(key);
     };
+
+    useEffect(() => {
+        if (map.current && centeringCoordinates?.lat && centeringCoordinates?.lon) {
+            map.current.flyTo({ center: [centeringCoordinates?.lat, centeringCoordinates?.lon], essential: true });
+        }
+    }, [centeringCoordinates]);
 
     return (
         <S.MapContainer width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>
