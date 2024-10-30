@@ -148,7 +148,7 @@ const LineChart: FC<ILineChartProps> = memo(
 
         return (
             <>
-                <ReactEChartsCore lazyUpdate={true} echarts={echarts} option={option} style={style} />
+                <ReactEChartsCore notMerge lazyUpdate={true} echarts={echarts} option={option} style={style} />
             </>
         );
     },

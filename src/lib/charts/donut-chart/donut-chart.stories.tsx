@@ -5,7 +5,7 @@ import { DonutChart } from '@chirp/ui/lib';
 import { Box } from '@mui/material';
 
 const meta: Meta<typeof DonutChart> = {
-    title: 'UI/DonutChart',
+    title: 'UI/Charts/DonutChart',
     component: DonutChart,
     parameters: {
         layout: 'centered',
