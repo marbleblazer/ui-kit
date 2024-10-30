@@ -7,14 +7,14 @@ import { CustomTypographyVariant } from '@chirp/ui/styles/theme/template';
 
 export type CheckoxVariantType = 'check' | 'visible';
 
-export interface IChecboxProps extends CheckboxProps {
+export interface ICheckboxProps extends CheckboxProps {
     label?: ReactNode;
     variant?: CheckoxVariantType;
     labelTypographyVariant?: CustomTypographyVariant;
     formControlLabelProps?: Omit<FormControlLabelProps, 'label' | 'control'>;
 }
 
-export const Checkbox: FC<IChecboxProps> = ({
+export const Checkbox: FC<ICheckboxProps> = ({
     label,
     variant = 'check',
     labelTypographyVariant = 'body1',
