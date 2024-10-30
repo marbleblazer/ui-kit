@@ -16,9 +16,3 @@ export const HeaderWrapper = styled('div')(({ theme }) => ({
     whiteSpace: 'nowrap',
     background: theme.palette.background.primary,
 }));
-
-export const Marker = styled('div')(() => ({
-    width: '8px',
-    height: '8px',
-    borderRadius: '50%',
-}));

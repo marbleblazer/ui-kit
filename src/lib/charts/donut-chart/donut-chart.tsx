@@ -4,7 +4,7 @@ import { PieChart as EChartsPieChart } from 'echarts/charts';
 import { TitleComponent } from 'echarts/components';
 import { SVGRenderer } from 'echarts/renderers';
 import { FC, memo } from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { EChartsOption } from 'echarts';
 import { default as CenterSubstract } from './center-substract.svg?react';
 import * as S from './style';
@@ -25,6 +25,7 @@ export interface IDonutChartProps {
 }
 
 const DonutChart: FC<IDonutChartProps> = memo(({ colors, centerText, data }) => {
+    const theme = useTheme();
     const option: EChartsOption = {
         series: [
             {
@@ -58,6 +59,7 @@ const DonutChart: FC<IDonutChartProps> = memo(({ colors, centerText, data }) => 
             </S.Text>
             <CenterSubstract
                 style={{
+                    color: theme.palette.background.secondary,
                     position: 'absolute',
                     zIndex: 3,
                     top: '-3px',

@@ -3,7 +3,7 @@ import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { DonutChart } from '@chirp/ui/lib';
 import { Box } from '@mui/system';
 import { Stack } from '@mui/material';
-import { DonutWidgetListItem } from './list-item';
+import { ColorListItem } from '../common/color-list-item/list-item';
 import { DonutChartDataType } from '../../charts/donut-chart/donut-chart';
 
 export interface IDonutWidgetProps extends IBaseWidgetProps {
@@ -22,7 +22,7 @@ export const DonutWidget = (props: PropsWithChildren<IDonutWidgetProps>) => {
                     <DonutChart centerText={centerText} colors={colors} data={data} />
                     <Stack gap={1} width="100%">
                         {data?.map((item, idx) => (
-                            <DonutWidgetListItem
+                            <ColorListItem
                                 key={item.name}
                                 name={item.name}
                                 value={item.value}
