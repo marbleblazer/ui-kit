@@ -1,5 +1,4 @@
 import { PropsWithChildren, useState } from 'react';
-import * as S from './styles';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { Stack, Typography } from '@mui/material';
 import { BaseWidgetCustomHeader } from '../base-widget/base-widget-custom-header';
@@ -8,18 +7,18 @@ export interface IListWidgetProps<T> extends IBaseWidgetProps {
     data: T[];
     nameKey: keyof T;
     valueKey: keyof T;
-    columnNames: string[];
-    renderSelectedContent?: (item: T) => JSX.Element;
+    renderFilters?: JSX.Element;
+    renderSelectedContent: (item: T) => JSX.Element;
 }
 
-export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) => {
-    const { data, nameKey, valueKey, columnNames, renderSelectedContent, title, ...baseWidgetProps } = props;
+export const ListWidgetWithFilters = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) => {
+    const { data, nameKey, valueKey, renderSelectedContent, title, renderFilters, ...baseWidgetProps } = props;
     const [selectedItem, setSelectedItem] = useState<T | null>(null);
 
     return (
         <BaseWidget
-            {...baseWidgetProps}
             title={title}
+            {...baseWidgetProps}
             customHeader={
                 selectedItem !== null ? (
                     <BaseWidgetCustomHeader
@@ -30,31 +29,18 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                 ) : undefined
             }
         >
-            {selectedItem && renderSelectedContent ? (
+            {selectedItem ? (
                 renderSelectedContent(selectedItem)
             ) : (
-                <>
-                    <Stack justifyContent="space-between" direction="row" height={16}>
-                        {columnNames.map((name) => (
-                            <S.HeaderWrapper>
-                                <Typography
-                                    sx={{
-                                        color: 'text.tertiary',
-                                    }}
-                                    variant="caption"
-                                >
-                                    {name}
-                                </Typography>
-                            </S.HeaderWrapper>
-                        ))}
-                    </Stack>
+                <Stack gap={3}>
+                    {renderFilters}
                     <Stack
                         gap={3}
                         height={110}
                         overflow="auto"
                         pr={2}
                         sx={{
-                            cursor: renderSelectedContent ? 'pointer' : 'default',
+                            cursor: 'pointer',
                         }}
                     >
                         {data.map((row, index) => (
@@ -63,7 +49,7 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                                 direction="row"
                                 height={16}
                                 key={index}
-                                onClick={() => renderSelectedContent && setSelectedItem(row)}
+                                onClick={() => setSelectedItem(row)}
                             >
                                 <Typography
                                     sx={{
@@ -85,7 +71,7 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                             </Stack>
                         ))}
                     </Stack>
-                </>
+                </Stack>
             )}
         </BaseWidget>
     );

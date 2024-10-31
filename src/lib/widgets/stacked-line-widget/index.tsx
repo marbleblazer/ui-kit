@@ -8,7 +8,7 @@ import { ColorListItem } from '../common/color-list-item/list-item';
 import { arrayToMap } from '@chirp/ui/helpers/array-to-map';
 
 import * as S from './styles';
-import { CustomHeader } from './custom-header';
+import { BaseWidgetCustomHeader } from '../base-widget/base-widget-custom-header';
 import { CurrentItemContent } from './current-item-content';
 
 type OptionType = {
@@ -66,7 +66,7 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
             {...baseWidgetProps}
             customHeader={
                 currentItemIdx !== null ? (
-                    <CustomHeader
+                    <BaseWidgetCustomHeader
                         typeText={title}
                         title={mappedOptions[currentItemIdx]?.label}
                         onBackClick={() => setCurrentItemIdx(null)}
