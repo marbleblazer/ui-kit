@@ -75,37 +75,3 @@ export const Default: Story = {
         );
     },
 };
-
-// export const FiveItems: Story = {
-//     render: () => {
-//         const [favoriteState, setFavoriteState] = useState(false);
-//         const [deleteState, setDeleteState] = useState(false);
-
-//         return (
-//             <Box
-//                 p={5}
-//                 sx={{
-//                     width: '440px',
-//                     height: '487px',
-//                     background: 'gray',
-//                 }}
-//             >
-//                 <StackedLineChartWidget
-//                     isFavorite={favoriteState}
-//                     onFavoriteClick={() => setFavoriteState(!favoriteState)}
-//                     onDeleteClick={() => setDeleteState(!deleteState)}
-//                     data={[
-//                         { name: 'Stationary ', value: 5 },
-//                         { name: 'Stationary with ignition on', value: 0 },
-//                         { name: 'Moving', value: 1 },
-//                         { name: 'No actual state', value: 0 },
-//                         { name: 'No coordinates', value: 0 },
-//                     ]}
-//                     colors={['#50D24C', '#E9C05A', '#7AD9EA', '#586DEC', '#E85A2D']}
-//                     type="online"
-//                     title="Motion state"
-//                 />
-//             </Box>
-//         );
-//     },
-// };

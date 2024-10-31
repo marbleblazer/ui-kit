@@ -81,6 +81,7 @@ export const Map: React.FC<Props> = ({
             style: getMapStyleId(palette.mode),
             zoom: 6,
             minZoom: 4,
+            projection: { name: 'equirectangular' },
             scrollZoom,
             logoPosition: 'bottom-right',
             maxBounds: [

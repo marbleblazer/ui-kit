@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DonutWidget } from '@chirp/ui/lib';
-import { Box } from '@mui/system';
+import { Box, Stack } from '@mui/system';
 import { useState } from 'react';
 
 const meta: Meta<typeof DonutWidget> = {
@@ -42,6 +42,12 @@ export const Default: Story = {
                     colors={['#50D24C', '#E85A2D']}
                     type="online"
                     title="Connection state"
+                    renderSelectedContent={({ name }) => (
+                        <Stack>
+                            any dynamic content
+                            <Box>{name}</Box>
+                        </Stack>
+                    )}
                 />
             </Box>
         );
@@ -76,6 +82,12 @@ export const FiveItems: Story = {
                     colors={['#50D24C', '#E9C05A', '#7AD9EA', '#586DEC', '#E85A2D']}
                     type="online"
                     title="Motion state"
+                    renderSelectedContent={({ name }) => (
+                        <Stack>
+                            any dynamic content
+                            <Box>{name}</Box>
+                        </Stack>
+                    )}
                 />
             </Box>
         );
