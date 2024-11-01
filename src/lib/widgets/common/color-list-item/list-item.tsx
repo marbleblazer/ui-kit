@@ -11,15 +11,22 @@ export interface IColorListItemProps {
 }
 
 export const ColorListItem: FC<IColorListItemProps> = ({ color, name, value, onClick }) => {
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+
+        if (onClick) {
+            onClick();
+        }
+    };
+
     return (
         <Stack
             direction="row"
             justifyContent="space-between"
-            alignItems="center"
             sx={{
                 cursor: onClick && 'pointer',
             }}
-            onClick={onClick}
+            onClick={handleClick}
         >
             <Stack direction="row" gap={1} alignItems="center">
                 <S.Marker sx={{ backgroundColor: color }} />

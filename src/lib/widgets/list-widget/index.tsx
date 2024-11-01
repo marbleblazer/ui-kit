@@ -35,8 +35,8 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
             ) : (
                 <>
                     <Stack justifyContent="space-between" direction="row" height={16}>
-                        {columnNames.map((name) => (
-                            <S.HeaderWrapper>
+                        {columnNames.map((name, idx) => (
+                            <S.HeaderWrapper key={`${name}-${idx}`}>
                                 <Typography
                                     sx={{
                                         color: 'text.tertiary',

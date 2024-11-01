@@ -10,7 +10,6 @@ export interface IBaseWidgetProps {
     title: string;
     isFavorite?: boolean;
     customHeader?: React.ReactNode;
-    customHeader?: React.ReactNode;
     onFavoriteClick: () => void;
     onDeleteClick: () => void;
     wrapperSxProps?: SxProps;
@@ -36,12 +35,12 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
                     <>
                         <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                             <Stack gap={2}>
-                                <S.WidgetTypeName color="text.tertiary" variant="overline">
-                                    {title}
-                                </S.WidgetTypeName>
                                 <Typography variant="caption" fontWeight={500}>
-                                    {resolveWidgetTypName}
+                                    {title}
                                 </Typography>
+                                <S.WidgetTypeName color="text.tertiary" variant="overline">
+                                    {resolveWidgetTypName}
+                                </S.WidgetTypeName>
                             </Stack>
                             <Stack direction="row">
                                 <IconButton size="small" variant="gray" onClick={onFavoriteClick}>
