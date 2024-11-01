@@ -19,13 +19,13 @@ export const BaseWidgetCustomHeader: FC<IBaseWidgetCustomHeaderProps> = ({ title
             </IconButton>
             <Stack gap={2}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <S.WidgetTypeName color="text.tertiary" variant="overline">
-                        {typeText}
-                    </S.WidgetTypeName>
+                    <Typography variant="caption" fontWeight={500}>
+                        {title}
+                    </Typography>
                 </Stack>
-                <Typography variant="caption" fontWeight={500}>
-                    {title}
-                </Typography>
+                <S.WidgetTypeName color="text.tertiary" variant="overline">
+                    {typeText}
+                </S.WidgetTypeName>
             </Stack>
         </Stack>
     );
