@@ -1,16 +1,16 @@
 import { ListItemProps as MUIListItemProps, Stack } from '@mui/material';
 import { FC } from 'react';
 import * as S from '../style';
-import { Checkbox, IChecboxProps } from '../../checkbox';
+import { Checkbox, ICheckboxProps } from '../../checkbox';
 import { Typography } from '../../typogrpahy';
 
 interface IListItemProps extends MUIListItemProps {
     title: string;
     subTitle?: string;
-    checkobxProps?: Omit<IChecboxProps, 'label'>; // if undefined - no checkbox
+    checkboxProps?: Omit<ICheckboxProps, 'label'>; // if undefined - no checkbox
 }
 
-export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProps, ...props }) => {
+export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkboxProps, ...props }) => {
     return (
         <S.ListItem
             sx={{
@@ -19,7 +19,7 @@ export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProp
             {...props}
         >
             <Stack direction="row">
-                {checkobxProps ? (
+                {checkboxProps ? (
                     <Checkbox
                         formControlLabelProps={{
                             sx: {
@@ -28,7 +28,7 @@ export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkobxProp
                                 mr: 0,
                             },
                         }}
-                        {...checkobxProps}
+                        {...checkboxProps}
                     />
                 ) : null}
                 <Stack>

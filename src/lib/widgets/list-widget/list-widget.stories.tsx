@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ListWidget } from '@chirp/ui/lib';
-import { Box } from '@mui/system';
+import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 
 const meta: Meta<typeof ListWidget> = {
@@ -67,6 +67,42 @@ export const Default: Story = {
                     valueKey="value"
                     type="online"
                     title="Geofences with units"
+                />
+            </Box>
+        );
+    },
+};
+
+export const WiithCurentItem: Story = {
+    render: () => {
+        const [favoriteState, setFavoriteState] = useState(false);
+        const [deleteState, setDeleteState] = useState(false);
+
+        return (
+            <Box
+                p={5}
+                sx={{
+                    width: '440px',
+                    height: '487px',
+                    background: 'gray',
+                }}
+            >
+                <ListWidget
+                    isFavorite={favoriteState}
+                    onFavoriteClick={() => setFavoriteState(!favoriteState)}
+                    onDeleteClick={() => setDeleteState(!deleteState)}
+                    columnNames={['Geofence name', 'Number of units']}
+                    data={mockedData}
+                    nameKey="name"
+                    valueKey="value"
+                    type="online"
+                    title="Geofences with units"
+                    renderSelectedContent={({ name }) => (
+                        <Stack>
+                            any dynamic content
+                            <Box>{name}</Box>
+                        </Stack>
+                    )}
                 />
             </Box>
         );

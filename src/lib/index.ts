@@ -89,4 +89,18 @@ export { LineChart } from './charts/line-chart';
 
 export { DonutChart } from './charts/donut-chart';
 
-export { BaseWidget, ListWidget, DonutWidget } from './widgets';
+export {
+    BaseWidget,
+    ListWidget,
+    DonutWidget,
+    VerticalBarsChartWidget,
+    StackedLineChartWidget,
+    ListWidgetWithFilters,
+} from './widgets';
+
+export { VerticalBarChart } from './charts/vertical-bar-chart';
+
+export { StackedChart } from './charts/stacked-chart';
+
+export { UserPopup } from './user-popup';
+export { ConnectWalletIcon } from './connect-wallet-banner';

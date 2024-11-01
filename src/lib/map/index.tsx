@@ -15,6 +15,7 @@ import { MapDrawModeTabs } from './map-draw-tabs';
 import { AnyObject } from '@chirp/ui/helpers/global';
 import { customDrawStyles } from './constance';
 import { mapMarkerSvgString } from './mp-marker-string';
+import { createPopupContent } from './create-popup-content';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -24,8 +25,10 @@ type Props = {
     isDrawable?: boolean;
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
+    markerVisibility?: { [key: number]: boolean };
     onChange?: (value: GeoJSON.GeoJSON) => void;
     accessToken?: string;
+    centeringCoordinates?: Coordinates;
     getMapStyleId?: (themeMode: string) => string;
 };
 
@@ -36,7 +39,9 @@ export const Map: React.FC<Props> = ({
     data,
     isDrawable = false,
     isSingleDraw = true,
+    centeringCoordinates,
     getMapStyleId = getUiKitMapStyleId,
+    markerVisibility = {},
 }) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
@@ -46,9 +51,6 @@ export const Map: React.FC<Props> = ({
     const { isMobile } = useBreakpoints();
 
     const { palette } = useTheme();
-
-    const customMarker = document && document.createElement('div');
-    customMarker.innerHTML = mapMarkerSvgString;
 
     const handleChange = (feature: GeoJSON.Feature) => {
         if (!map.current) return;
@@ -78,6 +80,7 @@ export const Map: React.FC<Props> = ({
             style: getMapStyleId(palette.mode),
             zoom: 6,
             minZoom: 4,
+            projection: { name: 'equirectangular' },
             scrollZoom,
             logoPosition: 'bottom-right',
             maxBounds: [
@@ -202,21 +205,49 @@ export const Map: React.FC<Props> = ({
                 if (data.type === 'FeatureCollection') {
                     for (const marker of data.features) {
                         const markerGeometry = marker.geometry;
+                        const popupData: Record<string, string> = marker?.properties?.popupData;
+                        const id = marker.properties?.id;
+                        const isMarkerVisible = markerVisibility[id] !== false;
+
+                        // Проверка на наличие id в объекте markerVisibility
+                        const isIdInMarkerVisibility = id !== undefined && markerVisibility.hasOwnProperty(id);
+
                         if (markerGeometry.type === 'Point') {
                             if (data.features.length === 1) {
                                 singleMarkerCenter = markerGeometry.coordinates;
                             }
+
                             const customEachMarker = document && document.createElement('div');
                             customEachMarker.innerHTML = mapMarkerSvgString;
-                            new mapboxgl.Marker(customEachMarker)
-                                .setLngLat(markerGeometry.coordinates as [number, number])
-                                .addTo(map.current);
+
+                            const markerInstance = new mapboxgl.Marker(customEachMarker).setLngLat(
+                                markerGeometry.coordinates as [number, number],
+                            );
+
+                            if (popupData) {
+                                const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(
+                                    createPopupContent(popupData),
+                                );
+                                markerInstance.setPopup(popup);
+                            }
+
+                            if (!isMarkerVisible || !isIdInMarkerVisibility) {
+                                markerInstance.addTo(map.current);
+                            }
                         }
                     }
                 }
 
-                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
+                // (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
             }
+
+            map.current?.addLayer({
+                id: 'startPoint',
+                type: 'circle',
+                source: 'route',
+                paint: { 'circle-radius': 6, 'circle-color': '#ff0000' },
+                filter: ['==', 'markerType', 'start'],
+            });
         }
 
         if (singleMarkerCenter?.length === 2) {
@@ -228,7 +259,7 @@ export const Map: React.FC<Props> = ({
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
         }
-    }, [data, isDrawable]);
+    }, [data, isDrawable, markerVisibility]);
 
     useEffect(() => {
         if (!map.current) return;
@@ -239,7 +270,7 @@ export const Map: React.FC<Props> = ({
             map.current.on('load', () => {
                 addDataToMap();
             });
-    }, [data, isDrawable]);
+    }, [data, isDrawable, markerVisibility]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
@@ -247,6 +278,12 @@ export const Map: React.FC<Props> = ({
         setActiveDrawMode(key);
         drawRef.current.changeMode(key);
     };
+
+    useEffect(() => {
+        if (map.current && centeringCoordinates?.lat && centeringCoordinates?.lon) {
+            map.current.flyTo({ center: [centeringCoordinates?.lat, centeringCoordinates?.lon], essential: true });
+        }
+    }, [centeringCoordinates]);
 
     return (
         <S.MapContainer width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>

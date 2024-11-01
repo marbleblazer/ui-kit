@@ -9,6 +9,7 @@ export interface IBaseWidgetProps {
     type: 'period' | 'online';
     title: string;
     isFavorite?: boolean;
+    customHeader?: React.ReactNode;
     onFavoriteClick: () => void;
     onDeleteClick: () => void;
     wrapperSxProps?: SxProps;
@@ -19,6 +20,7 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
     type,
     isFavorite,
     wrapperSxProps,
+    customHeader,
     onFavoriteClick,
     onDeleteClick,
     children,
@@ -27,21 +29,30 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
     return (
         <S.Wrapper sx={wrapperSxProps}>
             <Stack gap={2}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <S.WidgetTypeName color="text.tertiary" variant="button">
-                        {resolveWidgetTypName}
-                    </S.WidgetTypeName>
-                    <Stack direction="row">
-                        <IconButton size="small" variant="gray" onClick={onFavoriteClick}>
-                            {isFavorite ? <StarFilled /> : <StarIcon />}
-                        </IconButton>
-                        <IconButton size="small" variant="gray" onClick={onDeleteClick}>
-                            <TrashIcon />
-                        </IconButton>
-                    </Stack>
-                </Stack>
-                <Typography variant="h4">{title}</Typography>
-                <S.Divider />
+                {customHeader ? (
+                    customHeader
+                ) : (
+                    <>
+                        <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+                            <Stack gap={2}>
+                                <Typography variant="caption" fontWeight={500}>
+                                    {title}
+                                </Typography>
+                                <S.WidgetTypeName color="text.tertiary" variant="overline">
+                                    {resolveWidgetTypName}
+                                </S.WidgetTypeName>
+                            </Stack>
+                            <Stack direction="row">
+                                <IconButton size="small" variant="gray" onClick={onFavoriteClick}>
+                                    {isFavorite ? <StarFilled /> : <StarIcon />}
+                                </IconButton>
+                                <IconButton size="small" variant="gray" onClick={onDeleteClick}>
+                                    <TrashIcon />
+                                </IconButton>
+                            </Stack>
+                        </Stack>
+                    </>
+                )}
                 {children}
             </Stack>
         </S.Wrapper>
