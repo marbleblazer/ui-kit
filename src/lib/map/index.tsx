@@ -25,6 +25,7 @@ type Props = {
     isDrawable?: boolean;
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
+    markerVisibility?: { [key: number]: boolean };
     onChange?: (value: GeoJSON.GeoJSON) => void;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
@@ -40,6 +41,7 @@ export const Map: React.FC<Props> = ({
     isSingleDraw = true,
     centeringCoordinates,
     getMapStyleId = getUiKitMapStyleId,
+    markerVisibility = {},
 }) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
@@ -49,9 +51,6 @@ export const Map: React.FC<Props> = ({
     const { isMobile } = useBreakpoints();
 
     const { palette } = useTheme();
-
-    const customMarker = document && document.createElement('div');
-    customMarker.innerHTML = mapMarkerSvgString;
 
     const handleChange = (feature: GeoJSON.Feature) => {
         if (!map.current) return;
@@ -207,26 +206,39 @@ export const Map: React.FC<Props> = ({
                     for (const marker of data.features) {
                         const markerGeometry = marker.geometry;
                         const popupData: Record<string, string> = marker?.properties?.popupData;
+                        const id = marker.properties?.id;
+                        const isMarkerVisible = markerVisibility[id] !== false;
+
+                        // Проверка на наличие id в объекте markerVisibility
+                        const isIdInMarkerVisibility = id !== undefined && markerVisibility.hasOwnProperty(id);
+
                         if (markerGeometry.type === 'Point') {
                             if (data.features.length === 1) {
                                 singleMarkerCenter = markerGeometry.coordinates;
                             }
+
                             const customEachMarker = document && document.createElement('div');
                             customEachMarker.innerHTML = mapMarkerSvgString;
 
-                            const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(
-                                createPopupContent(popupData),
+                            const markerInstance = new mapboxgl.Marker(customEachMarker).setLngLat(
+                                markerGeometry.coordinates as [number, number],
                             );
 
-                            new mapboxgl.Marker(customEachMarker)
-                                .setLngLat(markerGeometry.coordinates as [number, number])
-                                .setPopup(popup)
-                                .addTo(map.current);
+                            if (popupData) {
+                                const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(
+                                    createPopupContent(popupData),
+                                );
+                                markerInstance.setPopup(popup);
+                            }
+
+                            if (!isMarkerVisible || !isIdInMarkerVisibility) {
+                                markerInstance.addTo(map.current);
+                            }
                         }
                     }
                 }
 
-                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
+                // (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
             }
         }
 
@@ -239,7 +251,7 @@ export const Map: React.FC<Props> = ({
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
         }
-    }, [data, isDrawable]);
+    }, [data, isDrawable, markerVisibility]);
 
     useEffect(() => {
         if (!map.current) return;
@@ -250,7 +262,7 @@ export const Map: React.FC<Props> = ({
             map.current.on('load', () => {
                 addDataToMap();
             });
-    }, [data, isDrawable]);
+    }, [data, isDrawable, markerVisibility]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
