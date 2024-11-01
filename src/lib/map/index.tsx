@@ -207,7 +207,7 @@ export const Map: React.FC<Props> = ({
                     for (const marker of data.features) {
                         const markerGeometry = marker.geometry;
                         const popupData: Record<string, string> = marker?.properties?.popupData;
-                        const id = marker.properties?.id;
+                        const device_id = marker.properties?.device_id;
 
                         if (markerGeometry.type === 'Point') {
                             if (data.features.length === 1) {
@@ -228,15 +228,15 @@ export const Map: React.FC<Props> = ({
                                 markerInstance.setPopup(popup);
                             }
 
-                            if (!markerVisibility[id]) {
-                                if (!markerRefs.current[id]) {
+                            if (!markerVisibility[device_id]) {
+                                if (!markerRefs.current[device_id]) {
                                     markerInstance.addTo(map.current);
-                                    markerRefs.current[id] = markerInstance;
+                                    markerRefs.current[device_id] = markerInstance;
                                 }
                             } else {
-                                if (markerRefs.current[id]) {
-                                    markerRefs.current[id].remove();
-                                    delete markerRefs.current[id];
+                                if (markerRefs.current[device_id]) {
+                                    markerRefs.current[device_id].remove();
+                                    delete markerRefs.current[device_id];
                                 }
                             }
                         }
