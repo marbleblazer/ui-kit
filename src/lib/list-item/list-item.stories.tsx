@@ -44,7 +44,7 @@ export const CheckableBaseListItem: Story = {
         <List sx={{ width: '500px' }}>
             {[1, 2, 3].map((value) => (
                 <ListItem
-                    checkobxProps={{ variant: 'check' }}
+                    checkboxProps={{ variant: 'check' }}
                     title={`Title item ${value}`}
                     subTitle={`Subtitle item ${value}`}
                     key={value}
@@ -68,7 +68,7 @@ export const VisibleBaseListItem: Story = {
         <List sx={{ width: '500px' }}>
             {[1, 2, 3].map((value) => (
                 <ListItem
-                    checkobxProps={{ variant: 'visible' }}
+                    checkboxProps={{ variant: 'visible' }}
                     title={`Title item ${value}`}
                     subTitle={`Subtitle item ${value}`}
                     key={value}
@@ -127,14 +127,14 @@ export const AccordionListItem: Story = {
     ),
 };
 
-export const AccordionListItemCheckobx: Story = {
+export const AccordionListItemCheckbox: Story = {
     render: () => (
         <List sx={{ width: '500px' }}>
             {[1, 2, 3, 4, 5].map((value) => (
                 <ListItem.Accordion
                     title={`Title item ${value}`}
                     key={value}
-                    checkobxProps={{ variant: 'check' }}
+                    checkboxProps={{ variant: 'check' }}
                     secondaryAction={
                         <Stack
                             sx={{
@@ -174,7 +174,7 @@ export const AccordionListItemVisible: Story = {
                 <ListItem.Accordion
                     title={`Title item ${value}`}
                     key={value}
-                    checkobxProps={{ variant: 'visible' }}
+                    checkboxProps={{ variant: 'visible' }}
                     secondaryAction={
                         <Stack
                             sx={{

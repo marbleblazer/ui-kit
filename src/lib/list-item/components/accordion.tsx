@@ -2,16 +2,16 @@ import { AccordionDetails, ListItemProps as MUIListItemProps, Stack } from '@mui
 import { FC } from 'react';
 import * as S from '../style';
 import { SelectIndicator } from '../../select-indicator';
-import { Checkbox, IChecboxProps } from '../../checkbox';
+import { Checkbox, ICheckboxProps } from '../../checkbox';
 import { Typography } from '../../typogrpahy';
 
 interface IAccordionProps extends MUIListItemProps {
     title: string;
     key: string | number;
-    checkobxProps?: Omit<IChecboxProps, 'label'>; // if undefined - no checkbox
+    checkboxProps?: Omit<ICheckboxProps, 'label'>; // if undefined - no checkbox
 }
 
-export const AccordionItem: FC<IAccordionProps> = ({ title, children, secondaryAction, checkobxProps, ...props }) => {
+export const AccordionItem: FC<IAccordionProps> = ({ title, children, secondaryAction, checkboxProps, ...props }) => {
     return (
         <S.AccordionListItem
             {...props}
@@ -24,8 +24,8 @@ export const AccordionItem: FC<IAccordionProps> = ({ title, children, secondaryA
                 <Stack direction="row" className="accordion-summary-wrapper" alignItems="center">
                     <S.AccordionSummary expandIcon={<SelectIndicator />}>
                         <div className="content-container">
-                            {checkobxProps ? (
-                                <Checkbox label={title} {...checkobxProps} />
+                            {checkboxProps ? (
+                                <Checkbox label={title} {...checkboxProps} />
                             ) : (
                                 <Typography className="title" variant="body1" color="text.primary">
                                     {title}
