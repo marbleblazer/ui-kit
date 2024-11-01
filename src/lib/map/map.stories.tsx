@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Map } from '@chirp/ui/lib';
-import { Box } from '@mui/material';
+import { Box, Checkbox } from '@mui/material';
 import { useState } from 'react';
 
 const meta: Meta<typeof Map> = {
@@ -45,60 +45,75 @@ export const Default: Story = {
 };
 export const ThreeMarkers: Story = {
     render: () => {
+        const [mark, setMark] = useState<{ [key: number]: boolean }>({});
+
+        const handle = (id: number, checked: boolean) => {
+            setMark((prevMark) => ({
+                ...prevMark,
+                [id]: checked,
+            }));
+        };
+
         return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
-                <Map
-                    data={{
-                        type: 'FeatureCollection',
-                        features: [
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [47.687, 53.4745],
-                                },
-                                properties: {
-                                    title: 'Mapbox',
-                                    description: 'Washington, D.C.',
-                                    popupData: {
-                                        lastUpdate: '1 minute ago',
-                                        address: '18 Rüdesheimer Straße, 53175 Bonn, Nordrhein-Westfalen, Germany',
-                                        motion: 'Stationary',
-                                        unitName: 'Car_2',
-                                        uniqueId: '1344214',
-                                        model: 'Tesla model 1',
-                                        speed: '1 minute ago',
-                                        driver: 'Anton Driver',
+            <>
+                <Checkbox size="large" onChange={(e) => handle(1, e.target.checked)} />
+                <Box sx={{ width: '1100px', height: '1200px' }}>
+                    <Map
+                        markerVisibility={mark}
+                        data={{
+                            type: 'FeatureCollection',
+                            features: [
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [47.687, 53.4745],
+                                    },
+                                    properties: {
+                                        title: 'Mapbox',
+                                        description: 'Washington, D.C.',
+                                        id: 1,
+                                        popupData: {
+                                            lastUpdate: '1 minute ago',
+                                            address: '18 Rüdesheimer Straße, 53175 Bonn, Nordrhein-Westfalen, Germany',
+                                            motion: 'Stationary',
+                                            unitName: 'Car_2',
+                                            uniqueId: '1344214',
+                                            model: 'Tesla model 1',
+                                            speed: '1 minute ago',
+                                            driver: 'Anton Driver',
+                                        },
                                     },
                                 },
-                            },
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [49.687, 55.4745],
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [49.687, 55.4745],
+                                    },
+                                    properties: {
+                                        title: 'Mapbox',
+                                        description: 'Washington, D.C.',
+                                        id: 2,
+                                    },
                                 },
-                                properties: {
-                                    title: 'Mapbox',
-                                    description: 'Washington, D.C.',
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [45.687, 55.4745],
+                                    },
+                                    properties: {
+                                        title: 'Mapbox',
+                                        description: 'Washington, D.C.',
+                                    },
                                 },
-                            },
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [45.687, 55.4745],
-                                },
-                                properties: {
-                                    title: 'Mapbox',
-                                    description: 'Washington, D.C.',
-                                },
-                            },
-                        ],
-                    }}
-                    coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
-                />
-            </Box>
+                            ],
+                        }}
+                        coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
+                    />
+                </Box>
+            </>
         );
     },
 };

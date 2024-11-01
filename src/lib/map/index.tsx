@@ -49,6 +49,7 @@ export const Map: React.FC<Props> = ({
     const drawRef = useRef<MapboxDraw | null>(null);
     const [_, setActiveDrawMode] = useState('');
     const { isMobile } = useBreakpoints();
+    const markerRefs = useRef<{ [key: number]: mapboxgl.Marker }>({});
 
     const { palette } = useTheme();
 
@@ -207,10 +208,6 @@ export const Map: React.FC<Props> = ({
                         const markerGeometry = marker.geometry;
                         const popupData: Record<string, string> = marker?.properties?.popupData;
                         const id = marker.properties?.id;
-                        const isMarkerVisible = markerVisibility[id] !== false;
-
-                        // Проверка на наличие id в объекте markerVisibility
-                        const isIdInMarkerVisibility = id !== undefined && markerVisibility.hasOwnProperty(id);
 
                         if (markerGeometry.type === 'Point') {
                             if (data.features.length === 1) {
@@ -231,8 +228,16 @@ export const Map: React.FC<Props> = ({
                                 markerInstance.setPopup(popup);
                             }
 
-                            if (!isMarkerVisible || !isIdInMarkerVisibility) {
-                                markerInstance.addTo(map.current);
+                            if (!markerVisibility[id]) {
+                                if (!markerRefs.current[id]) {
+                                    markerInstance.addTo(map.current);
+                                    markerRefs.current[id] = markerInstance;
+                                }
+                            } else {
+                                if (markerRefs.current[id]) {
+                                    markerRefs.current[id].remove();
+                                    delete markerRefs.current[id];
+                                }
                             }
                         }
                     }
@@ -273,7 +278,7 @@ export const Map: React.FC<Props> = ({
 
     useEffect(() => {
         if (map.current && centeringCoordinates?.lat && centeringCoordinates?.lon) {
-            map.current.flyTo({ center: [centeringCoordinates?.lat, centeringCoordinates?.lon], essential: true });
+            map.current.flyTo({ center: [centeringCoordinates?.lon, centeringCoordinates?.lat], essential: true });
         }
     }, [centeringCoordinates]);
 
