@@ -2,8 +2,8 @@ import { Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
 import { ConfirmationDialog } from '../confirmation-dialog';
-import { DownArrowIcon } from '../..';
 import { ListItem, ListItemContent } from './style';
+import { LogoutIcon } from '@chirp/ui/assets/icons';
 
 interface LogoutProps {
     onLogout?: () => void;
@@ -24,15 +24,14 @@ export const Logout: FC<LogoutProps> = ({ onLogout }) => {
         <>
             <ListItem onClick={handleLogout}>
                 <ListItemContent>
-                    <DownArrowIcon />
+                    <LogoutIcon />
                     <Typography>Logout</Typography>
                 </ListItemContent>
             </ListItem>
             <ConfirmationDialog
                 isOpen={isLogoutConfirmationOpen}
                 title="Are you sure that you want to logout?"
-                icon={<DownArrowIcon />}
-                // disabledDownArrowIconisLoading}
+                icon={<LogoutIcon />}
                 onConfirm={onLogout || (() => {})}
                 onCancel={handleCancel}
             />
