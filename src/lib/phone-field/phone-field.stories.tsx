@@ -17,7 +17,7 @@ type Story = StoryObj<typeof PhoneField>;
 
 export const Default: Story = {
     render: () => {
-        const [value, setValue] = useState<string>('1(234) 567-89-00');
+        const [value, setValue] = useState<string>('1(812) 567-52-00');
         return (
             <PhoneField
                 defaultCountry="ru"

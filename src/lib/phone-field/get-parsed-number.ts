@@ -1,6 +1,6 @@
 import { parsePhoneNumber } from 'libphonenumber-js';
 
-export function getCountryCode(phoneNumberStr: string) {
+export function getParsedNumber(phoneNumberStr: string) {
     // Парсинг номера телефона
     const parsedNumber = parsePhoneNumber(`+${phoneNumberStr}`);
 
