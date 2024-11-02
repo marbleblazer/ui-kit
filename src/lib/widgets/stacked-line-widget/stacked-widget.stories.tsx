@@ -75,3 +75,46 @@ export const Default: Story = {
         );
     },
 };
+
+export const Empty: Story = {
+    render: () => {
+        const [favoriteState, setFavoriteState] = useState(false);
+        const [deleteState, setDeleteState] = useState(false);
+
+        return (
+            <Box
+                p={5}
+                sx={{
+                    width: '802px',
+                    height: '487px',
+                    background: 'gray',
+                }}
+            >
+                <StackedLineChartWidget
+                    isFavorite={favoriteState}
+                    onFavoriteClick={() => setFavoriteState(!favoriteState)}
+                    onDeleteClick={() => setDeleteState(!deleteState)}
+                    selectOptions={listData}
+                    collection={[]}
+                    idKey="id"
+                    dataKey="fuel_consumption"
+                    colors={[
+                        '#5F75FF',
+                        '#FEFF84',
+                        '#FFD262',
+                        '#85EDFF',
+                        '#C9F7FF',
+                        '#CCA6FF',
+                        '#FFA6E3',
+                        '#00D134',
+                        '#CCFF5F',
+                        '#E8C92D',
+                    ]}
+                    chartStyles={{ width: '100%', height: '290px' }}
+                    type="period"
+                    title="Milleage"
+                />
+            </Box>
+        );
+    },
+};
