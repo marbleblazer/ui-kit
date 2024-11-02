@@ -103,4 +103,4 @@ export { VerticalBarChart } from './charts/vertical-bar-chart';
 export { StackedChart } from './charts/stacked-chart';
 
 export { UserPopup } from './user-popup';
-export { ConnectWalletIcon } from './connect-wallet-banner';
+export { ConnectWalletBanner } from './connect-wallet-banner';

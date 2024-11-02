@@ -245,14 +245,6 @@ export const Map: React.FC<Props> = ({
 
                 // (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
             }
-
-            map.current?.addLayer({
-                id: 'startPoint',
-                type: 'circle',
-                source: 'route',
-                paint: { 'circle-radius': 6, 'circle-color': '#ff0000' },
-                filter: ['==', 'markerType', 'start'],
-            });
         }
 
         if (singleMarkerCenter?.length === 2) {

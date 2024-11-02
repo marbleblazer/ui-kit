@@ -4,7 +4,7 @@ import { BarChart as EChartsBarChart } from 'echarts/charts';
 import { GridComponent, TitleComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { CSSProperties, FC, memo } from 'react';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 echarts.use([TitleComponent, GridComponent, EChartsBarChart, CanvasRenderer]);
 

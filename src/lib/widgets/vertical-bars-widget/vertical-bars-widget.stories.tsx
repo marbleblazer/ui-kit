@@ -48,3 +48,35 @@ export const Default: Story = {
         );
     },
 };
+
+export const Empty: Story = {
+    render: () => {
+        const [favoriteState, setFavoriteState] = useState(false);
+        const [deleteState, setDeleteState] = useState(false);
+
+        return (
+            <Box
+                p={5}
+                sx={{
+                    width: '802px',
+                    height: '487px',
+                    background: 'gray',
+                }}
+            >
+                <VerticalBarsChartWidget
+                    isFavorite={favoriteState}
+                    onFavoriteClick={() => setFavoriteState(!favoriteState)}
+                    onDeleteClick={() => setDeleteState(!deleteState)}
+                    collection={[]}
+                    listLabel="Units"
+                    valueKey="total"
+                    nameKey="name"
+                    chartStyles={{ width: '100%', height: '290px' }}
+                    type="period"
+                    unit="lt"
+                    title="Top units by fuel consumption "
+                />
+            </Box>
+        );
+    },
+};

@@ -5,7 +5,7 @@ import { Avatar } from '../avatar';
 import { Button } from '../button';
 import { ThemeSwitch } from '../theme-switch';
 import { Logout } from '../logout';
-import { ConnectWalletIcon } from '../connect-wallet-banner';
+import { ConnectWalletBanner } from '../connect-wallet-banner';
 
 interface UserPopupProps {
     onLogout?: () => void;
@@ -60,12 +60,12 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
             >
                 <S.PopupBody>
                     <S.List>
-                        <ConnectWalletIcon />
-                        <Box p="8px" width="100%">
+                        <Stack p="8px" width="100%" marginTop={1} rowGap={2}>
+                            <ConnectWalletBanner />
                             <Button fullWidth type="button" variant="primary" size="small" onClick={onWalletConnect}>
                                 Connect your wallet
                             </Button>
-                        </Box>
+                        </Stack>
                         <Logout onLogout={onLogout} />
                         <Divider />
                         <S.ListItem>

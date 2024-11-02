@@ -22,7 +22,7 @@ export interface IStackedChartProps {
 const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style, colors }) => {
     const theme = useTheme();
     const chartRef = useRef<ReactEChartsCore>(null);
-    const seriesKeys = Object.keys(data?.[0]);
+    const seriesKeys = data?.length ? Object.keys(data?.[0]) : [];
 
     const seriesData: EChartsOption['series'] = data.map((elem, idx) => ({
         type: 'line',

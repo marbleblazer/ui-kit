@@ -1,1 +1,1 @@
-export { ConnectWalletIcon } from './connect-wallet-icon';
+export { ConnectWalletBanner } from './connect-wallet-icon';

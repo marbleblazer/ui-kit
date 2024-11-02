@@ -14,6 +14,7 @@ export const PopupBody = styled(Stack)(({ theme }) => ({
     border: `1px solid ${alpha(theme.palette.border.primary, theme.palette.mode === 'dark' ? 0.1 : 0.6)}`,
     backgroundColor: theme.palette.background.primary,
     overflow: 'hidden',
+    maxWidth: '220px',
 }));
 
 export const List = styled(MuiList)(() => ({
