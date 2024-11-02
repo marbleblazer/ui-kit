@@ -10,7 +10,7 @@ import { ConnectWalletIcon } from '../connect-wallet-banner';
 interface UserPopupProps {
     onLogout?: () => void;
     onWalletConnect?: () => void;
-    onChangeMode?: () => void;
+    onChangeMode?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
     isDarkMode?: boolean;
     name?: string;
 }
