@@ -56,3 +56,6 @@ export { LoRaWanDeviceBigIcon, LoRaWanDeviceIcon } from '../icons';
 export { SimDeviceIcon, SimDeviceBigIcon } from '../icons';
 export { default as CarIcon } from './car.svg?react';
 export { default as StarFilled } from './star-filled.svg?react';
+export { default as LeftArrowBlackIcon } from './left-arrow-black.svg?react';
+export { default as SuiIcon } from './sui.svg?react';
+export { default as ConnectWalletIcon } from './connect-wallet.svg?react';

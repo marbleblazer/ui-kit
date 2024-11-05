@@ -6,7 +6,7 @@ import { mockdata } from '../mock-data';
 import { Box } from '@mui/material';
 
 const meta: Meta<typeof LineChart> = {
-    title: 'UI/LineChart',
+    title: 'UI/Charts/LineChart',
     component: LineChart,
     parameters: {
         layout: 'centered',

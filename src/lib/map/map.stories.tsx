@@ -60,6 +60,17 @@ export const ThreeMarkers: Story = {
                                 properties: {
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
+                                    device_id: 1,
+                                    popupData: {
+                                        lastUpdate: '1 minute ago',
+                                        address: '18 Rüdesheimer Straße, 53175 Bonn, Nordrhein-Westfalen, Germany',
+                                        motion: 'Stationary',
+                                        unitName: 'Car_2',
+                                        uniqueId: '1344214',
+                                        model: 'Tesla model 1',
+                                        speed: '1 minute ago',
+                                        driver: 'Anton Driver',
+                                    },
                                 },
                             },
                             {
@@ -69,6 +80,7 @@ export const ThreeMarkers: Story = {
                                     coordinates: [49.687, 55.4745],
                                 },
                                 properties: {
+                                    device_id: 2,
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
                                 },
@@ -80,6 +92,7 @@ export const ThreeMarkers: Story = {
                                     coordinates: [45.687, 55.4745],
                                 },
                                 properties: {
+                                    device_id: 3,
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
                                 },

@@ -8,7 +8,7 @@ export const LogoutIcon: FC = () => (
             strokeLinecap="round"
             strokeLinejoin="round"
         />
-        <path d="M15.833 10H8.95801" stroke="#656565" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M15.833 10H8.95801" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
         <path
             d="M12.708 3.95703H5.62467C4.7042 3.95703 3.95801 4.70322 3.95801 5.6237V14.3737C3.95801 15.2942 4.7042 16.0404 5.62467 16.0404H12.708"
             stroke="currentColor"
