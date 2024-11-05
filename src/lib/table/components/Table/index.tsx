@@ -75,7 +75,7 @@ export const Table = <TData,>({
         <S.TableWrapper
             sx={{
                 height: '100%',
-                overflowY: isVirtualized ? 'initial' : 'auto',
+                overflow: isVirtualized ? 'initial' : 'auto',
                 ...sx,
             }}
         >

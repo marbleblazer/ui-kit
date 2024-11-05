@@ -11,6 +11,7 @@ export const createComponents: ComponentCreator = (palette) => ({
 
                 '& ::-webkit-scrollbar': {
                     width: '4px',
+                    height: '4px',
                 },
                 '& ::-webkit-scrollbar-track': {
                     backgroundColor: palette?.primaryColors.secondary,
