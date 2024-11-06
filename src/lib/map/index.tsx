@@ -208,6 +208,7 @@ export const Map: React.FC<Props> = ({
                         const markerGeometry = marker.geometry;
                         const popupData: Record<string, string> = marker?.properties?.popupData;
                         const device_id = marker.properties?.device_id;
+                        const routeId = marker.properties?.routeId;
 
                         if (markerGeometry.type === 'Point') {
                             if (data.features.length === 1) {
@@ -239,11 +240,62 @@ export const Map: React.FC<Props> = ({
                                     delete markerRefs.current[device_id];
                                 }
                             }
+                        } else if (markerGeometry.type === 'LineString') {
+                            const sourceId = `route-${routeId}`;
+                            if (map.current.getSource(sourceId)) {
+                                (map.current.getSource(sourceId) as mapboxgl.GeoJSONSource).setData({
+                                    type: 'FeatureCollection',
+                                    features: [marker],
+                                });
+                            } else {
+                                map.current.addSource(sourceId, {
+                                    type: 'geojson',
+                                    data: {
+                                        type: 'FeatureCollection',
+                                        features: [marker],
+                                    },
+                                });
+                                map.current.addLayer({
+                                    id: sourceId,
+                                    type: 'line',
+                                    source: sourceId,
+                                    layout: {
+                                        'line-join': 'round',
+                                        'line-cap': 'round',
+                                    },
+                                    paint: {
+                                        'line-color': '#FF4D14',
+                                        'line-width': 1,
+                                    },
+                                });
+                            }
+                            // Отрисовка маркеров на линии
+                            if (markerGeometry.coordinates && Array.isArray(markerGeometry.coordinates)) {
+                                markerGeometry.coordinates.forEach((coordinate, index) => {
+                                    if (Array.isArray(coordinate) && coordinate.length === 2) {
+                                        const markerElement = document.createElement('div');
+
+                                        if (index === 0) {
+                                            markerElement.classList.add('start-line-marker');
+                                        } else if (index === markerGeometry.coordinates.length - 1) {
+                                            markerElement.classList.add('end-line-marker');
+                                        } else {
+                                            markerElement.classList.add('common-line-marker');
+                                        }
+
+                                        if (map.current) {
+                                            const lineMarker = new mapboxgl.Marker(markerElement)
+                                                .setLngLat(coordinate as [number, number])
+                                                .addTo(map.current);
+
+                                            markerRefs.current[routeId] = lineMarker;
+                                        }
+                                    }
+                                });
+                            }
                         }
                     }
                 }
-
-                // (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
             }
         }
 
