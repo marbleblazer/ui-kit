@@ -244,41 +244,42 @@ export const Map: React.FC<Props> = ({
                             }
                         } else if (markerGeometry.type === 'LineString') {
                             const sourceId = `route-${lineId}`;
+                            if (markerVisibility[lineId] !== undefined) {
+                                if (map.current.getSource(sourceId)) {
+                                    // Visibility линий
+                                    if (markerVisibility[lineId]) {
+                                        map.current.setLayoutProperty(sourceId, 'visibility', 'visible');
+                                    } else {
+                                        map.current.setLayoutProperty(sourceId, 'visibility', 'none');
+                                    }
 
-                            if (map.current.getSource(sourceId)) {
-                                // Visibility линий
-                                if (markerVisibility[lineId]) {
-                                    map.current.setLayoutProperty(sourceId, 'visibility', 'visible');
-                                } else {
-                                    map.current.setLayoutProperty(sourceId, 'visibility', 'none');
-                                }
-
-                                (map.current.getSource(sourceId) as mapboxgl.GeoJSONSource).setData({
-                                    type: 'FeatureCollection',
-                                    features: [marker],
-                                });
-                            } else {
-                                map.current.addSource(sourceId, {
-                                    type: 'geojson',
-                                    data: {
+                                    (map.current.getSource(sourceId) as mapboxgl.GeoJSONSource).setData({
                                         type: 'FeatureCollection',
                                         features: [marker],
-                                    },
-                                });
+                                    });
+                                } else {
+                                    map.current.addSource(sourceId, {
+                                        type: 'geojson',
+                                        data: {
+                                            type: 'FeatureCollection',
+                                            features: [marker],
+                                        },
+                                    });
 
-                                map.current.addLayer({
-                                    id: sourceId,
-                                    type: 'line',
-                                    source: sourceId,
-                                    layout: {
-                                        'line-join': 'round',
-                                        'line-cap': 'round',
-                                    },
-                                    paint: {
-                                        'line-color': '#FF4D14',
-                                        'line-width': 1,
-                                    },
-                                });
+                                    map.current.addLayer({
+                                        id: sourceId,
+                                        type: 'line',
+                                        source: sourceId,
+                                        layout: {
+                                            'line-join': 'round',
+                                            'line-cap': 'round',
+                                        },
+                                        paint: {
+                                            'line-color': '#FF4D14',
+                                            'line-width': 1,
+                                        },
+                                    });
+                                }
                             }
 
                             // Отрисовка маркеров на линии
