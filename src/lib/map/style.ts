@@ -1,4 +1,4 @@
-import { alpha, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import { Box } from '@mui/material';
 
 import { CurrentTheme, SIDEBAR_WIDTH } from '@chirp/ui/styles/constants';
@@ -393,6 +393,29 @@ export const MapContainer = styled(Box, {
             color: theme.palette.text.tertiary,
             padding: '8px',
         },
+
+    '.common-line-marker': {
+        width: '6px',
+        height: '6px',
+        backgroundColor: theme.palette.accent.accent,
+        borderRadius: '50%',
+    },
+
+    '.start-line-marker': {
+        width: '6px',
+        height: '6px',
+        backgroundColor: theme.palette.accent.accent,
+        borderRadius: '50%',
+        boxShadow: '0 0 11.08px #55E050, 0 0 28px #55E050',
+    },
+
+    '.end-line-marker': {
+        width: '6px',
+        height: '6px',
+        backgroundColor: theme.palette.accent.accent,
+        borderRadius: '50%',
+        boxShadow: '0 0 11.08px red, 0 0 28px red',
+    },
 }));
 
 export const MapDrawModeTabsWrapper = styled(Box)(() => ({

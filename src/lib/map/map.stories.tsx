@@ -106,6 +106,95 @@ export const ThreeMarkers: Story = {
     },
 };
 
+export const LineWithPolygons: Story = {
+    render: () => {
+        const [markerVisibility, setMarkerVisibility] = useState({ 1: true, 2: true, 3: true });
+
+        const handleVisibilityChange = (deviceId: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+            setMarkerVisibility((prevVisibility) => ({
+                ...prevVisibility,
+                [deviceId]: event.target.checked,
+            }));
+        };
+
+        return (
+            <Box sx={{ width: '900px', height: '1600px' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 2 }}>
+                    <label>
+                        <input type="checkbox" checked={markerVisibility[1]} onChange={handleVisibilityChange(1)} />
+                        Line 1
+                    </label>
+                    <label>
+                        <input type="checkbox" checked={markerVisibility[2]} onChange={handleVisibilityChange(2)} />
+                        Line 2
+                    </label>
+                    <label>
+                        <input type="checkbox" checked={markerVisibility[3]} onChange={handleVisibilityChange(3)} />
+                        Line 3
+                    </label>
+                </Box>
+                <Map
+                    markerVisibility={markerVisibility}
+                    isLineMarkersNeeded
+                    data={{
+                        type: 'FeatureCollection',
+                        features: [
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'LineString',
+                                    coordinates: [
+                                        [37.707938391380537, 50.629305557231135],
+                                        [38.36757031342043, 49.58805663850933],
+                                        [38.988345205065315, 51.172665398308254],
+                                        [39.904827800820726, 52.33581991843607],
+                                    ],
+                                },
+                                properties: {
+                                    device_id: 1,
+                                    lineId: 1,
+                                },
+                            },
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'LineString',
+                                    coordinates: [
+                                        [36.707938391380537, 50.629305557231135],
+                                        [37.36757031342043, 49.58805663850933],
+                                        [37.988345205065315, 51.172665398308254],
+                                        [38.904827800820726, 52.33581991843607],
+                                    ],
+                                },
+                                properties: {
+                                    device_id: 2,
+                                    lineId: 2,
+                                },
+                            },
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'LineString',
+                                    coordinates: [
+                                        [35.707938391380537, 50.629305557231135],
+                                        [36.36757031342043, 49.58805663850933],
+                                        [36.988345205065315, 51.172665398308254],
+                                        [38.904827800820726, 52.33581991843607],
+                                    ],
+                                },
+                                properties: {
+                                    device_id: 3,
+                                    lineId: 3,
+                                },
+                            },
+                        ],
+                    }}
+                />
+            </Box>
+        );
+    },
+};
+
 export const Drawable: Story = {
     render: () => {
         const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>({
