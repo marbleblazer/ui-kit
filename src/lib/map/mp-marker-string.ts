@@ -17,3 +17,18 @@ export const mapMarkerSvgString = `<svg width="154" height="154" viewBox="0 0 15
         </filter>
     </defs>
 </svg>`;
+
+export const mapMarkerArrowSvgString = `
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_3877_59809)">
+      <path d="M19.8242 26.6316L10.4252 13.4228L26.6316 13.8288L20.1376 18.587L19.8242 26.6316Z" 
+            fill="#FF4D14" stroke="#FF4D14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M19.9169 18.4707L17.4888 17.1797" stroke="#FF4D14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_3877_59809">
+        <rect width="24" height="24" fill="white" transform="translate(0.597656 21.7891) rotate(-62)"/>
+      </clipPath>
+    </defs>
+  </svg>
+`;
