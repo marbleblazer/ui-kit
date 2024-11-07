@@ -1,6 +1,6 @@
 {
     "name": "@chirpwireless/ui-kit",
-    "version": "0.27.0",
+    "version": "0.29.0",
     "type": "module",
     "declaration": true,
     "main": "dist/index.cjs.js",
@@ -45,6 +45,7 @@
         "@turf/distance": "^7.1.0",
         "echarts": "^5.5.1",
         "echarts-for-react": "^3.0.2",
+        "libphonenumber-js": "^1.11.12",
         "mapbox-gl": "^3.6.0",
         "mapbox-gl-draw-geodesic": "^2.3.1",
         "moment": "^2.30.1",
