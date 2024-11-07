@@ -2,6 +2,7 @@ import { Box, useTheme } from '@mui/material';
 import mapboxgl, { MapEventType } from 'mapbox-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import circleTurf from '@turf/circle';
 
@@ -16,6 +17,7 @@ import { AnyObject } from '@chirp/ui/helpers/global';
 import { customDrawStyles } from './constance';
 import { mapMarkerSvgString } from './mp-marker-string';
 import { createPopupContent } from './create-popup-content';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -141,6 +143,14 @@ export const Map: React.FC<Props> = ({
             'bottom-right',
         );
         map.current.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+        map.current.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                placeholder: 'Search location',
+                collapsed: true,
+            }),
+            'bottom-right',
+        );
 
         const geolocate = new mapboxgl.GeolocateControl({
             positionOptions: {

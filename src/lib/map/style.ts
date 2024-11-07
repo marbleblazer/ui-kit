@@ -9,6 +9,8 @@ import fullScreenDarkIcon from '@chirp/ui/assets/fleet-icons/full-screen-dark.sv
 import minusDarkIcon from '@chirp/ui/assets/fleet-icons/minus-dark.svg';
 import plusDarkIcon from '@chirp/ui/assets/fleet-icons/plus-dark.svg';
 import locationUserIcon from '@chirp/ui/assets/fleet-icons/location-user.svg';
+import { height, minWidth, palette, width } from '@mui/system';
+import { color } from 'echarts';
 
 interface Props {
     isFullScreenMap?: boolean;
@@ -130,6 +132,40 @@ export const MapContainer = styled(Box, {
 
     '&&& .mapboxgl-ctrl': {
         marginBottom: '2px',
+    },
+
+    '.mapboxgl-ctrl-geocoder--collapsed': {
+        height: '28px',
+        width: '28px',
+        minWidth: 0,
+    },
+
+    '.mapboxgl-ctrl-geocoder.mapboxgl-ctrl': {
+        backgroundColor: theme.palette.background.tertiary,
+
+        '.mapboxgl-ctrl-geocoder--input': {
+            color: theme.palette.text.primary,
+            '&:placeholder': {
+                color: theme.palette.text.tertiary,
+            },
+            '&:focus': {
+                outline: 'none',
+            },
+        },
+
+        svg: {
+            left: '4px',
+            top: '4px',
+            fill: theme.palette.text.primary,
+        },
+    },
+
+    '.mapboxgl-ctrl-geocoder--input': {
+        height: '28px',
+
+        svg: {
+            fill: '#ff0000 !important',
+        },
     },
 
     '.mapboxgl-ctrl-zoom-in': {
