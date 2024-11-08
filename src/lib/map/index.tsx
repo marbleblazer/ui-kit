@@ -329,7 +329,6 @@ export const Map: React.FC<Props> = ({
                                                     const lineMarker = new mapboxgl.Marker(markerElement)
                                                         .setLngLat(coordinate as [number, number])
                                                         .addTo(map.current);
-                                                    console.log('14241');
                                                     markerRefs.current[markerKey] = lineMarker;
                                                 }
                                             } else {
