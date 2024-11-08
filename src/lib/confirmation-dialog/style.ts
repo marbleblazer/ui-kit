@@ -49,9 +49,11 @@ export const IconWrapper = styled(Stack)(({ theme }) => ({
 
 export const Content = styled(Stack)(() => ({
     gap: '8px',
-    padding: '32px',
+    paddingTop: '32px',
+    paddingBottom: '32px',
     whiteSpace: 'break-spaces',
     textAlign: 'center',
+    width: '100%',
 }));
 
 export const ButtonGroup = styled(Stack)(() => ({

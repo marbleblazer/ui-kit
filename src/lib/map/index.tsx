@@ -12,7 +12,7 @@ import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import * as S from './style';
 import { Coordinates } from './map.types';
-import { MapDrawModeTabs } from './map-draw-tabs';
+import { MapDrawModeTabs } from './drawable-map/map-draw-tabs';
 import { AnyObject } from '@chirp/ui/helpers/global';
 import { customDrawStyles } from './constance';
 import { mapMarkerArrowSvgString, mapMarkerSvgString } from './mp-marker-string';
@@ -336,6 +336,8 @@ export const Map: React.FC<Props> = ({
                             }
                         }
                     }
+                } else if (typeof markerVisibility === 'object' && Object.keys(markerVisibility)?.length) {
+                    (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
                 }
             }
         }

@@ -59,3 +59,4 @@ export { default as StarFilled } from './star-filled.svg?react';
 export { default as LeftArrowBlackIcon } from './left-arrow-black.svg?react';
 export { default as SuiIcon } from './sui.svg?react';
 export { default as ConnectWalletIcon } from './connect-wallet.svg?react';
+export { default as FleetSuccessIcon } from './fleet-success.svg?react';

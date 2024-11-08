@@ -9,8 +9,6 @@ import fullScreenDarkIcon from '@chirp/ui/assets/fleet-icons/full-screen-dark.sv
 import minusDarkIcon from '@chirp/ui/assets/fleet-icons/minus-dark.svg';
 import plusDarkIcon from '@chirp/ui/assets/fleet-icons/plus-dark.svg';
 import locationUserIcon from '@chirp/ui/assets/fleet-icons/location-user.svg';
-import { height, minWidth, palette, width } from '@mui/system';
-import { color } from 'echarts';
 
 interface Props {
     isFullScreenMap?: boolean;

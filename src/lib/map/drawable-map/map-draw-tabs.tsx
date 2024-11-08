@@ -1,7 +1,7 @@
 // import mapboxgl from 'mapbox-gl';
 
-import * as S from './style';
-import { Tabs } from '../tabs';
+import * as S from '../style';
+import { Tabs } from '../../tabs';
 
 interface IMapDrawModeTabsProps {
     activeMode?: string;
