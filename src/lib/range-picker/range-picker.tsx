@@ -44,7 +44,7 @@ export const RangePicker: FC<RangePickerProps> = ({
             return;
         }
 
-        if (moment().isBefore(startDate) || !startDate.isValid() || !endDate.isValid()) {
+        if (!startDate.isValid() || !endDate.isValid()) {
             console.error('Please select correct date range!');
 
             return;
@@ -103,15 +103,21 @@ export const RangePicker: FC<RangePickerProps> = ({
                         label="Input"
                         error={!isStartDateValid}
                         value={startInputDate}
+                        placeholder="Start date"
                         onChange={(e) => handleInputDateChange(e, 'start')}
                     />
                     <div>
-                        <Divider orientation="horizontal" flexItem sx={{ width: '12px', borderColor: theme.palette.text.quaternary }} />
+                        <Divider
+                            orientation="horizontal"
+                            flexItem
+                            sx={{ width: '12px', borderColor: theme.palette.text.quaternary }}
+                        />
                     </div>
                     <TextField
                         label="Label"
                         error={!isEndDateValid}
                         value={endInputDate}
+                        placeholder="End date"
                         onChange={(e) => handleInputDateChange(e, 'end')}
                     />
                 </Stack>
@@ -147,7 +153,7 @@ export const RangePicker: FC<RangePickerProps> = ({
             </Stack>
             <Stack justifyContent="flex-end" direction="row" gap="8px">
                 <Button size="medium" variant="secondary" onClick={handleClearDateRange}>
-                    Clear filter
+                    Clear data range
                 </Button>
                 <Button
                     size="medium"

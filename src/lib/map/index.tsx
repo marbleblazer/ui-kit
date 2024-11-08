@@ -336,7 +336,7 @@ export const Map: React.FC<Props> = ({
                             }
                         }
                     }
-                } else if (typeof markerVisibility === 'object' && Object.keys(markerVisibility)?.length) {
+                } else if (!Object.keys(markerVisibility)?.length) {
                     (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
                 }
             }
