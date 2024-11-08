@@ -435,20 +435,25 @@ export const MapContainer = styled(Box, {
         borderRadius: '50%',
     },
 
-    '.start-line-marker': {
+    '.start-end-line-marker': {
         width: '6px',
         height: '6px',
         backgroundColor: theme.palette.accent.accent,
         borderRadius: '50%',
-        boxShadow: '0 0 11.08px #55E050, 0 0 28px #55E050',
-    },
 
-    '.end-line-marker': {
-        width: '6px',
-        height: '6px',
-        backgroundColor: theme.palette.accent.accent,
-        borderRadius: '50%',
-        boxShadow: '0 0 11.08px red, 0 0 28px red',
+        '.svg-container': {
+            position: 'relative',
+            width: '36px',
+            height: '36px',
+            transform: 'translate(-42%, -42%)',
+
+            svg: {
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+            },
+        },
     },
 }));
 

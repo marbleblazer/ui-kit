@@ -18,6 +18,7 @@ import { customDrawStyles } from './constance';
 import { mapMarkerArrowSvgString, mapMarkerSvgString } from './mp-marker-string';
 import { createPopupContent } from './create-popup-content';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from './svg-containers';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -307,9 +308,11 @@ export const Map: React.FC<Props> = ({
                                         const markerElement = document.createElement('div');
 
                                         if (index === 0) {
-                                            markerElement.classList.add('start-line-marker');
+                                            markerElement.classList.add('start-end-line-marker');
+                                            markerElement.innerHTML = mapMarkerStartSvgContainer;
                                         } else if (index === markerGeometry.coordinates.length - 1) {
-                                            markerElement.classList.add('end-line-marker');
+                                            markerElement.classList.add('start-end-line-marker');
+                                            markerElement.innerHTML = mapMarkerEndSvgContainer;
                                         } else if (isLineMarkersNeeded) {
                                             markerElement.classList.add('common-line-marker');
                                         }
