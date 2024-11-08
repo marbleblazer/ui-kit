@@ -32,3 +32,45 @@ export const mapMarkerArrowSvgString = `
     </defs>
   </svg>
 `;
+
+export const mapMarkerFirstStartLayerSvgString = `
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_f_4100_17896)">
+            <circle cx="18.0389" cy="18.0389" r="6.74204" fill="#55E050"/>
+        </g>
+        <defs>
+            <filter id="filter0_f_4100_17896" x="0.216312" y="0.216312" width="35.645" height="35.6455" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feGaussianBlur stdDeviation="5.54028" result="effect1_foregroundBlur_4100_17896"/>
+            </filter>
+        </defs>
+    </svg>
+`;
+
+export const mapMarkerSecondStartLayerSvgString = `
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle opacity="0.05" cx="14" cy="14" r="14" fill="#55E050"/>
+    </svg>
+`;
+
+export const mapMarkerFirstEndLayerSvgString = `
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_f_4100_17885)">
+            <circle cx="18.0389" cy="18.0389" r="6.74204" fill="#FF4949"/>
+        </g>
+        <defs>
+            <filter id="filter0_f_4100_17885" x="0.216312" y="0.216312" width="35.6453" height="35.6455" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feGaussianBlur stdDeviation="5.54028" result="effect1_foregroundBlur_4100_17885"/>
+            </filter>
+        </defs>
+    </svg>
+`;
+
+export const mapMarkerSecondEndLayerSvgString = `
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle opacity="0.05" cx="14" cy="14" r="14" fill="#FF4949"/>
+    </svg>
+`;
