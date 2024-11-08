@@ -41,8 +41,6 @@ export const Default: Story = {
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <RangePicker
-                        initialStartDate={new Date('2022-01-01')}
-                        initialEndDate={new Date('2024-01-01')}
                         handleCloseCalendar={() => setOpenedState(false)}
                         onClearDate={() => setOpenedState(false)}
                         onDateChange={(after, before) => setDateState({ start: after, end: before })}

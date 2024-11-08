@@ -48,7 +48,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             '&:hover:not(&--disabled)': {
                 borderColor: theme.palette.primary.main,
             },
-            '&:first-child': {
+            '&:first-of-type': {
                 marginLeft: '0',
             },
             '&--in-range': {
