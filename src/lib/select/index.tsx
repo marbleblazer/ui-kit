@@ -1,10 +1,16 @@
-import { FormControl, SelectProps, useTheme } from '@mui/material';
+import { FormControl, InputAdornment, SelectProps, useTheme } from '@mui/material';
 import { FC } from 'react';
 
 import { InputLabel } from '../input-label';
 import * as S from './style';
+import { CloseIcon } from '@chirp/ui/assets/icons';
+import { IconButton } from '../icon-button';
 
-export const Select: FC<SelectProps> = ({ label, labelId, disabled, ...props }) => {
+type SelectPropsType = SelectProps & {
+    onClear?: () => void;
+};
+
+export const Select: FC<SelectPropsType> = ({ label, labelId, disabled, value, onClear, endAdornment, ...props }) => {
     const theme = useTheme();
     return (
         <FormControl fullWidth>
@@ -23,7 +29,22 @@ export const Select: FC<SelectProps> = ({ label, labelId, disabled, ...props }) 
                     },
                 }}
             />
-            <S.Select {...props} disabled={disabled} />
+            <S.Select
+                {...props}
+                value={value}
+                disabled={disabled}
+                endAdornment={
+                    endAdornment ? (
+                        endAdornment
+                    ) : onClear && value ? (
+                        <InputAdornment sx={{ marginRight: '16px' }} position="end">
+                            <IconButton variant="gray" onClick={onClear}>
+                                <CloseIcon />
+                            </IconButton>
+                        </InputAdornment>
+                    ) : null
+                }
+            />
         </FormControl>
     );
 };
