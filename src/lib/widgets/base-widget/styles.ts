@@ -1,5 +1,6 @@
 import { Box, styled } from '@mui/material';
 import { Typography } from '../../typogrpahy';
+import { StarFilled } from '@chirp/ui/assets/fleet-icons';
 
 export const Wrapper = styled(Box)(({ theme }) => ({
     background: theme.palette.background.primary,
@@ -15,4 +16,8 @@ export const Divider = styled(Box)(({ theme }) => ({
     width: '100%',
     borderRadius: '1px',
     background: theme.palette.border.secondary,
+}));
+
+export const StyledStarFilled = styled(StarFilled)(({ theme }) => ({
+    color: theme.palette.accent.accent,
 }));

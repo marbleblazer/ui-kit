@@ -87,7 +87,7 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                         <StackedChart
                             handleClick={(data) => console.log(data)}
                             colors={colors}
-                            style={{ width: '100%', height: '100%', ...chartStyles }}
+                            style={{ width: '100%', height: '100%', paddingTop: '34px', ...chartStyles }}
                             data={preparedData}
                         />
                         <Stack>
@@ -97,8 +97,12 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                                 multiple
                                 sx={{
                                     mt: 0,
+                                    border: 'none',
                                     backgroundColor: theme.palette.background.secondary,
                                     height: '30px',
+                                    '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                                        padding: '5.5px 12px',
+                                    },
                                 }}
                                 defaultValue={[]}
                                 renderValue={() => 'All'}
