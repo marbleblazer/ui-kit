@@ -301,6 +301,14 @@ export const Map: React.FC<Props> = ({
                                 }
                             }
 
+                            // Очистка маркеров перед обновлением массива data
+                            Object.keys(markerRefs.current).forEach((key) => {
+                                if (key.startsWith(`${lineId}-`)) {
+                                    markerRefs.current[key].remove();
+                                    delete markerRefs.current[key];
+                                }
+                            });
+
                             // Отрисовка маркеров на линии
                             if (markerGeometry.coordinates && Array.isArray(markerGeometry.coordinates)) {
                                 markerGeometry.coordinates.forEach((coordinate, index) => {
@@ -324,7 +332,6 @@ export const Map: React.FC<Props> = ({
                                                     const lineMarker = new mapboxgl.Marker(markerElement)
                                                         .setLngLat(coordinate as [number, number])
                                                         .addTo(map.current);
-
                                                     markerRefs.current[markerKey] = lineMarker;
                                                 }
                                             } else {
