@@ -69,7 +69,7 @@ export { PhoneField } from './phone-field';
 
 export { Tabs } from './tabs';
 
-export { Map } from './map';
+export { FeatureMap } from './map/feature-map';
 
 export { default as ListItem } from './list-item';
 

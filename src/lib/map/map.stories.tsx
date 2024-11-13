@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DrawableMap, Map } from '@chirp/ui/lib';
+import { DrawableMap, FeatureMap } from '@chirp/ui/lib';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { mockTripData } from './mock';
 
-const meta: Meta<typeof Map> = {
+const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
-    component: Map,
+    component: FeatureMap,
     parameters: {
         layout: 'centered',
     },
@@ -21,7 +21,7 @@ export const Default: Story = {
     render: () => {
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
-                <Map
+                <FeatureMap
                     data={{
                         type: 'FeatureCollection',
                         features: [
@@ -48,7 +48,7 @@ export const ThreeMarkers: Story = {
     render: () => {
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
-                <Map
+                <FeatureMap
                     data={{
                         type: 'FeatureCollection',
                         features: [
@@ -134,9 +134,8 @@ export const LineWithPolygons: Story = {
                         Line 3
                     </label>
                 </Box>
-                <Map
+                <FeatureMap
                     markerVisibility={markerVisibility}
-                    isLineMarkersNeeded
                     data={{
                         type: 'FeatureCollection',
                         features: [
@@ -286,51 +285,6 @@ export const Drawable: Story = {
         );
     },
 };
-export const ClearData: Story = {
-    render: () => {
-        const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>({
-            id: '60c44ec4be05c62bd01c761fa375b33a',
-            type: 'Feature',
-            properties: {},
-            geometry: {
-                coordinates: [
-                    [13.707938391380537, 50.629305557231135],
-                    [18.36757031342043, 49.58805663850933],
-                    [22.78341174564946, 52.400439823673565],
-                    [33.85483956914348, 51.714528001238534],
-                    [38.988345205065315, 51.172665398308254],
-                    [39.904827800820726, 52.33581991843607],
-                ],
-                type: 'LineString',
-            },
-        });
-
-        return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
-                <button onClick={() => setDrawState(null)}>Clear data</button>
-                <Map onChange={setDrawState} data={drawState} coordinates={{ lon: 49.108891, lat: 55.796391 }} />
-            </Box>
-        );
-    },
-};
-
-export const EmptyDrawable: Story = {
-    render: () => {
-        const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>(null);
-
-        return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
-                <Map
-                    onChange={setDrawState}
-                    data={drawState}
-                    isSingleDraw
-                    coordinates={{ lon: 49.108891, lat: 55.796391 }}
-                    isDrawable
-                />
-            </Box>
-        );
-    },
-};
 
 export const TripData: Story = {
     render: () => {
@@ -339,7 +293,7 @@ export const TripData: Story = {
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
                 <button onClick={() => setShouldAnimate(1176)}>Start Animation</button>
-                <Map
+                <FeatureMap
                     data={mockTripData}
                     animateLineId={shouldAnimate}
                     onAnimationEnd={() => setShouldAnimate(undefined)}
