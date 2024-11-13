@@ -1,4 +1,4 @@
-import { Stack, Typography, useTheme, Popover, Box, Divider } from '@mui/material';
+import { Stack, Typography, useTheme, Popover, Divider } from '@mui/material';
 import * as S from './style';
 import { useState, FC } from 'react';
 import { Avatar } from '../avatar';

@@ -117,7 +117,8 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
             if (resolvedCircleGeometry) {
                 const { center, radius } = resolvedCircleGeometry;
                 if (isCircleData) {
-                    GeodesicDraw.createCircle(center, radius);
+                    const circle = GeodesicDraw.createCircle(center, radius);
+                    drawRef.current.add(circle);
                 }
             }
         } else {
@@ -169,7 +170,6 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         setActiveDrawMode(key);
         drawRef.current.changeMode(key);
     };
-    console.log(drawRef?.current?.getMode?.());
 
     return (
         <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(drawMode)}>

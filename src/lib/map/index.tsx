@@ -130,19 +130,16 @@ export const Map: React.FC<Props> = ({
                 // Слушаем события создания, обновления и удаления
                 map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
                     const features = e.features as GeoJSON.Feature[];
-                    // console.log('Создано:', features);
                     handleChange(features[0]);
                 });
 
                 map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
                     const features = e.features as GeoJSON.Feature[];
-                    // console.log('Обновлено:', e.features);
                     handleChange(features[0]);
                 });
 
                 map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
                     const features = e.features as GeoJSON.Feature[];
-                    // console.log('Удалено:', e.features);
                     handleChange(features[0]);
                 });
             }
@@ -184,6 +181,7 @@ export const Map: React.FC<Props> = ({
 
     const addDataToMap = useCallback(() => {
         if (!map.current) return;
+
         let singleMarkerCenter: number[] | null = null;
 
         if (!data) {
@@ -226,6 +224,8 @@ export const Map: React.FC<Props> = ({
                 }
             } else {
                 if (data.type === 'FeatureCollection') {
+                    const visibleMarkers = [];
+
                     for (const marker of data.features) {
                         const markerGeometry = marker.geometry;
                         const popupData: Record<string, string> = marker?.properties?.popupData;
@@ -263,42 +263,9 @@ export const Map: React.FC<Props> = ({
                                 }
                             }
                         } else if (markerGeometry.type === 'LineString') {
-                            const sourceId = `route-${lineId}`;
                             if (markerVisibility[lineId] !== undefined) {
-                                if (map.current.getSource(sourceId)) {
-                                    // Visibility линий
-                                    if (markerVisibility[lineId]) {
-                                        map.current.setLayoutProperty(sourceId, 'visibility', 'visible');
-                                    } else {
-                                        map.current.setLayoutProperty(sourceId, 'visibility', 'none');
-                                    }
-
-                                    (map.current.getSource(sourceId) as mapboxgl.GeoJSONSource).setData({
-                                        type: 'FeatureCollection',
-                                        features: [marker],
-                                    });
-                                } else {
-                                    map.current.addSource(sourceId, {
-                                        type: 'geojson',
-                                        data: {
-                                            type: 'FeatureCollection',
-                                            features: [marker],
-                                        },
-                                    });
-
-                                    map.current.addLayer({
-                                        id: sourceId,
-                                        type: 'line',
-                                        source: sourceId,
-                                        layout: {
-                                            'line-join': 'round',
-                                            'line-cap': 'round',
-                                        },
-                                        paint: {
-                                            'line-color': '#FF4D14',
-                                            'line-width': 1,
-                                        },
-                                    });
+                                if (markerVisibility[lineId]) {
+                                    visibleMarkers.push(marker);
                                 }
                             }
 
@@ -347,6 +314,11 @@ export const Map: React.FC<Props> = ({
                             }
                         }
                     }
+
+                    (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
+                        type: 'FeatureCollection',
+                        features: visibleMarkers,
+                    });
                 } else if (!Object.keys(markerVisibility)?.length) {
                     (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
                 }
