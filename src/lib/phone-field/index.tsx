@@ -21,7 +21,7 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
     ...props
 }) => {
     const [localValue, setLocalValue] = useState<string>(''); // Телефонный номер без кода
-
+    const [isFocusedState, setIsFocusedState] = useState(true);
     const [dialCodeState, setDialCodeState] = useState<string>(
         getCountryCallingCode(defaultCountry?.toUpperCase() as CountryCode),
     ); // Код страны в формате "34", "7"
@@ -52,20 +52,13 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
         const dialCode = country.dialCode;
         const countryName = country.countryCode;
 
-        // Проверка и удаление dialCode, если value начинается с dialCode
-        let updatedValue = value;
-        if (value.startsWith(dialCode)) {
-            updatedValue = value.replace(dialCode, '');
-        }
-
-        // Проверяем, изменился ли фактический код страны
-        if (dialCode !== dialCodeState) {
+        if (!isFocusedState) {
             setCountryCode(countryName);
             setDialCodeState(dialCode);
         }
 
-        setLocalValue(updatedValue);
-        onChange(`${dialCode}${updatedValue}`);
+        setLocalValue(value);
+        onChange(`${dialCode}${value}`);
     };
 
     return (
@@ -78,8 +71,10 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
                 disableCountryCode
                 disableAreaCodes
                 onlyCountries={validCountryCodes}
+                onFocus={() => setIsFocusedState(true)}
+                onBlur={() => setIsFocusedState(false)}
+                value={localValue}
                 InputProps={{
-                    value: localValue,
                     endAdornment: (
                         <InputAdornment position="end">
                             <SelectIndicator />
@@ -87,7 +82,7 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
                     ),
                 }}
                 // @ts-ignore
-                onChange={(value: string, country: Record<string, string>) => handleChange(value, country)}
+                onChange={(value: string, country: Record<string, string>, ...props) => handleChange(value, country)}
             />
         </FormControl>
     );
