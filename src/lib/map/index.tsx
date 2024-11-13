@@ -194,6 +194,11 @@ export const Map: React.FC<Props> = ({
                     type: 'FeatureCollection',
                     features: [],
                 });
+
+                Object.keys(markerRefs.current).forEach((key) => {
+                    markerRefs.current[key].remove();
+                    delete markerRefs.current[key];
+                });
             }
 
             return;
@@ -268,7 +273,6 @@ export const Map: React.FC<Props> = ({
                                     visibleMarkers.push(marker);
                                 }
                             }
-
                             // Очистка маркеров перед обновлением массива data
                             Object.keys(markerRefs.current).forEach((key) => {
                                 if (key.startsWith(`${lineId}-`)) {
