@@ -1,6 +1,6 @@
 import { Stack, SxProps } from '@mui/material';
 import { IconButton } from '../../icon-button';
-import { StarFilled, StarIcon, TrashIcon } from '@chirp/ui/assets/fleet-icons';
+import { StarIcon, TrashIcon } from '@chirp/ui/assets/fleet-icons';
 import { FC, PropsWithChildren } from 'react';
 import * as S from './styles';
 import { Typography } from '../../typogrpahy';
@@ -44,7 +44,7 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
                             </Stack>
                             <Stack direction="row">
                                 <IconButton size="small" variant="gray" onClick={onFavoriteClick}>
-                                    {isFavorite ? <StarFilled /> : <StarIcon />}
+                                    {isFavorite ? <S.StyledStarFilled /> : <StarIcon />}
                                 </IconButton>
                                 <IconButton size="small" variant="gray" onClick={onDeleteClick}>
                                     <TrashIcon />

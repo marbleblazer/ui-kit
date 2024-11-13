@@ -19,6 +19,7 @@ import { mapMarkerArrowSvgString, mapMarkerSvgString } from './mp-marker-string'
 import { createPopupContent } from './create-popup-content';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from './svg-containers';
+import { createPopupsForLineString } from './utils';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -301,6 +302,14 @@ export const Map: React.FC<Props> = ({
                                 }
                             }
 
+                            // Очистка маркеров перед обновлением массива data
+                            Object.keys(markerRefs.current).forEach((key) => {
+                                if (key.startsWith(`${lineId}-`)) {
+                                    markerRefs.current[key].remove();
+                                    delete markerRefs.current[key];
+                                }
+                            });
+
                             // Отрисовка маркеров на линии
                             if (markerGeometry.coordinates && Array.isArray(markerGeometry.coordinates)) {
                                 markerGeometry.coordinates.forEach((coordinate, index) => {
@@ -324,7 +333,6 @@ export const Map: React.FC<Props> = ({
                                                     const lineMarker = new mapboxgl.Marker(markerElement)
                                                         .setLngLat(coordinate as [number, number])
                                                         .addTo(map.current);
-
                                                     markerRefs.current[markerKey] = lineMarker;
                                                 }
                                             } else {
@@ -463,6 +471,43 @@ export const Map: React.FC<Props> = ({
             startAnimation();
         }
     }, [animateLineId, startAnimation]);
+
+    useEffect(() => {
+        if (!map.current) return;
+
+        const updatePopups = () => {
+            const zoom = map.current?.getZoom();
+
+            if (data && data.type === 'FeatureCollection') {
+                data.features.forEach((feature) => {
+                    if (feature.geometry.type === 'LineString') {
+                        const { coordinates } = feature.geometry;
+                        const { speeds, serverTimes } = feature.properties as {
+                            speeds: (number | null)[];
+                            serverTimes: (string | null)[];
+                        };
+
+                        if (speeds && serverTimes) {
+                            createPopupsForLineString(
+                                map.current!,
+                                coordinates as [number, number][],
+                                speeds,
+                                serverTimes,
+                                zoom,
+                            );
+                        }
+                    }
+                });
+            }
+        };
+
+        map.current.on('zoom', updatePopups);
+        updatePopups(); // Initial call
+
+        return () => {
+            map.current?.off('zoom', updatePopups);
+        };
+    }, [data]);
 
     useEffect(() => {
         if (map.current && centeringCoordinates?.lat && centeringCoordinates?.lon) {
