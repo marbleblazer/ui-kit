@@ -50,12 +50,14 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
         }
     }, []);
 
+    useEffect(() => {
+        const isPhoneNumberValid = validatePhoneNumber(propsValue);
+        onValidate(isPhoneNumberValid);
+    }, [onValidate, propsValue, isFocusedState]);
+
     const handleChange = (value: string, country: Record<string, string>) => {
         const dialCode = country.dialCode;
         const countryName = country.countryCode;
-
-        const isPhoneNumberValid = validatePhoneNumber(propsValue);
-        onValidate(isPhoneNumberValid);
 
         if (!isFocusedState) {
             setCountryCode(countryName);
