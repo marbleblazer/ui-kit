@@ -61,7 +61,6 @@ export const ThreeMarkers: Story = {
                                 properties: {
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
-                                    device_id: 1,
                                     popupData: {
                                         lastUpdate: '1 minute ago',
                                         address: '18 Rüdesheimer Straße, 53175 Bonn, Nordrhein-Westfalen, Germany',
@@ -81,7 +80,6 @@ export const ThreeMarkers: Story = {
                                     coordinates: [49.687, 55.4745],
                                 },
                                 properties: {
-                                    device_id: 2,
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
                                 },
@@ -93,7 +91,6 @@ export const ThreeMarkers: Story = {
                                     coordinates: [45.687, 55.4745],
                                 },
                                 properties: {
-                                    device_id: 3,
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
                                 },
@@ -109,86 +106,83 @@ export const ThreeMarkers: Story = {
 
 export const LineWithPolygons: Story = {
     render: () => {
-        const [markerVisibility, setMarkerVisibility] = useState({ 1: true, 2: true, 3: true });
+        const [visibility, setVisibility] = useState<{ [key: number]: boolean }>({ 1: true, 2: true, 3: true });
 
-        const handleVisibilityChange = (deviceId: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setMarkerVisibility((prevVisibility) => ({
+        const handleVisibilityChange = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+            setVisibility((prevVisibility) => ({
                 ...prevVisibility,
-                [deviceId]: event.target.checked,
+                [id]: event.target.checked,
             }));
+        };
+
+        const features = [
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'LineString',
+                    coordinates: [
+                        [37.707938391380537, 50.629305557231135],
+                        [38.36757031342043, 49.58805663850933],
+                        [38.988345205065315, 51.172665398308254],
+                        [39.904827800820726, 52.33581991843607],
+                    ],
+                },
+                properties: {},
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'LineString',
+                    coordinates: [
+                        [36.707938391380537, 50.629305557231135],
+                        [37.36757031342043, 49.58805663850933],
+                        [37.988345205065315, 51.172665398308254],
+                        [38.904827800820726, 52.33581991843607],
+                    ],
+                },
+                properties: {},
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'LineString',
+                    coordinates: [
+                        [35.707938391380537, 50.629305557231135],
+                        [36.36757031342043, 49.58805663850933],
+                        [36.988345205065315, 51.172665398308254],
+                        [38.904827800820726, 52.33581991843607],
+                    ],
+                },
+                properties: {},
+            },
+        ];
+
+        const visibleFeatures = {
+            type: 'FeatureCollection',
+            features: features.filter((_, index) => visibility[index + 1]),
         };
 
         return (
             <Box sx={{ width: '900px', height: '1600px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 2 }}>
                     <label>
-                        <input type="checkbox" checked={markerVisibility[1]} onChange={handleVisibilityChange(1)} />
+                        <input type="checkbox" checked={visibility[1]} onChange={handleVisibilityChange(1)} />
                         Line 1
                     </label>
                     <label>
-                        <input type="checkbox" checked={markerVisibility[2]} onChange={handleVisibilityChange(2)} />
+                        <input type="checkbox" checked={visibility[2]} onChange={handleVisibilityChange(2)} />
                         Line 2
                     </label>
                     <label>
-                        <input type="checkbox" checked={markerVisibility[3]} onChange={handleVisibilityChange(3)} />
+                        <input type="checkbox" checked={visibility[3]} onChange={handleVisibilityChange(3)} />
                         Line 3
                     </label>
                 </Box>
-                <FeatureMap
-                    data={{
-                        type: 'FeatureCollection',
-                        features: [
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'LineString',
-                                    coordinates: [
-                                        [37.707938391380537, 50.629305557231135],
-                                        [38.36757031342043, 49.58805663850933],
-                                        [38.988345205065315, 51.172665398308254],
-                                        [39.904827800820726, 52.33581991843607],
-                                    ],
-                                },
-                                properties: {
-                                    device_id: 1,
-                                    lineId: 1,
-                                },
-                            },
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'LineString',
-                                    coordinates: [
-                                        [36.707938391380537, 50.629305557231135],
-                                        [37.36757031342043, 49.58805663850933],
-                                        [37.988345205065315, 51.172665398308254],
-                                        [38.904827800820726, 52.33581991843607],
-                                    ],
-                                },
-                                properties: {
-                                    device_id: 2,
-                                    lineId: 2,
-                                },
-                            },
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'LineString',
-                                    coordinates: [
-                                        [35.707938391380537, 50.629305557231135],
-                                        [36.36757031342043, 49.58805663850933],
-                                        [36.988345205065315, 51.172665398308254],
-                                        [38.904827800820726, 52.33581991843607],
-                                    ],
-                                },
-                                properties: {
-                                    device_id: 3,
-                                    lineId: 3,
-                                },
-                            },
-                        ],
-                    }}
-                />
+                {visibleFeatures.features.length > 0 ? (
+                    <FeatureMap data={visibleFeatures as GeoJSON.FeatureCollection} />
+                ) : (
+                    <Box>No features to display</Box>
+                )}
             </Box>
         );
     },
