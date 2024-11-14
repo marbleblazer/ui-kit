@@ -1,11 +1,10 @@
-import { useTheme } from '@mui/material';
 import mapboxgl from 'mapbox-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
 import { Coordinates } from './map.types';
 import { mapMarkerArrowSvgString, mapMarkerSvgString } from './mp-marker-string';
 import { createPopupContent } from './create-popup-content';
@@ -22,7 +21,6 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
-    getMapStyleId?: (themeMode: string) => string;
     animateLineId?: number; // id по которому запускается анимация
     animationDuration?: number;
     onAnimationEnd?: () => void;
@@ -34,31 +32,23 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     scrollZoom = true,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
-    getMapStyleId = getUiKitMapStyleId,
     animateLineId,
     animationDuration = 3000,
     onAnimationEnd,
     ...baseProps
 }) => {
-    const { palette } = useTheme();
-
     const [isAnimating, setIsAnimating] = useState(false);
 
+    const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
-
-    useEffect(() => {
-        if (!map.current) return;
-
-        map.current.setStyle(getMapStyleId(palette.mode));
-    }, [palette.mode]);
 
     const clearMap = useCallback(() => {
         if (!map.current) return;
 
         // Удаление всех маркеров
-        const markers = document.querySelectorAll('.mapboxgl-marker');
-        markers.forEach((marker) => marker.remove());
+        markersRef.current.forEach((marker) => marker.remove());
+        markersRef.current = [];
     }, []);
 
     const addDataToMap = useCallback(() => {
@@ -100,6 +90,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                     }
 
                     markerInstance.addTo(map.current);
+                    markersRef.current.push(markerInstance);
                 } else if (geometry.type === 'LineString') {
                     // Отрисовка маркеров на линии
                     if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
@@ -122,6 +113,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                                 );
 
                                 map.current && markerInstance.addTo(map.current);
+                                markersRef.current.push(markerInstance);
                             }
                         });
                     }
