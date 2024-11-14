@@ -19,7 +19,6 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
     coordinates?: Coordinates;
     scrollZoom?: boolean;
-    markerVisibility?: { [key: number]: boolean };
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
@@ -33,10 +32,9 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     data,
     coordinates,
     scrollZoom = true,
-    centeringCoordinates,
-    isLineMarkersNeeded = true,
+    centeringCoordinates, // Координаты, по которым происходит центрирование
+    isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
     getMapStyleId = getUiKitMapStyleId,
-    markerVisibility = {},
     animateLineId,
     animationDuration = 3000,
     onAnimationEnd,
@@ -47,7 +45,6 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     const [isAnimating, setIsAnimating] = useState(false);
 
     const map = useRef<mapboxgl.Map>(null);
-    const markerRefs = useRef<{ [key: number | string]: mapboxgl.Marker }>({});
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
 
     useEffect(() => {
@@ -56,8 +53,18 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         map.current.setStyle(getMapStyleId(palette.mode));
     }, [palette.mode]);
 
+    const clearMap = useCallback(() => {
+        if (!map.current) return;
+
+        // Удаление всех маркеров
+        const markers = document.querySelectorAll('.mapboxgl-marker');
+        markers.forEach((marker) => marker.remove());
+    }, []);
+
     const addDataToMap = useCallback(() => {
         if (!map.current) return;
+
+        clearMap();
 
         let singleMarkerCenter: number[] | null = null;
 
@@ -67,33 +74,24 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                 features: [],
             });
 
-            Object.keys(markerRefs.current).forEach((key) => {
-                markerRefs.current[key].remove();
-                delete markerRefs.current[key];
-            });
-
             return;
         }
 
         if (data.type === 'FeatureCollection') {
-            const visibleMarkers = [];
+            for (const feature of data.features) {
+                const geometry = feature.geometry;
+                const popupData: Record<string, string> = feature?.properties?.popupData;
 
-            for (const marker of data.features) {
-                const markerGeometry = marker.geometry;
-                const popupData: Record<string, string> = marker?.properties?.popupData;
-                const device_id = marker.properties?.device_id;
-                const lineId = marker.properties?.lineId;
-
-                if (markerGeometry.type === 'Point') {
+                if (geometry.type === 'Point') {
                     if (data.features.length === 1) {
-                        singleMarkerCenter = markerGeometry.coordinates;
+                        singleMarkerCenter = geometry.coordinates;
                     }
 
-                    const customEachMarker = document && document.createElement('div');
-                    customEachMarker.innerHTML = mapMarkerSvgString;
+                    const markerElement = document && document.createElement('div');
+                    markerElement.innerHTML = mapMarkerSvgString;
 
-                    const markerInstance = new mapboxgl.Marker(customEachMarker).setLngLat(
-                        markerGeometry.coordinates as [number, number],
+                    const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(
+                        geometry.coordinates as [number, number],
                     );
 
                     if (popupData) {
@@ -101,64 +99,29 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                         markerInstance.setPopup(popup);
                     }
 
-                    if (!markerVisibility[device_id]) {
-                        if (!markerRefs.current[device_id]) {
-                            markerInstance.addTo(map.current);
-                            markerRefs.current[device_id] = markerInstance;
-                        }
-                    } else {
-                        if (markerRefs.current[device_id]) {
-                            markerRefs.current[device_id].remove();
-                            delete markerRefs.current[device_id];
-                        }
-                    }
-                } else if (markerGeometry.type === 'LineString') {
-                    if (markerVisibility[lineId] !== undefined) {
-                        if (markerVisibility[lineId]) {
-                            visibleMarkers.push(marker);
-                        }
-                    }
-
-                    // Очистка маркеров перед обновлением массива data
-                    Object.keys(markerRefs.current).forEach((key) => {
-                        if (key.startsWith(`${lineId}-`)) {
-                            markerRefs.current[key].remove();
-                            delete markerRefs.current[key];
-                        }
-                    });
-
+                    markerInstance.addTo(map.current);
+                } else if (geometry.type === 'LineString') {
                     // Отрисовка маркеров на линии
-                    if (markerGeometry.coordinates && Array.isArray(markerGeometry.coordinates)) {
-                        markerGeometry.coordinates.forEach((coordinate, index) => {
+                    if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
+                        geometry.coordinates.forEach((coordinate, index) => {
                             if (Array.isArray(coordinate) && coordinate.length === 2) {
                                 const markerElement = document.createElement('div');
 
                                 if (index === 0) {
                                     markerElement.classList.add('start-end-line-marker');
                                     markerElement.innerHTML = mapMarkerStartSvgContainer;
-                                } else if (index === markerGeometry.coordinates.length - 1) {
+                                } else if (index === geometry.coordinates.length - 1) {
                                     markerElement.classList.add('start-end-line-marker');
                                     markerElement.innerHTML = mapMarkerEndSvgContainer;
                                 } else if (isLineMarkersNeeded) {
                                     markerElement.classList.add('common-line-marker');
                                 }
 
-                                if (map.current) {
-                                    const markerKey = `${lineId}-${index}`;
-                                    if (markerVisibility[lineId]) {
-                                        if (!markerRefs.current[markerKey]) {
-                                            const lineMarker = new mapboxgl.Marker(markerElement)
-                                                .setLngLat(coordinate as [number, number])
-                                                .addTo(map.current);
-                                            markerRefs.current[markerKey] = lineMarker;
-                                        }
-                                    } else {
-                                        if (markerRefs.current[markerKey]) {
-                                            markerRefs.current[markerKey].remove();
-                                            delete markerRefs.current[markerKey];
-                                        }
-                                    }
-                                }
+                                const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(
+                                    coordinate as [number, number],
+                                );
+
+                                map.current && markerInstance.addTo(map.current);
                             }
                         });
                     }
@@ -167,17 +130,16 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
 
             (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
                 type: 'FeatureCollection',
-                features: visibleMarkers,
+                features: data.features,
             });
-        } else if (!Object.keys(markerVisibility)?.length) {
+        } else {
             (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
         }
 
         if (singleMarkerCenter?.length === 2) {
             map.current.flyTo({ center: singleMarkerCenter as [number, number], essential: true });
-        }
-        // bbox logic
-        else {
+        } else {
+            // bbox logic
             const bbox = bboxTurf(data, { recompute: true });
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
@@ -189,10 +151,11 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
 
         if (map.current.isStyleLoaded()) {
             addDataToMap();
-        } else
+        } else {
             map.current.on('style.load', () => {
                 addDataToMap();
             });
+        }
     }, [data]);
 
     // Функция для запуска анимации
@@ -318,6 +281,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         };
     }, [data]);
 
+    // Центрирование карты по координатам centeringCoordinates
     useEffect(() => {
         if (map.current && centeringCoordinates?.lat && centeringCoordinates?.lon) {
             map.current.flyTo({ center: [centeringCoordinates?.lon, centeringCoordinates?.lat], essential: true });

@@ -135,7 +135,6 @@ export const LineWithPolygons: Story = {
                     </label>
                 </Box>
                 <FeatureMap
-                    markerVisibility={markerVisibility}
                     data={{
                         type: 'FeatureCollection',
                         features: [
@@ -298,7 +297,6 @@ export const TripData: Story = {
                     animateLineId={shouldAnimate}
                     onAnimationEnd={() => setShouldAnimate(undefined)}
                     animationDuration={30000}
-                    markerVisibility={{ 1176: true, 351: true }}
                     isLineMarkersNeeded={false}
                 />
             </Box>
