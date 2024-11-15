@@ -1,5 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 import moment from 'moment';
+import { mapMarkerSvgString } from './mp-marker-string';
+import { LineString, Point } from 'geojson';
+import { MutableRefObject, RefObject } from 'react';
+import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from './svg-containers';
 
 const ZOOM_BREAKPOINTS = {
     HIGH: 14, // показывать каждый 2-й попап
@@ -68,4 +72,58 @@ export const createPopupsForLineString = (
             activePopups.push(popup); // добавляем попап в массив активных попапов
         }
     });
+};
+
+/** Рендеринг элементов типа "Point" */
+export const renderPoints = (
+    geometry: Point,
+    popupMarkup: string,
+    map: RefObject<mapboxgl.Map>,
+    markersRef: MutableRefObject<mapboxgl.Marker[]>,
+) => {
+    const markerElement = document && document.createElement('div');
+    markerElement.innerHTML = mapMarkerSvgString;
+
+    const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(geometry.coordinates as [number, number]);
+
+    if (popupMarkup) {
+        const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
+        markerInstance.setPopup(popup);
+    }
+
+    if (map.current) {
+        markerInstance.addTo(map.current);
+    }
+    markersRef.current.push(markerInstance);
+};
+
+/** Рендеринг маркеров при типе "LineString" */
+export const renderLineStringPoints = (
+    geometry: LineString,
+    map: RefObject<mapboxgl.Map>,
+    markersRef: MutableRefObject<mapboxgl.Marker[]>,
+    isLineMarkersNeeded: boolean,
+) => {
+    if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
+        geometry.coordinates.forEach((coordinate, index) => {
+            if (Array.isArray(coordinate) && coordinate.length === 2) {
+                const markerElement = document.createElement('div');
+
+                if (index === 0) {
+                    markerElement.classList.add('start-end-line-marker');
+                    markerElement.innerHTML = mapMarkerStartSvgContainer;
+                } else if (index === geometry.coordinates.length - 1) {
+                    markerElement.classList.add('start-end-line-marker');
+                    markerElement.innerHTML = mapMarkerEndSvgContainer;
+                } else if (isLineMarkersNeeded) {
+                    markerElement.classList.add('common-line-marker');
+                }
+
+                const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(coordinate as [number, number]);
+
+                map.current && markerInstance.addTo(map.current);
+                markersRef.current.push(markerInstance);
+            }
+        });
+    }
 };

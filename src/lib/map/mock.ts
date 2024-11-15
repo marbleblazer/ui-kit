@@ -1466,7 +1466,6 @@ export const mockTripData: GeoJSON.FeatureCollection = {
                 ],
             },
             properties: {
-                device_id: 119,
                 lineId: 1176,
                 speeds: [
                     30.0, 30.5, 31.0, 31.5, 32.0, 32.5, 33.0, 33.5, 34.0, 34.5, 35.0, 35.5, 36.0, 36.5, 37.0, 37.5,

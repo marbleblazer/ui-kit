@@ -8,9 +8,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from './map.types';
-import { mapMarkerArrowSvgString, mapMarkerSvgString } from './mp-marker-string';
-import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from './svg-containers';
-import { createPopupsForLineString } from './utils';
+import { mapMarkerArrowSvgString } from './mp-marker-string';
+import { createPopupsForLineString, renderLineStringPoints, renderPoints } from './utils';
 import { BaseMap, IBaseMapProps } from './base-map';
 import { customDrawStyles } from './constance';
 
@@ -102,49 +101,12 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                         singleMarkerCenter = geometry.coordinates;
                     }
 
-                    const markerElement = document && document.createElement('div');
-                    markerElement.innerHTML = mapMarkerSvgString;
-
-                    const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(
-                        geometry.coordinates as [number, number],
-                    );
-
-                    if (popupMarkup) {
-                        const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
-                        markerInstance.setPopup(popup);
-                    }
-
-                    markerInstance.addTo(map.current);
-                    markersRef.current.push(markerInstance);
+                    renderPoints(geometry, popupMarkup, map, markersRef);
                 } else if (geometry.type === 'LineString') {
                     // Отрисовка маркеров на линии
-                    if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
-                        geometry.coordinates.forEach((coordinate, index) => {
-                            if (Array.isArray(coordinate) && coordinate.length === 2) {
-                                const markerElement = document.createElement('div');
-
-                                if (index === 0) {
-                                    markerElement.classList.add('start-end-line-marker');
-                                    markerElement.innerHTML = mapMarkerStartSvgContainer;
-                                } else if (index === geometry.coordinates.length - 1) {
-                                    markerElement.classList.add('start-end-line-marker');
-                                    markerElement.innerHTML = mapMarkerEndSvgContainer;
-                                } else if (isLineMarkersNeeded) {
-                                    markerElement.classList.add('common-line-marker');
-                                }
-
-                                const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(
-                                    coordinate as [number, number],
-                                );
-
-                                map.current && markerInstance.addTo(map.current);
-                                markersRef.current.push(markerInstance);
-                            }
-                        });
-                    }
+                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded);
                 }
             }
-
             (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
                 type: 'FeatureCollection',
                 features: data.features,
