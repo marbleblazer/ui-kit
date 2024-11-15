@@ -3,6 +3,7 @@ import { DrawableMap, FeatureMap } from '@chirp/ui/lib';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { mockTripData } from './mock';
+import { useTheme } from '@emotion/react';
 
 const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
@@ -46,9 +47,23 @@ export const Default: Story = {
 };
 export const ThreeMarkers: Story = {
     render: () => {
+        const theme = useTheme();
+
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
                 <FeatureMap
+                    sx={{
+                        '.mapboxgl-popup-content': {
+                            width: '334px',
+                            minHeight: '290px',
+                            fontSize: '12px',
+                            padding: '20px !important',
+
+                            label: {
+                                color: theme.palette.text.tertiary,
+                            },
+                        },
+                    }}
                     data={{
                         type: 'FeatureCollection',
                         features: [
@@ -61,16 +76,7 @@ export const ThreeMarkers: Story = {
                                 properties: {
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
-                                    popupData: {
-                                        lastUpdate: '1 minute ago',
-                                        address: '18 Rüdesheimer Straße, 53175 Bonn, Nordrhein-Westfalen, Germany',
-                                        motion: 'Stationary',
-                                        unitName: 'Car_2',
-                                        uniqueId: '1344214',
-                                        model: 'Tesla model 1',
-                                        speed: '1 minute ago',
-                                        driver: 'Anton Driver',
-                                    },
+                                    popupMarkup: '',
                                 },
                             },
                             {
@@ -106,11 +112,11 @@ export const ThreeMarkers: Story = {
 
 export const LineWithPolygons: Story = {
     render: () => {
-        const [visibility, setVisibility] = useState<{ [key: number]: boolean }>({ 1: true, 2: true, 3: true });
+        const [data, setData] = useState<{ [key: number]: boolean }>({ 1: true, 2: true, 3: true });
 
         const handleVisibilityChange = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setVisibility((prevVisibility) => ({
-                ...prevVisibility,
+            setData((prev) => ({
+                ...prev,
                 [id]: event.target.checked,
             }));
         };
@@ -157,29 +163,29 @@ export const LineWithPolygons: Story = {
             },
         ];
 
-        const visibleFeatures = {
+        const visibleData = {
             type: 'FeatureCollection',
-            features: features.filter((_, index) => visibility[index + 1]),
+            features: features.filter((_, index) => data[index + 1]),
         };
 
         return (
             <Box sx={{ width: '900px', height: '1600px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 2 }}>
                     <label>
-                        <input type="checkbox" checked={visibility[1]} onChange={handleVisibilityChange(1)} />
+                        <input type="checkbox" checked={data[1]} onChange={handleVisibilityChange(1)} />
                         Line 1
                     </label>
                     <label>
-                        <input type="checkbox" checked={visibility[2]} onChange={handleVisibilityChange(2)} />
+                        <input type="checkbox" checked={data[2]} onChange={handleVisibilityChange(2)} />
                         Line 2
                     </label>
                     <label>
-                        <input type="checkbox" checked={visibility[3]} onChange={handleVisibilityChange(3)} />
+                        <input type="checkbox" checked={data[3]} onChange={handleVisibilityChange(3)} />
                         Line 3
                     </label>
                 </Box>
-                {visibleFeatures.features.length > 0 ? (
-                    <FeatureMap data={visibleFeatures as GeoJSON.FeatureCollection} />
+                {visibleData.features.length > 0 ? (
+                    <FeatureMap data={visibleData as GeoJSON.FeatureCollection} />
                 ) : (
                     <Box>No features to display</Box>
                 )}

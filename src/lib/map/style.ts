@@ -288,20 +288,14 @@ export const MapContainer = styled(Box, {
         },
 
         '.mapboxgl-popup-content': {
-            width: '334px',
-            minHeight: '290px',
             fontSize: '12px',
             background: theme.palette.background.secondary,
             border: `1px solid ${theme.palette.border.primary}`,
             borderRadius: '12px',
             backdropFilter: 'blur(10px)',
-            padding: '20px',
+            padding: '8px 16px',
             fontFamily: theme.typography.body1.fontFamily,
             color: theme.palette.text.secondary,
-
-            label: {
-                color: theme.palette.text.tertiary,
-            },
         },
 
         button: {

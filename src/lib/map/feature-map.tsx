@@ -5,12 +5,14 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from './map.types';
 import { mapMarkerArrowSvgString, mapMarkerSvgString } from './mp-marker-string';
-import { createPopupContent } from './create-popup-content';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from './svg-containers';
 import { createPopupsForLineString } from './utils';
 import { BaseMap, IBaseMapProps } from './base-map';
+import { customDrawStyles } from './constance';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -42,13 +44,36 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
+    const drawRef = useRef<MapboxDraw | null>(null);
+
+    const onMapLoad = () => {
+        if (!map.current) return;
+
+        // Для работы с источником mapbox-gl-draw-cold
+        let modes = MapboxDraw.modes;
+        modes = GeodesicDraw.enable(modes);
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            modes: {
+                ...modes,
+            },
+            styles: customDrawStyles,
+        });
+
+        drawRef.current = draw;
+        map.current.addControl(draw);
+
+        addDataToMap();
+    };
 
     const clearMap = useCallback(() => {
         if (!map.current) return;
 
         // Удаление всех маркеров
         markersRef.current.forEach((marker) => marker.remove());
-        markersRef.current = [];
+        markersRef.current = []; // Очистка массива маркеров после их удаления
+
+        drawRef.current && drawRef.current.deleteAll();
     }, []);
 
     const addDataToMap = useCallback(() => {
@@ -70,7 +95,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         if (data.type === 'FeatureCollection') {
             for (const feature of data.features) {
                 const geometry = feature.geometry;
-                const popupData: Record<string, string> = feature?.properties?.popupData;
+                const popupMarkup: string = feature?.properties?.popupMarkup;
 
                 if (geometry.type === 'Point') {
                     if (data.features.length === 1) {
@@ -84,8 +109,8 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                         geometry.coordinates as [number, number],
                     );
 
-                    if (popupData) {
-                        const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(createPopupContent(popupData));
+                    if (popupMarkup) {
+                        const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
                         markerInstance.setPopup(popup);
                     }
 
@@ -280,5 +305,5 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         }
     }, [centeringCoordinates]);
 
-    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => addDataToMap()} />;
+    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad()} />;
 };
