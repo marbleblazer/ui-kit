@@ -1,4 +1,4 @@
-import { Box, PaletteMode, useTheme } from '@mui/material';
+import { Box, PaletteMode, SxProps, useTheme } from '@mui/material';
 import mapboxgl from 'mapbox-gl';
 import { FC, PropsWithChildren, RefObject, useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -19,6 +19,7 @@ export interface IBaseMapProps {
     scrollZoom?: boolean;
     getMapStyleId?: (themeMode: PaletteMode) => string;
     onMapLoad: () => void;
+    sx?: SxProps;
 }
 
 export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
@@ -27,6 +28,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     getMapStyleId = getUiKitMapStyleId,
     mapRef,
     onMapLoad,
+    sx,
     children,
 }) => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -107,7 +109,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     }, []);
 
     return (
-        <S.MapContainer width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>
+        <S.MapContainer sx={{ ...sx }} width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>
             <Box width="100%" height="100%" ref={mapContainer} className="mapRef-container" />
             {children}
         </S.MapContainer>
