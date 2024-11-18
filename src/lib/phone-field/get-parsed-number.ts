@@ -24,3 +24,15 @@ export function getParsedNumber(validCountryCodes: string[], phoneNumberStr: str
 
     return { countryCode, countryCallingCode, number };
 }
+
+export function validatePhoneNumber(phoneNumberStr: string) {
+    try {
+        if (phoneNumberStr.length === 0) return false;
+
+        const parsedNumber = parsePhoneNumber(`+${phoneNumberStr}`);
+
+        return parsedNumber.isValid();
+    } catch (error) {
+        return false;
+    }
+}
