@@ -106,3 +106,7 @@ export { UserPopup } from './user-popup';
 export { ConnectWalletBanner } from './connect-wallet-banner';
 
 export { DrawableMap } from './map/drawable-map';
+
+export { ColorPicker } from './color-picker';
+
+export { ClickableColorCell } from './color-picker/clickable-color-cell/clickable-color-cell';

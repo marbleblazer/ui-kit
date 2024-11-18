@@ -4,13 +4,14 @@ import { FC, useEffect, useState } from 'react';
 
 import * as S from './styles';
 import { SelectIndicator } from '../select-indicator';
-import { getParsedNumber } from './get-parsed-number';
+import { getParsedNumber, validatePhoneNumber } from './get-parsed-number';
 import { CountryCode, getCountryCallingCode } from 'libphonenumber-js';
 
 type IMuiPhoneNumberProps = Omit<MuiPhoneNumberProps, 'onChange'> & {
     onChange: (value: string) => void;
     value: string;
     onlyCountries: string[];
+    onValidate: (val: boolean) => void;
 };
 
 export const PhoneField: FC<IMuiPhoneNumberProps> = ({
@@ -18,6 +19,7 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
     value: propsValue,
     defaultCountry,
     onlyCountries: validCountryCodes,
+    onValidate,
     ...props
 }) => {
     const [localValue, setLocalValue] = useState<string>(''); // Телефонный номер без кода
@@ -47,6 +49,11 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
             setInitialValueSet(true);
         }
     }, []);
+
+    useEffect(() => {
+        const isPhoneNumberValid = validatePhoneNumber(propsValue);
+        onValidate(isPhoneNumberValid);
+    }, [onValidate, propsValue, isFocusedState]);
 
     const handleChange = (value: string, country: Record<string, string>) => {
         const dialCode = country.dialCode;

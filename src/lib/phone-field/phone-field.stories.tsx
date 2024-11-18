@@ -17,12 +17,15 @@ type Story = StoryObj<typeof PhoneField>;
 
 export const Default: Story = {
     render: () => {
-        const [value, setValue] = useState<string>('');
+        const [value, setValue] = useState<string>('7(922) 555-5555');
+        const [isValid, setIsValid] = useState<boolean>();
+
         return (
             <PhoneField
                 defaultCountry="us"
                 value={value}
                 onChange={setValue}
+                onValidate={setIsValid}
                 placeholder="Номер телефона"
                 onlyCountries={['us', 'de', 'pt', 'es', 'ru']}
             />
