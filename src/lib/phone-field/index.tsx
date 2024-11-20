@@ -23,7 +23,7 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
     ...props
 }) => {
     const [localValue, setLocalValue] = useState<string>(''); // Телефонный номер без кода
-    const [isFocusedState, setIsFocusedState] = useState(true);
+    const [isFocusedState, setIsFocusedState] = useState(false);
     const [dialCodeState, setDialCodeState] = useState<string>(
         getCountryCallingCode(defaultCountry?.toUpperCase() as CountryCode),
     ); // Код страны в формате "34", "7"
@@ -82,6 +82,7 @@ export const PhoneField: FC<IMuiPhoneNumberProps> = ({
                 onBlur={() => setIsFocusedState(false)}
                 value={localValue}
                 InputProps={{
+                    autoComplete: 'no',
                     endAdornment: (
                         <InputAdornment position="end">
                             <SelectIndicator />
