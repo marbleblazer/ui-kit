@@ -140,7 +140,7 @@ export const createComponents: ComponentCreator = (palette) => ({
             root: {
                 padding: '14px 16px',
                 '&:hover': {
-                    backgroundColor: palette?.accent?.accent16,
+                    backgroundColor: palette?.accent?.accent10,
                     color: palette?.accent.accent,
                 },
             },

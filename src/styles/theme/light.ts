@@ -34,7 +34,6 @@ export const lightTheme: ThemeOptions = {
         accent: {
             accent: '#FF4D14',
             accent10: '#FF4D141A',
-            accent16: '#FF4D1429',
             accentHover: '#E7440F',
         },
         border: {

@@ -73,7 +73,6 @@ export interface CustomPalette {
     accent: {
         accent: string;
         accent10: string;
-        accent16: string;
         accentHover: string;
     };
     border: {
