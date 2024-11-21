@@ -96,6 +96,7 @@ export {
     VerticalBarsChartWidget,
     StackedLineChartWidget,
     ListWidgetWithFilters,
+    TemperatureWidget,
 } from './widgets';
 
 export { VerticalBarChart } from './charts/vertical-bar-chart';

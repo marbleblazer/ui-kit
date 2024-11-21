@@ -61,3 +61,5 @@ export { default as SuiIcon } from './sui.svg?react';
 export { default as ConnectWalletIcon } from './connect-wallet.svg?react';
 export { default as FleetSuccessIcon } from './fleet-success.svg?react';
 export { default as PauseIcon } from './pause.svg?react';
+export { default as TemperatureIcon } from './temperature.svg?react';
+export { default as ThumbtackIcon } from './thumbtack.svg?react';
