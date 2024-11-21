@@ -7,4 +7,5 @@ export const Root = styled(Stack)(({ theme }) => ({
     borderRadius: '8px',
     width: '400px',
     minHeight: '50px',
+    position: 'relative',
 }));
