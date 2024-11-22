@@ -60,12 +60,20 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
             >
                 <S.PopupBody>
                     <S.List>
-                        <Stack p="8px" width="100%" marginTop={1} rowGap={2}>
-                            <ConnectWalletBanner />
-                            <Button fullWidth type="button" variant="primary" size="small" onClick={onWalletConnect}>
-                                Connect your wallet
-                            </Button>
-                        </Stack>
+                        {onWalletConnect && (
+                            <Stack p="8px" width="100%" marginTop={1} rowGap={2}>
+                                <ConnectWalletBanner />
+                                <Button
+                                    fullWidth
+                                    type="button"
+                                    variant="primary"
+                                    size="small"
+                                    onClick={onWalletConnect}
+                                >
+                                    Connect your wallet
+                                </Button>
+                            </Stack>
+                        )}
                         <Logout onLogout={onLogout} />
                         <Divider />
                         <S.ListItem>
