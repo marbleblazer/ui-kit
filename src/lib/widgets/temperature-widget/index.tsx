@@ -13,7 +13,7 @@ export const TemperatureWidget = () => {
                     </Stack>
 
                     <Stack flexDirection="row">
-                        <S.LastUpdateTypography variant="caption">Last update:</S.LastUpdateTypography>
+                        <S.CustomCaptionTypography variant="caption">Last update:</S.CustomCaptionTypography>
                         <S.LastUpdateTimeTypography variant="caption">20:32</S.LastUpdateTimeTypography>
                     </Stack>
                 </Stack>
@@ -24,25 +24,36 @@ export const TemperatureWidget = () => {
                 </S.RightCornerIconsWrapper>
             </S.HeaderWrapper>
 
-            <Stack direction="row" marginTop="12px" alignItems="flex-end">
-                <Typography variant="h1">35</Typography>
-                <Typography variant="body1" sx={{ fontSize: '20px', lineHeight: '32px', fontWeight: '500' }}>
-                    ,05
-                </Typography>
-                <Typography variant="caption">°C</Typography>
+            <Stack direction="row" marginTop="12px">
+                <S.LeftSideOfTemperatureTypography variant="h1">35</S.LeftSideOfTemperatureTypography>
 
-                {/* <Stack alignItems="flex-end">
-                </Stack> */}
+                <Stack alignItems="flex-end" justifyContent="flex-end">
+                    <S.DegreeSignTypography variant="caption">°C</S.DegreeSignTypography>
+                    <S.RightSideOfTemperatureTypography variant="body1">,05</S.RightSideOfTemperatureTypography>
+                </Stack>
             </Stack>
 
-            <Stack marginTop="38px">
-                <S.LastUpdateTypography variant="caption">Last 12h</S.LastUpdateTypography>
+            <Stack gap="6px" marginTop="38px">
+                <S.CustomCaptionTypography variant="caption" sx={{ marginRight: '0px' }}>
+                    Last 12h
+                </S.CustomCaptionTypography>
 
                 <Stack>
                     <Stack flexDirection="row" justifyContent="space-between">
-                        <Typography variant="caption">Min 12</Typography>
-                        <Typography variant="caption">Avg 38</Typography>
-                        <Typography variant="caption">Max 41</Typography>
+                        <Stack direction="row">
+                            <Typography variant="caption">Min</Typography>
+                            <Typography variant="caption">12</Typography>
+                        </Stack>
+
+                        <Stack direction="row">
+                            <Typography variant="caption">Avg</Typography>
+                            <Typography variant="caption">38</Typography>
+                        </Stack>
+
+                        <Stack direction="row">
+                            <Typography variant="caption">Max</Typography>
+                            <Typography variant="caption">41</Typography>
+                        </Stack>
                     </Stack>
                 </Stack>
             </Stack>

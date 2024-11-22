@@ -27,7 +27,7 @@ export const TemperatureTypography = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.tertiary,
 }));
 
-export const LastUpdateTypography = styled(Typography)(({ theme }) => ({
+export const CustomCaptionTypography = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.quaternary,
     marginRight: '4px',
     fontSize: '10px',
@@ -35,4 +35,21 @@ export const LastUpdateTypography = styled(Typography)(({ theme }) => ({
 
 export const LastUpdateTimeTypography = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.tertiary,
+}));
+
+export const LeftSideOfTemperatureTypography = styled(Typography)(({ theme }) => ({
+    color: theme.palette.mode === 'light' ? '#ECA23F' : '#ECE3D1',
+}));
+
+export const RightSideOfTemperatureTypography = styled(Typography)(({ theme }) => ({
+    fontSize: '20px',
+    lineHeight: '32px',
+    fontWeight: '500',
+    color: theme.palette.mode === 'light' ? '#ECA23F' : '#ECE3D1',
+}));
+
+export const DegreeSignTypography = styled(Typography)(({ theme }) => ({
+    position: 'absolute',
+    marginBottom: '25px',
+    color: theme.palette.mode === 'light' ? '#ECA23F' : '#ECE3D1',
 }));
