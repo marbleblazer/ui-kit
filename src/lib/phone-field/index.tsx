@@ -5,6 +5,7 @@ import {
     FormControl,
     InputAdornment,
     MenuItem,
+    PaperProps,
     SelectChangeEvent,
     TextFieldProps,
     Typography,
@@ -18,9 +19,17 @@ type PhoneFieldProps = Omit<TextFieldProps, 'onChange'> & {
     onChange: (value: string) => void;
     countries: string[]; // Массив ISO-кодов стран
     defaultCountry: string; // ISO-код страны по умолчанию
+    PaperPropsSx?: PaperProps;
 };
 
-export const PhoneField: FC<PhoneFieldProps> = ({ value, onChange, countries, defaultCountry, ...props }) => {
+export const PhoneField: FC<PhoneFieldProps> = ({
+    value,
+    onChange,
+    countries,
+    defaultCountry,
+    PaperPropsSx,
+    ...props
+}) => {
     const countryList = useMemo(() => countries.map((code) => ({ code, ...COUNTRIES[code] })), [countries]);
 
     const extractInitialValues = (inputValue: string) => {
@@ -87,6 +96,9 @@ export const PhoneField: FC<PhoneFieldProps> = ({ value, onChange, countries, de
                                     return country ? country.dialCode : '';
                                 }}
                                 MenuProps={{
+                                    PaperProps: {
+                                        ...PaperPropsSx,
+                                    },
                                     anchorOrigin: {
                                         vertical: 'bottom',
                                         horizontal: 'left',

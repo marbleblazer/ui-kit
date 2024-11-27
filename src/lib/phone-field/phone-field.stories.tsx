@@ -17,7 +17,7 @@ type Story = StoryObj<typeof PhoneField>;
 
 export const Default: Story = {
     render: () => {
-        const [value, setValue] = useState<string>('71565654565');
+        const [value, setValue] = useState<string>('491512125694');
 
         return (
             <PhoneField
@@ -27,7 +27,10 @@ export const Default: Story = {
                 onChange={setValue}
                 label="Phone number"
                 placeholder="Phone number"
-                sx={{ width: '257px' }}
+                PaperPropsSx={{ sx: { width: '257px' } }}
+                sx={{
+                    width: '257px',
+                }}
             />
         );
     },
@@ -48,6 +51,10 @@ export const Empty: Story = {
                     value={value}
                     onChange={setValue}
                     placeholder="Phone number"
+                    PaperPropsSx={{ sx: { width: '257px' } }}
+                    sx={{
+                        width: '257px',
+                    }}
                 />
             </>
         );
