@@ -1,13 +1,6 @@
-import { styled } from '@mui/material';
-import MuiPhoneNumber, { MuiPhoneNumberProps } from 'mui-phone-number';
+import { styled, TextField } from '@mui/material';
 
-type PhoneFieldPropsType = MuiPhoneNumberProps & {
-    dialCode?: string;
-};
-
-export const PhoneField = styled(MuiPhoneNumber, {
-    shouldForwardProp: (prop) => prop !== 'dialCode',
-})<PhoneFieldPropsType>(({ theme, dialCode }) => ({
+export const PhoneField = styled(TextField)(({ theme }) => ({
     fontFamily: theme?.typography.fontFamily,
     marginTop: '20px !important',
     border: 'none',
@@ -34,53 +27,52 @@ export const PhoneField = styled(MuiPhoneNumber, {
 
     '& .MuiInputBase-root': {
         height: '40px',
+        paddingLeft: '0px',
+        // '&.MuiInput-root': {
+        //     marginTop: '0',
 
-        '&.MuiInput-root': {
-            marginTop: '0',
+        //     '.MuiPhoneNumber-positionStart': {
+        //         left: '8px',
+        //     },
 
-            '.MuiPhoneNumber-positionStart': {
-                left: '8px',
-            },
-
-            '&:before, &:after': {
-                display: 'none',
-                borderBottom: 'none',
-            },
-        },
+        //     '&:before, &:after': {
+        //         display: 'none',
+        //         borderBottom: 'none',
+        //     },
+        // },
     },
 
     '.MuiInputAdornment-root': {
         width: 'auto',
         height: 'auto',
     },
-    '.MuiInputAdornment-positionEnd': {
-        position: 'absolute',
-        left: '33px',
-        margin: '0',
-        order: 1,
-        svg: {
-            width: '20px',
-            height: '20px',
-        },
-    },
-    '.MuiInputAdornment-positionStart': {
-        order: 0,
-        button: {
-            justifyContent: 'flex-end',
-            '&::before': {
-                content: dialCode ? `"+${dialCode}"` : '""',
-                fontSize: '13px',
-                lineHeight: '16px',
-                fontFamily: theme?.typography.fontFamily,
-                color: theme.palette.text.primary,
-                marginRight: '20px',
-            },
+    // '.MuiInputAdornment-positionEnd': {
+    //     position: 'absolute',
+    //     left: '33px',
+    //     margin: '0',
+    //     order: 1,
+    //     svg: {
+    //         width: '20px',
+    //         height: '20px',
+    //     },
+    // },
+    // '.MuiInputAdornment-positionStart': {
+    //     order: 0,
+    //     button: {
+    //         justifyContent: 'flex-end',
+    //         '&::before': {
+    //             fontSize: '13px',
+    //             lineHeight: '16px',
+    //             fontFamily: theme?.typography.fontFamily,
+    //             color: theme.palette.text.primary,
+    //             marginRight: '20px',
+    //         },
 
-            svg: {
-                display: 'none',
-            },
-        },
-    },
+    //         svg: {
+    //             display: 'none',
+    //         },
+    //     },
+    // },
 
     '&.MuiFormControl-root .MuiFormLabel-root': {
         transform: 'none',

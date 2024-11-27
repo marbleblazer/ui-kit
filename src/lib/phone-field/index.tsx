@@ -1,96 +1,120 @@
-import { MuiPhoneNumberProps } from 'mui-phone-number';
-import { FormControl, InputAdornment } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
-
+import { FC, useEffect, useMemo, useState } from 'react';
+import { Select } from '../select';
+import { Box, FormControl, InputAdornment, MenuItem, SelectChangeEvent, Typography } from '@mui/material';
 import * as S from './styles';
-import { SelectIndicator } from '../select-indicator';
-import { getParsedNumber, validatePhoneNumber } from './get-parsed-number';
-import { CountryCode, getCountryCallingCode } from 'libphonenumber-js';
+import { applyMask, getMaxLength, stripDialCode } from './helpers';
+import { COUNTRIES } from './constants';
 
-type IMuiPhoneNumberProps = Omit<MuiPhoneNumberProps, 'onChange'> & {
-    onChange: (value: string) => void;
+type PhoneFieldProps = {
     value: string;
-    onlyCountries: string[];
-    onValidate: (val: boolean) => void;
+    onChange: (value: string) => void;
+    countries: string[]; // Массив ISO-кодов стран
+    defaultCountry: string; // ISO-код страны по умолчанию
+    label?: string;
+    placeholder?: string;
 };
 
-export const PhoneField: FC<IMuiPhoneNumberProps> = ({
+export const PhoneField: FC<PhoneFieldProps> = ({
+    value,
     onChange,
-    value: propsValue,
+    countries,
     defaultCountry,
-    onlyCountries: validCountryCodes,
-    onValidate,
+    label,
+    placeholder,
     ...props
 }) => {
-    const [localValue, setLocalValue] = useState<string>(''); // Телефонный номер без кода
-    const [isFocusedState, setIsFocusedState] = useState(false);
-    const [dialCodeState, setDialCodeState] = useState<string>(
-        getCountryCallingCode(defaultCountry?.toUpperCase() as CountryCode),
-    ); // Код страны в формате "34", "7"
+    const countryList = useMemo(() => countries.map((code) => ({ code, ...COUNTRIES[code] })), [countries]);
 
-    const [countryCode, setCountryCode] = useState<string | undefined>(defaultCountry); // Страна в формате "us"
+    const extractInitialValues = (inputValue: string) => {
+        for (const country of countryList) {
+            const { dialCode, code } = country;
+            const normalizedDialCode = dialCode.replace('+', '');
 
-    const [initialValueSet, setInitialValueSet] = useState<boolean>(false); // Было ли установлено initial значение
-
-    // Для очистки localValue при изменении defaultCountry
-    useEffect(() => {
-        if (countryCode && !initialValueSet) {
-            setLocalValue('');
-        }
-    }, [countryCode]);
-
-    // Для задания первоначального значения (если оно передается)
-    useEffect(() => {
-        if (propsValue && !initialValueSet && propsValue.length > 3) {
-            const countryCodeData = getParsedNumber(validCountryCodes, propsValue);
-            setCountryCode(countryCodeData.countryCode);
-            setDialCodeState(countryCodeData.countryCallingCode);
-            setLocalValue(countryCodeData.number);
-            setInitialValueSet(true);
-        }
-    }, []);
-
-    useEffect(() => {
-        const isPhoneNumberValid = validatePhoneNumber(propsValue);
-        onValidate(isPhoneNumberValid);
-    }, [onValidate, propsValue, isFocusedState]);
-
-    const handleChange = (value: string, country: Record<string, string>) => {
-        const dialCode = country.dialCode;
-        const countryName = country.countryCode;
-
-        if (!isFocusedState) {
-            setCountryCode(countryName);
-            setDialCodeState(dialCode);
+            if (inputValue.startsWith(normalizedDialCode)) {
+                return {
+                    initialCountry: code,
+                    initialLocalValue: stripDialCode(inputValue, normalizedDialCode),
+                };
+            }
         }
 
-        setLocalValue(value);
-        onChange(`${dialCode}${value}`);
+        return {
+            initialCountry: defaultCountry || countries[0],
+            initialLocalValue: inputValue,
+        };
+    };
+
+    const { initialCountry, initialLocalValue } = extractInitialValues(value);
+
+    const [selectedCountry, setSelectedCountry] = useState<string>(initialCountry);
+    const [localValue, setLocalValue] = useState<string>(applyMask(initialLocalValue, initialCountry));
+
+    useEffect(() => {
+        const unmaskedValue = localValue.replace(/\D/g, '');
+        const dialCode = COUNTRIES[selectedCountry].dialCode.replace('+', '');
+        onChange(`${dialCode}${unmaskedValue}`);
+    }, [selectedCountry, localValue, onChange]);
+
+    const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
+        const newCountry = event.target.value as string;
+        setSelectedCountry(newCountry);
+        setLocalValue(''); // Сбрасываем локальное значение при смене страны
+    };
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.value.replace(/\D/g, '');
+        const maxLength = getMaxLength(selectedCountry);
+
+        if (newValue.length <= maxLength) {
+            setLocalValue(applyMask(newValue, selectedCountry));
+        }
     };
 
     return (
         <FormControl fullWidth>
             <S.PhoneField
                 {...props}
-                defaultCountry={countryCode ?? defaultCountry}
-                InputLabelProps={{ shrink: true }}
-                dialCode={dialCodeState}
-                disableCountryCode
-                disableAreaCodes
-                onlyCountries={validCountryCodes}
-                onFocus={() => setIsFocusedState(true)}
-                onBlur={() => setIsFocusedState(false)}
+                label={label}
+                placeholder={placeholder}
                 value={localValue}
+                onChange={handleInputChange}
                 InputProps={{
-                    autoComplete: 'no',
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <SelectIndicator />
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Select
+                                value={selectedCountry}
+                                onChange={handleCountryChange}
+                                displayEmpty
+                                sx={{ minWidth: 80, margin: 0 }}
+                                renderValue={(selected) => {
+                                    const country = countryList.find((c) => c.code === selected);
+                                    return country ? country.dialCode : '';
+                                }}
+                                MenuProps={{
+                                    anchorOrigin: {
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    },
+                                    transformOrigin: {
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    },
+                                }}
+                            >
+                                {countryList.map((country) => (
+                                    <MenuItem key={country.code} value={country.code} sx={{ width: '100%' }}>
+                                        <Box display="flex" alignItems="center" gap={1}>
+                                            <Typography variant="body2">{country.name}</Typography>
+                                            <Typography variant="body2" style={{ width: 40 }}>
+                                                {country.dialCode}
+                                            </Typography>
+                                        </Box>
+                                    </MenuItem>
+                                ))}
+                            </Select>
                         </InputAdornment>
                     ),
                 }}
-                // @ts-ignore
-                onChange={(value: string, country: Record<string, string>, ...props) => handleChange(value, country)}
             />
         </FormControl>
     );
