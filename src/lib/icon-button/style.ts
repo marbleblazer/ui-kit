@@ -30,12 +30,12 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
     }),
 
     ...(variant === 'primary' && {
-        background: theme.palette.accent.accent,
+        background: theme.palette.base.color6,
         color: theme.palette.primary.light,
-        border: `1px solid ${theme.palette.accent.accent}`,
+        border: `1px solid ${theme.palette.base.color6}`,
 
         '&:hover, &:active': {
-            background: theme.palette.accent.accentHover,
+            background: theme.palette.base.hover,
         },
 
         '&:disabled': {
@@ -48,13 +48,13 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
     }),
 
     ...(variant === 'secondary' && {
-        background: theme.palette.accent.accent10,
-        color: theme.palette.accent.accent,
+        background: theme.palette.base.color61,
+        color: theme.palette.base.color6,
         border: `1px solid transparent`,
 
         '&:hover, &:active': {
-            background: theme.palette.accent.accent10,
-            borderColor: theme.palette.accent.accent,
+            background: theme.palette.base.color61,
+            borderColor: theme.palette.base.color6,
         },
 
         '&:disabled': {
@@ -77,7 +77,7 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
         '&:hover, &:active': {
             background: theme.palette.primaryColors.primary,
-            color: theme.palette.accent.accent,
+            color: theme.palette.base.color6,
         },
 
         '&:disabled': {
@@ -91,13 +91,13 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
     ...(variant === 'outlined' && {
         background: 'transparent',
-        color: theme.palette.accent.accent,
-        border: `1px solid ${theme.palette.accent.accent}`,
+        color: theme.palette.base.color6,
+        border: `1px solid ${theme.palette.base.color6}`,
 
         '&:hover, &:active': {
             background: 'transparent',
-            color: theme.palette.accent.accentHover,
-            borderColor: theme.palette.accent.accentHover,
+            color: theme.palette.base.hover,
+            borderColor: theme.palette.base.hover,
         },
 
         '&:disabled': {
@@ -116,7 +116,7 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
         '&:hover, &:active': {
             background: 'transparent',
-            color: theme.palette.accent.accentHover,
+            color: theme.palette.base.hover,
         },
 
         '&:disabled': {

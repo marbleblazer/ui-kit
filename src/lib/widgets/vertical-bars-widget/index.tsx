@@ -56,7 +56,7 @@ export const VerticalBarsChartWidget = <T,>(props: PropsWithChildren<IVerticalBa
                     </Stack>
                     <VerticalBarChart
                         unit={unit}
-                        color={theme.palette.accent.accent}
+                        color={theme.palette.base.color6}
                         style={chartStyles}
                         data={chartData}
                     />

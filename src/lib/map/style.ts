@@ -409,8 +409,8 @@ export const MapContainer = styled(Box, {
                 },
 
                 '&.active': {
-                    color: theme.palette.accent.accent,
-                    stroke: theme.palette.accent.accent,
+                    color: theme.palette.base.color6,
+                    stroke: theme.palette.base.color6,
                 },
             },
 
@@ -439,14 +439,14 @@ export const MapContainer = styled(Box, {
     '.common-line-marker': {
         width: '6px',
         height: '6px',
-        backgroundColor: theme.palette.accent.accent,
+        backgroundColor: theme.palette.base.color6,
         borderRadius: '50%',
     },
 
     '.start-end-line-marker': {
         width: '6px',
         height: '6px',
-        backgroundColor: theme.palette.accent.accent,
+        backgroundColor: theme.palette.base.color6,
         borderRadius: '50%',
 
         '.svg-container': {

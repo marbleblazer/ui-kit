@@ -97,7 +97,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
 
     '.MuiInputBase-root.Mui-error': {
         input: {
-            borderColor: theme.palette.alerts.red,
+            borderColor: theme.palette.base.color7,
         },
     },
 

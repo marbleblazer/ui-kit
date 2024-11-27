@@ -31,7 +31,7 @@ export const Default: Story = {
             >
                 <VerticalBarChart
                     unit="lt"
-                    color={theme.palette.accent.accent}
+                    color={theme.palette.base.color6}
                     style={{ width: '100%', height: '100%' }}
                     data={mockedData}
                 />

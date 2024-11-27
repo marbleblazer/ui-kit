@@ -29,6 +29,6 @@ export const Tab = styled(MuiTab)(({ theme }) => ({
 
     '&.Mui-selected': {
         color: theme.palette.primary.light,
-        backgroundColor: theme.palette.accent.accent,
+        backgroundColor: theme.palette.base.color6,
     },
 }));

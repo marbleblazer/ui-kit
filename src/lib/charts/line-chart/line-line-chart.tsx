@@ -99,12 +99,12 @@ const LineChart: FC<ILineChartProps> = memo(
                     type: 'line',
                     data,
                     itemStyle: {
-                        borderColor: theme.palette.accent.accent,
+                        borderColor: theme.palette.base.color6,
                         color: '#fff',
                     },
                     lineStyle: {
                         width: 0.5,
-                        color: theme.palette.accent.accent,
+                        color: theme.palette.base.color6,
                     },
                     symbol: 'circle',
                     showAllSymbol: true,
@@ -113,7 +113,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     showSymbol: true,
                     emphasis: {
                         itemStyle: {
-                            color: theme.palette.accent.accent,
+                            color: theme.palette.base.color6,
                         },
                     },
                 },

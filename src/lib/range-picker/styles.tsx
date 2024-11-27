@@ -52,8 +52,8 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
                 marginLeft: '0',
             },
             '&--in-range': {
-                backgroundColor: theme.palette.accent.accent10,
-                borderColor: theme.palette.accent.accent10,
+                backgroundColor: theme.palette.base.color61,
+                borderColor: theme.palette.base.color61,
             },
             '&--outside-month': {
                 visibility: 'hidden',

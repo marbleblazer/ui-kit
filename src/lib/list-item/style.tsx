@@ -19,7 +19,7 @@ export const ListItem = styled(MUIListItem)(({ theme }) => ({
         backgroundColor: theme.palette.background.primary,
         borderRadius: '8px',
         '.MuiTypography-body1': {
-            color: theme.palette.accent.accent,
+            color: theme.palette.base.color6,
         },
     },
     '.MuiListItemSecondaryAction-root': {
@@ -41,7 +41,7 @@ export const AccordionListItem = styled(MUIListItem)(({ theme }) => ({
     justifyContent: 'space-between',
     '&:hover': {
         '.MuiTypography-body1.title': {
-            color: theme.palette.accent.accent,
+            color: theme.palette.base.color6,
         },
         '.accordion-summary-wrapper, .MuiCollapse-root': {
             borderRadius: '8px',

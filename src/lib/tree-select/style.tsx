@@ -16,8 +16,8 @@ export const TreeItem = styled(MUITreeItem)(({ theme }) => ({
             },
         },
         '&:hover': {
-            backgroundColor: theme.palette?.accent.accent10,
-            color: theme.palette?.accent.accent,
+            backgroundColor: theme.palette?.base.color61,
+            color: theme.palette?.base.color6,
         },
     },
 }));

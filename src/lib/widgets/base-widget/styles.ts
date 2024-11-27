@@ -19,5 +19,5 @@ export const Divider = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledStarFilled = styled(StarFilled)(({ theme }) => ({
-    color: theme.palette.accent.accent,
+    color: theme.palette.base.color6,
 }));

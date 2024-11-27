@@ -25,7 +25,7 @@ export const DeleteBtn = styled(Button)(({ theme }) => ({
     maxHeight: '32px',
     height: 'auto',
     padding: '5.5px',
-    color: theme.palette.accent.accent,
+    color: theme.palette.base.color6,
     '&:hover': {
         backgroundColor: 'transparent',
     },

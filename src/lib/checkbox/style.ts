@@ -9,7 +9,7 @@ export const CheckboxIcon = styled('span')(({ theme }) => ({
     border: '1px solid',
     borderColor: theme.palette.text.quaternary,
     'input:hover ~ &': {
-        borderColor: theme.palette.accent.accent,
+        borderColor: theme.palette.base.color6,
     },
     'input:disabled ~ &': {
         borderColor: theme.palette.border.secondary,
@@ -17,8 +17,8 @@ export const CheckboxIcon = styled('span')(({ theme }) => ({
 }));
 
 export const CheckboxCheckedIcon = styled(CheckboxIcon)(({ theme }) => ({
-    backgroundColor: theme.palette.accent.accent,
-    borderColor: theme.palette.accent.accent,
+    backgroundColor: theme.palette.base.color6,
+    borderColor: theme.palette.base.color6,
     '&:before': {
         display: 'block',
         width: 16,

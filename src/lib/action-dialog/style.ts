@@ -32,9 +32,9 @@ export const IconWrapper = styled(Stack)(({ theme }) => ({
     width: '72px',
     height: '72px',
     borderRadius: '50%',
-    backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.accent.accent, 0.2)} 0%, ${alpha(
-        theme.palette.accent.accent,
+    backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.base.color6, 0.2)} 0%, ${alpha(
+        theme.palette.base.color6,
         0,
     )} 100%)`,
-    color: theme.palette.accent.accent,
+    color: theme.palette.base.color6,
 }));
