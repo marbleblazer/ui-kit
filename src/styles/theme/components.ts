@@ -18,7 +18,7 @@ export const createComponents: ComponentCreator = (palette) => ({
                 },
                 '& ::-webkit-scrollbar-thumb': {
                     borderRadius: '31px',
-                    backgroundColor: palette?.primaryColors?.tertiary,
+                    backgroundColor: palette?.primaryColors?.quaternary,
                 },
             },
         },

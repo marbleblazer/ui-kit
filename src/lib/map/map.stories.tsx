@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DrawableMap, FeatureMap } from '@chirp/ui/lib';
+import { DrawableMap, FeatureMap, TripMap } from '@chirp/ui/lib';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { mockTripData } from './mock';
@@ -285,14 +285,14 @@ export const Drawable: Story = {
     },
 };
 
-export const TripData: Story = {
+export const TripMapExample: Story = {
     render: () => {
         const [shouldAnimate, setShouldAnimate] = useState<number>();
 
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
                 <button onClick={() => setShouldAnimate(1176)}>Start Animation</button>
-                <FeatureMap
+                <TripMap
                     data={mockTripData}
                     animateLineId={shouldAnimate}
                     onAnimationEnd={() => setShouldAnimate(undefined)}

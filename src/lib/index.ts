@@ -110,3 +110,5 @@ export { DrawableMap } from './map/drawable-map';
 export { ColorPicker } from './color-picker';
 
 export { ClickableColorCell } from './color-picker/clickable-color-cell/clickable-color-cell';
+
+export { TripMap } from './map/trip-map';
