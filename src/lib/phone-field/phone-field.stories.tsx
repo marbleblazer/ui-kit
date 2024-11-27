@@ -27,6 +27,7 @@ export const Default: Story = {
                 onChange={setValue}
                 label="Phone number"
                 placeholder="Phone number"
+                sx={{ width: '257px' }}
             />
         );
     },

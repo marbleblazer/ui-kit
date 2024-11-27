@@ -1,28 +1,26 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Select } from '../select';
-import { Box, FormControl, InputAdornment, MenuItem, SelectChangeEvent, Typography } from '@mui/material';
+import {
+    Box,
+    FormControl,
+    InputAdornment,
+    MenuItem,
+    SelectChangeEvent,
+    TextFieldProps,
+    Typography,
+} from '@mui/material';
 import * as S from './styles';
 import { applyMask, getMaxLength, stripDialCode } from './helpers';
 import { COUNTRIES } from './constants';
 
-type PhoneFieldProps = {
+type PhoneFieldProps = Omit<TextFieldProps, 'onChange'> & {
     value: string;
     onChange: (value: string) => void;
     countries: string[]; // Массив ISO-кодов стран
     defaultCountry: string; // ISO-код страны по умолчанию
-    label?: string;
-    placeholder?: string;
 };
 
-export const PhoneField: FC<PhoneFieldProps> = ({
-    value,
-    onChange,
-    countries,
-    defaultCountry,
-    label,
-    placeholder,
-    ...props
-}) => {
+export const PhoneField: FC<PhoneFieldProps> = ({ value, onChange, countries, defaultCountry, ...props }) => {
     const countryList = useMemo(() => countries.map((code) => ({ code, ...COUNTRIES[code] })), [countries]);
 
     const extractInitialValues = (inputValue: string) => {
@@ -74,8 +72,6 @@ export const PhoneField: FC<PhoneFieldProps> = ({
         <FormControl fullWidth>
             <S.PhoneField
                 {...props}
-                label={label}
-                placeholder={placeholder}
                 value={localValue}
                 onChange={handleInputChange}
                 InputProps={{
