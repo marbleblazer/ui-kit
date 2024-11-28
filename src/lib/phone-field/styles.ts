@@ -42,7 +42,7 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
         '.MuiInputBase-root': {
             width: '51px',
             border: 'none',
-            height: '15px',
+            height: '40px',
             backgroundColor: 'transparent',
             paddingLeft: '5px',
             margin: '0',
@@ -80,7 +80,7 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
 
     '.MuiSelect-icon': {
         right: '0px !important',
-        top: '-3px',
+        top: '10px',
     },
 
     'input:-webkit-autofill': {
