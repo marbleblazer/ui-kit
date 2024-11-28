@@ -1,13 +1,6 @@
-import { styled } from '@mui/material';
-import MuiPhoneNumber, { MuiPhoneNumberProps } from 'mui-phone-number';
+import { styled, TextField } from '@mui/material';
 
-type PhoneFieldPropsType = MuiPhoneNumberProps & {
-    dialCode?: string;
-};
-
-export const PhoneField = styled(MuiPhoneNumber, {
-    shouldForwardProp: (prop) => prop !== 'dialCode',
-})<PhoneFieldPropsType>(({ theme, dialCode }) => ({
+export const PhoneField = styled(TextField)(({ theme }) => ({
     fontFamily: theme?.typography.fontFamily,
     marginTop: '20px !important',
     border: 'none',
@@ -34,51 +27,25 @@ export const PhoneField = styled(MuiPhoneNumber, {
 
     '& .MuiInputBase-root': {
         height: '40px',
-
-        '&.MuiInput-root': {
-            marginTop: '0',
-
-            '.MuiPhoneNumber-positionStart': {
-                left: '8px',
-            },
-
-            '&:before, &:after': {
-                display: 'none',
-                borderBottom: 'none',
-            },
-        },
+        paddingLeft: '0px',
     },
 
     '.MuiInputAdornment-root': {
         width: 'auto',
         height: 'auto',
     },
-    '.MuiInputAdornment-positionEnd': {
-        position: 'absolute',
-        left: '33px',
-        margin: '0',
-        order: 1,
-        svg: {
-            width: '20px',
-            height: '20px',
-        },
-    },
+
     '.MuiInputAdornment-positionStart': {
         order: 0,
-        button: {
-            justifyContent: 'flex-end',
-            '&::before': {
-                content: dialCode ? `"+${dialCode}"` : '""',
-                fontSize: '13px',
-                lineHeight: '16px',
-                fontFamily: theme?.typography.fontFamily,
-                color: theme.palette.text.primary,
-                marginRight: '20px',
-            },
+        width: '51px',
 
-            svg: {
-                display: 'none',
-            },
+        '.MuiInputBase-root': {
+            width: '51px',
+            border: 'none',
+            height: '40px',
+            backgroundColor: 'transparent',
+            paddingLeft: '5px',
+            margin: '0',
         },
     },
 
@@ -98,23 +65,22 @@ export const PhoneField = styled(MuiPhoneNumber, {
         paddingLeft: '16px',
         paddingBottom: '10px',
         fontFamily: theme?.typography.fontFamily,
+        borderRadius: '0px',
+        padding: '0px !important',
 
         '&.MuiInputBase-input': {
             paddingTop: '12px',
             paddingLeft: '16px',
             paddingBottom: '10px',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
         },
     },
 
     '.MuiSelect-icon': {
-        right: '16px',
-    },
-
-    '.MuiInputBase-adornedEnd': {
-        paddingRight: '20px',
-    },
-    '.MuiAutocomplete-clearIndicator': {
-        marginTop: '8px',
+        right: '0px !important',
+        top: '10px',
     },
 
     'input:-webkit-autofill': {
@@ -140,10 +106,10 @@ export const PhoneField = styled(MuiPhoneNumber, {
 
     input: {
         order: 2,
-        padding: '12px 16px 12px 4px',
+        padding: '0px',
         fontSize: '13px',
         lineHeight: '20px',
-        fontFamily: theme?.typography.fontFamily,
+        fontFamily: theme.typography.fontFamily,
         color: theme.palette.text.primary,
     },
 
