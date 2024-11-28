@@ -58,9 +58,11 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     const [localValue, setLocalValue] = useState<string>(applyMask(initialLocalValue, initialCountry));
 
     useEffect(() => {
-        const unmaskedValue = localValue.replace(/\D/g, '');
         const dialCode = COUNTRIES[selectedCountry].dialCode.replace('+', '');
-        onChange(`${dialCode}${unmaskedValue}`);
+        const fullValue = `${dialCode}${localValue}`;
+        if (fullValue !== value) {
+            onChange(fullValue);
+        }
     }, [selectedCountry, localValue, onChange]);
 
     const handleCountryChange = (event: SelectChangeEvent<unknown>) => {

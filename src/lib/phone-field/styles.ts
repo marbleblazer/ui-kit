@@ -44,8 +44,11 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
             border: 'none',
             height: '40px',
             backgroundColor: 'transparent',
-            paddingLeft: '5px',
             margin: '0',
+            '.MuiSelect-select': {
+                justifyContent: 'space-around',
+                paddingRight: '15px !important',
+            },
         },
     },
 
