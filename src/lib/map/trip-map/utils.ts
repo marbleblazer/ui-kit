@@ -51,6 +51,12 @@ export const ZOOM_BREAKPOINTS = {
 let activePopups: mapboxgl.Popup[] = [];
 let activePixelPopups: PixelCoordType[] = [];
 
+const clear = () => {
+    activePopups.forEach((popup) => popup.remove());
+    activePixelPopups = [];
+    activePopups = []; // Очищаем массив
+};
+
 /**
  * Создает попапы с данными о скорости и времени для каждой точки маршрута в зависимости от уровня зума.
  * @param map - объект карты Mapbox.
@@ -60,37 +66,32 @@ let activePixelPopups: PixelCoordType[] = [];
  * @param zoom - текущий уровень зума.
  */
 export const createPopupsForLineString = (
-    map: mapboxgl.Map,
-    coordinates: [number, number][],
-    speeds: (number | null)[],
-    serverTimes: (string | null)[],
+    map?: mapboxgl.Map,
+    coordinates?: [number, number][],
+    speeds?: (number | null)[],
+    serverTimes?: (string | null)[],
     zoom?: number,
 ) => {
+    clear();
     if (!zoom || !map || !coordinates) return;
 
     // если зум ниже порога ZOOM_BREAKPOINTS.NONE, удаляем все активные попапы и return
     if (zoom < ZOOM_BREAKPOINTS.NONE) {
-        activePopups.forEach((popup) => popup.remove());
-        activePixelPopups = [];
-        activePopups = []; // Очищаем массив
         return;
     }
 
     // интервал для отбражения попапов на основе уровня зума
-    let popupInterval = 10; // Показывать 10 папов
+    let popupInterval = 15; // Показывать 10 папов
 
     if (zoom >= ZOOM_BREAKPOINTS.HIGH) {
-        popupInterval = 15; // Показывать 10 папов
+        popupInterval = 20; // Показывать 10 папов
     } else if (zoom >= ZOOM_BREAKPOINTS.MEDIUM) {
-        popupInterval = 20; // Показывать 15 папов
+        popupInterval = 30; // Показывать 15 папов
     } else if (zoom >= ZOOM_BREAKPOINTS.LOW) {
-        popupInterval = 25; // Показывать 20 папов
+        popupInterval = 40; // Показывать 20 папов
     }
 
     // очищаем все предыдущие попапы перед созданием новых
-    activePopups.forEach((popup) => popup.remove());
-    activePopups = [];
-    activePixelPopups = [];
     const bounds = getMapBounds(map);
 
     const filteredCoordinates = coordinates.filter((coord) => {
@@ -158,22 +159,27 @@ export const renderLineStringPoints = (
     if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
         geometry.coordinates.forEach((coordinate, index) => {
             if (Array.isArray(coordinate) && coordinate.length === 2) {
-                const markerElement = document.createElement('div');
+                let markerElement = null;
 
                 if (index === 0) {
+                    markerElement = document.createElement('div');
                     markerElement.classList.add('start-end-line-marker');
                     markerElement.innerHTML = mapMarkerStartSvgContainer;
                 } else if (index === geometry.coordinates.length - 1) {
+                    markerElement = document.createElement('div');
                     markerElement.classList.add('start-end-line-marker');
                     markerElement.innerHTML = mapMarkerEndSvgContainer;
                 } else if (isLineMarkersNeeded) {
+                    markerElement = document.createElement('div');
                     markerElement.classList.add('common-line-marker');
                 }
 
-                const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(coordinate as [number, number]);
+                if (markerElement) {
+                    const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(coordinate as [number, number]);
 
-                map.current && markerInstance.addTo(map.current);
-                markersRef.current.push(markerInstance);
+                    map.current && markerInstance.addTo(map.current);
+                    markersRef.current.push(markerInstance);
+                }
             }
         });
     }

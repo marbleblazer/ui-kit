@@ -3035,3 +3035,68 @@ export const mockTripData: GeoJSON.FeatureCollection = {
         },
     ],
 };
+
+export const mockSecondTripData: GeoJSON.FeatureCollection = {
+    type: 'FeatureCollection',
+    features: [
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [37.4832653, 55.879444],
+                    [37.4804885, 55.8789237],
+                    [37.4795589, 55.8787866],
+                    [37.4795589, 55.8787866],
+                    [37.4795589, 55.8787866],
+                    [37.4795589, 55.8787866],
+                    [37.4807038, 55.8789624],
+                    [37.4807038, 55.8789624],
+                ],
+            },
+            properties: {
+                lineId: 1980,
+                speeds: [32.6387590480957, 10.296223608839034, 0, 0, 0, 0, 0, 0],
+                serverTimes: [null, null, null, null, null, null, null, null],
+            },
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [37.4798499, 55.8771394],
+                    [37.4789902, 55.8769503],
+                    [37.4789902, 55.8769503],
+                    [37.4789902, 55.8769503],
+                    [37.4789902, 55.8769503],
+                    [37.4789902, 55.8769503],
+                    [37.4781075, 55.8795004],
+                ],
+            },
+            properties: {
+                lineId: 1979,
+                speeds: [2.129567752043724, 0, 0, 0, 0, 0, 0],
+                serverTimes: [null, null, null, null, null, null, null],
+            },
+        },
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [37.7157491, 56.1487251],
+                    [37.7968288, 56.3382363],
+                    [37.7115837, 56.1489838],
+                    [37.7267088, 56.1480013],
+                    [37.4781075, 55.8795004],
+                ],
+            },
+            properties: {
+                lineId: 1978,
+                speeds: [39.22677251321411, 38.87688, 38.9935096018753, 0, 0],
+                serverTimes: [null, null, null, null, null],
+            },
+        },
+    ],
+};

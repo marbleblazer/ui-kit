@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DrawableMap, FeatureMap, TripMap } from '@chirp/ui/lib';
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
-import { mockTripData } from './mock';
+import { mockSecondTripData, mockTripData } from './mock';
 import { useTheme } from '@emotion/react';
 
 const meta: Meta<typeof FeatureMap> = {
@@ -288,16 +288,40 @@ export const Drawable: Story = {
 export const TripMapExample: Story = {
     render: () => {
         const [shouldAnimate, setShouldAnimate] = useState<number>();
+        const [checkedState, setCheckedState] = useState(true);
+        const [isPaused, setIsPaused] = useState(false);
+
+        const handleStartAnimation = () => {
+            setShouldAnimate(1176);
+            setIsPaused(false);
+        };
+
+        const handlePauseAnimation = () => {
+            setIsPaused(!isPaused);
+        };
 
         return (
             <Box sx={{ width: '1200px', height: '1200px' }}>
-                <button onClick={() => setShouldAnimate(1176)}>Start Animation</button>
+                <Stack>
+                    <Stack direction="row">
+                        <button onClick={handleStartAnimation}>Start Animation</button>
+                        <button onClick={handlePauseAnimation}>{isPaused ? 'Play' : 'Pause'} Animation</button>
+                    </Stack>
+                    <Stack>
+                        <label>
+                            <input type="checkbox" onChange={() => setCheckedState(!checkedState)} />
+                            firstData
+                        </label>
+                    </Stack>
+                </Stack>
+
                 <TripMap
-                    data={mockTripData}
+                    data={checkedState ? mockTripData : mockSecondTripData}
                     animateLineId={shouldAnimate}
                     onAnimationEnd={() => setShouldAnimate(undefined)}
                     animationDuration={30000}
                     isLineMarkersNeeded={false}
+                    isPaused={isPaused}
                 />
             </Box>
         );

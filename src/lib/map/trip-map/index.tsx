@@ -18,29 +18,31 @@ mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
     coordinates?: Coordinates;
-    scrollZoom?: boolean;
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
     animateLineId?: number; // id по которому запускается анимация
     animationDuration?: number;
+    isPaused: boolean;
     onAnimationEnd?: () => void;
 }
 
 export const TripMap: React.FC<IFeatureMapProps> = ({
     data,
     coordinates,
-    scrollZoom = true,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
     animateLineId,
+    isPaused,
     animationDuration = 3000,
     onAnimationEnd,
     ...baseProps
 }) => {
-    const [isAnimating, setIsAnimating] = useState(false);
+    const [animating, setIsAnimating] = useState<number | null>(null);
     const [zoomState, setZoomState] = useState(ZOOM_BREAKPOINTS.MEDIUM);
 
+    const animationPauseRef = useRef<{ frame: number; coordinates: [number, number][] } | boolean | null>(null);
+    const arrowRef = useRef<HTMLDivElement>();
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
@@ -48,6 +50,12 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
     const onMapLoad = () => {
         if (!map.current) return;
+
+        arrowRef.current = document.createElement('div');
+        arrowRef.current.innerHTML = mapMarkerArrowSvgString;
+        arrowRef.current.style.width = '34px';
+        arrowRef.current.style.height = '34px';
+        arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
@@ -116,6 +124,11 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     useEffect(() => {
         if (!map.current) return;
 
+        clearObjects();
+
+        map.current.on('zoom', handleZoomChange);
+        map.current.on('move', updatePopups);
+
         if (map.current.isStyleLoaded()) {
             addDataToMap();
         } else {
@@ -123,12 +136,62 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                 addDataToMap();
             });
         }
+
+        return () => {
+            map.current?.off('zoom', handleZoomChange);
+            map.current?.off('move', updatePopups);
+        };
     }, [data]);
+
+    const animate = (coordinates: [number, number][], frame: number) => {
+        const totalFrames = animationDuration / 16; // 60 FPS
+
+        // завершение анимации
+        if (frame >= totalFrames) {
+            clearObjects();
+            return;
+        }
+
+        if (animationPauseRef.current === true) {
+            animationPauseRef.current = {
+                frame,
+                coordinates,
+            };
+
+            return;
+        }
+
+        if (animationPauseRef.current === false) {
+            return;
+        }
+
+        const progress = frame / totalFrames;
+        const pointIndex = Math.floor(progress * (coordinates.length - 1));
+        const nextPointIndex = Math.min(pointIndex + 1, coordinates.length - 1);
+
+        const [lng, lat] = coordinates[pointIndex];
+        const [nextLng, nextLat] = coordinates[nextPointIndex];
+
+        // Устанавливаем позицию маркера
+        animationMarkerRef.current?.setLngLat([lng, lat]);
+
+        // Рассчитываем угол между текущей и следующей точкой
+        const angle = Math.atan2(nextLat - lat, nextLng - lng) * (180 / Math.PI) + 210;
+
+        // svg внутри элемента
+        const svgElement = arrowRef.current && arrowRef.current.querySelector('svg');
+
+        if (svgElement) {
+            svgElement.style.transform = `rotate(-${angle}deg)`;
+        }
+
+        frame++;
+        requestAnimationFrame(() => animate(coordinates, frame));
+    };
 
     // Функция для запуска анимации
     const startAnimation = useCallback(() => {
-        if (!map.current || isAnimating || !data || animateLineId == null) return;
-
+        if (!map.current || !data || (animating === animateLineId && animating) || animateLineId == null) return;
         if (data.type === 'FeatureCollection') {
             const lineFeature = data.features.find(
                 (feature) => feature.geometry.type === 'LineString' && feature.properties?.lineId === animateLineId,
@@ -136,82 +199,48 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
             if (!lineFeature) {
                 console.warn(`No LineString found in data with lineId ${animateLineId} for animation.`);
-                setIsAnimating(false);
+                setIsAnimating(null);
                 return;
             }
 
-            setIsAnimating(true);
+            setIsAnimating(animateLineId);
 
             const coordinates =
                 lineFeature.geometry.type === 'LineString'
                     ? (lineFeature.geometry.coordinates as [number, number][])
                     : [];
-            const totalFrames = animationDuration / 16; // 60 FPS
-            let frame = 0;
 
             // Создаем кастомный HTML-элемент для маркера со стрелкой
-            const arrowElement = document.createElement('div');
-            arrowElement.innerHTML = mapMarkerArrowSvgString;
-            arrowElement.style.width = '34px';
-            arrowElement.style.height = '34px';
-            arrowElement.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
-
-            // svg внутри элемента
-            const svgElement = arrowElement.querySelector('svg');
 
             if (animationMarkerRef.current) {
                 animationMarkerRef.current.remove();
             }
 
             // Создаём маркер с кастомной иконкой
-            animationMarkerRef.current = new mapboxgl.Marker({ element: arrowElement })
+            animationMarkerRef.current = new mapboxgl.Marker({ element: arrowRef.current })
                 .setLngLat(coordinates[0])
                 .addTo(map.current);
 
-            const animate = () => {
-                // завершение анимации
-                if (frame >= totalFrames) {
-                    setIsAnimating(false);
-                    animationMarkerRef.current?.remove();
-                    onAnimationEnd && onAnimationEnd();
-                    return;
-                }
-
-                const progress = frame / totalFrames;
-                const pointIndex = Math.floor(progress * (coordinates.length - 1));
-                const nextPointIndex = Math.min(pointIndex + 1, coordinates.length - 1);
-
-                const [lng, lat] = coordinates[pointIndex];
-                const [nextLng, nextLat] = coordinates[nextPointIndex];
-
-                // Устанавливаем позицию маркера
-                animationMarkerRef.current?.setLngLat([lng, lat]);
-
-                // Рассчитываем угол между текущей и следующей точкой
-                const angle = Math.atan2(nextLat - lat, nextLng - lng) * (180 / Math.PI) + 210;
-
-                if (svgElement) {
-                    svgElement.style.transform = `rotate(-${angle}deg)`;
-                }
-
-                frame++;
-                requestAnimationFrame(animate);
-            };
-
-            animate();
+            animationPauseRef.current = null;
+            animate(coordinates, 0);
         } else {
             console.warn('Data is not a valid FeatureCollection with a LineString for animation.');
         }
-    }, [data, animationDuration, isAnimating, onAnimationEnd]);
+    }, [data, animationDuration, animating, isPaused, onAnimationEnd, animateLineId]);
 
     // Вызов анимации при изменении shouldAnimate
     useEffect(() => {
         if (animateLineId) {
+            animationMarkerRef.current?.remove();
+            animationPauseRef.current = false;
             startAnimation();
         }
-    }, [animateLineId, startAnimation]);
+    }, [animateLineId]);
 
     const updatePopups = useCallback(() => {
+        if (!data) {
+            createPopupsForLineString();
+        }
         const zoom = map.current?.getZoom();
 
         if (data && data.type === 'FeatureCollection') {
@@ -236,21 +265,24 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         }
     }, [data]);
 
-    useEffect(() => {
-        if (!map.current) return;
-
-        map.current.on('zoom', handleZoomChange);
-        map.current.on('move', updatePopups);
-
-        return () => {
-            map.current?.off('zoom', handleZoomChange);
-            map.current?.off('move', updatePopups);
-        };
-    }, [data]);
+    const clearObjects = () => {
+        setIsAnimating(null);
+        animationMarkerRef.current?.remove();
+        animationPauseRef.current = false;
+        onAnimationEnd && onAnimationEnd();
+    };
 
     useEffect(() => {
         updatePopups();
     }, [zoomState, data]);
+
+    useEffect(() => {
+        if (isPaused) {
+            animationPauseRef.current = true;
+        } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
+            animate(animationPauseRef.current?.coordinates, animationPauseRef.current?.frame);
+        }
+    }, [isPaused, data]);
 
     const handleZoomChange = () => {
         const zoom = map.current?.getZoom();
