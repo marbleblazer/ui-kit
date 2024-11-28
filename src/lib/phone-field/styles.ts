@@ -28,51 +28,26 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
     '& .MuiInputBase-root': {
         height: '40px',
         paddingLeft: '0px',
-        // '&.MuiInput-root': {
-        //     marginTop: '0',
-
-        //     '.MuiPhoneNumber-positionStart': {
-        //         left: '8px',
-        //     },
-
-        //     '&:before, &:after': {
-        //         display: 'none',
-        //         borderBottom: 'none',
-        //     },
-        // },
     },
 
     '.MuiInputAdornment-root': {
         width: 'auto',
         height: 'auto',
     },
-    // '.MuiInputAdornment-positionEnd': {
-    //     position: 'absolute',
-    //     left: '33px',
-    //     margin: '0',
-    //     order: 1,
-    //     svg: {
-    //         width: '20px',
-    //         height: '20px',
-    //     },
-    // },
-    // '.MuiInputAdornment-positionStart': {
-    //     order: 0,
-    //     button: {
-    //         justifyContent: 'flex-end',
-    //         '&::before': {
-    //             fontSize: '13px',
-    //             lineHeight: '16px',
-    //             fontFamily: theme?.typography.fontFamily,
-    //             color: theme.palette.text.primary,
-    //             marginRight: '20px',
-    //         },
 
-    //         svg: {
-    //             display: 'none',
-    //         },
-    //     },
-    // },
+    '.MuiInputAdornment-positionStart': {
+        order: 0,
+        width: '51px',
+
+        '.MuiInputBase-root': {
+            width: '51px',
+            border: 'none',
+            height: '15px',
+            backgroundColor: 'transparent',
+            paddingLeft: '5px',
+            margin: '0',
+        },
+    },
 
     '&.MuiFormControl-root .MuiFormLabel-root': {
         transform: 'none',
@@ -90,23 +65,22 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
         paddingLeft: '16px',
         paddingBottom: '10px',
         fontFamily: theme?.typography.fontFamily,
+        borderRadius: '0px',
+        padding: '0px !important',
 
         '&.MuiInputBase-input': {
             paddingTop: '12px',
             paddingLeft: '16px',
             paddingBottom: '10px',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
         },
     },
 
     '.MuiSelect-icon': {
-        right: '16px',
-    },
-
-    '.MuiInputBase-adornedEnd': {
-        paddingRight: '20px',
-    },
-    '.MuiAutocomplete-clearIndicator': {
-        marginTop: '8px',
+        right: '0px !important',
+        top: '-3px',
     },
 
     'input:-webkit-autofill': {
@@ -132,10 +106,10 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
 
     input: {
         order: 2,
-        padding: '12px 16px 12px 4px',
+        padding: '0px',
         fontSize: '13px',
         lineHeight: '20px',
-        fontFamily: theme?.typography.fontFamily,
+        fontFamily: theme.typography.fontFamily,
         color: theme.palette.text.primary,
     },
 

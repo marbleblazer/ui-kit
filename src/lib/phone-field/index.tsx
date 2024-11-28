@@ -13,6 +13,7 @@ import {
 import * as S from './styles';
 import { applyMask, getMaxLength, stripDialCode } from './helpers';
 import { COUNTRIES } from './constants';
+import { SelectIndicator } from '../select-indicator';
 
 type PhoneFieldProps = Omit<TextFieldProps, 'onChange'> & {
     value: string;
@@ -90,11 +91,11 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                                 value={selectedCountry}
                                 onChange={handleCountryChange}
                                 displayEmpty
-                                sx={{ minWidth: 80, margin: 0 }}
                                 renderValue={(selected) => {
                                     const country = countryList.find((c) => c.code === selected);
                                     return country ? country.dialCode : '';
                                 }}
+                                IconComponent={SelectIndicator}
                                 MenuProps={{
                                     PaperProps: {
                                         ...PaperPropsSx,
