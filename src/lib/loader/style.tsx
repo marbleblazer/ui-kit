@@ -1,4 +1,5 @@
 import { keyframes, Stack, styled, Theme } from '@mui/material';
+import { Typography } from '../typogrpahy';
 
 const fade = keyframes`
   0% {
@@ -48,13 +49,13 @@ export const LoaderElement = styled('div')<LoaderElementProps>(({ theme, index }
 }));
 
 // Контейнер для лоадера
-export const LoaderContainer = styled(Stack)(() => ({
+export const LoaderContainer = styled(Stack)<{ text?: string }>(({ text }) => ({
     position: 'relative',
     width: '100%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
+    flexDirection: text ? 'row' : 'column',
     flexGrow: 1,
 }));
 
@@ -64,4 +65,9 @@ export const LoaderSpan = styled('span')(() => ({
     display: 'inline-block',
     width: '24px',
     height: '24px',
+}));
+
+export const LoaderText = styled(Typography)(({ theme }) => ({
+    marginLeft: '20px',
+    color: theme.palette.text.primary,
 }));

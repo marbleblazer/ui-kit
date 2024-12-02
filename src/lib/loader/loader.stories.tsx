@@ -17,3 +17,7 @@ type Story = StoryObj<typeof Loader>;
 export const Default: Story = {
     render: () => <Loader />,
 };
+
+export const WithText: Story = {
+    render: () => <Loader text="Loading results" />,
+};
