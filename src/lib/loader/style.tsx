@@ -1,4 +1,5 @@
 import { keyframes, Stack, styled, Theme } from '@mui/material';
+import { Typography } from '../typogrpahy';
 
 const fade = keyframes`
   0% {
@@ -32,21 +33,41 @@ interface LoaderElementProps {
     index: number;
 }
 
+// Стиль для одного оранжевого элемента
 export const LoaderElement = styled('div')<LoaderElementProps>(({ theme, index }) => ({
     position: 'absolute',
-    width: '3px',
-    height: '5px',
+    top: '50%',
+    left: '50%',
+    width: '1px',
+    height: '1.5px',
     backgroundColor: theme.palette.base.color6,
     borderRadius: '1.5px',
     animation: `${fade} 1.2s infinite`,
-    transform: `rotate(${index * 45}deg) translate(0px, 10px)`,
+    transformOrigin: 'center',
+    transform: `translate(-50%, -50%) rotate(${index * 45}deg) translate(0, 5px)`,
     animationDelay: `${(index / 8) * 1.2}s`,
 }));
 
-export const LoaderContainer = styled(Stack)(() => ({
+// Контейнер для лоадера
+export const LoaderContainer = styled(Stack)<{ text?: string }>(({ text }) => ({
     position: 'relative',
-    width: '24px',
-    height: '24px',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: text ? 'row' : 'column',
+    flexGrow: 1,
+}));
+
+// Span для центрирования дочерних элементов
+export const LoaderSpan = styled('span')(() => ({
+    position: 'relative',
+    display: 'inline-block',
+    width: '24px',
+    height: '24px',
+}));
+
+export const LoaderText = styled(Typography)(({ theme }) => ({
+    marginLeft: '20px',
+    color: theme.palette.text.primary,
 }));
