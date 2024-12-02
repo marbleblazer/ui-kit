@@ -34,12 +34,12 @@ interface LoaderElementProps {
 
 export const LoaderElement = styled('div')<LoaderElementProps>(({ theme, index }) => ({
     position: 'absolute',
-    width: '1.5px',
-    height: '3px',
+    width: '3px',
+    height: '5px',
     backgroundColor: theme.palette.base.color6,
-    borderRadius: '1px',
+    borderRadius: '1.5px',
     animation: `${fade} 1.2s infinite`,
-    transform: `rotate(${index * 45}deg) translate(0px, -6px)`,
+    transform: `rotate(${index * 45}deg) translate(0px, 10px)`,
     animationDelay: `${(index / 8) * 1.2}s`,
 }));
 
