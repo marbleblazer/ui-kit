@@ -18,20 +18,20 @@ declare module '@mui/material/styles' {
 
     export interface TypeText extends TypeText, CustomTypeText, Record<TextColorNameType, string> {}
 
-    interface TypographyVariants {
+    interface TypographyVariants extends Record<CustomTypographyKeys, React.CSSProperties> {
         paragraphPrimary: React.CSSProperties;
         paragraphSecondary: React.CSSProperties;
     }
 
     // allow configuration using `createTheme`
-    interface TypographyVariantsOptions {
+    interface TypographyVariantsOptions extends Partial<Record<CustomTypographyKeys, React.CSSProperties>> {
         paragraphPrimary?: React.CSSProperties;
         paragraphSecondary?: React.CSSProperties;
     }
 }
 
 declare module '@mui/material/Typography' {
-    interface TypographyPropsVariantOverrides {
+    interface TypographyPropsVariantOverrides extends Record<CustomTypographyKeys, true> {
         paragraphPrimary: true;
         paragraphSecondary: true;
     }
@@ -44,6 +44,27 @@ declare module '@mui/material/Button' {
         tertiary: true;
     }
 }
+
+type CustomTypographyKeys =
+    | 'title20'
+    | 'title16'
+    | 'title14'
+    | 'title12'
+    | 'btnPrimary'
+    | 'btnSecondary'
+    | 'inputText'
+    | 'inputLabel'
+    | 'text16'
+    | 'text14'
+    | 'text1402'
+    | 'text13'
+    | 'text12'
+    | 'caption12'
+    | 'caption10'
+    | 'caption8'
+    | 'mono1218'
+    | 'mono1213'
+    | 'mono10';
 
 type CustomTypeText = {
     primary: string;
