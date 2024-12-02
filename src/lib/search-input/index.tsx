@@ -27,8 +27,9 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
         <S.SearchInputWrapper
             fullWidth
             placeholder={placeholder}
+            isLoading={isLoading}
             InputProps={{
-                value,
+                value: isLoading ? 'Loading' : value,
                 onChange: handleInputChange,
                 startAdornment: (
                     <InputAdornment position="start">{isLoading ? <Loader /> : <SearchIcon />}</InputAdornment>
