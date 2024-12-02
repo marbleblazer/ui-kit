@@ -45,8 +45,8 @@ export const LoaderElement = styled('div')<LoaderElementProps>(({ theme, index }
 
 export const LoaderContainer = styled(Stack)(() => ({
     position: 'relative',
-    width: '100%',
-    height: '100%',
+    width: '24px',
+    height: '24px',
     alignItems: 'center',
     justifyContent: 'center',
 }));
