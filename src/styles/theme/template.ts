@@ -16,7 +16,28 @@ export type CustomTypographyVariant =
     | 'body2'
     | 'caption'
     | 'button'
-    | 'overline';
+    | 'overline'
+
+    // new typos
+    | 'title20'
+    | 'title16'
+    | 'title14'
+    | 'title12'
+    | 'btnPrimary'
+    | 'btnSecondary'
+    | 'inputText'
+    | 'inputLabel'
+    | 'text16'
+    | 'text14'
+    | 'text1402'
+    | 'text13'
+    | 'text12'
+    | 'caption12'
+    | 'caption10'
+    | 'caption8'
+    | 'mono1218'
+    | 'mono1213'
+    | 'mono10';
 
 export interface CustomThemeTypography
     extends Partial<Record<CustomTypographyVariant, TypographyStyleOptions> & FontStyleOptions> {}
@@ -42,15 +63,146 @@ export const themeTemplate: CustomThemeOptions = {
         fontSize: 16,
         fontFamily: '"Alliance No.2", Arial, sans-serif',
         h1: {
-            fontSize: 40,
-            lineHeight: '48px',
-            fontWeight: 500,
-        },
-        h2: {
             fontSize: 24,
             lineHeight: '32px',
             fontWeight: 500,
+            letterSpacing: 0,
         },
+        h2: {
+            fontSize: 20,
+            lineHeight: '24px',
+            fontWeight: 500,
+            letterSpacing: '0.15%',
+        },
+        title20: {
+            fontSize: 20,
+            lineHeight: '24px',
+            fontWeight: 500,
+            letterSpacing: '0.5%',
+        },
+        title16: {
+            fontSize: 16,
+            lineHeight: '20px',
+            fontWeight: 500,
+            letterSpacing: '0.5%',
+        },
+        title14: {
+            fontSize: 14,
+            lineHeight: '20px',
+            fontWeight: 500,
+            letterSpacing: '0.5%',
+        },
+        title12: {
+            fontSize: 12,
+            lineHeight: '20px',
+            fontWeight: 500,
+            letterSpacing: '0.4%',
+        },
+        btnPrimary: {
+            fontSize: 13,
+            lineHeight: '20px',
+            fontWeight: 500,
+            letterSpacing: '0.5%',
+        },
+        btnSecondary: {
+            fontSize: 12,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+        inputText: {
+            fontSize: 13,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+        inputLabel: {
+            fontSize: 12,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+        text16: {
+            fontSize: 16,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+        text14: {
+            fontSize: 14,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.2%',
+        },
+        text1402: {
+            fontSize: 14,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.2px',
+        },
+        text13: {
+            fontSize: 13,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+
+        text12: {
+            fontSize: 12,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+        caption12: {
+            fontSize: 14,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.4px',
+        },
+        caption10: {
+            fontSize: 12,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.2%',
+        },
+        caption8: {
+            fontSize: 12,
+            lineHeight: '20px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+        },
+        mono1218: {
+            fontSize: 12,
+            lineHeight: '18px',
+            fontWeight: 400,
+            letterSpacing: 0,
+            fontFamily: '"Simplon mono", Arial, sans-serif',
+        },
+        mono1213: {
+            fontSize: 12,
+            lineHeight: '13px',
+            fontWeight: 400,
+            letterSpacing: '0.25px',
+            fontFamily: '"Simplon mono", Arial, sans-serif',
+        },
+        mono10: {
+            fontSize: 12,
+            lineHeight: '13px',
+            fontWeight: 400,
+            letterSpacing: '0.5%',
+            fontFamily: '"Simplon mono", Arial, sans-serif',
+        },
+        // TODO: удалить все что снизу после того как эти шрифты перестанут где либо использоваться
+        // h1: {
+        //     fontSize: 40,
+        //     lineHeight: '48px',
+        //     fontWeight: 500,
+        // },
+        // h2: {
+        //     fontSize: 24,
+        //     lineHeight: '32px',
+        //     fontWeight: 500,
+        // },
         h3: {
             fontSize: 20,
             lineHeight: '24px',

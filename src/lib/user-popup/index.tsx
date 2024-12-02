@@ -1,4 +1,4 @@
-import { Stack, Typography, useTheme, Popover, Divider } from '@mui/material';
+import { Stack, useTheme, Popover, Divider } from '@mui/material';
 import * as S from './style';
 import { useState, FC } from 'react';
 import { Avatar } from '../avatar';
@@ -6,6 +6,7 @@ import { Button } from '../button';
 import { ThemeSwitch } from '../theme-switch';
 import { Logout } from '../logout';
 import { ConnectWalletBanner } from '../connect-wallet-banner';
+import { Typography } from '../typogrpahy';
 
 interface UserPopupProps {
     onLogout?: () => void;
@@ -38,8 +39,8 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                 columnGap={2}
                 sx={{ cursor: 'pointer' }}
             >
-                <Avatar sx={{ width: '24px', height: '24px' }} />
-                <Typography variant="body1" color={'text.primary'}>
+                <Avatar sx={{ width: '40px', height: '40px' }} />
+                <Typography variant="text1402" color="text.text4" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
                     {name}
                 </Typography>
             </Stack>
