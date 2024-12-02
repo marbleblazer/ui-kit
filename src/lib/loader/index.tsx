@@ -1,9 +1,14 @@
-import { CircularProgress, Stack, CircularProgressProps } from '@mui/material';
+import { StackProps } from '@mui/material';
+import * as S from './style';
 
-export const Loader = (props: CircularProgressProps) => {
+export const Loader = (props: StackProps) => {
+    const dots = Array.from({ length: 8 });
+
     return (
-        <Stack width="100%" height="100%" flexGrow={1} justifyContent="center" alignItems="center">
-            <CircularProgress size={40} {...props} />
-        </Stack>
+        <S.LoaderContainer {...props}>
+            {dots.map((_, index) => (
+                <S.LoaderElement index={index} />
+            ))}
+        </S.LoaderContainer>
     );
 };
