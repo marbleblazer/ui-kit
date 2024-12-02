@@ -1,6 +1,7 @@
 import { InputAdornment, StandardTextFieldProps } from '@mui/material';
 import * as S from './style';
-import { LoaderCircleIcon, SearchIcon } from '@chirp/ui/assets/fleet-icons';
+import { SearchIcon } from '@chirp/ui/assets/fleet-icons';
+import { Loader } from '../loader';
 
 interface ISearchInputProps extends Omit<StandardTextFieldProps, 'onChange'> {
     value: string;
@@ -30,9 +31,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
                 value,
                 onChange: handleInputChange,
                 startAdornment: (
-                    <InputAdornment position="start">
-                        {isLoading ? <LoaderCircleIcon /> : <SearchIcon />}
-                    </InputAdornment>
+                    <InputAdornment position="start">{isLoading ? <Loader /> : <SearchIcon />}</InputAdornment>
                 ),
             }}
             {...props}
