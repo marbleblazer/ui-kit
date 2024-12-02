@@ -30,6 +30,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
             isLoading={isLoading}
             InputProps={{
                 value: isLoading ? 'Loading' : value,
+                readOnly: isLoading,
                 onChange: handleInputChange,
                 startAdornment: (
                     <InputAdornment position="start">{isLoading ? <Loader /> : <SearchIcon />}</InputAdornment>
