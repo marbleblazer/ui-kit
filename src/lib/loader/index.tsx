@@ -1,14 +1,13 @@
-import { StackProps } from '@mui/material';
 import * as S from './style';
 
-export const Loader = (props: StackProps) => {
-    const dots = Array.from({ length: 8 });
-
+export const Loader = () => {
     return (
-        <S.LoaderContainer {...props}>
-            {dots.map((_, index) => (
-                <S.LoaderElement index={index} />
-            ))}
+        <S.LoaderContainer>
+            <S.LoaderSpan>
+                {[...Array(8)].map((_, index) => (
+                    <S.LoaderElement key={index} index={index} />
+                ))}
+            </S.LoaderSpan>
         </S.LoaderContainer>
     );
 };
