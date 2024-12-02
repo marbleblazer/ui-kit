@@ -288,14 +288,13 @@ export const MapContainer = styled(Box, {
         },
 
         '.mapboxgl-popup-content': {
-            fontSize: '12px',
-            background: theme.palette.background.secondary,
-            border: `1px solid ${theme.palette.border.primary}`,
+            background: theme.palette.background.background15,
+            border: `1px solid ${theme.palette.border.border3}`,
             borderRadius: '12px',
             backdropFilter: 'blur(10px)',
-            padding: '8px 16px',
-            fontFamily: theme.typography.body1.fontFamily,
-            color: theme.palette.text.secondary,
+            padding: '16px',
+            ...theme.typography.mono1213,
+            color: theme.palette.text.text4,
         },
 
         button: {
@@ -308,11 +307,13 @@ export const MapContainer = styled(Box, {
             display: 'none',
         },
         '& .mapboxgl-popup-content': {
-            background: theme.palette.background.secondary,
-            padding: '4px 6px',
-            color: theme.palette.text.secondary,
+            background: theme.palette.background.background15,
+            padding: '12px',
+            color: theme.palette.text.text4,
+            ...theme.typography.mono1213,
             '& .speed': {
-                color: theme.palette.text.tertiary,
+                ...theme.typography.mono10,
+                color: theme.palette.text.text1,
             },
         },
     },
