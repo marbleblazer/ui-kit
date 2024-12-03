@@ -1,5 +1,6 @@
-import { keyframes, Stack, styled, Theme } from '@mui/material';
+import { keyframes, Stack, styled } from '@mui/material';
 import { Typography } from '../typogrpahy';
+import { ILoaderElementProps, ILoaderSpanProps, ISizeConfig, TLoaderSize } from './types';
 
 const fade = keyframes`
   0% {
@@ -28,23 +29,44 @@ const fade = keyframes`
   }
 `;
 
-interface LoaderElementProps {
-    theme?: Theme;
-    index: number;
-}
+// Конфигурация размеров
+const sizeConfig: Record<TLoaderSize, ISizeConfig> = {
+    small: {
+        element: {
+            width: '1px',
+            height: '1.5px',
+            translate: 'translate(0, 5px)',
+        },
+        span: {
+            width: '24px',
+            height: '24px',
+        },
+    },
+    large: {
+        element: {
+            width: '1px',
+            height: '4.5px',
+            translate: 'translate(0, 6.5px)',
+        },
+        span: {
+            width: '40px',
+            height: '40px',
+        },
+    },
+};
 
 // Стиль для одного оранжевого элемента
-export const LoaderElement = styled('div')<LoaderElementProps>(({ theme, index }) => ({
+export const LoaderElement = styled('div')<ILoaderElementProps>(({ theme, index, size }) => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    width: '1px',
-    height: '1.5px',
+    width: sizeConfig[size].element.width,
+    height: sizeConfig[size].element.height,
     backgroundColor: theme.palette.base.color6,
     borderRadius: '1.5px',
     animation: `${fade} 1.2s infinite`,
     transformOrigin: 'center',
-    transform: `translate(-50%, -50%) rotate(${index * 45}deg) translate(0, 5px)`,
+    transform: `translate(-50%, -50%) rotate(${index * 45}deg) ${sizeConfig[size].element.translate}`,
     animationDelay: `${(index / 8) * 1.2}s`,
 }));
 
@@ -60,11 +82,11 @@ export const LoaderContainer = styled(Stack)<{ text?: string }>(({ text }) => ({
 }));
 
 // Span для центрирования дочерних элементов
-export const LoaderSpan = styled('span')(() => ({
+export const LoaderSpan = styled('span')<ILoaderSpanProps>(({ size }) => ({
     position: 'relative',
     display: 'inline-block',
-    width: '24px',
-    height: '24px',
+    width: sizeConfig[size].span.width,
+    height: sizeConfig[size].span.height,
 }));
 
 export const LoaderText = styled(Typography)(({ theme }) => ({
