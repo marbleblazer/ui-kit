@@ -7,7 +7,7 @@ interface IGpsIconProps {
     height?: string;
 }
 
-export const GpsIcon: React.FC<IGpsIconProps> = ({ width, height }) => {
+export const GpsIcon: React.FC<IGpsIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const GpsComponent = theme.palette.mode === 'dark' ? GpsDark : GpsLight;

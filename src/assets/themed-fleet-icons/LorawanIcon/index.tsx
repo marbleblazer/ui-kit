@@ -7,7 +7,7 @@ interface ILorawanIconProps {
     height?: string;
 }
 
-export const LorawanIcon: React.FC<ILorawanIconProps> = ({ width, height }) => {
+export const LorawanIcon: React.FC<ILorawanIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const LorawanComponent = theme.palette.mode === 'dark' ? LorawanDark : LorawanLight;

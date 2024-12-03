@@ -7,7 +7,7 @@ interface ILoadingIconProps {
     height?: string;
 }
 
-export const LoadingIcon: React.FC<ILoadingIconProps> = ({ width, height }) => {
+export const LoadingIcon: React.FC<ILoadingIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const LoadingComponent = theme.palette.mode === 'dark' ? LoadingDark : LoadingLight;

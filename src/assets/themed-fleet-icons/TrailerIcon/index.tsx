@@ -7,7 +7,7 @@ interface ITrailerIconProps {
     height?: string;
 }
 
-export const TrailerIcon: React.FC<ITrailerIconProps> = ({ width, height }) => {
+export const TrailerIcon: React.FC<ITrailerIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const TrailerComponent = theme.palette.mode === 'dark' ? TrailerDark : TrailerLight;

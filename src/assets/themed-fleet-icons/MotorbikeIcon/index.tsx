@@ -7,7 +7,7 @@ interface IMotorbikeIconProps {
     height?: string;
 }
 
-export const MotorbikeIcon: React.FC<IMotorbikeIconProps> = ({ width, height }) => {
+export const MotorbikeIcon: React.FC<IMotorbikeIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const MotorbikeComponent = theme.palette.mode === 'dark' ? MotorbikeDark : MotorbikeLight;

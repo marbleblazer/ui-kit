@@ -51,8 +51,6 @@ export { default as PlusIcon } from './plus.svg?react';
 export { default as SystemAttributeIcon } from './system-attribute.svg?react';
 export { default as UserManagmentIcon } from './user-managment.svg?react';
 export { default as EnergyIcon } from './energy.svg?react';
-export { LoRaWanDeviceBigIcon, LoRaWanDeviceIcon } from '../icons';
-export { SimDeviceIcon, SimDeviceBigIcon } from '../icons';
 export { default as StarFilled } from './star-filled.svg?react';
 export { default as LeftArrowBlackIcon } from './left-arrow-black.svg?react';
 export { default as SuiIcon } from './sui.svg?react';

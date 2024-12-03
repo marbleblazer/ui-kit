@@ -7,7 +7,7 @@ interface ITruckIconProps {
     height?: string;
 }
 
-export const TruckIcon: React.FC<ITruckIconProps> = ({ width, height }) => {
+export const TruckIcon: React.FC<ITruckIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const TruckComponent = theme.palette.mode === 'dark' ? TruckDark : TruckLight;

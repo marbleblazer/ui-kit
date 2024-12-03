@@ -7,7 +7,7 @@ interface ITractorIconProps {
     height?: string;
 }
 
-export const TractorIcon: React.FC<ITractorIconProps> = ({ width, height }) => {
+export const TractorIcon: React.FC<ITractorIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const TractorComponent = theme.palette.mode === 'dark' ? TractorDark : TractorLight;

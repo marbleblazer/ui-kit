@@ -7,7 +7,7 @@ interface ICarIconProps {
     height?: string;
 }
 
-export const CarIcon: React.FC<ICarIconProps> = ({ width, height }) => {
+export const CarIcon: React.FC<ICarIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const CarComponent = theme.palette.mode === 'dark' ? CarDark : CarLight;

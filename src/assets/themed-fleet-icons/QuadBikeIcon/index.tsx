@@ -7,7 +7,7 @@ interface IQuadBikeIconProps {
     height?: string;
 }
 
-export const QuadBikeIcon: React.FC<IQuadBikeIconProps> = ({ width, height }) => {
+export const QuadBikeIcon: React.FC<IQuadBikeIconProps> = ({ width = '56px', height = '56px' }) => {
     const theme = useTheme();
 
     const QuadBikeComponent = theme.palette.mode === 'dark' ? QuadBikeDark : QuadBikeLight;
