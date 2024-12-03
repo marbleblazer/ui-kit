@@ -37,6 +37,7 @@ export { default as UserBoardIcon } from './user-board.svg?react';
 export { default as UserManagementIcon } from './user-management.svg?react';
 export { default as WarningIcon } from './warning.svg?react';
 export { default as FullScreenIcon } from './full-screen.svg?react';
+export { default as LoadingOutlinedIcon } from './loading.svg?react';
 export { default as LeftArrowIcon } from './left-arrow.svg?react';
 export { default as PenIcon } from './pen.svg?react';
 export { default as TrashIcon } from './trash.svg?react';
