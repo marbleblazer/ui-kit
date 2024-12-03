@@ -8,3 +8,5 @@ export { TractorIcon } from './TractorIcon';
 export { TrailerIcon } from './TrailerIcon';
 export { TruckIcon } from './TruckIcon';
 export { LoadingIcon } from './LoadingIcon';
+export { SmallLorawanIcon } from './SmallLorawanIcon';
+export { SmallGpsIcon } from './SmallGpsIcon';
