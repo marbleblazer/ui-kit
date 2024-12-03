@@ -22,8 +22,8 @@ export const Stepper: FC<StepperProps> = ({ activeStep, handleSetStep, steps }) 
                 <IconButton
                     key={step}
                     sx={{
-                        color: activeStep === step ? theme.palette.base.color6 : theme.palette.primaryColors.secondary,
-                        width: '6px',
+                        color: activeStep === step ? theme.palette.base.color6 : theme.palette.background.background12,
+                        width: activeStep === step ? '6px' : '4px',
                         padding: '0',
                         cursor: handleSetStep ? 'pointer' : 'default',
                         '&:hover': {

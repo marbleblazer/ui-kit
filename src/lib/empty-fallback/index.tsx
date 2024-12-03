@@ -25,12 +25,12 @@ export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle, withBa
             }}
         >
             {title && (
-                <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
+                <Typography variant="text13" sx={{ color: theme.palette.text.text4 }}>
                     {title}
                 </Typography>
             )}
             {subTitle && (
-                <Typography variant="caption" sx={{ color: theme.palette.text.tertiary }}>
+                <Typography variant="text12" sx={{ color: theme.palette.text.text8 }}>
                     {subTitle}
                 </Typography>
             )}
