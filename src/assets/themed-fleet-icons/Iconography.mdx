@@ -1,0 +1,15 @@
+import React from 'react';
+import { IconGallery, IconItem, Meta } from '@storybook/blocks';
+import * as icons from './index';
+
+<Meta title="UI/ThemedFleetIcons" />
+
+<h2 style={{ marginBottom: 24 }}>Icons</h2>
+
+<IconGallery>
+    {Object.entries(icons).map(([key, Icon]) => (
+        <IconItem key={key} name={key}>
+            <Icon width={24} height={24} />
+        </IconItem>
+    ))}
+</IconGallery>
