@@ -62,3 +62,33 @@ export { default as ConnectWalletIcon } from './connect-wallet.svg?react';
 export { default as FleetSuccessIcon } from './fleet-success.svg?react';
 export { default as PauseIcon } from './pause.svg?react';
 export { default as QuestionIcon } from './question.svg?react';
+
+export { default as GpsDark } from './gps-dark.svg?react';
+export { default as GpsLight } from './gps-light.svg?react';
+export { default as CarDark } from './car-dark.svg?react';
+export { default as CarLight } from './car-light.svg?react';
+export { default as LoraDark } from './lora-dark.svg?react';
+export { default as LoraLight } from './lora-light.svg?react';
+export { default as MotorbikeLight } from './motorbike-light.svg?react';
+export { default as MotorbikeDark } from './motorbike-dark.svg?react';
+export { default as OtherDark } from './other-dark.svg?react';
+export { default as OtherLight } from './other-light.svg?react';
+export { default as QuadBikeDark } from './quad-bike-dark.svg?react';
+export { default as QuadBikeLight } from './quad-bike-light.svg?react';
+export { default as TractorDark } from './tractor-dark.svg?react';
+export { default as TractorLight } from './tractor-light.svg?react';
+export { default as TrailerDark } from './trailer-dark.svg?react';
+export { default as TrailerLight } from './trailer-light.svg?react';
+export { default as TruckLight } from './truck-light.svg?react';
+export { default as TruckDark } from './truck-dark.svg?react';
+
+export { default as EnergyOnlineIcon } from './energy-online-icon.svg?react';
+export { default as EnergyOfflineIcon } from './energy-offline-icon.svg?react';
+
+export { default as LoadingLightIcon } from './loading-light-icon.svg?react';
+export { default as LoadingDarkIcon } from './loading-dark-icon.svg?react';
+
+export { default as GpsDarkIcon } from './gps-dark-icon.svg?react';
+export { default as GpsLightIcon } from './gps-light-icon.svg?react';
+export { default as LorawanDarkIcon } from './lorawan-dark-icon.svg?react';
+export { default as LorawanLightIcon } from './lorawan-light-icon.svg?react';
