@@ -4,9 +4,9 @@ import { IButtonProps } from './types';
 
 export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, size, variant }) => ({
     cursor: 'pointer',
-    fontFamily: theme.typography.body1.fontFamily,
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
+    ...theme.typography.btnPrimary,
 
     '.MuiButton-icon': {
         '& > svg': {
@@ -16,31 +16,19 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     },
 
     ...(size === 'large' && {
-        fontSize: '13px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.065px',
+        ...theme.typography.btnPrimary,
         padding: '14px 20px',
         maxHeight: '48px',
     }),
 
     ...(size === 'medium' && {
-        fontSize: '13px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.065px',
+        ...theme.typography.btnPrimary,
         padding: '8px 16px',
         maxHeight: '36px',
     }),
 
     ...(size === 'small' && {
-        fontSize: '12px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.05px',
+        ...theme.typography.btnSecondary,
         padding: '4px 12px',
         maxHeight: '28px',
     }),
@@ -113,6 +101,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
     ...(variant === 'text' && {
         color: theme.palette.base.color6,
+
         padding: 0,
         '&:hover': {
             backgroundColor: 'transparent',
@@ -132,6 +121,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
         '&:disabled': {
             color: theme.palette.base.color6,
+            border: `1px solid ${theme.palette.base.color6}`,
             opacity: '0.3',
         },
 
