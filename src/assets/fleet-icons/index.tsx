@@ -62,3 +62,5 @@ export { default as ConnectWalletIcon } from './connect-wallet.svg?react';
 export { default as FleetSuccessIcon } from './fleet-success.svg?react';
 export { default as PauseIcon } from './pause.svg?react';
 export { default as QuestionIcon } from './question.svg?react';
+export { default as PhotoUploadIcon } from './photo-upload.svg?react';
+export { default as CopySquaresIcon } from './copy-squares.svg?react';

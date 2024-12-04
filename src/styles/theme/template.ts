@@ -144,14 +144,14 @@ export const themeTemplate: CustomThemeOptions = {
             fontSize: 13,
             lineHeight: '20px',
             fontWeight: 400,
-            letterSpacing: '0.5%',
+            letterSpacing: '0.5px',
         },
 
         text12: {
             fontSize: 12,
-            lineHeight: '20px',
+            lineHeight: '16px',
             fontWeight: 400,
-            letterSpacing: '0.5%',
+            letterSpacing: '0.5px',
         },
         caption12: {
             fontSize: 14,
@@ -160,13 +160,13 @@ export const themeTemplate: CustomThemeOptions = {
             letterSpacing: '0.4px',
         },
         caption10: {
-            fontSize: 12,
+            fontSize: 10,
             lineHeight: '20px',
             fontWeight: 400,
             letterSpacing: '0.2%',
         },
         caption8: {
-            fontSize: 12,
+            fontSize: 8,
             lineHeight: '20px',
             fontWeight: 400,
             letterSpacing: '0.5%',

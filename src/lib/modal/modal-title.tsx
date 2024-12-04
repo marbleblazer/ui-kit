@@ -5,15 +5,15 @@ interface IModalTitleProps {
     title: string;
     subTitle?: string;
     margin?: string;
-    size?: 'medium' | 'big';
+    size?: 'mini' | 'big';
 }
 
-export const ModalTitle: FC<IModalTitleProps> = ({ title, subTitle, margin, size = 'medium' }) => (
+export const ModalTitle: FC<IModalTitleProps> = ({ title, subTitle, margin, size = 'mini' }) => (
     <Stack gap="8px" sx={{ margin }}>
-        <Typography variant={size === 'big' ? 'h3' : 'subtitle1'} textAlign="center" color="text.primary">
+        <Typography variant={size === 'big' ? 'title20' : 'title16'} textAlign="center" color="text.text1">
             {title}
         </Typography>
-        <Typography variant={size === 'big' ? 'subtitle1' : 'caption'} textAlign="center" color="text.tertiary">
+        <Typography variant={size === 'big' ? 'title16' : 'title12'} textAlign="center" color="text.text8">
             {subTitle}
         </Typography>
     </Stack>

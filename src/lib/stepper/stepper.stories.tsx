@@ -15,5 +15,5 @@ export default meta;
 type Story = StoryObj<typeof Stepper>;
 
 export const Default: Story = {
-    render: () => <Stepper steps={[1, 2, 3]} activeStep={1} />,
+    render: () => <Stepper steps={[1, 2, 3, 4, 5, 6, 7]} activeStep={4} />,
 };
