@@ -29,7 +29,7 @@ const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style
         data: Object.keys(elem).map((key) => elem[key]),
         lineStyle: {
             width: 2,
-            color: colors ? colors[idx % colors.length] : theme.palette.text.tertiary,
+            color: colors ? colors[idx % colors.length] : theme.palette.base.color6,
         },
         showSymbol: false,
     }));
@@ -37,9 +37,9 @@ const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style
     const option: EChartsOption = {
         backgroundColor: 'transparent',
         textStyle: {
-            color: theme.palette.text.tertiary,
+            color: theme.palette.text.text8,
             fontFamily: 'Alliance No.2',
-            fontSize: 10,
+            fontSize: 8,
             fontWeight: 500,
         },
         xAxis: {
@@ -47,14 +47,15 @@ const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style
             nameLocation: 'start',
             axisLabel: {
                 show: true,
+                fontSize: 8,
                 fontFamily: 'Alliance No.2',
                 fontWeight: 500,
-                color: theme.palette.text.primary,
+                color: theme.palette.text.text8,
             },
             axisLine: {
                 show: true,
                 lineStyle: {
-                    color: theme.palette.border.secondary,
+                    color: theme.palette.border.border3,
                     type: 'solid',
                 },
             },

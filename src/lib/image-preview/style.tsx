@@ -1,13 +1,11 @@
-import { Box, Stack, styled } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 import { Button } from '../button';
 
-export const ImageWrapper = styled(Box)(({ theme }) => ({
-    borderRadius: '8px',
-    width: '160px',
-    height: '160px',
-    borderColor: theme.palette.primaryColors.secondary,
+export const ImageWrapper = styled(Stack)(({ theme }) => ({
     position: 'relative',
-    backgroundColor: theme.palette.background.fifthInput,
+    backgroundColor: theme.palette.background.background9,
+    alignItems: 'center',
+    overflow: 'hidden',
 }));
 
 export const Image = styled('img')({
@@ -22,10 +20,13 @@ export const DeleteBtn = styled(Button)(({ theme }) => ({
     right: '4px',
     width: '32px',
     border: 'none',
+    maxWidth: '32px',
     maxHeight: '32px',
+    minWidth: 'auto',
     height: 'auto',
     padding: '5.5px',
     color: theme.palette.base.color6,
+    backgroundColor: theme.palette.mode === 'dark' ? '#4F2B20' : '#F0D3CA',
     '&:hover': {
         backgroundColor: 'transparent',
     },
@@ -37,14 +38,12 @@ export const DeleteBtn = styled(Button)(({ theme }) => ({
 
 export const EmptyFallbackWrapper = styled(Stack)(({ theme }) => ({
     height: '100%',
-    width: '100%',
+    width: '150px',
     alignItems: 'center',
     justifyContent: 'center',
-    color: theme.palette.text.tertiary,
+    padding: '5px',
     svg: {
-        transform: 'rotate(45deg)',
-        width: '31px',
-        height: '31px',
+        color: theme.palette.text.text8,
     },
 }));
 

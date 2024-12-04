@@ -52,14 +52,14 @@ const DonutChart: FC<IDonutChartProps> = memo(({ colors, centerText, data }) => 
             <S.Text
                 variant="subtitle1"
                 sx={{
-                    color: colors?.length ? colors[0] : 'text.primary',
+                    color: colors?.length ? colors[0] : 'text.text1',
                 }}
             >
                 {centerText}
             </S.Text>
             <CenterSubstract
                 style={{
-                    color: theme.palette.background.secondary,
+                    color: theme.palette.background.background1,
                     position: 'absolute',
                     zIndex: 3,
                     top: '-3px',

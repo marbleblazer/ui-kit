@@ -61,3 +61,5 @@ export { default as PauseIcon } from './pause.svg?react';
 export { default as QuestionIcon } from './question.svg?react';
 export { default as EnergyOnlineIcon } from './energy-online-icon.svg?react';
 export { default as EnergyOfflineIcon } from './energy-offline-icon.svg?react';
+export { default as PhotoUploadIcon } from './photo-upload.svg?react';
+export { default as CopySquaresIcon } from './copy-squares.svg?react';
