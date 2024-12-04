@@ -1,7 +1,7 @@
-import { IconButton, Typography } from '@chirp/ui/lib';
+import { IconButton } from '@chirp/ui/lib';
 import { Stack } from '@mui/material';
 
-import * as S from '../stacked-line-widget/styles';
+import * as S from './styles';
 import { FC } from 'react';
 import { LeftArrowBlackIcon } from '@chirp/ui/assets/fleet-icons';
 
@@ -19,13 +19,9 @@ export const BaseWidgetCustomHeader: FC<IBaseWidgetCustomHeaderProps> = ({ title
             </IconButton>
             <Stack gap={2}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography variant="caption" fontWeight={500}>
-                        {title}
-                    </Typography>
+                    <S.Title variant="title12">{title}</S.Title>
                 </Stack>
-                <S.WidgetTypeName color="text.tertiary" variant="overline">
-                    {typeText}
-                </S.WidgetTypeName>
+                <S.WidgetTypeName variant="caption10">{typeText}</S.WidgetTypeName>
             </Stack>
         </Stack>
     );

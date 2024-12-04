@@ -39,9 +39,9 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                             <S.HeaderWrapper key={`${name}-${idx}`}>
                                 <Typography
                                     sx={{
-                                        color: 'text.tertiary',
+                                        color: 'text.text8',
                                     }}
-                                    variant="caption"
+                                    variant="caption10"
                                 >
                                     {name}
                                 </Typography>
@@ -67,17 +67,17 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                             >
                                 <Typography
                                     sx={{
-                                        color: 'text.primary',
+                                        color: 'text.text1',
                                     }}
-                                    variant="body1"
+                                    variant="text12"
                                 >
                                     {String(row[nameKey])}
                                 </Typography>
                                 <Typography
                                     sx={{
-                                        color: 'text.primary',
+                                        color: 'text.text1',
                                     }}
-                                    variant="body1"
+                                    variant="text12"
                                     textAlign="end"
                                 >
                                     {String(row[valueKey])}

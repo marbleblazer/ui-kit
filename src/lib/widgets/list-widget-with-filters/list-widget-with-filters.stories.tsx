@@ -71,7 +71,7 @@ export const Default: Story = {
                         <Stack direction="row" gap={2}>
                             <SearchInput
                                 sx={{
-                                    backgroundColor: theme.palette.background.secondary,
+                                    backgroundColor: theme.palette.background.background2,
                                 }}
                                 placeholder="Search by name"
                                 value=""
@@ -87,7 +87,8 @@ export const Default: Story = {
                                     },
                                     height: 28,
                                     mt: 0,
-                                    backgroundColor: theme.palette.background.secondary,
+                                    border: 'none',
+                                    backgroundColor: theme.palette.background.background2,
                                 }}
                                 fullWidth
                                 error={false}
@@ -114,9 +115,9 @@ export const Default: Story = {
                                 <S.HeaderWrapper>
                                     <Typography
                                         sx={{
-                                            color: 'text.tertiary',
+                                            color: 'text.text8',
                                         }}
-                                        variant="caption"
+                                        variant="caption10"
                                     >
                                         {name}
                                     </Typography>
@@ -126,18 +127,17 @@ export const Default: Story = {
                                 <Fragment key={index}>
                                     <Typography
                                         sx={{
-                                            color: 'text.primary',
+                                            color: 'text.text1',
                                         }}
-                                        variant="button"
+                                        variant="text12"
                                     >
                                         {item.name}
                                     </Typography>
                                     <Typography
                                         sx={{
-                                            whiteSpace: 'nowrap',
-                                            color: 'text.primary',
+                                            color: 'text.text1',
                                         }}
-                                        variant="button"
+                                        variant="text12"
                                         textAlign="end"
                                     >
                                         {new Date().toISOString().split('T')[0]}

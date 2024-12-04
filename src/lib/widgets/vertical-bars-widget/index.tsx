@@ -40,26 +40,30 @@ export const VerticalBarsChartWidget = <T,>(props: PropsWithChildren<IVerticalBa
         <BaseWidget {...baseWidgetProps}>
             <Box>
                 <Stack direction="row" gap={4} justifyContent="space-between">
-                    <Stack gap={2}>
-                        <Typography sx={{ color: 'text.tertiary', lineHeight: '16px' }} variant="overline">
+                    <Stack gap={1}>
+                        <Typography sx={{ color: 'text.text8' }} variant="caption10">
                             {listLabel}
                         </Typography>
                         {listData.map((elem) => (
-                            <Typography
-                                sx={{ color: 'text.primary', lineHeight: '12px' }}
-                                key={elem}
-                                variant="overline"
-                            >
+                            <Typography sx={{ color: 'text.text1' }} key={elem} variant="text12">
                                 {elem}
                             </Typography>
                         ))}
                     </Stack>
-                    <VerticalBarChart
-                        unit={unit}
-                        color={theme.palette.base.color6}
-                        style={chartStyles}
-                        data={chartData}
-                    />
+                    <Box
+                        sx={{
+                            ...chartStyles,
+                            width: 'auto',
+                            aspectRatio: '2/1',
+                        }}
+                    >
+                        <VerticalBarChart
+                            unit={unit}
+                            color={theme.palette.base.color6}
+                            style={chartStyles}
+                            data={chartData}
+                        />
+                    </Box>
                 </Stack>
             </Box>
         </BaseWidget>

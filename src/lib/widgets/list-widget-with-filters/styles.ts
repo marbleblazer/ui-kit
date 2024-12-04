@@ -10,9 +10,8 @@ export const ListWrapper = styled('div')(() => ({
     overflow: 'auto',
 }));
 
-export const HeaderWrapper = styled('div')(({ theme }) => ({
+export const HeaderWrapper = styled('div')(() => ({
     position: 'sticky',
     top: 0,
     whiteSpace: 'nowrap',
-    background: theme.palette.background.primary,
 }));
