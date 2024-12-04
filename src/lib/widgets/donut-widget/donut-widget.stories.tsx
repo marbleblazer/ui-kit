@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DonutWidget } from '@chirp/ui/lib';
 import { Box, Stack } from '@mui/system';
 import { useState } from 'react';
+import { useTheme } from '@emotion/react';
 
 const meta: Meta<typeof DonutWidget> = {
     title: 'UI/Widgets/DonutWidget',
@@ -18,6 +19,7 @@ type Story = StoryObj<typeof DonutWidget>;
 
 export const Default: Story = {
     render: () => {
+        const theme = useTheme();
         const [favoriteState, setFavoriteState] = useState(false);
         const [deleteState, setDeleteState] = useState(false);
 
@@ -39,7 +41,7 @@ export const Default: Story = {
                         { name: 'Offline', value: 1 },
                     ]}
                     centerText="5/1"
-                    colors={['#50D24C', '#E85A2D']}
+                    colors={[theme.palette.base.color9, theme.palette.base.color13]}
                     type="online"
                     title="Connection state"
                     renderSelectedContent={({ name }) => (
@@ -56,6 +58,7 @@ export const Default: Story = {
 
 export const FiveItems: Story = {
     render: () => {
+        const theme = useTheme();
         const [favoriteState, setFavoriteState] = useState(false);
         const [deleteState, setDeleteState] = useState(false);
 
@@ -79,7 +82,13 @@ export const FiveItems: Story = {
                         { name: 'No actual state', value: 0 },
                         { name: 'No coordinates', value: 0 },
                     ]}
-                    colors={['#50D24C', '#E9C05A', '#7AD9EA', '#586DEC', '#E85A2D']}
+                    colors={[
+                        theme.palette.base.color9,
+                        theme.palette.base.color14,
+                        theme.palette.base.color11,
+                        theme.palette.base.color12,
+                        theme.palette.base.color13,
+                    ]}
                     type="online"
                     title="Motion state"
                     renderSelectedContent={({ name }) => (

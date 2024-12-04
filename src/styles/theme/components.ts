@@ -10,16 +10,15 @@ export const createComponents: ComponentCreator = (palette) => ({
                 height: '100%',
 
                 '& ::-webkit-scrollbar': {
-                    width: '4px',
-                    height: '4px',
+                    width: '2px',
+                    height: '2px',
                 },
                 '& ::-webkit-scrollbar-track': {
-                    backgroundColor: palette?.primaryColors.secondary,
+                    backgroundColor: palette?.background?.background6,
                 },
                 '& ::-webkit-scrollbar-thumb': {
                     borderRadius: '31px',
-                    backgroundColor:
-                        palette?.mode === 'light' ? palette.primaryColors.fifth : palette?.primaryColors?.quaternary,
+                    backgroundColor: palette?.text?.search,
                 },
             },
         },
