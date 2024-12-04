@@ -1,6 +1,6 @@
 {
     "name": "@chirpwireless/ui-kit",
-    "version": "0.65.0",
+    "version": "0.66.0",
     "type": "module",
     "declaration": true,
     "main": "dist/index.cjs.js",
