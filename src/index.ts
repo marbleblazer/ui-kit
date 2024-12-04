@@ -5,6 +5,9 @@ export * from './styles/theme';
 export * from './lib';
 
 export * from './assets/fleet-icons';
+
+export * from './assets/themed-fleet-icons';
+
 export {
     CheckCircleOutlinedIcon,
     ChirpAltIcon,
