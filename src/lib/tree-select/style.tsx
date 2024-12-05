@@ -29,6 +29,10 @@ export const TreeItem = styled(MUITreeItem)<TreeItemProps>(({ theme, level = 0 }
                 },
             },
 
+            '&.MuiTreeItem-content.Mui-focused': {
+                backgroundColor: 'transparent !important',
+            },
+
             '&.Mui-selected': {
                 backgroundColor: alpha(theme.palette?.base.color61, 0.1),
                 color: theme.palette.base.color6,
