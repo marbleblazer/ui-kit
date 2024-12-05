@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StackedLineChartWidget } from '@chirp/ui/lib';
-import { Box } from '@mui/system';
+import { Box, useTheme } from '@mui/material';
 import { useState } from 'react';
 import { mockStackedData } from '../../charts/stacked-chart/mock-data';
 
@@ -35,6 +35,7 @@ const listData = [
 
 export const Default: Story = {
     render: () => {
+        const theme = useTheme();
         const [favoriteState, setFavoriteState] = useState(false);
         const [deleteState, setDeleteState] = useState(false);
 
@@ -56,16 +57,16 @@ export const Default: Story = {
                     idKey="id"
                     dataKey="fuel_consumption"
                     colors={[
-                        '#5F75FF',
-                        '#FEFF84',
-                        '#FFD262',
-                        '#85EDFF',
-                        '#C9F7FF',
-                        '#CCA6FF',
-                        '#FFA6E3',
-                        '#00D134',
-                        '#CCFF5F',
-                        '#E8C92D',
+                        theme.palette.base.color12,
+                        theme.palette.base.color18,
+                        theme.palette.base.color13,
+                        theme.palette.base.color16,
+                        theme.palette.base.color17,
+                        theme.palette.base.color19,
+                        theme.palette.base.color15,
+                        theme.palette.base.color9,
+                        theme.palette.base.color20,
+                        theme.palette.base.color14,
                     ]}
                     chartStyles={{ width: '100%', height: '290px' }}
                     type="period"
@@ -78,6 +79,8 @@ export const Default: Story = {
 
 export const Empty: Story = {
     render: () => {
+        const theme = useTheme();
+
         const [favoriteState, setFavoriteState] = useState(false);
         const [deleteState, setDeleteState] = useState(false);
 
@@ -99,16 +102,16 @@ export const Empty: Story = {
                     idKey="id"
                     dataKey="fuel_consumption"
                     colors={[
-                        '#5F75FF',
-                        '#FEFF84',
-                        '#FFD262',
-                        '#85EDFF',
-                        '#C9F7FF',
-                        '#CCA6FF',
-                        '#FFA6E3',
-                        '#00D134',
-                        '#CCFF5F',
-                        '#E8C92D',
+                        theme.palette.base.color12,
+                        theme.palette.base.color18,
+                        theme.palette.base.color13,
+                        theme.palette.base.color16,
+                        theme.palette.base.color17,
+                        theme.palette.base.color19,
+                        theme.palette.base.color15,
+                        theme.palette.base.color9,
+                        theme.palette.base.color20,
+                        theme.palette.base.color14,
                     ]}
                     chartStyles={{ width: '100%', height: '290px' }}
                     type="period"

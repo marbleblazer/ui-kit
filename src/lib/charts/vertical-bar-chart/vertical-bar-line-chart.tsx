@@ -22,10 +22,7 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
 
     const option = {
         textStyle: {
-            color: theme.palette.text.tertiary,
-            fontFamily: 'Alliance No.2',
-            fontSize: 10,
-            fontWeight: 400,
+            color: theme.palette.text.text8,
         },
         yAxis: {
             axisTick: {
@@ -35,8 +32,16 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
             data: data,
             inverse: true,
             axisLabel: {
-                color: theme.palette.text.primary,
+                fontSize: 8,
+                color: theme.palette.text.text8,
                 formatter: `{value} ${unit}`,
+            },
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: theme.palette.border.border3,
+                    type: 'solid',
+                },
             },
         },
         xAxis: {
@@ -46,10 +51,12 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
                 show: true,
                 lineStyle: {
                     type: 'solid',
-                    color: theme.palette.border.secondary,
+                    color: theme.palette.border.border3,
                 },
             },
             axisLabel: {
+                fontSize: 8,
+                color: theme.palette.text.text8,
                 formatter: `{value} ${unit}`,
             },
         },

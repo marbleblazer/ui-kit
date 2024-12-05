@@ -15,7 +15,6 @@ export const HeaderWrapper = styled('div')(({ theme }) => ({
     position: 'sticky',
     top: 0,
     whiteSpace: 'nowrap',
-    background: theme.palette.background.primary,
 }));
 
 export const StyledMenuItem = styled(MenuItem)(() => ({
@@ -30,8 +29,4 @@ export const StyledMenuItem = styled(MenuItem)(() => ({
     '&.Mui-selected': {
         background: 'transparent',
     },
-}));
-
-export const WidgetTypeName = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.tertiary,
 }));

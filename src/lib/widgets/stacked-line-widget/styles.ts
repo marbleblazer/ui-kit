@@ -1,5 +1,4 @@
 import { MenuItem, styled } from '@mui/material';
-import { Typography } from '../../typogrpahy';
 
 export const ListWrapper = styled('div')(() => ({
     display: 'grid',
@@ -11,14 +10,13 @@ export const ListWrapper = styled('div')(() => ({
     overflow: 'auto',
 }));
 
-export const HeaderWrapper = styled('div')(({ theme }) => ({
+export const HeaderWrapper = styled('div')(() => ({
     position: 'sticky',
     top: 0,
     whiteSpace: 'nowrap',
-    background: theme.palette.background.primary,
 }));
 
-export const StyledMenuItem = styled(MenuItem)(() => ({
+export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -30,8 +28,6 @@ export const StyledMenuItem = styled(MenuItem)(() => ({
     '&.Mui-selected': {
         background: 'transparent',
     },
-}));
-
-export const WidgetTypeName = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.tertiary,
+    ...theme.typography.text12,
+    color: theme.palette.text.text1,
 }));

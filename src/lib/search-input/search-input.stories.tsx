@@ -25,3 +25,7 @@ export const WithCustomPlaceholder: Story = {
 export const LoadingMode: Story = {
     render: () => <SearchInput isLoading placeholder="Search by name" value="" onChange={() => {}} />,
 };
+
+export const DisabledVariant: Story = {
+    render: () => <SearchInput placeholder="Search by name" value="" onChange={() => {}} disabled />,
+};
