@@ -84,8 +84,8 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
                     sx={{
                         width: selectRef.current?.getBoundingClientRect().width,
                         maxHeight: treeViewMaxHeight,
-                        paddingTop: '8px',
-                        paddingBottom: '8px',
+                        paddingTop: '8px !important',
+                        paddingBottom: '8px !important',
                     }}
                     selectedItems={selectedNode?.id}
                     slots={{

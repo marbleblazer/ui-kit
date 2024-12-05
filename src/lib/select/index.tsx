@@ -33,6 +33,13 @@ export const Select: FC<SelectPropsType> = ({ label, labelId, disabled, value, o
                 {...props}
                 value={value}
                 disabled={disabled}
+                MenuProps={{
+                    MenuListProps: {
+                        sx: {
+                            padding: 0,
+                        },
+                    },
+                }}
                 endAdornment={
                     endAdornment ? (
                         endAdornment
