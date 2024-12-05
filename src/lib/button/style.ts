@@ -6,6 +6,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     cursor: 'pointer',
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
+    gap: '4px',
     ...theme.typography.btnPrimary,
 
     '.MuiButton-icon': {
@@ -16,20 +17,18 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     },
 
     ...(size === 'large' && {
-        ...theme.typography.btnPrimary,
-        padding: '14px 20px',
+        padding: '14px 30px',
         maxHeight: '48px',
     }),
 
     ...(size === 'medium' && {
-        ...theme.typography.btnPrimary,
-        padding: '8px 16px',
+        padding: '8px 26px',
         maxHeight: '36px',
     }),
 
     ...(size === 'small' && {
         ...theme.typography.btnSecondary,
-        padding: '4px 12px',
+        padding: '4px 20px',
         maxHeight: '28px',
     }),
 
@@ -42,7 +41,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:disabled': {
-            color: theme.palette.base.color6,
+            color: theme.palette.base.color1,
             opacity: '0.3',
         },
 
@@ -90,7 +89,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:disabled': {
-            color: theme.palette.background.background10,
+            color: theme.palette.text.text2,
             opacity: '0.3',
         },
 
