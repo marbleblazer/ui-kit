@@ -6,7 +6,6 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     cursor: 'pointer',
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
-    gap: '4px',
     ...theme.typography.btnPrimary,
 
     '.MuiButton-icon': {
