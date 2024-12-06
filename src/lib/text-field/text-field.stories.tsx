@@ -27,7 +27,7 @@ export const Error: Story = {
 };
 
 export const Textarea: Story = {
-    render: () => <TextField multiline />,
+    render: () => <TextField multiline rows={4} />,
 };
 
 export const DisabledTextarea: Story = {

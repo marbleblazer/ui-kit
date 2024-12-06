@@ -21,11 +21,11 @@ export const Select: FC<SelectPropsType> = ({ label, labelId, disabled, value, o
                 sx={{
                     opacity: disabled ? 0.3 : 1,
                     '&.MuiInputLabel-shrink': {
-                        lineHeight: '20px',
                         transform: 'none',
                         left: 0,
-                        top: '3.5px',
-                        ...theme.typography.overline,
+                        top: '-5px',
+                        color: theme.palette.text.titleInput,
+                        ...theme.typography.inputLabel,
                     },
                 }}
             />

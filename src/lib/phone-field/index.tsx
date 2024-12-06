@@ -1,6 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Select } from '../select';
 import {
+    alpha,
     Box,
     FormControl,
     InputAdornment,
@@ -9,13 +10,14 @@ import {
     SelectChangeEvent,
     TextFieldProps,
     Typography,
+    useTheme,
 } from '@mui/material';
 import * as S from './styles';
 import { applyMask, getMaxLength, stripDialCode } from './helpers';
 import { COUNTRIES } from './constants';
 import { SelectIndicator } from '../select-indicator';
 
-type PhoneFieldProps = Omit<TextFieldProps, 'onChange'> & {
+type PhoneFieldProps = Omit<TextFieldProps, 'onChange' | 'variant'> & {
     value: string;
     onChange: (value: string) => void;
     countries: string[]; // Массив ISO-кодов стран
@@ -31,6 +33,8 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     PaperPropsSx,
     ...props
 }) => {
+    const theme = useTheme();
+
     const countryList = useMemo(() => countries.map((code) => ({ code, ...COUNTRIES[code] })), [countries]);
 
     const extractInitialValues = (inputValue: string) => {
@@ -111,6 +115,18 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                                         horizontal: 'left',
                                     },
                                 }}
+                                sx={{
+                                    '& .MuiSelect-select': {
+                                        color: localValue
+                                            ? theme.palette.text.text1
+                                            : alpha(theme.palette.text.textInput60, 0.6),
+                                    },
+                                    '.MuiSelect-icon': {
+                                        color: localValue
+                                            ? theme.palette.text.text1 + '!important'
+                                            : alpha(theme.palette.text.textInput60, 0.6) + '!important',
+                                    },
+                                }}
                             >
                                 {countryList.map((country) => (
                                     <MenuItem key={country.code} value={country.code} sx={{ width: '100%' }}>
@@ -125,6 +141,11 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                             </Select>
                         </InputAdornment>
                     ),
+                    sx: {
+                        '& .MuiInputBase-input': {
+                            color: localValue ? theme.palette.text.text1 : alpha(theme.palette.text.textInput60, 0.6),
+                        },
+                    },
                 }}
             />
         </FormControl>

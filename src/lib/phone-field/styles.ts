@@ -1,34 +1,17 @@
-import { styled, TextField } from '@mui/material';
+import { alpha, styled } from '@mui/material';
+import { TextField } from '../text-field';
 
 export const PhoneField = styled(TextField)(({ theme }) => ({
-    fontFamily: theme?.typography.fontFamily,
     marginTop: '20px !important',
-    border: 'none',
-
-    '.MuiInputBase-root.Mui-focused': {
-        borderColor: theme.palette.border.tertiaryInput,
-    },
 
     '.MuiInputBase-root': {
-        border: '1px solid',
         borderRadius: '8px',
-        borderColor: theme.palette.border.tertiaryInput,
-
-        '&:hover:not(.Mui-disabled)': {
-            backgroundColor: theme.palette.background.fifth,
-        },
-        backgroundColor: theme.palette.background.fifthInput,
-        '&.Mui-disabled': {
-            opacity: '0.3 !important',
-        },
-    },
-
-    '& svg': { height: '20px' },
-
-    '& .MuiInputBase-root': {
+        color: alpha(theme.palette.text.textInput60, 0.6),
         height: '40px',
         paddingLeft: '0px',
     },
+
+    '& svg': { height: '20px' },
 
     '.MuiInputAdornment-root': {
         width: 'auto',
@@ -48,15 +31,16 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
             '.MuiSelect-select': {
                 justifyContent: 'space-around',
                 paddingRight: '15px !important',
+                // color: alpha(theme.palette.text.textInput80, 0.8), // Цвет текста по умолчанию (например, серый)
+            },
+            '&:hover': {
+                backgroundColor: 'transparent',
             },
         },
     },
 
-    '&.MuiFormControl-root .MuiFormLabel-root': {
-        transform: 'none',
-        left: 0,
-        top: '-16px',
-        ...theme.typography.overline,
+    '&:focus-within .MuiInputAdornment-positionStart .MuiInputBase-root': {
+        color: theme.palette.text.text2 + ' !important',
     },
 
     '.MuiFormControl-root.MuiTextField-root': {
@@ -64,12 +48,11 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
     },
 
     '.MuiSelect-select': {
-        paddingTop: '12px',
-        paddingLeft: '16px',
-        paddingBottom: '10px',
-        fontFamily: theme?.typography.fontFamily,
-        borderRadius: '0px',
         padding: '0px !important',
+
+        '&:hover': {
+            backgroundColor: 'transparent',
+        },
 
         '&.MuiInputBase-input': {
             paddingTop: '12px',
@@ -84,6 +67,19 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
     '.MuiSelect-icon': {
         right: '0px !important',
         top: '10px',
+        color: alpha(theme.palette.text.textInput60, 0.6) + '!important',
+    },
+
+    '&:hover .MuiSelect-icon': {
+        color: alpha(theme.palette.text.textInput60, 0.8) + '!important',
+    },
+
+    '&:focus-within .MuiInputAdornment-positionStart .MuiSelect-icon': {
+        color: theme.palette.text.text2 + '!important',
+    },
+
+    '&:focus-within .MuiSelect-icon': {
+        color: theme.palette.text.text2 + '!important',
     },
 
     'input:-webkit-autofill': {
@@ -91,7 +87,7 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
         borderBottomLeftRadius: '8px',
         border: 'none',
         borderRadius: '8px',
-        boxShadow: `0 0 0 100px ${theme.palette.background.fifthInput} inset!important`,
+        boxShadow: `0 0 0 100px ${theme.palette.background.fifthInput} inset !important`,
         transitionDelay: '9999s',
         transitionProperty: 'background-color, color',
     },
@@ -108,34 +104,29 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
     },
 
     input: {
+        paddingLeft: '8px',
         order: 2,
-        padding: '0px',
-        fontSize: '13px',
-        lineHeight: '20px',
-        fontFamily: theme.typography.fontFamily,
-        color: theme.palette.text.primary,
+        color: alpha(theme.palette.text.textInput60, 0.6),
     },
 
     fieldset: {
         border: 'none',
         top: 0,
     },
+
     legend: {
-        fontFamily: theme?.typography.fontFamily,
         backgroundColor: 'transparent',
         span: {
             padding: 0,
         },
     },
+
     label: {
         padding: 0,
         left: '0',
         backgroundColor: 'transparent',
-        color: theme.palette.text.quaternary,
 
         '&.MuiInputLabel-shrink': {
-            fontSize: '14px',
-            lineHeight: '20px',
             top: '-16px',
             left: '0',
         },
@@ -143,10 +134,5 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
 
     'label,.MuiInputLabel-root.Mui-focused': {
         padding: 0,
-        color: theme.palette.text.quaternary,
-    },
-
-    '&.drop': {
-        color: 'red !important',
     },
 }));

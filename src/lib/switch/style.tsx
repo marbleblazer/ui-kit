@@ -7,7 +7,7 @@ export const Switch = styled(MUISwitch)(({ theme }) => ({
     ...theme.typography.text13,
 
     '& .MuiSwitch-track': {
-        border: `1px solid ${theme.palette.background.background1}`,
+        border: `1px solid ${theme.palette.border.border5}`,
         borderRadius: '6px',
         opacity: 1,
         backgroundColor: theme.palette.background.background1,

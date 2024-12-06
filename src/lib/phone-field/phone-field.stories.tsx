@@ -58,6 +58,28 @@ export const Disabled: Story = {
     },
 };
 
+export const Error: Story = {
+    render: () => {
+        const [value, setValue] = useState<string>('491512125694');
+
+        return (
+            <PhoneField
+                error
+                countries={['us', 'de', 'pt', 'es', 'ru']}
+                defaultCountry="us"
+                value={value}
+                onChange={setValue}
+                label="Phone number"
+                placeholder="Phone number"
+                PaperPropsSx={{ sx: { width: '257px' } }}
+                sx={{
+                    width: '257px',
+                }}
+            />
+        );
+    },
+};
+
 export const Empty: Story = {
     render: () => {
         const [value, setValue] = useState<string>('');
