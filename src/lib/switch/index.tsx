@@ -10,13 +10,7 @@ interface ISwitchProps {
     onChange?: (val: boolean) => void;
 }
 
-export const Switch: FC<ISwitchProps> = ({
-    width = '124px',
-    activeText = '',
-    inactiveText = '',
-    checked = false,
-    onChange,
-}) => {
+export const Switch: FC<ISwitchProps> = ({ width, activeText = '', inactiveText = '', checked = false, onChange }) => {
     const StyledSwitch = styled(S.Switch)(() => ({
         '& .MuiSwitch-track': {
             '&::before': {
@@ -33,12 +27,14 @@ export const Switch: FC<ISwitchProps> = ({
     return (
         <StyledSwitch
             onClick={() => onChange && onChange(!checked)}
-            sx={{ width }}
+            sx={{
+                width: (width ?? checked) ? '127.3px' : '117.3px',
+            }}
             checked={checked}
             onChange={(_, checked) => onChange && onChange(checked)}
             inputProps={{
                 style: {
-                    width,
+                    width: (width ?? checked) ? '127.3px' : '117.3px',
                 },
             }}
         />

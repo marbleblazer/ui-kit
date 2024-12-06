@@ -3,16 +3,15 @@ import { styled, Switch as MUISwitch } from '@mui/material';
 export const Switch = styled(MUISwitch)(({ theme }) => ({
     padding: 0,
     height: '28px',
-    color: theme.palette.text.primary,
-    fontSize: 13,
-    letterSpacing: '0.4px',
-    fontFamily: '"Alliance No.2", Arial, sans-serif',
-    lineHeight: '16px',
-    fontWeight: 400,
+    color: theme.palette.text.text1,
+    ...theme.typography.text13,
+
     '& .MuiSwitch-track': {
-        borderRadius: '3px',
+        border: `1px solid ${theme.palette.background.background1}`,
+        borderRadius: '6px',
         opacity: 1,
-        backgroundColor: theme.palette.background.primary,
+        backgroundColor: theme.palette.background.background1,
+
         '&::before, &::after': {
             content: '""',
             position: 'absolute',
@@ -31,16 +30,16 @@ export const Switch = styled(MUISwitch)(({ theme }) => ({
         '.MuiSwitch-input': {
             left: 0,
         },
-        color: theme.palette.primary.light,
+        color: theme.palette.background.background5,
 
         '&.Mui-checked': {
             transform: 'translateX(-100%)',
             left: '100%',
             transition: 'left 0.2s',
-            color: theme.palette.primary.light,
+            color: theme.palette.background.background5,
 
             '& + .MuiSwitch-track': {
-                backgroundColor: theme.palette.background.primary,
+                backgroundColor: theme.palette.background.background1,
                 opacity: 1,
             },
             '.MuiSwitch-input': {
@@ -49,14 +48,19 @@ export const Switch = styled(MUISwitch)(({ theme }) => ({
             },
         },
     },
+
     '& .MuiSwitch-thumb': {
         boxShadow: 'none',
-        width: '24px',
+        width: '24.3px',
         height: '22px',
         padding: 0,
-        borderRadius: '3px',
+        borderRadius: '4px',
     },
+
     '.MuiSwitch-switchBase': {
         padding: '3px 2px',
+        '&:hover': {
+            backgroundColor: 'transparent',
+        },
     },
 }));

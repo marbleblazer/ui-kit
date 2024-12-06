@@ -15,11 +15,11 @@ export default meta;
 type Story = StoryObj<typeof TextField>;
 
 export const Default: Story = {
-    render: () => <TextField label="Default" />,
+    render: () => <TextField label="Default" placeholder="Input" />,
 };
 
 export const Disabled: Story = {
-    render: () => <TextField label="Disabled" disabled />,
+    render: () => <TextField label="Disabled" disabled placeholder="Input" />,
 };
 
 export const Error: Story = {
@@ -27,7 +27,7 @@ export const Error: Story = {
 };
 
 export const Textarea: Story = {
-    render: () => <TextField multiline error />,
+    render: () => <TextField multiline />,
 };
 
 export const DisabledTextarea: Story = {
