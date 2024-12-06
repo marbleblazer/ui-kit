@@ -22,7 +22,6 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
 
     '& .MuiInputBase-root': {
         border: `1px solid ${alpha(theme.palette.border.input, 0.14)}`,
-        minHeight: '40px',
     },
 
     '&.MuiFormControl-root .MuiFormLabel-root': {
@@ -134,6 +133,4 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
     '& textarea:hover': {
         border: 'none',
     },
-
-    '& textarea.Mui-disabled': {},
 }));
