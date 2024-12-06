@@ -22,7 +22,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
 
     '& .MuiInputBase-root': {
         border: `1px solid ${alpha(theme.palette.border.input, 0.14)}`,
-        height: '40px',
+        minHeight: '40px',
     },
 
     '&.MuiFormControl-root .MuiFormLabel-root': {
@@ -120,4 +120,20 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
         caretColor: theme.palette.base.color6,
         color: theme.palette.text.text2,
     },
+
+    '& textarea': {
+        ...theme.typography.inputText,
+        color: theme.palette.text.text1,
+    },
+
+    '& textarea:focus': {
+        caretColor: theme.palette.base.color6,
+        color: theme.palette.text.text2,
+    },
+
+    '& textarea:hover': {
+        border: 'none',
+    },
+
+    '& textarea.Mui-disabled': {},
 }));
