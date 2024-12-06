@@ -1,7 +1,9 @@
 import { alpha, styled } from '@mui/material';
 import { TextField } from '../text-field';
 
-export const PhoneField = styled(TextField)(({ theme }) => ({
+export const PhoneField = styled(TextField, {
+    shouldForwardProp: (prop) => prop !== 'isDisabled',
+})<{ isDisabled?: boolean }>(({ theme, isDisabled }) => ({
     marginTop: '20px !important',
 
     '.MuiInputBase-root': {
@@ -9,6 +11,7 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
         color: alpha(theme.palette.text.textInput60, 0.6),
         height: '40px',
         paddingLeft: '0px',
+        backgroundColor: isDisabled ? theme.palette.background.background8 : 'transparent',
     },
 
     '& svg': { height: '20px' },
@@ -31,7 +34,6 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
             '.MuiSelect-select': {
                 justifyContent: 'space-around',
                 paddingRight: '15px !important',
-                // color: alpha(theme.palette.text.textInput80, 0.8), // Цвет текста по умолчанию (например, серый)
             },
             '&:hover': {
                 backgroundColor: 'transparent',
@@ -135,4 +137,8 @@ export const PhoneField = styled(TextField)(({ theme }) => ({
     'label,.MuiInputLabel-root.Mui-focused': {
         padding: 0,
     },
+
+    ...(isDisabled && {
+        pointerEvents: 'none',
+    }),
 }));

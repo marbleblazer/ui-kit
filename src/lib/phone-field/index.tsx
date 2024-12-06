@@ -23,6 +23,7 @@ type PhoneFieldProps = Omit<TextFieldProps, 'onChange' | 'variant'> & {
     countries: string[]; // Массив ISO-кодов стран
     defaultCountry: string; // ISO-код страны по умолчанию
     PaperPropsSx?: PaperProps;
+    isDisabled?: boolean;
 };
 
 export const PhoneField: FC<PhoneFieldProps> = ({
@@ -31,6 +32,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     countries,
     defaultCountry,
     PaperPropsSx,
+    isDisabled = false,
     ...props
 }) => {
     const theme = useTheme();
@@ -89,6 +91,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
             <S.PhoneField
                 {...props}
                 value={localValue}
+                isDisabled={isDisabled}
                 onChange={handleInputChange}
                 InputProps={{
                     startAdornment: (
@@ -117,14 +120,16 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                                 }}
                                 sx={{
                                     '& .MuiSelect-select': {
-                                        color: localValue
-                                            ? theme.palette.text.text1
-                                            : alpha(theme.palette.text.textInput60, 0.6),
+                                        color:
+                                            localValue && !isDisabled
+                                                ? theme.palette.text.text1
+                                                : alpha(theme.palette.text.textInput60, 0.6),
                                     },
                                     '.MuiSelect-icon': {
-                                        color: localValue
-                                            ? theme.palette.text.text1 + '!important'
-                                            : alpha(theme.palette.text.textInput60, 0.6) + '!important',
+                                        color:
+                                            localValue && !isDisabled
+                                                ? theme.palette.text.text1 + '!important'
+                                                : alpha(theme.palette.text.textInput60, 0.6) + '!important',
                                     },
                                 }}
                             >
@@ -143,7 +148,10 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                     ),
                     sx: {
                         '& .MuiInputBase-input': {
-                            color: localValue ? theme.palette.text.text1 : alpha(theme.palette.text.textInput60, 0.6),
+                            color:
+                                localValue && !isDisabled
+                                    ? theme.palette.text.text1
+                                    : alpha(theme.palette.text.textInput60, 0.6),
                         },
                     },
                 }}

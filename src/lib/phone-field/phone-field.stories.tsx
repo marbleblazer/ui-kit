@@ -42,7 +42,7 @@ export const Disabled: Story = {
 
         return (
             <PhoneField
-                disabled
+                isDisabled
                 countries={['us', 'de', 'pt', 'es', 'ru']}
                 defaultCountry="us"
                 value={value}
