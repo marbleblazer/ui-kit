@@ -58,7 +58,7 @@ export const Switch = styled(MUISwitch)(({ theme }) => ({
     },
 
     '.MuiSwitch-switchBase': {
-        padding: '3px 2px',
+        padding: '3px 4px',
         '&:hover': {
             backgroundColor: 'transparent',
         },
