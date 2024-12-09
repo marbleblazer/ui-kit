@@ -320,7 +320,7 @@ export const MapContainer = styled(Box, {
         },
     },
 
-    '.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup': {
+    '.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup:not(.speed-popup)': {
         '.mapboxgl-popup-tip': {
             display: 'none',
         },
@@ -329,8 +329,6 @@ export const MapContainer = styled(Box, {
             background: theme.palette.background.background15,
             border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
             borderRadius: '12px',
-            backdropFilter: 'blur(20px)',
-            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
             padding: '16px',
             ...theme.typography.mono1213,
             color: theme.palette.text.text4,
@@ -345,12 +343,17 @@ export const MapContainer = styled(Box, {
         '.mapboxgl-popup-tip': {
             display: 'none',
         },
+
         '& .mapboxgl-popup-content': {
+            background: theme.palette.background.background15,
+            border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
+            backdropFilter: 'blur(20px)',
+            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
+            ...theme.typography.mono1213,
             display: 'flex',
             flexDirection: 'column',
-            width: '145px',
-            height: '46px',
             gap: '4px',
+
             padding: '8px',
             borderRadius: '4px !important',
             color: theme.palette.text.text4,
@@ -510,9 +513,35 @@ export const MapContainer = styled(Box, {
     },
 }));
 
-export const MapDrawModeTabsWrapper = styled(Box)(() => ({
+export const MapDrawModeTabsWrapper = styled(Box)(({ theme }) => ({
     position: 'absolute',
     top: '12px',
     left: '50%',
     transform: 'translate(-50%)',
+    backgroundColor: theme.palette.background.background1,
+    borderRadius: '6px !important',
+
+    '.MuiTabs-scroller': {
+        display: 'flex',
+        borderRadius: '6px',
+        alignItems: 'center',
+        height: '28px',
+        backgroundColor: theme.palette.background.background1,
+        border: 'none',
+
+        button: {
+            color: theme.palette.text.text1,
+            height: '20px',
+
+            '&.Mui-selected': {
+                backgroundColor: theme.palette.base.color6,
+                color: theme.palette.base.color1,
+            },
+
+            '&:hover': {
+                border: `1px solid ${theme.palette.border.border5}`,
+                backgroundColor: theme.palette.background.background1,
+            },
+        },
+    },
 }));
