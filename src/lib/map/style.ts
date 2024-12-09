@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 import { Box } from '@mui/material';
 
 import { CurrentTheme, SIDEBAR_WIDTH } from '@chirp/ui/styles/constants';
@@ -320,16 +320,17 @@ export const MapContainer = styled(Box, {
         },
     },
 
-    '.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup:not(.speed-popup)': {
+    '.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup': {
         '.mapboxgl-popup-tip': {
             display: 'none',
         },
 
         '.mapboxgl-popup-content': {
             background: theme.palette.background.background15,
-            border: `1px solid ${theme.palette.border.border3}`,
+            border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
             borderRadius: '12px',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
             padding: '16px',
             ...theme.typography.mono1213,
             color: theme.palette.text.text4,
@@ -345,8 +346,13 @@ export const MapContainer = styled(Box, {
             display: 'none',
         },
         '& .mapboxgl-popup-content': {
-            background: theme.palette.background.background15,
-            padding: '12px',
+            display: 'flex',
+            flexDirection: 'column',
+            width: '145px',
+            height: '46px',
+            gap: '4px',
+            padding: '8px',
+            borderRadius: '4px !important',
             color: theme.palette.text.text4,
             ...theme.typography.mono1213,
             '& .speed': {
