@@ -2,13 +2,12 @@ import { styled } from '@mui/material';
 import { Box } from '@mui/material';
 
 import { CurrentTheme, SIDEBAR_WIDTH } from '@chirp/ui/styles/constants';
-import fullScreenIcon from '@chirp/ui/assets/fleet-icons/full-screen.svg';
-import minusIcon from '@chirp/ui/assets/fleet-icons/minus.svg';
-import plusIcon from '@chirp/ui/assets/fleet-icons/plus-light.svg';
-import fullScreenDarkIcon from '@chirp/ui/assets/fleet-icons/full-screen-dark.svg';
-import minusDarkIcon from '@chirp/ui/assets/fleet-icons/minus-dark.svg';
-import plusDarkIcon from '@chirp/ui/assets/fleet-icons/plus-dark.svg';
+import fullScreenIcon from '@chirp/ui/assets/fleet-icons/map-full-screen-icon.svg';
+import minusIcon from '@chirp/ui/assets/fleet-icons/map-minus-icon.svg';
+import plusIcon from '@chirp/ui/assets/fleet-icons/map-plus-icon.svg';
 import locationUserIcon from '@chirp/ui/assets/fleet-icons/location-user.svg';
+import searchIcon from '@chirp/ui/assets/fleet-icons/map-search-icon.svg';
+import questionIcon from '@chirp/ui/assets/fleet-icons/map-question-icon.svg';
 
 interface Props {
     isFullScreenMap?: boolean;
@@ -19,7 +18,7 @@ interface Props {
 export const MapContainer = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'isFullScreenMap' && prop !== 'isSidebarOpen' && prop !== 'mobileHeight',
 })<Props>(({ theme, isFullScreenMap = false, isSidebarOpen = false, mobileHeight = '60vh' }) => ({
-    borderRadius: '12px',
+    borderRadius: '10px',
     overflow: 'hidden',
     width: '100%',
     height: '100%',
@@ -40,11 +39,22 @@ export const MapContainer = styled(Box, {
         outline: 'none',
     },
 
-    '.mapboxgl-control-container': {
+    '.mapboxgl-ctrl-bottom-right': {
         position: 'absolute',
         right: '10px',
         bottom: '10px',
     },
+
+    '.mapboxgl-ctrl-bottom-left': {
+        position: 'absolute',
+        left: '10px',
+        bottom: '10px',
+    },
+
+    '.mapboxgl-ctrl.mapboxgl-ctrl-group': {
+        marginRight: 0,
+    },
+
     '.spider-leg-container .spider-leg-line': {
         backgroundColor: '#f4f4f4',
         position: 'absolute',
@@ -121,6 +131,10 @@ export const MapContainer = styled(Box, {
         },
     },
 
+    '.mapboxgl-ctrl': {
+        margin: 0,
+    },
+
     '.mapboxgl-ctrl.mapboxgl-ctrl-attrib': {
         position: 'absolute',
         display: 'none',
@@ -139,8 +153,17 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl-geocoder.mapboxgl-ctrl': {
-        backgroundColor: theme.palette.background.tertiary,
+        marginRight: 0,
+        backgroundColor: theme.palette.base.color2,
 
+        '.mapboxgl-ctrl-geocoder--icon-search': {
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            '-webkit-mask-image': `url("${searchIcon}")`,
+            maskImage: `url("${searchIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
+        },
         '.mapboxgl-ctrl-geocoder--input': {
             color: theme.palette.text.primary,
             '&:placeholder': {
@@ -154,7 +177,7 @@ export const MapContainer = styled(Box, {
         svg: {
             left: '4px',
             top: '4px',
-            fill: theme.palette.text.primary,
+            path: { display: 'none' },
         },
     },
 
@@ -169,19 +192,33 @@ export const MapContainer = styled(Box, {
     '.mapboxgl-ctrl-zoom-in': {
         marginBottom: '2px',
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url("${plusIcon}")` : `url("${plusDarkIcon}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            '-webkit-mask-image': `url("${plusIcon}")`,
+            maskImage: `url("${plusIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
     },
 
     '.mapboxgl-ctrl-zoom-out': {
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url("${minusIcon}")` : `url("${minusDarkIcon}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            '-webkit-mask-image': `url("${minusIcon}")`,
+            maskImage: `url("${minusIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
+    },
+
+    '.help-control': {
+        backgroundImage: 'none',
+        backgroundColor: theme.palette.text.text4,
+        '-webkit-mask-image': `url("${questionIcon}")`,
+        maskImage: `url("${questionIcon}") `,
+        '-webkit-mask-position-x': '50%',
+        '-webkit-mask-position-y': '50%',
     },
 
     '.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen': {
@@ -189,10 +226,12 @@ export const MapContainer = styled(Box, {
             display: 'none',
         },
         '& span': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url("${fullScreenIcon}")` : `url("${fullScreenDarkIcon}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            '-webkit-mask-image': `url("${fullScreenIcon}")`,
+            maskImage: `url("${fullScreenIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
     },
 
@@ -202,7 +241,7 @@ export const MapContainer = styled(Box, {
 
     '.mapboxgl-ctrl-group.mapboxgl-ctrl-group.mapboxgl-ctrl-group.mapboxgl-ctrl-group button': {
         padding: '0',
-        backgroundColor: theme.palette.background.tertiary,
+        backgroundColor: theme.palette.base.color2,
         color: 'rgba(186, 186, 186, 1)',
         alignItems: 'center',
         justifyContent: 'center',
@@ -227,18 +266,17 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl button.mapboxgl-ctrl-shrink .mapboxgl-ctrl-icon': {
-        backgroundImage:
-            theme.palette.mode === CurrentTheme.Dark ? `url("${fullScreenIcon}")` : `url("${fullScreenDarkIcon}")`,
+        backgroundImage: `url("${fullScreenIcon}")`,
     },
 
     '.mapboxgl-ctrl-geolocate': {
         '& span': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark
-                    ? `url("${locationUserIcon}")!important`
-                    : `url("${locationUserIcon}")!important`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none !important',
+            backgroundColor: theme.palette.accent.accent,
+            '-webkit-mask-image': `url("${locationUserIcon}")`,
+            maskImage: `url("${locationUserIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
     },
 

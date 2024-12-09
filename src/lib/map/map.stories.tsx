@@ -21,7 +21,7 @@ type Story = StoryObj<typeof Map>;
 export const Default: Story = {
     render: () => {
         return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
+            <Box sx={{ width: '500px', height: '500px' }}>
                 <FeatureMap
                     data={{
                         type: 'FeatureCollection',
@@ -50,7 +50,7 @@ export const ThreeMarkers: Story = {
         const theme = useTheme();
 
         return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
+            <Box sx={{ width: '500px', height: '500px' }}>
                 <FeatureMap
                     sx={{
                         '.mapboxgl-popup-content': {
@@ -169,7 +169,7 @@ export const LineWithPolygons: Story = {
         };
 
         return (
-            <Box sx={{ width: '900px', height: '1600px' }}>
+            <Box sx={{ width: '500px', height: '500px' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 2 }}>
                     <label>
                         <input type="checkbox" checked={data[1]} onChange={handleVisibilityChange(1)} />
@@ -274,7 +274,7 @@ export const Drawable: Story = {
         });
 
         return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
+            <Box sx={{ width: '500px', height: '500px' }}>
                 <DrawableMap
                     onChange={setDrawState}
                     data={drawState}
@@ -301,7 +301,7 @@ export const TripMapExample: Story = {
         };
 
         return (
-            <Box sx={{ width: '1200px', height: '1200px' }}>
+            <Box sx={{ width: '500px', height: '500px' }}>
                 <Stack>
                     <Stack direction="row">
                         <button onClick={handleStartAnimation}>Start Animation</button>
