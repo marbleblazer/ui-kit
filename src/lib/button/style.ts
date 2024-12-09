@@ -28,7 +28,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     ...(size === 'small' && {
         ...theme.typography.btnSecondary,
         padding: '4px 20px',
-        maxHeight: '28px',
+        maxHeight: '30px',
     }),
 
     ...(variant === 'primary' && {
