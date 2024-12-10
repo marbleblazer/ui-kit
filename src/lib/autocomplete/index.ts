@@ -1,10 +1,9 @@
 import { Autocomplete as MuiAutocomplete, styled } from '@mui/material';
 
 // TODO: fix height select
-export const Autocomplete = styled(MuiAutocomplete)(({ theme }) => ({
+export const Autocomplete = styled(MuiAutocomplete)(() => ({
     borderRadius: '8px',
     border: 'none',
-    fontFamily: theme?.typography.fontFamily,
 
     '.MuiInputBase-root': {
         minHeight: '40.69px',
