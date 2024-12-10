@@ -4,6 +4,7 @@ import { mapMarkerSvgString } from '../mp-marker-string';
 import { LineString, Point } from 'geojson';
 import { MutableRefObject, RefObject } from 'react';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
+import { Theme } from '@mui/material';
 
 type PixelCoordType = { x: number; y: number };
 
@@ -132,9 +133,23 @@ export const renderPoints = (
     popupMarkup: string,
     map: RefObject<mapboxgl.Map>,
     markersRef: MutableRefObject<mapboxgl.Marker[]>,
+    theme: Theme,
 ) => {
     const markerElement = document && document.createElement('div');
     markerElement.innerHTML = mapMarkerSvgString;
+
+    // Для смены стиля point
+    const paths = markerElement.querySelector('path');
+    const circles = markerElement.querySelectorAll('circle');
+    circles.forEach((circle) => {
+        if (circle.classList.contains('background-circle')) {
+            circle.setAttribute('fill', theme.palette.accent.accent);
+            circle.setAttribute('stroke', theme.palette.background.background1);
+        } else {
+            circle.setAttribute('fill', theme.palette.accent.accent);
+        }
+    });
+    paths && paths.setAttribute('fill', theme.palette.background.background1);
 
     const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(geometry.coordinates as [number, number]);
 

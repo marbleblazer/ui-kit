@@ -345,19 +345,20 @@ export const MapContainer = styled(Box, {
         },
 
         '& .mapboxgl-popup-content': {
+            width: '146px',
+            height: '46px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4px',
+            padding: '8px !important',
+            borderRadius: '4px !important',
+            color: theme.palette.text.text4,
             background: theme.palette.background.background15,
             border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
             backdropFilter: 'blur(20px)',
             boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
             ...theme.typography.mono1213,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '4px',
 
-            padding: '8px',
-            borderRadius: '4px !important',
-            color: theme.palette.text.text4,
-            ...theme.typography.mono1213,
             '& .speed': {
                 ...theme.typography.mono10,
                 color: theme.palette.text.text1,
@@ -536,6 +537,11 @@ export const MapDrawModeTabsWrapper = styled(Box)(({ theme }) => ({
             '&.Mui-selected': {
                 backgroundColor: theme.palette.base.color6,
                 color: theme.palette.base.color1,
+
+                '&:hover': {
+                    border: 'none',
+                    backgroundColor: theme.palette.base.hover,
+                },
             },
 
             '&:hover': {

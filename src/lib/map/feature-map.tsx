@@ -11,6 +11,7 @@ import { Coordinates } from './map.types';
 import { renderLineStringPoints, renderPoints } from './trip-map/utils';
 import { BaseMap, IBaseMapProps } from './base-map';
 import { customDrawStyles } from './constance';
+import { useTheme } from '@mui/material';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -37,6 +38,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     onAnimationEnd,
     ...baseProps
 }) => {
+    const theme = useTheme();
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
@@ -96,8 +98,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                     if (data.features.length === 1) {
                         singleMarkerCenter = geometry.coordinates;
                     }
-
-                    renderPoints(geometry, popupMarkup, map, markersRef);
+                    renderPoints(geometry, popupMarkup, map, markersRef, theme);
                 } else if (geometry.type === 'LineString') {
                     // Отрисовка маркеров на линии
                     renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded);
@@ -124,14 +125,14 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     useEffect(() => {
         if (!map.current) return;
 
-        if (map.current.isStyleLoaded()) {
+        if (map.current && map.current.isStyleLoaded()) {
             addDataToMap();
         } else {
             map.current.on('style.load', () => {
                 addDataToMap();
             });
         }
-    }, [data]);
+    }, [data, theme]);
 
     // Центрирование карты по координатам centeringCoordinates
     useEffect(() => {
