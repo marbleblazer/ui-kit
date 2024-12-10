@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 import { TableCell, TableRow } from '@mui/material';
 
 export const Row = styled(TableRow)`
@@ -48,15 +48,15 @@ export const Row = styled(TableRow)`
     }
 `;
 
-export const Cell = styled(TableCell)`
-    height: ${({ theme }) => theme.spacing(5)};
-    padding: 12px;
-    border-bottom: '1px solid ${({ theme }) => theme.palette.border.primary}';
-    font-family: ${({ theme }) => theme.typography.fontFamily};
-    opacity: 1;
-    font-size: 12px;
+export const Cell = styled(TableCell)(({ theme }) => ({
+    height: theme.spacing(5),
+    padding: '12px',
+    borderBottom: `1px solid ${alpha(theme.palette.border.border3, 0.1)}`,
+    opacity: 1,
+    color: `${theme.palette.text.text4} !important`,
+    ...theme.typography.text14,
 
-    ${({ theme }) => theme.breakpoints.down('lg')} {
-        padding: 8px 6px;
-    }
-`;
+    [theme.breakpoints.down('lg')]: {
+        padding: '8px 6px',
+    },
+}));
