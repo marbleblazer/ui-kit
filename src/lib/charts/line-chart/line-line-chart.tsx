@@ -28,7 +28,7 @@ const LineChart: FC<ILineChartProps> = memo(
         const option: EChartsOption = {
             backgroundColor: 'transparent',
             textStyle: {
-                color: theme.palette.text.tertiary,
+                color: theme.palette.text.text8,
                 fontFamily: 'Alliance No.2',
                 fontSize: 10,
                 fontWeight: 400,
@@ -42,14 +42,14 @@ const LineChart: FC<ILineChartProps> = memo(
                 },
                 nameTextStyle: {
                     align: 'right',
-                    padding: [-35, -35],
+                    padding: [-20, 15],
                     verticalAlign: 'bottom',
                     color: theme.palette.text.secondary,
                 },
                 axisLine: {
                     show: true,
                     lineStyle: {
-                        color: theme.palette.text.tertiary,
+                        color: theme.palette.text.text8,
                         type: 'solid',
                     },
                 },
@@ -57,7 +57,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     show: true,
                     lineStyle: {
                         type: 'dashed',
-                        color: theme.palette.border.secondary,
+                        color: alpha(theme.palette.border.secondary, 0.3),
                     },
                 },
             },
@@ -72,25 +72,26 @@ const LineChart: FC<ILineChartProps> = memo(
                 nameTextStyle: {
                     color: theme.palette.text.secondary,
                     align: 'right',
+                    padding: [-5, 12],
                 },
                 axisLine: {
                     show: true,
                     lineStyle: {
-                        color: theme.palette.text.tertiary,
+                        color: theme.palette.text.text8,
                         type: 'solid',
                     },
                 },
                 axisTick: {
                     show: true,
                     lineStyle: {
-                        color: theme.palette.text.tertiary,
+                        color: theme.palette.text.text8,
                     },
                 },
                 splitLine: {
                     show: true,
                     lineStyle: {
                         type: 'dashed',
-                        color: theme.palette.border.secondary,
+                        color: alpha(theme.palette.border.secondary, 0.3),
                     },
                 },
             },
