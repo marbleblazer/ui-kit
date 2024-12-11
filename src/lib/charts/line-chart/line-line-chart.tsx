@@ -4,7 +4,7 @@ import { LineChart as EChartsLineChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, TitleComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { CSSProperties, FC, memo } from 'react';
-import { useTheme } from '@mui/material';
+import { alpha, useTheme } from '@mui/material';
 import { EChartsOption } from 'echarts';
 import { TopLevelFormatterParams } from 'echarts/types/dist/shared';
 
@@ -128,21 +128,27 @@ const LineChart: FC<ILineChartProps> = memo(
                     const firstParam = params[0];
                     const data = firstParam.data as DataType;
 
-                    return ` <div style="text-align: left;">
-                            <span>${resolvedTooltipTitle(data)}</span>
-                            </br>
-                            <span style="color: ${theme.palette.text.tertiary}">${resolvedTooltipSubtitle(data)}</span>
-                        </div>`;
+                    return `<div style="text-align: left; display: flex; flex-direction: column; gap: 4px">
+                                <span>${resolvedTooltipTitle(data)}</span>
+                                <span style="color: ${theme.palette.text.text1}; fontFamily: ${theme.typography.mono10.fontFamily}; fontSize: ${theme.typography.mono10.fontSize}; fontWeight: ${theme.typography.mono10.fontWeight}">
+                                    ${resolvedTooltipSubtitle(data)}
+                                </span>
+                            </div>`;
                 },
-                backgroundColor: theme.palette.background.secondary,
-                borderWidth: 0,
-                padding: [4, 6],
+                backgroundColor: theme.palette.background.background15,
+                borderWidth: 1,
+                borderColor: alpha(theme.palette.border.border3, 0.1),
+                padding: 8,
                 textStyle: {
-                    color: theme.palette.text.primary,
-                    fontFamily: 'Alliance No.2',
-                    fontSize: 10,
-                    fontWeight: 400,
+                    color: theme.palette.text.text4,
+                    fontFamily: theme.typography.mono1213.fontFamily,
+                    fontSize: theme.typography.mono1213.fontSize,
+                    fontWeight: theme.typography.mono1213.fontWeight as number,
                 },
+                shadowBlur: 20,
+                shadowOffsetX: 0,
+                shadowOffsetY: 4,
+                shadowColor: alpha('#5C5C5C', 0.14),
             },
         };
 
