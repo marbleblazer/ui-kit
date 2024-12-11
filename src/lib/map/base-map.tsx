@@ -10,7 +10,7 @@ import * as S from './style';
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { Coordinates } from './map.types';
-import { HelpControl } from './map-controls/help-control';
+import { HelpControl } from './map-controls/help-control/help-control';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -32,6 +32,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     sx,
     children,
 }) => {
+    const theme = useTheme();
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     // const mapRef = useRef<mapboxgl.Map>(null);
@@ -104,7 +105,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             mapRef.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
         });
 
-        const helpControl = new HelpControl();
+        const helpControl = new HelpControl(theme);
         mapRef.current.addControl(helpControl, 'bottom-left');
 
         return () => {

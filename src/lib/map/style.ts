@@ -221,6 +221,41 @@ export const MapContainer = styled(Box, {
         '-webkit-mask-position-y': '50%',
     },
 
+    '.help-menu': {
+        display: 'none',
+        position: 'absolute',
+        bottom: '33px',
+        left: '0',
+        backgroundColor: theme.palette.base.color2,
+        boxShadow: `0px 4px 4px 0px ${alpha('#5C5C5C', 0.14)}`,
+        padding: '7px',
+        borderRadius: '3px',
+        width: '106px',
+        height: 'auto',
+    },
+
+    '.help-menu-item': {
+        display: 'flex',
+        alignItems: 'center',
+        width: '92px',
+        height: '22px',
+        color: theme.palette.text.text4,
+        ...theme.typography.caption10,
+        '& svg': {
+            width: '22px',
+            height: '22px',
+            marginRight: '8px',
+        },
+    },
+
+    '.help-menu-divider': {
+        width: '100%',
+        height: '1px',
+        backgroundColor: alpha(theme.palette.border.input, 0.14),
+        marginTop: '4px',
+        marginBottom: '4px',
+    },
+
     '.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen': {
         [theme.breakpoints.down('lg')]: {
             display: 'none',
