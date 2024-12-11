@@ -70,7 +70,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
             modes: {
                 ...modes,
             },
-            styles: customDrawStyles,
+            styles: customDrawStyles(theme.palette),
         });
 
         drawRef.current = draw;

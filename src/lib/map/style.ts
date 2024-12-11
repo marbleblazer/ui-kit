@@ -159,7 +159,6 @@ export const MapContainer = styled(Box, {
         '.mapboxgl-ctrl-geocoder--icon-search': {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
-            '-webkit-mask-image': `url("${searchIcon}")`,
             maskImage: `url("${searchIcon}") `,
             '-webkit-mask-position-x': '50%',
             '-webkit-mask-position-y': '50%',
@@ -194,7 +193,6 @@ export const MapContainer = styled(Box, {
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
-            '-webkit-mask-image': `url("${plusIcon}")`,
             maskImage: `url("${plusIcon}") `,
             '-webkit-mask-position-x': '50%',
             '-webkit-mask-position-y': '50%',
@@ -205,7 +203,6 @@ export const MapContainer = styled(Box, {
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
-            '-webkit-mask-image': `url("${minusIcon}")`,
             maskImage: `url("${minusIcon}") `,
             '-webkit-mask-position-x': '50%',
             '-webkit-mask-position-y': '50%',
@@ -215,7 +212,6 @@ export const MapContainer = styled(Box, {
     '.help-control': {
         backgroundImage: 'none',
         backgroundColor: theme.palette.text.text4,
-        '-webkit-mask-image': `url("${questionIcon}")`,
         maskImage: `url("${questionIcon}") `,
         '-webkit-mask-position-x': '50%',
         '-webkit-mask-position-y': '50%',
@@ -263,7 +259,6 @@ export const MapContainer = styled(Box, {
         '& span': {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
-            '-webkit-mask-image': `url("${fullScreenIcon}")`,
             maskImage: `url("${fullScreenIcon}") `,
             '-webkit-mask-position-x': '50%',
             '-webkit-mask-position-y': '50%',
@@ -301,14 +296,17 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl button.mapboxgl-ctrl-shrink .mapboxgl-ctrl-icon': {
-        backgroundImage: `url("${fullScreenIcon}")`,
+        backgroundImage: 'none',
+        backgroundColor: theme.palette.text.text4,
+        maskImage: `url("${fullScreenIcon}") `,
+        '-webkit-mask-position-x': '50%',
+        '-webkit-mask-position-y': '50%',
     },
 
     '.mapboxgl-ctrl-geolocate': {
         '& span': {
             backgroundImage: 'none !important',
             backgroundColor: theme.palette.accent.accent,
-            '-webkit-mask-image': `url("${locationUserIcon}")`,
             maskImage: `url("${locationUserIcon}") `,
             '-webkit-mask-position-x': '50%',
             '-webkit-mask-position-y': '50%',

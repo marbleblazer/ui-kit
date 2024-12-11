@@ -67,7 +67,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             modes: {
                 ...modes,
             },
-            styles: customDrawStyles,
+            styles: customDrawStyles(theme.palette),
         });
 
         drawRef.current = draw;

@@ -54,7 +54,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
             modes: {
                 ...modes,
             },
-            styles: customDrawStyles,
+            styles: customDrawStyles(theme.palette),
         });
 
         drawRef.current = draw;
