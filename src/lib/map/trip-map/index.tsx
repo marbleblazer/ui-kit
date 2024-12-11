@@ -12,6 +12,7 @@ import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from './utils';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { customDrawStyles } from '../constance';
+import { useTheme } from '@emotion/react';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -38,6 +39,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     onAnimationEnd,
     ...baseProps
 }) => {
+    const theme = useTheme();
     const [animating, setIsAnimating] = useState<number | null>(null);
     const [zoomState, setZoomState] = useState(ZOOM_BREAKPOINTS.MEDIUM);
 
@@ -52,7 +54,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         if (!map.current) return;
 
         arrowRef.current = document.createElement('div');
-        arrowRef.current.innerHTML = mapMarkerArrowSvgString;
+        arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
         arrowRef.current.style.width = '34px';
         arrowRef.current.style.height = '34px';
         arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
@@ -104,7 +106,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
                 if (geometry.type === 'LineString') {
                     // Отрисовка маркеров на линии
-                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded);
+                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, theme);
                 }
             }
             (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({

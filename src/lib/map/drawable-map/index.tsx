@@ -14,6 +14,7 @@ import { AnyObject } from '@chirp/ui/helpers/global';
 import { customDrawStyles } from '../constance';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
+import { useTheme } from '@mui/material';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -39,6 +40,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         drawMode,
         ...baseProps
     } = props;
+    const theme = useTheme();
     const markersRef = useRef<HTMLDivElement[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
@@ -131,10 +133,10 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
                     markersRef.current.forEach((marker) => marker.remove());
                     const startMarker = document.createElement('div');
                     startMarker.classList.add('start-end-line-marker');
-                    startMarker.innerHTML = mapMarkerStartSvgContainer;
+                    startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette);
                     const endMarker = document.createElement('div');
                     endMarker.classList.add('start-end-line-marker');
-                    endMarker.innerHTML = mapMarkerEndSvgContainer;
+                    endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette);
                     new mapboxgl.Marker(startMarker).setLngLat(startPoint as [number, number]).addTo(map.current);
                     new mapboxgl.Marker(endMarker).setLngLat(endPoint as [number, number]).addTo(map.current);
                     markersRef.current = [startMarker, endMarker];

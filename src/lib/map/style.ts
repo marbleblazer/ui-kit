@@ -500,8 +500,8 @@ export const MapContainer = styled(Box, {
 
         '.svg-container': {
             position: 'relative',
-            width: '36px',
-            height: '36px',
+            width: '38px',
+            height: '38px',
             transform: 'translate(-42%, -42%)',
 
             svg: {

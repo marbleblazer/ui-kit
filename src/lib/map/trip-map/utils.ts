@@ -136,20 +136,7 @@ export const renderPoints = (
     theme: Theme,
 ) => {
     const markerElement = document && document.createElement('div');
-    markerElement.innerHTML = mapMarkerSvgString;
-
-    // Для смены стиля point
-    const paths = markerElement.querySelector('path');
-    const circles = markerElement.querySelectorAll('circle');
-    circles.forEach((circle) => {
-        if (circle.classList.contains('background-circle')) {
-            circle.setAttribute('fill', theme.palette.accent.accent);
-            circle.setAttribute('stroke', theme.palette.background.background1);
-        } else {
-            circle.setAttribute('fill', theme.palette.accent.accent);
-        }
-    });
-    paths && paths.setAttribute('fill', theme.palette.background.background1);
+    markerElement.innerHTML = mapMarkerSvgString(theme.palette);
 
     const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(geometry.coordinates as [number, number]);
 
@@ -170,6 +157,7 @@ export const renderLineStringPoints = (
     map: RefObject<mapboxgl.Map>,
     markersRef: MutableRefObject<mapboxgl.Marker[]>,
     isLineMarkersNeeded: boolean,
+    theme: Theme,
 ) => {
     if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
         geometry.coordinates.forEach((coordinate, index) => {
@@ -179,11 +167,11 @@ export const renderLineStringPoints = (
                 if (index === 0) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerStartSvgContainer;
+                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette);
                 } else if (index === geometry.coordinates.length - 1) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerEndSvgContainer;
+                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette);
                 } else if (isLineMarkersNeeded) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('common-line-marker');

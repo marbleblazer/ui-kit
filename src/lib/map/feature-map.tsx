@@ -101,7 +101,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                     renderPoints(geometry, popupMarkup, map, markersRef, theme);
                 } else if (geometry.type === 'LineString') {
                     // Отрисовка маркеров на линии
-                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded);
+                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, theme);
                 }
             }
             (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
@@ -120,18 +120,18 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
         }
-    }, [data]);
+    }, [data, theme]);
 
     useEffect(() => {
         if (!map.current) return;
 
-        if (map.current && map.current.isStyleLoaded()) {
+        if (map.current.isStyleLoaded()) {
             addDataToMap();
-        } else {
-            map.current.on('style.load', () => {
-                addDataToMap();
-            });
         }
+
+        map.current.on('style.load', () => {
+            addDataToMap();
+        });
     }, [data, theme]);
 
     // Центрирование карты по координатам centeringCoordinates
