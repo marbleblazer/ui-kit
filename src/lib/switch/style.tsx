@@ -2,7 +2,7 @@ import { styled, Switch as MUISwitch } from '@mui/material';
 
 export const Switch = styled(MUISwitch)(({ theme }) => ({
     padding: 0,
-    height: '28px',
+    height: '30px',
     color: theme.palette.text.text1,
     ...theme.typography.text13,
 
