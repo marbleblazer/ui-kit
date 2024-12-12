@@ -32,6 +32,16 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
                 value: isLoading ? 'Loading' : value,
                 readOnly: isLoading,
                 onChange: handleInputChange,
+                sx: {
+                    '& .MuiInputBase-input.Mui-disabled': {
+                        padding: '4px 12px 4px 0',
+                        height: '20px',
+                    },
+                    '& .MuiInputAdornment-root': {
+                        svg: { path: { opacity: 0.3 } },
+                    },
+                },
+
                 startAdornment: (
                     <InputAdornment position="start">{isLoading ? <Loader /> : <SearchIcon />}</InputAdornment>
                 ),
