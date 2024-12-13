@@ -2,7 +2,7 @@ import { SxProps } from '@mui/system/styleFunctionSx';
 import * as S from './styles';
 import { BaseCard } from '../base-card';
 import { Typography } from '../../typogrpahy';
-import Stack from '@mui/material/Stack';
+import { Stack } from '@mui/material';
 import { ImagePreview } from '../../image-preview';
 
 interface ICardWithImageProps {
@@ -30,7 +30,7 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
             headerSx={{ ...headerSx, minHeight: '56px' }}
             contentSx={contentSx}
             headerChildren={
-                <Stack flexDirection="row" gap="16px">
+                <Stack flexDirection="row" gap="16px" alignItems="center">
                     <ImagePreview
                         previewUrl={image ?? ''}
                         title="Photo"

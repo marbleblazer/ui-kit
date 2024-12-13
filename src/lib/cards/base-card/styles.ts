@@ -1,6 +1,5 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import { alpha, styled } from '@mui/material/styles';
+import { Stack, Box } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 
 export const CardContainer = styled(Stack)(({ theme }) => ({
     width: '300px',
