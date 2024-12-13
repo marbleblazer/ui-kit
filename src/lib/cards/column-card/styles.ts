@@ -8,14 +8,12 @@ export const ColumnTitleTypography = styled(Typography)(({ theme }) => ({
 
 export const ColumnDataTypography = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.text1,
-    width: '77px',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
 }));
 
 export const CustomTooltip = styled(Tooltip)(() => ({
-    width: '77px',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',

@@ -20,7 +20,7 @@ export const Default: Story = {
             <CardWithImage
                 title="James Henry"
                 subTitle="Driver"
-                containerSx={{ width: '363px', height: '200px', gap: '16px' }}
+                containerSx={{ width: '500px', height: '200px', gap: '16px' }}
                 image="https://chirpwireless.io/images/footer/tim-lg.png"
             />
         );

@@ -1,7 +1,6 @@
 import { SxProps } from '@mui/system/styleFunctionSx';
 import * as S from './styles';
 import { BaseCard } from '../base-card';
-import { Typography } from '../../typogrpahy';
 import { Stack } from '@mui/material';
 import { ImagePreview } from '../../image-preview';
 
@@ -27,7 +26,7 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
     return (
         <BaseCard
             containerSx={containerSx}
-            headerSx={{ ...headerSx, minHeight: '56px' }}
+            headerSx={{ ...headerSx, minHeight: '56px', width: '100%' }}
             contentSx={contentSx}
             headerChildren={
                 <Stack flexDirection="row" gap="16px" alignItems="center">
@@ -38,8 +37,8 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
                         width="48px"
                         height="48px"
                     />
-                    <Stack>
-                        <Typography variant="title16">{title}</Typography>
+                    <Stack sx={{ overflow: 'hidden', whiteSpace: 'nowrap', width: '100%' }}>
+                        <S.TitleTypography variant="title16">{title}</S.TitleTypography>
                         <S.SubtitleTypography variant="title12" sx={{ color: 'text.text8' }}>
                             {subTitle}
                         </S.SubtitleTypography>

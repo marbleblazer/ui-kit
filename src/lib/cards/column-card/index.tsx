@@ -35,13 +35,20 @@ export const ColumnCard: React.FC<IColumnCardProps> = ({
             contentChildren={
                 <Grid container>
                     {columns.map((column, index) => (
-                        <Grid item key={index} sx={{ width: '100px' }}>
+                        <Grid
+                            item
+                            key={index}
+                            sx={{
+                                width: index === columns.length - 1 ? '70%' : '100px',
+                                maxWidth: index === columns.length - 1 ? '70%' : '100px',
+                            }}
+                        >
                             <Stack>
                                 <S.ColumnTitleTypography variant="text12">{column.title}</S.ColumnTitleTypography>
 
                                 {column.data.map((item, itemIndex) =>
-                                    tooltipColumnIndex === index && item.length > 10 ? (
-                                        <S.CustomTooltip title={item} placement="right-end" key={itemIndex}>
+                                    tooltipColumnIndex === index ? (
+                                        <S.CustomTooltip title={item} placement="top-start" key={itemIndex}>
                                             <S.ColumnDataTypography variant="text12">{item}</S.ColumnDataTypography>
                                         </S.CustomTooltip>
                                     ) : (
