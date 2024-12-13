@@ -35,14 +35,7 @@ export const ColumnCard: React.FC<IColumnCardProps> = ({
             contentChildren={
                 <Grid container>
                     {columns.map((column, index) => (
-                        <Grid
-                            item
-                            key={index}
-                            sx={{
-                                width: index === columns.length - 1 ? '70%' : '100px',
-                                maxWidth: index === columns.length - 1 ? '70%' : '100px',
-                            }}
-                        >
+                        <Grid item key={index} xs={index === columns.length - 1 ? 8 : 4}>
                             <Stack>
                                 <S.ColumnTitleTypography variant="text12">{column.title}</S.ColumnTitleTypography>
 
