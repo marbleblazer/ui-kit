@@ -1,36 +1,35 @@
-import { styled } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 import { TextField as MuiTextField } from '@mui/material';
 import { StandardTextFieldProps } from '@mui/material/TextField/TextField';
 
-export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, placeholder }) => ({
+export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }) => ({
     borderRadius: '8px',
-    fontFamily: theme?.typography.fontFamily,
     marginTop: '20px',
-
-    '.MuiInputBase-root:focus': {
-        borderColor: theme.palette.border.tertiaryInput,
-    },
-    '&.disabled': {
-        opacity: '0.3 !important',
-    },
+    ...theme.typography.inputText,
 
     '.MuiInputBase-root': {
+        backgroundColor: theme.palette.background.background2,
         borderRadius: '8px',
         '&:hover:not(.Mui-disabled)': {
-            backgroundColor: theme.palette.background.fifth,
+            backgroundColor: alpha(theme.palette.background.background11, 0.5),
+            borderColor: alpha(theme.palette.border.input2, 0.24),
         },
-        backgroundColor: theme.palette.background.fifthInput,
+        '&.Mui-disabled': {
+            color: alpha(theme.palette.text.textInput40, 0.4),
+            backgroundColor: theme.palette.background.background8,
+        },
     },
 
     '& .MuiInputBase-root': {
-        height: 'auto',
+        border: `1px solid ${alpha(theme.palette.border.input, 0.14)}`,
     },
 
     '&.MuiFormControl-root .MuiFormLabel-root': {
         transform: 'none',
         left: 0,
-        top: '-16px',
-        ...theme.typography.overline,
+        top: '-24px',
+        color: theme.palette.text.titleInput,
+        ...theme.typography.inputLabel,
     },
 
     '.MuiFormControl-root.MuiTextField-root': {
@@ -41,7 +40,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
         paddingTop: '12px',
         paddingLeft: '16px',
         paddingBottom: '10px',
-        fontFamily: theme?.typography.fontFamily,
+        ...theme.typography.inputText,
 
         '&.MuiInputBase-input': {
             paddingTop: '12px',
@@ -53,15 +52,12 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
     '.MuiInputAdornment-root.MuiInputAdornment-positionStart': {
         marginRight: '4px',
     },
-    '& .MuiSelect-select .notranslate::after': placeholder
-        ? {
-              content: `"${placeholder}"`,
-              color: theme.palette.text.primary,
-              opacity: 0.7,
-              fontSize: '13px',
-              lineHeight: '20px',
-          }
-        : {},
+
+    'input::placeholder': {
+        opacity: 0.6,
+        color: theme.palette.text.textInput60,
+        ...theme.typography.inputText,
+    },
 
     '.MuiSelect-icon': {
         right: '16px',
@@ -85,20 +81,15 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
     },
 
     input: {
-        padding: '12px 16px 10px 16px',
-        fontSize: '13px',
-        lineHeight: '20px',
-        fontFamily: theme?.typography.fontFamily,
-        color: theme.palette.text.primary,
+        padding: '10px 16px 10px 16px',
+        color: theme.palette.text.text1,
         borderRadius: '8px',
+        ...theme.typography.inputText,
     },
-    border: '1px solid',
-    borderColor: theme.palette.border.tertiaryInput,
 
     '.MuiInputBase-root.Mui-error': {
-        input: {
-            borderColor: theme.palette.base.color7,
-        },
+        backgroundColor: theme.palette.background.background3,
+        borderColor: theme.palette.base.color7,
     },
 
     fieldset: {
@@ -112,8 +103,34 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme, 
             padding: 0,
         },
     },
+
     'label,.MuiInputLabel-root.Mui-focused': {
         padding: 0,
-        color: theme.palette.text.quaternary,
+        height: '16px',
+        color: theme.palette.text.titleInput,
+    },
+
+    '& .MuiInputBase-root:focus-within': {
+        backgroundColor: alpha(theme.palette.background.background11, 0.5),
+        borderColor: alpha(theme.palette.border.input2, 0.24),
+    },
+
+    '& input:focus': {
+        caretColor: theme.palette.base.color6,
+        color: theme.palette.text.text2,
+    },
+
+    '& textarea': {
+        ...theme.typography.inputText,
+        color: theme.palette.text.text1,
+    },
+
+    '& textarea:focus': {
+        caretColor: theme.palette.base.color6,
+        color: theme.palette.text.text2,
+    },
+
+    '& textarea:hover': {
+        border: 'none',
     },
 }));

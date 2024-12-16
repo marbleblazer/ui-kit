@@ -1,29 +1,25 @@
-import { CheckboxProps, FormControlLabel, FormControlLabelProps } from '@mui/material';
-import { Checkbox as MuiCheckbox } from '@mui/material';
+import { FC, ReactNode } from 'react';
+import { FormControlLabel, FormControlLabelProps, RadioProps } from '@mui/material';
 
 import * as S from './style';
-import { FC, ReactNode } from 'react';
 import { CustomTypographyVariant } from '@chirp/ui/styles/theme/template';
 
-export type CheckoxVariantType = 'check' | 'visible';
+export type RadioVariantType = 'check' | 'visible';
 
-export interface ICheckboxProps extends CheckboxProps {
+export interface IRadioProps extends RadioProps {
     label?: ReactNode;
-    variant?: CheckoxVariantType;
+    variant?: RadioVariantType;
     labelTypographyVariant?: CustomTypographyVariant;
     formControlLabelProps?: Omit<FormControlLabelProps, 'label' | 'control'>;
 }
 
-export const Checkbox: FC<ICheckboxProps> = ({
+export const Radio: FC<IRadioProps> = ({
     label,
     variant = 'check',
-    labelTypographyVariant = 'text12',
+    labelTypographyVariant = 'body1',
     formControlLabelProps,
     ...props
 }) => {
-    const resolvedIcon = variant === 'check' ? <S.CheckboxIcon /> : <S.CustomOpenEyeIcon />;
-    const resolvedCheckedIcon = variant === 'check' ? <S.CheckboxCheckedIcon /> : <S.CustomCloseEyeIcon />;
-
     return (
         <FormControlLabel
             label={label}
@@ -33,14 +29,12 @@ export const Checkbox: FC<ICheckboxProps> = ({
                 },
             }}
             control={
-                <MuiCheckbox
+                <S.StyledRadio
                     sx={{
                         '&:hover': { bgcolor: 'transparent' },
                     }}
                     disableRipple
                     color="default"
-                    checkedIcon={resolvedCheckedIcon}
-                    icon={resolvedIcon}
                     {...props}
                 />
             }

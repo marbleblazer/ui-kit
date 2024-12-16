@@ -27,7 +27,7 @@ export const AccordionItem: FC<IAccordionProps> = ({ title, children, secondaryA
                             {checkboxProps ? (
                                 <Checkbox label={title} {...checkboxProps} />
                             ) : (
-                                <Typography className="title" variant="body1" color="text.primary">
+                                <Typography className="title" variant="text14" color="text.text14">
                                     {title}
                                 </Typography>
                             )}

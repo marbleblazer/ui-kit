@@ -10,8 +10,29 @@ type SelectPropsType = SelectProps & {
     onClear?: () => void;
 };
 
-export const Select: FC<SelectPropsType> = ({ label, labelId, disabled, value, onClear, endAdornment, ...props }) => {
+export const Select: FC<SelectPropsType> = ({
+    label,
+    labelId,
+    disabled,
+    value,
+    onClear,
+    endAdornment,
+    MenuProps,
+    ...props
+}) => {
     const theme = useTheme();
+
+    const mergedMenuProps = {
+        ...MenuProps,
+        MenuListProps: {
+            ...MenuProps?.MenuListProps,
+            sx: {
+                padding: 0,
+                ...MenuProps?.MenuListProps?.sx,
+            },
+        },
+    };
+
     return (
         <FormControl fullWidth>
             <InputLabel
@@ -21,11 +42,11 @@ export const Select: FC<SelectPropsType> = ({ label, labelId, disabled, value, o
                 sx={{
                     opacity: disabled ? 0.3 : 1,
                     '&.MuiInputLabel-shrink': {
-                        lineHeight: '20px',
                         transform: 'none',
                         left: 0,
-                        top: '3.5px',
-                        ...theme.typography.overline,
+                        top: '-5px',
+                        color: theme.palette.text.titleInput,
+                        ...theme.typography.inputLabel,
                     },
                 }}
             />
@@ -33,6 +54,7 @@ export const Select: FC<SelectPropsType> = ({ label, labelId, disabled, value, o
                 {...props}
                 value={value}
                 disabled={disabled}
+                MenuProps={mergedMenuProps}
                 endAdornment={
                     endAdornment ? (
                         endAdornment

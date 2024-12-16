@@ -1,8 +1,8 @@
 import { alpha, styled } from '@mui/material';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 export const Container = styled(Box)(({ theme }) => ({
-    background: `${alpha(theme.palette.background.fifth as string, 0.5)}`,
+    background: `${alpha(theme.palette.background.background4 as string, 0.5)}`,
     backdropFilter: 'blur(5px)',
     position: 'absolute',
     top: 0,
@@ -16,7 +16,7 @@ export const Container = styled(Box)(({ theme }) => ({
 }));
 
 export const Modal = styled(Box)(({ theme }) => ({
-    background: theme.palette.background.default,
+    background: theme.palette.background.background7,
     borderRadius: '12px',
     padding: '24px',
     display: 'flex',
@@ -27,16 +27,4 @@ export const Modal = styled(Box)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
         minWidth: '460px',
     },
-}));
-
-export const Title = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.primary,
-    fontSize: '16px',
-    textAlign: 'center',
-}));
-
-export const Description = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
-    fontSize: '12px',
-    textAlign: 'center',
 }));
