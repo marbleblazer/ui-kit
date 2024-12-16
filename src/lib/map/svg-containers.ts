@@ -1,3 +1,4 @@
+import { Palette } from '@mui/material';
 import {
     mapMarkerFirstEndLayerSvgString,
     mapMarkerFirstStartLayerSvgString,
@@ -5,12 +6,12 @@ import {
     mapMarkerSecondStartLayerSvgString,
 } from './mp-marker-string';
 
-export const mapMarkerStartSvgContainer = `<div class="svg-container">
-                                            ${mapMarkerFirstStartLayerSvgString}
-                                            ${mapMarkerSecondStartLayerSvgString}
+export const mapMarkerStartSvgContainer = (theme: Palette) => `<div class="svg-container">
+                                            ${mapMarkerFirstStartLayerSvgString(theme)}
+                                            ${mapMarkerSecondStartLayerSvgString(theme)}
                                         </div>`;
 
-export const mapMarkerEndSvgContainer = `<div class="svg-container">
-                                            ${mapMarkerFirstEndLayerSvgString}
-                                            ${mapMarkerSecondEndLayerSvgString}
+export const mapMarkerEndSvgContainer = (theme: Palette) => `<div class="svg-container">
+                                            ${mapMarkerFirstEndLayerSvgString(theme)}
+                                            ${mapMarkerSecondEndLayerSvgString(theme)}
                                         </div>`;

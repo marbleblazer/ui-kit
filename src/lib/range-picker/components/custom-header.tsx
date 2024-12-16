@@ -17,6 +17,7 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
                 aria-label="Previous Month"
                 // style={customHeaderCount === 1 ? { visibility: 'hidden' } : {}}
                 onClick={decreaseMonth}
+                sx={{ icon: { color: 'text.text7' }, backgroundColor: 'background.background1' }}
             >
                 <ChevronLeftIcon />
             </IconButton>
@@ -32,6 +33,7 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
                 aria-label="Next Month"
                 // style={customHeaderCount === 0 ? { visibility: 'hidden' } : {}}
                 onClick={increaseMonth}
+                sx={{ icon: { color: 'text.text7' }, backgroundColor: 'background.background1' }}
             >
                 <ChevronRightIcon />
             </IconButton>

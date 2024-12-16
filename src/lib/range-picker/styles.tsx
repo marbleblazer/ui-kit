@@ -16,7 +16,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             '.react-datepicker__current-month': {
                 ...theme.typography.paragraphSecondary,
                 fontFamily: theme.typography.fontFamily,
-                color: theme.palette.text.primary,
+                color: theme.palette.text.text3,
             },
             'button.react-datepicker__navigation': {},
         },
@@ -28,7 +28,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             justifyContent: 'space-around',
             '.react-datepicker__day-name': {
                 ...theme.typography.caption,
-                color: theme.palette.text.fifth,
+                color: theme.palette.text.text8,
             },
         },
 
@@ -40,20 +40,24 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             height: '28px',
             margin: '2px 1px',
             borderRadius: '3px',
-            backgroundColor: theme.palette.background.secondary,
-            color: theme.palette.text.primary,
+            backgroundColor: theme.palette.background.background1,
+            color: theme.palette.text.text7,
             border: '1px solid',
-            borderColor: theme.palette.background.secondary,
+            borderColor: theme.palette.background.background1,
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            ...theme.typography.body1,
 
             '&:hover:not(&--disabled)': {
-                borderColor: theme.palette.primary.main,
+                borderColor: theme.palette.base.color6,
             },
             '&:first-of-type': {
                 marginLeft: '0',
             },
             '&--in-range': {
                 backgroundColor: theme.palette.base.color61,
-                borderColor: theme.palette.base.color61,
+                borderColor: 'transparent',
             },
             '&--outside-month': {
                 visibility: 'hidden',
@@ -64,8 +68,8 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
         },
 
         '.react-datepicker__day--selected': {
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
+            backgroundColor: theme.palette.base.color6,
+            color: theme.palette.text.text7,
         },
     },
 }));
