@@ -1,11 +1,20 @@
-import { styled } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 import { Select as MuiSelect } from '@mui/material';
 
 export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
-    backgroundColor: theme.palette.background.fifthInput,
+    backgroundColor: theme.palette.background.background2,
+    borderRadius: '8px',
+    border: '1px solid',
+    borderColor: alpha(theme.palette.border.input, 0.14),
+    ...theme.typography.inputText,
+    marginTop: '20px',
 
     '&:hover:not(.Mui-disabled)': {
-        backgroundColor: theme.palette.background.fifth,
+        backgroundColor: alpha(theme.palette.background.background11, 0.5),
+        borderColor: alpha(theme.palette.border.input2, 0.24),
+        '.MuiSelect-icon': {
+            color: alpha(theme.palette.text.textInput80, 0.8),
+        },
     },
 
     '&.Mui-disabled': {
@@ -14,22 +23,17 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
             opacity: '0.3 !important',
         },
     },
-    borderRadius: '8px',
-    border: '1px solid',
-    borderColor: theme.palette.border.tertiaryInput,
-    fontFamily: theme.typography.fontFamily,
-    marginTop: '20px',
 
     '.MuiSelect-select': {
         paddingTop: '12px',
         paddingLeft: '16px',
         paddingBottom: '8px',
-        fontFamily: theme.typography.fontFamily,
+        ...theme.typography.inputText,
 
         '&.MuiInputBase-input': {
-            paddingTop: '12px',
+            paddingTop: '10px',
             paddingLeft: '16px',
-            paddingBottom: '8px',
+            paddingBottom: '10px',
             fontSize: '13px',
             lineHeight: '20px',
         },
@@ -38,16 +42,23 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
     '& .MuiSelect-select .notranslate::after': placeholder
         ? {
               content: `"${placeholder}"`,
-              opacity: 0.7,
-              fontSize: '13px',
-              lineHeight: '20px',
-              color: theme.palette.text.quaternary,
+              color: alpha(theme.palette.text.textInput60, 0.6),
+          }
+        : {},
+
+    '&:hover::before': placeholder
+        ? {
+              color: alpha(theme.palette.text.textInput80, 0.8),
           }
         : {},
 
     '.MuiSelect-icon': {
-        color: theme.palette.text.tertiary,
+        color: alpha(theme.palette.text.textInput60, 0.6),
         right: '16px',
+
+        '&:not(:empty)': {
+            color: theme.palette.text.text1,
+        },
     },
 
     '.MuiInputBase-adornedEnd': {
@@ -58,31 +69,17 @@ export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
         padding: '12px 16px 8px 16px',
         fontSize: '13px',
         lineHeight: '20px',
-        fontFamily: theme.typography.fontFamily,
+        ...theme.typography.inputText,
     },
     fieldset: {
         border: 'none',
         top: 0,
     },
     legend: {
-        fontFamily: theme.typography.fontFamily,
+        ...theme.typography.inputText,
         backgroundColor: 'transparent',
         span: {
             padding: 0,
-        },
-    },
-
-    label: {
-        padding: 0,
-        left: '-12px',
-        backgroundColor: 'transparent',
-        color: theme.palette.text.secondary,
-
-        '&.MuiInputLabel-shrink': {
-            fontSize: '14px',
-            lineHeight: '20px',
-            top: '4px',
-            left: '-12px',
         },
     },
 }));

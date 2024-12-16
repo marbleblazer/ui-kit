@@ -40,15 +40,16 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         }
     };
 
-    const renderTree = (nodes: TreeNodeType[]) =>
+    const renderTree = (nodes: TreeNodeType[], level = 0) =>
         nodes.map((node) => (
             <S.TreeItem
                 key={node.id}
                 itemId={node.id}
                 label={node.label}
+                level={level}
                 onClick={() => handleNodeSelect(node, Array.isArray(node.children))}
             >
-                {Array.isArray(node.children) ? renderTree(node.children) : null}
+                {Array.isArray(node.children) ? renderTree(node.children, level + 1) : null}
             </S.TreeItem>
         ));
 
@@ -80,7 +81,12 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
                 }}
             >
                 <SimpleTreeView
-                    sx={{ width: selectRef.current?.getBoundingClientRect().width, maxHeight: treeViewMaxHeight }}
+                    sx={{
+                        width: selectRef.current?.getBoundingClientRect().width,
+                        maxHeight: treeViewMaxHeight,
+                        paddingTop: '8px !important',
+                        paddingBottom: '8px !important',
+                    }}
                     selectedItems={selectedNode?.id}
                     slots={{
                         expandIcon: SelectIndicator,

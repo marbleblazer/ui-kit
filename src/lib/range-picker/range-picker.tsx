@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { Divider, Stack } from '@mui/material';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -93,7 +93,7 @@ export const RangePicker: FC<RangePickerProps> = ({
     return (
         <Stack direction="column" gap="8px">
             <Stack direction="column" gap="14px">
-                <Typography variant="caption" color={theme.palette.text.quaternary}>
+                <Typography variant="caption" color={theme.palette.text.text8}>
                     Choose date range
                 </Typography>
             </Stack>
@@ -105,6 +105,13 @@ export const RangePicker: FC<RangePickerProps> = ({
                         value={startInputDate}
                         placeholder="Start date"
                         onChange={(e) => handleInputDateChange(e, 'start')}
+                        sx={{
+                            label: { color: theme.palette.text.text8 },
+                            borderColor: alpha(theme.palette.border.input, 0.14),
+                            input: {
+                                backgroundColor: theme.palette.background.background2,
+                            },
+                        }}
                     />
                     <div>
                         <Divider
@@ -119,6 +126,13 @@ export const RangePicker: FC<RangePickerProps> = ({
                         value={endInputDate}
                         placeholder="End date"
                         onChange={(e) => handleInputDateChange(e, 'end')}
+                        sx={{
+                            label: { color: theme.palette.text.text8 },
+                            borderColor: alpha(theme.palette.border.input, 0.14),
+                            input: {
+                                backgroundColor: theme.palette.background.background2,
+                            },
+                        }}
                     />
                 </Stack>
             </Stack>
@@ -134,6 +148,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         showFullMonthYearPicker
                         inline
                         renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
+                        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 3)}
                     />
                 </DatePickerWrapper>
                 <DatePickerWrapper>
@@ -147,6 +162,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         showFullMonthYearPicker
                         inline
                         renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
+                        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 3)}
                     />
                 </DatePickerWrapper>
                 <Divider />
