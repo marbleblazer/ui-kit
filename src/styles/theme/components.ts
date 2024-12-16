@@ -1,5 +1,6 @@
 import { alpha, ThemeOptions } from '@mui/material';
 import { SelectIndicator } from '@chirp/ui/lib';
+import { CurrentTheme } from '../constants';
 
 type ComponentCreator = (palette: ThemeOptions['palette']) => ThemeOptions['components'];
 
@@ -175,6 +176,17 @@ export const createComponents: ComponentCreator = (palette) => ({
                 backgroundColor: palette?.background?.fifthInput,
                 backgroundImage: 'none',
                 marginTop: '4px',
+            },
+        },
+    },
+    MuiBackdrop: {
+        styleOverrides: {
+            root: {
+                backdropFilter: 'blur(20px)',
+                backgroundColor:
+                    CurrentTheme.Dark === 'dark'
+                        ? alpha(palette?.darkening?.darkening ?? '#000', 0.4)
+                        : alpha(palette?.darkening?.darkening ?? '#000', 0.2),
             },
         },
     },
