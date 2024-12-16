@@ -7,9 +7,6 @@ interface ISearchInputWrapperProps {
 
 export const SearchInputWrapper = styled(TextField)<ISearchInputWrapperProps>(({ theme, isLoading }) => ({
     backgroundColor: theme.palette.background.background2,
-    borderColor: alpha(theme.palette.border.input, 0.14),
-    borderRadius: '6px',
-
     marginTop: 0,
 
     svg: {
@@ -17,11 +14,13 @@ export const SearchInputWrapper = styled(TextField)<ISearchInputWrapperProps>(({
     },
 
     '.MuiInputBase-root': {
+        borderRadius: '6px !important',
+        borderColor: alpha(theme.palette.border.input, 0.14),
         paddingLeft: '12px',
         backgroundColor: theme.palette.background.background2,
 
         'input::placeholder': {
-            color: theme.palette.text.tertiary,
+            color: theme.palette.text.textInput60,
             opacity: 1,
         },
 
@@ -34,8 +33,12 @@ export const SearchInputWrapper = styled(TextField)<ISearchInputWrapperProps>(({
         padding: '4px 12px 4px 0',
         FontSize: '13px',
         height: '20px',
-        color: isLoading ? theme.palette.text.tertiary : theme.palette.text.primary,
+        color: isLoading ? theme.palette.text.textInput60 : theme.palette.text.text1,
         cursor: isLoading ? 'wait' : 'text',
+    },
+
+    '&:focus-within .MuiInputBase-input': {
+        color: isLoading ? theme.palette.text.textInput60 : theme.palette.text.text1,
     },
 
     '.MuiInputAdornment-root': {

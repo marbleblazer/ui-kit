@@ -139,9 +139,10 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiMenuItem: {
         styleOverrides: {
             root: {
-                padding: '14px 16px',
+                padding: '2px 16px 2px 16px',
+                height: '36px',
                 '&:hover': {
-                    backgroundColor: palette?.accent?.accent10,
+                    backgroundColor: palette?.base?.color61 && alpha(palette?.base?.color61, 0.1),
                     color: palette?.base.color6,
                 },
             },
