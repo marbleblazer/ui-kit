@@ -113,9 +113,9 @@ export const AccordionListItem: Story = {
                     }
                 >
                     <Typography
-                        variant="caption"
+                        variant="caption12"
                         sx={{
-                            color: 'text.fifth',
+                            color: 'text.text4',
                         }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
@@ -153,9 +153,9 @@ export const AccordionListItemCheckbox: Story = {
                     }
                 >
                     <Typography
-                        variant="caption"
+                        variant="caption12"
                         sx={{
-                            color: 'text.fifth',
+                            color: 'text.text4',
                         }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit
@@ -181,7 +181,7 @@ export const AccordionListItemVisible: Story = {
                                 height: '100%',
                             }}
                         >
-                            <Stack direction={'row'}>
+                            <Stack direction={'row'} sx={{ color: 'red' }}>
                                 <IconButton size="small" variant="gray" aria-label="comment">
                                     <PenIcon />
                                 </IconButton>
@@ -193,9 +193,9 @@ export const AccordionListItemVisible: Story = {
                     }
                 >
                     <Typography
-                        variant="caption"
+                        variant="caption12"
                         sx={{
-                            color: 'text.fifth',
+                            color: 'text.text4',
                         }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit

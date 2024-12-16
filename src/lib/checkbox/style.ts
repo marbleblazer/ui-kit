@@ -7,12 +7,12 @@ export const CheckboxIcon = styled('span')(({ theme }) => ({
     height: 18,
     backgroundColor: 'transparent',
     border: '1px solid',
-    borderColor: theme.palette.text.quaternary,
+    borderColor: theme.palette.text.text8,
     'input:hover ~ &': {
         borderColor: theme.palette.base.color6,
     },
     'input:disabled ~ &': {
-        borderColor: theme.palette.border.secondary,
+        borderColor: theme.palette.border.border3,
     },
 }));
 
@@ -31,9 +31,9 @@ export const CheckboxCheckedIcon = styled(CheckboxIcon)(({ theme }) => ({
 }));
 
 export const CustomOpenEyeIcon = styled(OpenEyeIcon)(({ theme }) => ({
-    color: theme.palette.text.primary,
+    color: theme.palette.text.text4,
 }));
 
 export const CustomCloseEyeIcon = styled(CloseEyeIcon)(({ theme }) => ({
-    color: theme.palette.text.primary,
+    color: theme.palette.text.text4,
 }));
