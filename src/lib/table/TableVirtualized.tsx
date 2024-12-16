@@ -84,7 +84,7 @@ export const TableVirtualized = <TData,>({
     return (
         <Box
             height="100%"
-            overflow="auto"
+            overflow="hidden"
             ref={virtualizedRef}
             onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
         >

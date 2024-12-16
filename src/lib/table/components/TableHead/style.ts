@@ -6,7 +6,6 @@ export { Row } from '../../style';
 export const HeadCell = styled(MuiTableCell)(({ theme }) => ({
     padding: '18px 12px 12px',
     border: 'none',
-    zIndex: 1,
     backgroundColor: theme.palette.background.background7,
     color: theme.palette.text.text8,
     whiteSpace: 'nowrap',

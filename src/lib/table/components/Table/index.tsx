@@ -36,7 +36,6 @@ export const Table = <TData,>({
     page,
     isLoading,
     enableSorting = false,
-    isVirtualized = false,
     expandedRowIndex: defaultExpandedRowIndex,
     onRowClick,
     renderExpandableBlock,
@@ -74,9 +73,9 @@ export const Table = <TData,>({
     return (
         <S.TableWrapper
             sx={{
-                height: '100%',
-                overflow: isVirtualized ? 'initial' : 'auto',
+                overflowY: 'auto',
                 ...sx,
+                height: '100%',
             }}
         >
             {rows.length === 0 && isLoading === false && renderEmptyBlock ? (
