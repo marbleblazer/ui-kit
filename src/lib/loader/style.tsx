@@ -44,9 +44,9 @@ const sizeConfig: Record<TLoaderSize, ISizeConfig> = {
     },
     large: {
         element: {
-            width: '1px',
-            height: '4.5px',
-            translate: 'translate(0, 6.5px)',
+            width: '1.5px',
+            height: '7.5px',
+            translate: 'translate(0, 11px)',
         },
         span: {
             width: '40px',

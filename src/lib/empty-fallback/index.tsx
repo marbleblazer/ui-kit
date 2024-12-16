@@ -14,7 +14,7 @@ export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle, withBa
 
     return (
         <Stack
-            spacing={1}
+            gap="8px"
             alignItems="center"
             height="100%"
             width="100%"

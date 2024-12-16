@@ -6,18 +6,15 @@ export const RangePickerMenu = styled(Menu)(({ theme }) => ({
         marginTop: '8px',
         width: '576px',
         height: 'auto',
-        borderRadius: '12px',
+        borderRadius: '8px',
         border: '1px solid',
-        borderColor: theme.palette.border.primary,
-        background:
-            theme.palette.mode === 'dark'
-                ? alpha(theme.palette.background.tertiary, 0.8)
-                : theme.palette.background.primary,
+        borderColor: alpha(theme.palette.border.border3, 0.1),
+        background: theme.palette.background.background16,
         padding: '16px',
 
         '.MuiMenu-list': {
             borderRadius: '12px',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: 'blur(20px)',
             padding: 0,
         },
 

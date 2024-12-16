@@ -3,13 +3,13 @@ import { styled, Box, Stack } from '@mui/material';
 export const Control = styled(Stack)(({ theme }) => ({
     '.MuiInputBase-root input': {
         ...theme.typography.button,
-        color: theme.palette.text.tertiary,
+        color: theme.palette.text.textInput60,
         textTransform: 'uppercase',
     },
 }));
 
 export const Wrapper = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.background.secondary,
+    backgroundColor: theme.palette.background.background16,
     borderRadius: '10px',
     width: '300px',
     height: '521px',
@@ -60,10 +60,10 @@ export const StyledTextField = styled(Stack)(({ theme }) => ({
     padding: '12px 10px',
     flexDirection: 'row',
     alignItems: 'center',
-    background: theme.palette.background.fifthInput,
+    background: theme.palette.background.background2,
 
     '&, input': {
-        ...theme.typography.button,
+        ...theme.typography.inputText,
     },
     input: {
         width: 'auto',
