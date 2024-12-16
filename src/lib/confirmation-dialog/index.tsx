@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react';
 
 import * as S from './style';
-import { CloseIcon } from '@chirp/ui/assets/icons';
 import { Button } from '../button';
 import { ModalTitle } from '../modal/modal-title';
 
@@ -31,9 +30,6 @@ export const ConfirmationDialog: React.FC<Props> = ({
 }) => {
     return (
         <S.Dialog open={isOpen}>
-            <S.CloseIconButton onClick={onCancel}>
-                <CloseIcon />
-            </S.CloseIconButton>
             {icon && <S.IconWrapper>{icon}</S.IconWrapper>}
             <S.Content>
                 <ModalTitle title={title} subTitle={subTitle} />
