@@ -1,10 +1,12 @@
-export const customDrawStyles = [
+import { Palette } from '@mui/material';
+
+export const customDrawStyles = (theme: Palette) => [
     {
         id: 'gl-draw-line-inactive',
         type: 'line',
         filter: ['all', ['==', '$type', 'LineString'], ['!=', 'active', 'true']],
         paint: {
-            'line-color': '#FF4D14',
+            'line-color': `${theme.base.color6}`,
             'line-width': 1,
         },
     },
@@ -13,8 +15,8 @@ export const customDrawStyles = [
         type: 'fill',
         filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
         paint: {
-            'fill-color': '#FF4D14',
-            'fill-opacity': 0.2,
+            'fill-color': `${theme.base.color6}`,
+            'fill-opacity': 0.1,
         },
     },
     {
@@ -22,7 +24,7 @@ export const customDrawStyles = [
         type: 'line',
         filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
         paint: {
-            'line-color': '#FF4D14',
+            'line-color': `${theme.base.color6}`,
             'line-width': 1,
         },
     },
@@ -32,7 +34,7 @@ export const customDrawStyles = [
         filter: ['all', ['==', '$type', 'Point'], ['!=', 'active', 'true']],
         paint: {
             'circle-radius': 4,
-            'circle-color': '#FF4D14',
+            'circle-color': `${theme.base.color6}`,
         },
     },
     {
@@ -40,7 +42,7 @@ export const customDrawStyles = [
         type: 'line',
         filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
         paint: {
-            'line-color': '#FF4D14',
+            'line-color': `${theme.base.color6}`,
             'line-width': 1,
         },
     },
@@ -49,8 +51,8 @@ export const customDrawStyles = [
         type: 'fill',
         filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
         paint: {
-            'fill-color': '#FF4D14',
-            'fill-opacity': 0.2,
+            'fill-color': `${theme.base.color6}`,
+            'fill-opacity': 0.1,
         },
     },
     {
@@ -58,7 +60,7 @@ export const customDrawStyles = [
         type: 'line',
         filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
         paint: {
-            'line-color': '#FF4D14',
+            'line-color': `${theme.base.color6}`,
             'line-width': 1,
         },
     },
@@ -68,7 +70,7 @@ export const customDrawStyles = [
         filter: ['all', ['==', '$type', 'Point'], ['==', 'active', 'true']],
         paint: {
             'circle-radius': 4,
-            'circle-color': '#FF4D14',
+            'circle-color': `${theme.base.color6}`,
         },
     },
 ];

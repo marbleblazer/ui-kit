@@ -1,14 +1,13 @@
-import { styled } from '@mui/material';
+import { alpha, styled } from '@mui/material';
 import { Box } from '@mui/material';
 
 import { CurrentTheme, SIDEBAR_WIDTH } from '@chirp/ui/styles/constants';
-import fullScreenIcon from '@chirp/ui/assets/fleet-icons/full-screen.svg';
-import minusIcon from '@chirp/ui/assets/fleet-icons/minus.svg';
-import plusIcon from '@chirp/ui/assets/fleet-icons/plus-light.svg';
-import fullScreenDarkIcon from '@chirp/ui/assets/fleet-icons/full-screen-dark.svg';
-import minusDarkIcon from '@chirp/ui/assets/fleet-icons/minus-dark.svg';
-import plusDarkIcon from '@chirp/ui/assets/fleet-icons/plus-dark.svg';
+import fullScreenIcon from '@chirp/ui/assets/fleet-icons/map-full-screen-icon.svg';
+import minusIcon from '@chirp/ui/assets/fleet-icons/map-minus-icon.svg';
+import plusIcon from '@chirp/ui/assets/fleet-icons/map-plus-icon.svg';
 import locationUserIcon from '@chirp/ui/assets/fleet-icons/location-user.svg';
+import searchIcon from '@chirp/ui/assets/fleet-icons/map-search-icon.svg';
+import questionIcon from '@chirp/ui/assets/fleet-icons/map-question-icon.svg';
 
 interface Props {
     isFullScreenMap?: boolean;
@@ -19,7 +18,7 @@ interface Props {
 export const MapContainer = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'isFullScreenMap' && prop !== 'isSidebarOpen' && prop !== 'mobileHeight',
 })<Props>(({ theme, isFullScreenMap = false, isSidebarOpen = false, mobileHeight = '60vh' }) => ({
-    borderRadius: '12px',
+    borderRadius: '10px',
     overflow: 'hidden',
     width: '100%',
     height: '100%',
@@ -40,11 +39,22 @@ export const MapContainer = styled(Box, {
         outline: 'none',
     },
 
-    '.mapboxgl-control-container': {
+    '.mapboxgl-ctrl-bottom-right': {
         position: 'absolute',
         right: '10px',
         bottom: '10px',
     },
+
+    '.mapboxgl-ctrl-bottom-left': {
+        position: 'absolute',
+        left: '10px',
+        bottom: '10px',
+    },
+
+    '.mapboxgl-ctrl.mapboxgl-ctrl-group': {
+        marginRight: 0,
+    },
+
     '.spider-leg-container .spider-leg-line': {
         backgroundColor: '#f4f4f4',
         position: 'absolute',
@@ -121,6 +131,10 @@ export const MapContainer = styled(Box, {
         },
     },
 
+    '.mapboxgl-ctrl': {
+        margin: 0,
+    },
+
     '.mapboxgl-ctrl.mapboxgl-ctrl-attrib': {
         position: 'absolute',
         display: 'none',
@@ -139,8 +153,16 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl-geocoder.mapboxgl-ctrl': {
-        backgroundColor: theme.palette.background.tertiary,
+        marginRight: 0,
+        backgroundColor: theme.palette.base.color2,
 
+        '.mapboxgl-ctrl-geocoder--icon-search': {
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            maskImage: `url("${searchIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
+        },
         '.mapboxgl-ctrl-geocoder--input': {
             color: theme.palette.text.primary,
             '&:placeholder': {
@@ -154,7 +176,7 @@ export const MapContainer = styled(Box, {
         svg: {
             left: '4px',
             top: '4px',
-            fill: theme.palette.text.primary,
+            path: { display: 'none' },
         },
     },
 
@@ -169,19 +191,65 @@ export const MapContainer = styled(Box, {
     '.mapboxgl-ctrl-zoom-in': {
         marginBottom: '2px',
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage: theme.palette.mode === CurrentTheme.Dark ? `url("${plusIcon}")` : `url("${plusDarkIcon}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            maskImage: `url("${plusIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
     },
 
     '.mapboxgl-ctrl-zoom-out': {
         '.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon.mapboxgl-ctrl-icon': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url("${minusIcon}")` : `url("${minusDarkIcon}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            maskImage: `url("${minusIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
+    },
+
+    '.help-control': {
+        backgroundImage: 'none',
+        backgroundColor: theme.palette.text.text4,
+        maskImage: `url("${questionIcon}") `,
+        '-webkit-mask-position-x': '50%',
+        '-webkit-mask-position-y': '50%',
+    },
+
+    '.help-menu': {
+        display: 'none',
+        position: 'absolute',
+        bottom: '33px',
+        left: '0',
+        backgroundColor: theme.palette.base.color2,
+        boxShadow: `0px 4px 4px 0px ${alpha('#5C5C5C', 0.14)}`,
+        padding: '7px',
+        borderRadius: '3px',
+        width: '106px',
+        height: 'auto',
+    },
+
+    '.help-menu-item': {
+        display: 'flex',
+        alignItems: 'center',
+        width: '92px',
+        height: '22px',
+        color: theme.palette.text.text4,
+        ...theme.typography.caption10,
+        '& svg': {
+            width: '22px',
+            height: '22px',
+            marginRight: '8px',
+        },
+    },
+
+    '.help-menu-divider': {
+        width: '100%',
+        height: '1px',
+        backgroundColor: alpha(theme.palette.border.input, 0.14),
+        marginTop: '4px',
+        marginBottom: '4px',
     },
 
     '.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen.mapboxgl-ctrl-fullscreen': {
@@ -189,10 +257,11 @@ export const MapContainer = styled(Box, {
             display: 'none',
         },
         '& span': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark ? `url("${fullScreenIcon}")` : `url("${fullScreenDarkIcon}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none',
+            backgroundColor: theme.palette.text.text4,
+            maskImage: `url("${fullScreenIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
     },
 
@@ -202,7 +271,7 @@ export const MapContainer = styled(Box, {
 
     '.mapboxgl-ctrl-group.mapboxgl-ctrl-group.mapboxgl-ctrl-group.mapboxgl-ctrl-group button': {
         padding: '0',
-        backgroundColor: theme.palette.background.tertiary,
+        backgroundColor: theme.palette.base.color2,
         color: 'rgba(186, 186, 186, 1)',
         alignItems: 'center',
         justifyContent: 'center',
@@ -227,18 +296,20 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl button.mapboxgl-ctrl-shrink .mapboxgl-ctrl-icon': {
-        backgroundImage:
-            theme.palette.mode === CurrentTheme.Dark ? `url("${fullScreenIcon}")` : `url("${fullScreenDarkIcon}")`,
+        backgroundImage: 'none',
+        backgroundColor: theme.palette.text.text4,
+        maskImage: `url("${fullScreenIcon}") `,
+        '-webkit-mask-position-x': '50%',
+        '-webkit-mask-position-y': '50%',
     },
 
     '.mapboxgl-ctrl-geolocate': {
         '& span': {
-            backgroundImage:
-                theme.palette.mode === CurrentTheme.Dark
-                    ? `url("${locationUserIcon}")!important`
-                    : `url("${locationUserIcon}")!important`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundImage: 'none !important',
+            backgroundColor: theme.palette.accent.accent,
+            maskImage: `url("${locationUserIcon}") `,
+            '-webkit-mask-position-x': '50%',
+            '-webkit-mask-position-y': '50%',
         },
     },
 
@@ -289,9 +360,8 @@ export const MapContainer = styled(Box, {
 
         '.mapboxgl-popup-content': {
             background: theme.palette.background.background15,
-            border: `1px solid ${theme.palette.border.border3}`,
+            border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
             borderRadius: '12px',
-            backdropFilter: 'blur(10px)',
             padding: '16px',
             ...theme.typography.mono1213,
             color: theme.palette.text.text4,
@@ -306,11 +376,22 @@ export const MapContainer = styled(Box, {
         '.mapboxgl-popup-tip': {
             display: 'none',
         },
+
         '& .mapboxgl-popup-content': {
-            background: theme.palette.background.background15,
-            padding: '12px',
+            width: '146px',
+            height: '46px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4px',
+            padding: '8px !important',
+            borderRadius: '4px !important',
             color: theme.palette.text.text4,
+            background: theme.palette.background.background15,
+            border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
+            backdropFilter: 'blur(20px)',
+            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
             ...theme.typography.mono1213,
+
             '& .speed': {
                 ...theme.typography.mono10,
                 color: theme.palette.text.text1,
@@ -452,8 +533,8 @@ export const MapContainer = styled(Box, {
 
         '.svg-container': {
             position: 'relative',
-            width: '36px',
-            height: '36px',
+            width: '38px',
+            height: '38px',
             transform: 'translate(-42%, -42%)',
 
             svg: {
@@ -466,9 +547,40 @@ export const MapContainer = styled(Box, {
     },
 }));
 
-export const MapDrawModeTabsWrapper = styled(Box)(() => ({
+export const MapDrawModeTabsWrapper = styled(Box)(({ theme }) => ({
     position: 'absolute',
     top: '12px',
     left: '50%',
     transform: 'translate(-50%)',
+    backgroundColor: theme.palette.background.background1,
+    borderRadius: '6px !important',
+
+    '.MuiTabs-scroller': {
+        display: 'flex',
+        borderRadius: '6px',
+        alignItems: 'center',
+        height: '28px',
+        backgroundColor: theme.palette.background.background1,
+        border: 'none',
+
+        button: {
+            color: theme.palette.text.text1,
+            height: '20px',
+
+            '&.Mui-selected': {
+                backgroundColor: theme.palette.base.color6,
+                color: theme.palette.base.color1,
+
+                '&:hover': {
+                    border: 'none',
+                    backgroundColor: theme.palette.base.hover,
+                },
+            },
+
+            '&:hover': {
+                border: `1px solid ${theme.palette.border.border5}`,
+                backgroundColor: theme.palette.background.background1,
+            },
+        },
+    },
 }));

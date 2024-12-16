@@ -4,6 +4,7 @@ import { mapMarkerSvgString } from '../mp-marker-string';
 import { LineString, Point } from 'geojson';
 import { MutableRefObject, RefObject } from 'react';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
+import { Theme } from '@mui/material';
 
 type PixelCoordType = { x: number; y: number };
 
@@ -132,9 +133,10 @@ export const renderPoints = (
     popupMarkup: string,
     map: RefObject<mapboxgl.Map>,
     markersRef: MutableRefObject<mapboxgl.Marker[]>,
+    theme: Theme,
 ) => {
     const markerElement = document && document.createElement('div');
-    markerElement.innerHTML = mapMarkerSvgString;
+    markerElement.innerHTML = mapMarkerSvgString(theme.palette);
 
     const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(geometry.coordinates as [number, number]);
 
@@ -155,6 +157,7 @@ export const renderLineStringPoints = (
     map: RefObject<mapboxgl.Map>,
     markersRef: MutableRefObject<mapboxgl.Marker[]>,
     isLineMarkersNeeded: boolean,
+    theme: Theme,
 ) => {
     if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
         geometry.coordinates.forEach((coordinate, index) => {
@@ -164,11 +167,11 @@ export const renderLineStringPoints = (
                 if (index === 0) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerStartSvgContainer;
+                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette);
                 } else if (index === geometry.coordinates.length - 1) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerEndSvgContainer;
+                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette);
                 } else if (isLineMarkersNeeded) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('common-line-marker');
