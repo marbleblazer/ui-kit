@@ -8,7 +8,7 @@ export const TableWrapper = styled(Box)(({ theme }) => ({
     overflowX: 'hidden',
     backgroundColor: 'transparent',
     td: {
-        color: theme.palette.text.primary,
+        color: theme.palette.text.text4,
         padding: '18px 12px',
         '&:first-of-type': {
             paddingLeft: '0',
@@ -28,7 +28,7 @@ export const GroupedRow = styled(TableRow)(({ theme }) => ({
         padding: '24px 0 12px',
         border: 'none',
         letterSpacing: '0.06px',
-        color: theme.palette.text.primary,
+        color: theme.palette.text.text4,
         width: '50px',
     },
 

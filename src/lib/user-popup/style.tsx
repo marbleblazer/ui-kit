@@ -11,8 +11,8 @@ export const PopupBody = styled(Stack)(({ theme }) => ({
     alignItems: 'center',
     borderRadius: '12px',
     padding: 0,
-    border: `1px solid ${alpha(theme.palette.border.primary, theme.palette.mode === 'dark' ? 0.1 : 0.6)}`,
-    backgroundColor: theme.palette.background.primary,
+    border: `1px solid ${alpha(theme.palette.border.border3, theme.palette.mode === 'dark' ? 0.1 : 0.6)}`,
+    backgroundColor: theme.palette.background.background7,
     overflow: 'hidden',
     maxWidth: '220px',
 }));
@@ -24,10 +24,10 @@ export const List = styled(MuiList)(() => ({
 
 export const ListItem = styled(MuiListItem)(({ theme }) => ({
     padding: '12px 8px',
-    borderBottom: `1px solid ${theme.palette.border.primary}`,
+    borderBottom: `1px solid ${theme.palette.border.border3}`,
     fontSize: '12px',
     lineHeight: '18px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.text8,
     cursor: 'pointer',
 
     '&:last-of-type': {
@@ -36,7 +36,7 @@ export const ListItem = styled(MuiListItem)(({ theme }) => ({
     },
 
     '&:hover': {
-        backgroundColor: theme.palette.background.tertiary,
+        backgroundColor: theme.palette.background.background2,
     },
 }));
 

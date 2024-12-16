@@ -4,9 +4,9 @@ import { IButtonProps } from './types';
 
 export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, size, variant }) => ({
     cursor: 'pointer',
-    fontFamily: theme.typography.body1.fontFamily,
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
+    ...theme.typography.btnPrimary,
 
     '.MuiButton-icon': {
         '& > svg': {
@@ -16,51 +16,36 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     },
 
     ...(size === 'large' && {
-        fontSize: '13px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.065px',
-        padding: '14px 20px',
+        padding: '14px 30px',
         maxHeight: '48px',
     }),
 
     ...(size === 'medium' && {
-        fontSize: '13px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.065px',
-        padding: '8px 16px',
+        padding: '8px 26px',
         maxHeight: '36px',
     }),
 
     ...(size === 'small' && {
-        fontSize: '12px',
-        fontStyle: 'normal',
-        fontWeight: 500,
-        lineHeight: '20px',
-        letterSpacing: '0.05px',
-        padding: '4px 12px',
-        maxHeight: '28px',
+        ...theme.typography.btnSecondary,
+        padding: '4px 20px',
+        maxHeight: '30px',
     }),
 
     ...(variant === 'primary' && {
         background: theme.palette.base.color6,
-        color: theme.palette.primary.light,
-        border: `1px solid ${theme.palette.base.color6}`,
+        color: theme.palette.base.color1,
 
         '&:hover, &:active': {
-            background: theme.palette.base.hover,
+            background: theme.palette.base.color6,
         },
 
         '&:disabled': {
-            color: theme.palette.primary.light,
+            color: theme.palette.base.color1,
             opacity: '0.3',
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.border.secondary,
+            borderColor: theme.palette.base.color6,
         },
     }),
 
@@ -69,9 +54,14 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         color: theme.palette.base.color6,
         border: `1px solid transparent`,
 
-        '&:hover, &:active': {
-            background: theme.palette.base.color61,
+        '&:hover, &:checked': {
+            background: theme.palette.base.color63,
             borderColor: theme.palette.base.color6,
+        },
+
+        '&:active': {
+            background: theme.palette.base.color63,
+            border: 'none',
         },
 
         '&:disabled': {
@@ -80,7 +70,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.border.secondary,
+            borderColor: 'transparent',
         },
 
         ...(size === 'small' && {
@@ -89,26 +79,27 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     }),
 
     ...(variant === 'tertiary' && {
-        background: theme.palette.primaryColors.primary,
-        color: theme.palette.text.primary,
-        border: `1px solid ${theme.palette.primaryColors.primary}`,
+        background: theme.palette.background.background10,
+        color: theme.palette.text.text2,
 
-        '&:hover, &:active': {
-            background: theme.palette.primaryColors.primary,
+        '&:hover, &:active, &:checked': {
+            background: theme.palette.background.background10,
             color: theme.palette.base.color6,
         },
 
         '&:disabled': {
-            color: theme.palette.text.primary,
+            color: theme.palette.text.text2,
             opacity: '0.3',
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.border.secondary,
+            background: theme.palette.background.background10,
         },
     }),
 
     ...(variant === 'text' && {
+        color: theme.palette.base.color6,
+
         padding: 0,
         '&:hover': {
             backgroundColor: 'transparent',
@@ -128,11 +119,12 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
         '&:disabled': {
             color: theme.palette.base.color6,
+            border: `1px solid ${theme.palette.base.color6}`,
             opacity: '0.3',
         },
 
         '&:focus-visible': {
-            borderColor: theme.palette.border.secondary,
+            background: 'transparent',
         },
     }),
 
