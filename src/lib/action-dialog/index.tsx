@@ -12,7 +12,7 @@ type Props = {
     buttonText: string;
     onApply(): void;
     state?: 'success' | 'error';
-    dialogSx?: React.CSSProperties;
+    subTitleWidth?: string;
 };
 
 export const ActionDialog: React.FC<Props> = ({
@@ -22,13 +22,13 @@ export const ActionDialog: React.FC<Props> = ({
     buttonText,
     onApply,
     state = 'success',
-    dialogSx,
+    subTitleWidth,
 }) => {
     return (
-        <S.Dialog open={isOpen} dialogSx={dialogSx}>
+        <S.Dialog open={isOpen}>
             <S.Card>
                 <S.IconWrapper>{state === 'success' ? <CheckCircleOutlinedIcon /> : <SadFaceIcon />}</S.IconWrapper>
-                <ModalTitle title={title} subTitle={description} margin="24px 0 32px" />
+                <ModalTitle title={title} subTitle={description} margin="24px 0 32px" subTitleWidth={subTitleWidth} />
 
                 <Button size="medium" variant="primary" fullWidth onClick={onApply}>
                     {buttonText}
