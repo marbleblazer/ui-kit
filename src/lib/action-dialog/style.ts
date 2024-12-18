@@ -1,11 +1,17 @@
 import { alpha, styled, Dialog as MuiDialog, Stack } from '@mui/material';
+import { DialogProps as MuiDialogProps } from '@mui/material/Dialog';
 
-export const Dialog = styled(MuiDialog)(({ theme }) => ({
+interface DialogProps extends MuiDialogProps {
+    dialogSx?: React.CSSProperties;
+}
+
+export const Dialog = styled(MuiDialog)<DialogProps>(({ theme, dialogSx }) => ({
     backdropFilter: 'blur(4px)',
 
     '.MuiPaper-root': {
-        width: '360px',
-        minWidth: '360px',
+        ...dialogSx,
+        width: dialogSx?.width ?? '360px',
+        minWidth: dialogSx?.minWidth ?? '360px',
         padding: '20px 20px 30px',
         borderRadius: '12px',
         background: theme.palette.background.background7,
