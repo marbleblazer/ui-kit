@@ -9,9 +9,8 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
 
     [`& .${dialogClasses.paper}`]: {
         alignItems: 'center',
-        width: '100%',
+        width: '360px',
         minWidth: '360px',
-        maxWidth: '450px',
         overflow: 'hidden',
         margin: '0px',
         padding: '20px 20px 30px',
