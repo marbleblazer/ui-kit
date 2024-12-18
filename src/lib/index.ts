@@ -8,8 +8,6 @@ export { SkeletonContainer, SkeletonDiagonalStripe, type SkeletonProps, Skeleton
 
 export { type StepperProps, Stepper } from './stepper';
 
-export { TextSecondary, TextQuaternary } from './text-elements';
-
 export { ThemeSwitch } from './theme-switch';
 
 export { Button } from './button';
@@ -46,8 +44,6 @@ export {
 export { Select } from './select';
 
 export { InputLabel } from './input-label';
-
-export { GeneralInfoCard } from './general-info-card';
 
 export { TextSkeleton } from './text-skeleton';
 
@@ -112,3 +108,5 @@ export { ColorPicker } from './color-picker';
 export { ClickableColorCell } from './color-picker/clickable-color-cell/clickable-color-cell';
 
 export { TripMap } from './map/trip-map';
+
+export { BaseCard, ColumnCard, CardWithImage } from './cards';

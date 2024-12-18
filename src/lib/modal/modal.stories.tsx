@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Modal } from '@chirp/ui/lib';
+import { Modal, ModalTitle } from '@chirp/ui/lib';
 
 const meta: Meta<typeof Modal> = {
     title: 'UI/Modal',
@@ -16,4 +16,8 @@ type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
     render: () => <Modal title="Title" description="Description" actionComponent={<div />} />,
+};
+
+export const Title: Story = {
+    render: () => <ModalTitle title="Title" />,
 };

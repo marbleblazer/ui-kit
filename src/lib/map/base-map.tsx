@@ -10,6 +10,7 @@ import * as S from './style';
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { Coordinates } from './map.types';
+import { HelpControl } from './map-controls/help-control/help-control';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -31,6 +32,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     sx,
     children,
 }) => {
+    const theme = useTheme();
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     // const mapRef = useRef<mapboxgl.Map>(null);
@@ -75,15 +77,6 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             'bottom-right',
         );
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
-        mapRef.current.addControl(
-            new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                placeholder: 'Search location',
-                collapsed: true,
-            }),
-            'bottom-right',
-        );
-
         const geolocate = new mapboxgl.GeolocateControl({
             positionOptions: {
                 enableHighAccuracy: true,
@@ -95,6 +88,15 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         });
 
         mapRef.current.addControl(geolocate, 'bottom-right');
+        mapRef.current.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                placeholder: 'Search location',
+                collapsed: true,
+            }),
+            'bottom-right',
+        );
+
         mapRef.current.getCanvas().style.cursor = 'pointer';
 
         geolocate.on('geolocate', (e: any) => {
@@ -102,6 +104,9 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             const latlng = new mapboxgl.LngLat(e.coords.longitude as number, e.coords.latitude as number);
             mapRef.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
         });
+
+        const helpControl = new HelpControl(theme);
+        mapRef.current.addControl(helpControl, 'bottom-left');
 
         return () => {
             mapRef.current?.off('load', onMapLoad);

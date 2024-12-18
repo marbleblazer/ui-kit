@@ -6,12 +6,17 @@ export { Row } from '../../style';
 export const HeadCell = styled(MuiTableCell)(({ theme }) => ({
     padding: '18px 12px 12px',
     border: 'none',
-    zIndex: 1,
-    ...theme.typography.body1,
-    backgroundColor: theme.palette.background.secondary,
-    color: theme.palette.text.tertiary,
+    backgroundColor: theme.palette.background.background7,
+    color: theme.palette.text.text8,
     whiteSpace: 'nowrap',
     cursor: 'auto',
+    ...theme.typography.text14,
+
+    span: {
+        svg: {
+            stroke: theme.palette.text.text8,
+        },
+    },
 
     [theme.breakpoints.down('lg')]: {
         padding: '8px 6px',

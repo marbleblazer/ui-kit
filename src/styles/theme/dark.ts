@@ -71,7 +71,7 @@ export const darkTheme: ThemeOptions = {
             input4Error: '#FF4949',
         },
         text: {
-            primary: '#FFFFFF',
+            primary: '#EBEBEB',
             secondary: '#EBEBEB',
             tertiary: '#BABABA',
             quaternary: '#A2A2A2',
