@@ -17,6 +17,14 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
         borderRadius: '12px',
         backgroundColor: theme.palette.background.background7,
     },
+
+    '.MuiBackdrop-root': {
+        backdropFilter: 'blur(20px)',
+        backgroundColor:
+            theme.palette.mode === 'dark'
+                ? alpha(theme.palette.darkening.darkening, 0.4)
+                : alpha(theme.palette.darkening.darkening, 0.2),
+    },
 }));
 
 export const CloseIconButton = styled(IconButton)(() => ({
