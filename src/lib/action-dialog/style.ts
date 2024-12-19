@@ -17,6 +17,14 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
             padding: '20px 20px 30px',
         },
     },
+
+    '.MuiBackdrop-root': {
+        backdropFilter: 'blur(20px)',
+        backgroundColor:
+            theme.palette.mode === 'dark'
+                ? alpha(theme.palette.darkening.darkening, 0.4)
+                : alpha(theme.palette.darkening.darkening, 0.2),
+    },
 }));
 
 export const Card = styled(Stack)(({ theme }) => ({

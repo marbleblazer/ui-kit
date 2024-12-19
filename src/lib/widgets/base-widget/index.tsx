@@ -3,7 +3,6 @@ import { IconButton } from '../../icon-button';
 import { StarIcon, TrashIcon } from '@chirp/ui/assets/fleet-icons';
 import { FC, PropsWithChildren } from 'react';
 import * as S from './styles';
-import { Typography } from '../../typogrpahy';
 
 export interface IBaseWidgetProps {
     type: 'period' | 'online';
