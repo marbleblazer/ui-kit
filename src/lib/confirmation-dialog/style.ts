@@ -9,14 +9,21 @@ export const Dialog = styled(MuiDialog)(({ theme }) => ({
 
     [`& .${dialogClasses.paper}`]: {
         alignItems: 'center',
-        width: '100%',
+        width: '360px',
         minWidth: '360px',
-        maxWidth: '450px',
         overflow: 'hidden',
         margin: '0px',
         padding: '20px 20px 30px',
         borderRadius: '12px',
         backgroundColor: theme.palette.background.background7,
+    },
+
+    '.MuiBackdrop-root': {
+        backdropFilter: 'blur(20px)',
+        backgroundColor:
+            theme.palette.mode === 'dark'
+                ? alpha(theme.palette.darkening.darkening, 0.4)
+                : alpha(theme.palette.darkening.darkening, 0.2),
     },
 }));
 
