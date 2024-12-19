@@ -154,7 +154,7 @@ export const themeTemplate: CustomThemeOptions = {
             letterSpacing: '0.5px',
         },
         caption12: {
-            fontSize: 14,
+            fontSize: 12,
             lineHeight: '20px',
             fontWeight: 400,
             letterSpacing: '0.4px',

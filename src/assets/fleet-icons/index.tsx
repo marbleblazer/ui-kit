@@ -63,3 +63,4 @@ export { default as EnergyOnlineIcon } from './energy-online-icon.svg?react';
 export { default as EnergyOfflineIcon } from './energy-offline-icon.svg?react';
 export { default as PhotoUploadIcon } from './photo-upload.svg?react';
 export { default as CopySquaresIcon } from './copy-squares.svg?react';
+export { default as PinIcon } from './pin.svg?react';

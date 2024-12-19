@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import * as S from './styles';
 import { FC } from 'react';
-import { Typography } from '../../../typogrpahy';
+import { Typography } from '@chirp/ui/lib/typogrpahy';
 
 export interface IColorListItemProps {
     color: string;
