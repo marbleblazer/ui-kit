@@ -46,6 +46,9 @@ export const Switch = styled(MUISwitch)(({ theme }) => ({
                 left: 'auto',
                 right: 0,
             },
+            '&:hover': {
+                backgroundColor: 'transparent',
+            },
         },
     },
 
