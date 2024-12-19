@@ -12,7 +12,7 @@ import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from './utils';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { customDrawStyles } from '../constance';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
