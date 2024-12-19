@@ -1,5 +1,4 @@
 import { MenuItem, styled } from '@mui/material';
-import { Typography } from '../../typogrpahy';
 
 export const ListWrapper = styled('div')(() => ({
     display: 'grid',
