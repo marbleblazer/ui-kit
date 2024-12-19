@@ -179,15 +179,4 @@ export const createComponents: ComponentCreator = (palette) => ({
             },
         },
     },
-    MuiBackdrop: {
-        styleOverrides: {
-            root: {
-                backdropFilter: 'blur(20px)',
-                backgroundColor:
-                    CurrentTheme.Dark === 'dark'
-                        ? alpha(palette?.darkening?.darkening ?? '#000', 0.4)
-                        : alpha(palette?.darkening?.darkening ?? '#000', 0.2),
-            },
-        },
-    },
 });
