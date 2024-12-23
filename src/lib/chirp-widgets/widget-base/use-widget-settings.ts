@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { AttributeConfig, AttributeSettings, Settings } from '../types';
+import { AttributeConfig, AttributeSettings, Settings, ValueBoundaries } from '../types';
 import { widgetAttributeNameConfig } from '../widget-attribute-name-config';
 import { getObjectFromStorage, setObjectIntoStorage } from './helpers';
 
-export const useWidgetSettings = (id: string, attr: string, config: AttributeConfig) => {
+export const useWidgetSettings = (
+    id: string,
+    attr: string,
+    config: AttributeConfig,
+    onSettingsChange?: (settings: Settings) => void,
+) => {
     const [showGraph, setShowGraph] = useState(true);
     const [showAlert, setShowAlert] = useState(true);
     const [unitsOfMeasurement, setUnitsOfMeasurement] = useState(config?.units);
+    const [isBoundariesLoading, setIsBoundariesLoading] = useState(false);
 
     const settings: Settings | null = getObjectFromStorage('widgetsSettings');
 
@@ -16,10 +22,20 @@ export const useWidgetSettings = (id: string, attr: string, config: AttributeCon
     const setAttributeSettings = (key: keyof AttributeSettings, value: AttributeSettings[keyof AttributeSettings]) => {
         const currentSettings = settings || {};
         const deviceSettings = currentSettings[id] || {};
-        const attrSettings = deviceSettings && deviceSettings[attr];
+        const attrSettings = deviceSettings[attr] || {};
 
-        const newAttrSettings = { ...attrSettings, [key]: value };
-        const newDeviceSettings = { ...deviceSettings, [attr]: newAttrSettings };
+        let updatedAttrSettings;
+
+        if (key === 'valueBoundaries' && typeof value === 'object') {
+            updatedAttrSettings = { ...attrSettings, ...value };
+        } else {
+            updatedAttrSettings = { ...attrSettings, [key]: value };
+        }
+
+        const newDeviceSettings = { ...deviceSettings, [attr]: updatedAttrSettings };
+
+        // Передача настроек виджета во внешнюю функцию
+        onSettingsChange && onSettingsChange({ ...currentSettings, [id]: newDeviceSettings });
 
         setObjectIntoStorage('widgetsSettings', { ...currentSettings, [id]: newDeviceSettings });
     };
@@ -48,6 +64,18 @@ export const useWidgetSettings = (id: string, attr: string, config: AttributeCon
         });
     };
 
+    const setValueBoundaries = async ({ from, to }: ValueBoundaries) => {
+        setIsBoundariesLoading(true);
+
+        try {
+            setAttributeSettings('valueBoundaries', { valueFrom: from ?? undefined, valueTo: to ?? undefined });
+        } catch (error) {
+            console.error('Failed to set value boundaries:', error);
+        } finally {
+            setIsBoundariesLoading(false);
+        }
+    };
+
     useEffect(() => {
         if (!settings) return;
 
@@ -68,5 +96,7 @@ export const useWidgetSettings = (id: string, attr: string, config: AttributeCon
         toggleAlertVisibility,
         toggleGraphVisibility: onlyGraphView ? undefined : toggleGraphVisibility,
         setUnitsOfMeasurement: updateUnits,
+        setValueBoundaries,
+        isBoundariesLoading,
     };
 };

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ChirpWidget, SystemWidget } from '@chirp/ui/lib';
-import { WidgetTypes } from './types';
+import { Settings, WidgetTypes } from './types';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 
@@ -115,10 +115,12 @@ export const Boolean: Story = {
 export const Graphic: Story = {
     render: () => {
         const [configTypeState, setConfigTypeState] = useState<boolean>(false);
+        const [_, setSettings] = useState<Settings>();
 
         const handleSwitchView = () => {
             setConfigTypeState((prev) => !prev);
         };
+
         return (
             <Box width="414px">
                 {configTypeState ? (
@@ -140,6 +142,7 @@ export const Graphic: Story = {
                         currentValue={-110}
                         isError={false}
                         switchView={handleSwitchView}
+                        onSettingsChange={setSettings}
                         graphValues={{
                             '1734469200': {
                                 avg: -110.33333333333333,

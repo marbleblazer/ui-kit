@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import { CurrentValue } from '../current-value';
 import { calculateValues } from '../helpers/index';
 import { SwitchViewButton } from '../switch-view-button';
-import { AttributeConfig, Timequant, ValueBoundaries, WidgetTypes } from '../types';
+import { AttributeConfig, Settings as TSettings, Timequant, WidgetTypes } from '../types';
 import { Legend } from './components/legend';
 import { LoadingState } from './components/loading-state';
 import { Settings } from './components/settings';
@@ -36,6 +36,7 @@ type WidgetBaseProps = {
     onUnitsChange?: (shouldBeConverted: boolean) => void;
     switchView?(attributeName: string): void;
     value: number | string | boolean | undefined;
+    onSettingsChange?: (settings: TSettings) => void;
 };
 
 export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
@@ -54,9 +55,9 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
         period,
         onUnitsChange,
         switchView,
+        onSettingsChange,
     } = props;
     const [isHovered, setIsHovered] = useState(false);
-    const [isBoundariesLoading, setIsBoundariesLoading] = useState(false);
 
     const { palette } = useTheme();
 
@@ -67,7 +68,9 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
         toggleAlertVisibility,
         toggleGraphVisibility,
         setUnitsOfMeasurement,
-    } = useWidgetSettings(id, attributeName, config);
+        setValueBoundaries,
+        isBoundariesLoading,
+    } = useWidgetSettings(id, attributeName, config, onSettingsChange);
 
     const title = config.title || attributeName;
 
@@ -118,16 +121,6 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
     const handleMouseLeave = () => {
         if (!isInteractive) return;
         setIsHovered(false);
-    };
-
-    const setValueBoundaries = async ({ from, to }: ValueBoundaries) => {
-        setIsBoundariesLoading(true);
-        console.log(from, to);
-
-        // TODO(Zavur): здесь нужно во внешнуюю функцию передавать рендж и сохранять его
-        // await updateWidgetSettings(id, attributeName, { valueFrom: from ?? undefined, valueTo: to ?? undefined });
-
-        setIsBoundariesLoading(false);
     };
 
     if (isLoading)

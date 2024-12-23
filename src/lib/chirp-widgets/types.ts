@@ -46,6 +46,10 @@ export type AttributeSettings = {
     showGraph?: boolean;
     showAlert?: boolean;
     units?: string;
+    valueBoundaries?: {
+        valueFrom?: number;
+        valueTo?: number;
+    };
 };
 
 export type Settings = {
@@ -107,6 +111,7 @@ export type WidgetProps = {
     period?: string;
     currentValue?: number | string | boolean;
     switchView?(attributeName: string): void;
+    onSettingsChange?: (settings: Settings) => void; // Для передачи настроек числового виджета во внешний компонент
 };
 
 export type CalculatedValues = {
