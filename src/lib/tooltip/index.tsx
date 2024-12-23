@@ -1,4 +1,4 @@
-import { Box, Tooltip as MuiTooltip, TooltipProps, useTheme } from '@mui/material';
+import { alpha, Box, Tooltip as MuiTooltip, TooltipProps, useTheme } from '@mui/material';
 
 export const Tooltip: React.FC<TooltipProps> = ({ children, ...props }) => {
     const theme = useTheme();
@@ -12,9 +12,10 @@ export const Tooltip: React.FC<TooltipProps> = ({ children, ...props }) => {
                         ...theme.typography.caption12,
                         backgroundColor: theme.palette.background.background14,
                         color: theme.palette.text.text6,
-                        borderRadius: '12px',
+                        borderRadius: '8px',
                         backdropFilter: 'blur(10px)',
-                        boxShadow: theme.palette.shadow.primary,
+                        boxShadow: '0 4 10 0 #5C5C5C',
+                        borderColor: alpha(theme.palette.border.border3, 0.1),
                     },
                 },
             }}

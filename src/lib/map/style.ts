@@ -156,6 +156,16 @@ export const MapContainer = styled(Box, {
         marginRight: 0,
         backgroundColor: theme.palette.base.color2,
 
+        '.suggestions-wrapper': {
+            '.suggestions': {
+                backgroundColor: theme.palette.base.color2,
+                'li.active a': {
+                    color: theme.palette.text.text1,
+                    backgroundColor: theme.palette.base.color2,
+                },
+            },
+        },
+
         '.mapboxgl-ctrl-geocoder--icon-search': {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
@@ -514,7 +524,7 @@ export const MapContainer = styled(Box, {
             fontFamily: theme.typography.overline.fontFamily,
             backgroundColor: theme.palette.background.paper,
             letterSpacing: '0.05em',
-            color: theme.palette.text.tertiary,
+            color: 'red',
             padding: '8px',
         },
 

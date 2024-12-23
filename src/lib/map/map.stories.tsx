@@ -60,7 +60,7 @@ export const ThreeMarkers: Story = {
                             padding: '20px !important',
 
                             label: {
-                                color: theme.palette.text.tertiary,
+                                color: theme.palette.text.text1,
                             },
                         },
                     }}
