@@ -7,9 +7,9 @@ declare module '@emotion/react' {
 }
 
 declare module '@mui/material/styles' {
-    export interface Palette extends CustomPalette {}
+    export interface Palette extends CustomPalette, ReferencePalette {}
 
-    export interface PaletteOptions extends CustomPalette {}
+    export interface PaletteOptions extends CustomPalette, ReferencePalette {}
 
     export interface TypeBackground
         extends TypeBackground,
@@ -155,14 +155,88 @@ type BaseColorNameType =
     | 'color13'
     | 'color14'
     | 'color18'
+    | 'color23'
     | 'color20';
-export interface CustomPalette {
+
+export interface ReferencePalette {
+    primaryColors: {
+        accent: string;
+        accentHover: string;
+    };
+    darkShades: {
+        primary: string;
+        secondary: string;
+        ternary: string;
+        quaternary: string;
+        fifth: string;
+    };
+    lightShades: {
+        primary: string;
+        secondary: string;
+        ternary: string;
+        quaternary: string;
+    };
+    borders: {
+        primary: string;
+        secondary: string;
+        ternary: string;
+    };
+    alerts: {
+        success: string;
+        warning: string;
+        alert: string;
+    };
+    additionalColors: {
+        buttonSecondary: string;
+        buttonSecondaryHv: string;
+        blue: string;
+        lightYellow: string;
+        yellow: string;
+        lightBlue: string;
+        air: string;
+        purple: string;
+        pink: string;
+        mutedGreen: string;
+    };
+    widgets: {
+        text: string;
+        values: {
+            min: string;
+            avg: string;
+            max: string;
+        };
+        gradientPoints: {
+            min: string;
+            avg: string;
+            max: string;
+        };
+    };
+    grey: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+}
+
+export interface CustomPalette extends ReferencePalette {
     shadow: {
         primary: string;
     };
+
     // TODO: удалить все старые типы
     // background: CustomTypeBackground;
     primaryColors: {
+        // reference
+        accent: string;
+        accentHover: string;
+
         primary: string;
         secondary: string;
         tertiary: string;
@@ -177,14 +251,13 @@ export interface CustomPalette {
     // border: {
     //     primary: string;
     //     secondary: string;
-    //     tertiaryInput: string;
     // };
     // text: CustomTypeText; // TODO: remove after move on new design system
-    alerts: {
-        green: string;
-        yellow: string;
-        red: string;
-    };
+    // alerts: {
+    //     green: string;
+    //     yellow: string;
+    //     red: string;
+    // };
 
     // new colors
     // пока оставляем старые типы для совместимости
@@ -193,7 +266,6 @@ export interface CustomPalette {
     border: {
         primary: string;
         secondary: string;
-        tertiaryInput: string;
     } & Record<BorderColorNameType, string>;
     darkening: Record<DarkeningColorNameType, string>;
     base: Record<BaseColorNameType, string>;
