@@ -19,6 +19,7 @@ export const GraphicWidget: FC<WidgetProps> = ({
     timequant,
     period,
     switchView,
+    onSettingsChange,
 }) => {
     const [chartData, setChartData] = useState<Serie[] | null>(null);
     const [lastValue, setLastValue] = useState<string | number | boolean>();
@@ -84,6 +85,7 @@ export const GraphicWidget: FC<WidgetProps> = ({
             value={lastValue}
             period={period}
             switchView={switchView}
+            onSettingsChange={onSettingsChange}
         />
     );
 };
