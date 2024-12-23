@@ -19,3 +19,11 @@ export {
 } from './assets/icons';
 
 export * from './styles/theme/theme-provider';
+
+export { referenceDarkThemePalette, referenceLightThemePalette } from './styles/theme/reference-palettes';
+
+export { lightTheme } from './styles/theme/light';
+
+export { darkTheme } from './styles/theme/dark';
+
+export { type ReferencePaletteType } from './styles/theme/types';

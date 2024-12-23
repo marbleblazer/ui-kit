@@ -4,7 +4,7 @@ import { IClickableColorCellProps } from './types';
 export const Cell = styled('div')<IClickableColorCellProps>(({ size = 'small', color: backgroundColor, theme }) => ({
     backgroundColor,
     border: '1px solid',
-    borderColor: theme.palette.border.secondary,
+    borderColor: theme.palette.border.input,
     cursor: 'pointer',
 
     ...(size === 'large' && {
