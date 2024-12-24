@@ -114,6 +114,7 @@ export const Settings: FC<SettingsProps> = ({
                                 valueFrom={config.valueFrom}
                                 valueTo={config.valueTo}
                                 onSave={setValueBoundaries}
+                                units={units}
                             />
                         </S.SettingsItem>
 
