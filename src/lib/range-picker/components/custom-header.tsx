@@ -13,7 +13,7 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
         <Stack direction="row" justifyContent="space-between" alignItems="center">
             <IconButton
                 size="small"
-                variant="tertiary"
+                variant="gray"
                 aria-label="Previous Month"
                 // style={customHeaderCount === 1 ? { visibility: 'hidden' } : {}}
                 onClick={decreaseMonth}
@@ -29,7 +29,7 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
             </span>
             <IconButton
                 size="small"
-                variant="tertiary"
+                variant="gray"
                 aria-label="Next Month"
                 // style={customHeaderCount === 0 ? { visibility: 'hidden' } : {}}
                 onClick={increaseMonth}
