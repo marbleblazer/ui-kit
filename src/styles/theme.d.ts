@@ -158,10 +158,17 @@ type BaseColorNameType =
     | 'color23'
     | 'color20';
 
-export interface ReferencePalette {
+export interface ReferencePalette extends PaletteOptions {
+    background: Partial<TypeBackground> | undefined;
     primaryColors: {
         accent: string;
         accentHover: string;
+
+        primary: string;
+        secondary: string;
+        tertiary: string;
+        quaternary: string;
+        fifth: string;
     };
     darkShades: {
         primary: string;
