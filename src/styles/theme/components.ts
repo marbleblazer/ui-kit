@@ -1,6 +1,5 @@
 import { alpha, ThemeOptions } from '@mui/material';
 import { SelectIndicator } from '@chirp/ui/lib';
-import { CurrentTheme } from '../constants';
 
 type ComponentCreator = (palette: ThemeOptions['palette']) => ThemeOptions['components'];
 
