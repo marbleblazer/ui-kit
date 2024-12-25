@@ -81,7 +81,7 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                             </Stack>
                         )}
                         <Logout onLogout={onLogout} />
-                        <Divider sx={{ background: theme.palette.text.text1, width: '197px' }} />
+                        <Divider sx={{ background: alpha(theme.palette.text.text1, 0.08), width: '197px' }} />
                         <S.ListItem>
                             <Stack>
                                 <S.ListItemContent sx={{ alignItems: 'center' }}>

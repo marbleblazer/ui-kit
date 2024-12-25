@@ -93,9 +93,28 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
                 accessToken: mapboxgl.accessToken,
                 placeholder: 'Search location',
                 collapsed: true,
+                render: (item) => {
+                    // Кастомная структура HTML для предложений
+                    const title = item.text || '';
+                    const address = item.place_name || '';
+                    return `
+                      <div class="mapboxgl-ctrl-geocoder--suggestion">
+                        <div class="custom-suggestion">
+                          <div class="address">${title}&nbsp;${address}</div>
+                          <div class="selected-icon"></div>
+                        </div>
+                      </div>
+                    `;
+                },
             }),
             'bottom-right',
         );
+
+        const mapControls = mapRef.current._controls;
+        const geocoderControl = mapControls.find((control) => control instanceof MapboxGeocoder);
+        if (geocoderControl) {
+            geocoderControl.setPlaceholder('Search');
+        }
 
         mapRef.current.getCanvas().style.cursor = 'pointer';
 
