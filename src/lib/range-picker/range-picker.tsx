@@ -93,7 +93,7 @@ export const RangePicker: FC<RangePickerProps> = ({
     return (
         <Stack direction="column" gap="8px">
             <Stack direction="column" gap="14px">
-                <Typography variant="caption" color={theme.palette.text.text8}>
+                <Typography variant="caption12" color={theme.palette.text.text8}>
                     Choose date range
                 </Typography>
             </Stack>
@@ -106,7 +106,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         placeholder="Start date"
                         onChange={(e) => handleInputDateChange(e, 'start')}
                         sx={{
-                            label: { color: theme.palette.text.text8 },
+                            label: { color: `${theme.palette.text.text8} !important` },
                             borderColor: alpha(theme.palette.border.input, 0.14),
                             input: {
                                 backgroundColor: theme.palette.background.background2,
@@ -127,7 +127,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         placeholder="End date"
                         onChange={(e) => handleInputDateChange(e, 'end')}
                         sx={{
-                            label: { color: theme.palette.text.text8 },
+                            label: { color: `${theme.palette.text.text8} !important` },
                             borderColor: alpha(theme.palette.border.input, 0.14),
                             input: {
                                 backgroundColor: theme.palette.background.background2,

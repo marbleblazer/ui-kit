@@ -136,8 +136,8 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                                 {countryList.map((country) => (
                                     <MenuItem key={country.code} value={country.code} sx={{ width: '100%' }}>
                                         <Box display="flex" alignItems="center" gap={1}>
-                                            <Typography variant="body2">{country.name}</Typography>
-                                            <Typography variant="body2" style={{ width: 40 }}>
+                                            <Typography variant="text13">{country.name}</Typography>
+                                            <Typography variant="text13" style={{ width: 40 }}>
                                                 {country.dialCode}
                                             </Typography>
                                         </Box>
