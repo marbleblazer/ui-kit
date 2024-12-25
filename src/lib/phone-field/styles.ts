@@ -84,16 +84,6 @@ export const PhoneField = styled(TextField, {
         color: theme.palette.text.text2 + '!important',
     },
 
-    'input:-webkit-autofill': {
-        borderTopLeftRadius: '8px',
-        borderBottomLeftRadius: '8px',
-        border: 'none',
-        borderRadius: '8px',
-        boxShadow: `0 0 0 100px ${theme.palette.background.fifthInput} inset !important`,
-        transitionDelay: '9999s',
-        transitionProperty: 'background-color, color',
-    },
-
     '.MuiPhoneNumber-flagButton': {
         height: 'auto',
         width: 'auto',

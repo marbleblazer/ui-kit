@@ -4,7 +4,6 @@ import { IIconButtonProps } from './types';
 
 export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size, variant }) => ({
     cursor: 'pointer',
-    fontFamily: theme.typography.body1.fontFamily,
     transition: 'all 0.125s',
     gap: '4px',
 
@@ -120,12 +119,12 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
     ...(variant === 'gray' && {
         background: 'transparent',
-        color: theme.palette.text.quaternary,
+        color: theme.palette.text.text4,
         border: 'none',
 
         '&:hover, &:active': {
             background: 'transparent',
-            color: theme.palette.base.hover,
+            color: theme.palette.base.color6,
         },
 
         '&:disabled': {

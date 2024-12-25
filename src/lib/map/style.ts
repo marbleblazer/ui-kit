@@ -8,6 +8,8 @@ import plusIcon from '@chirp/ui/assets/fleet-icons/map-plus-icon.svg';
 import locationUserIcon from '@chirp/ui/assets/fleet-icons/location-user.svg';
 import searchIcon from '@chirp/ui/assets/fleet-icons/map-search-icon.svg';
 import questionIcon from '@chirp/ui/assets/fleet-icons/map-question-icon.svg';
+import closeIcon from '@chirp/ui/assets/fleet-icons/cross.svg';
+import checkmarkIcon from '@chirp/ui/assets/fleet-icons/checkmark.svg';
 
 interface Props {
     isFullScreenMap?: boolean;
@@ -152,9 +154,100 @@ export const MapContainer = styled(Box, {
         minWidth: 0,
     },
 
+    '.mapboxgl-ctrl-geocoder.mapboxgl-ctrl:not(.mapboxgl-ctrl-geocoder--collapsed)': {
+        backgroundColor: theme.palette.background.background2,
+        border: `1px solid ${alpha(theme.palette.border.input, 0.14)}`,
+        borderRadius: '8px',
+        width: '480px',
+        svg: {
+            left: '12px',
+        },
+        '.mapboxgl-ctrl-geocoder--icon-search': {
+            backgroundColor: theme.palette.text.text4,
+        },
+
+        '&:hover': {
+            '.mapboxgl-ctrl-geocoder--icon-search': {
+                backgroundColor: theme.palette.text.text4,
+            },
+            '.mapboxgl-ctrl-geocoder--input': {
+                color: theme.palette.text.text4,
+            },
+        },
+        '.mapboxgl-ctrl-geocoder--input:focus': {
+            border: `1px solid ${alpha(theme.palette.border.border5, 0.3)}`,
+            borderRadius: '8px',
+
+            '.mapboxgl-ctrl-geocoder--icon-search': {
+                backgroundColor: theme.palette.text.text7,
+            },
+
+            caretColor: theme.palette.base.color6,
+        },
+    },
+
     '.mapboxgl-ctrl-geocoder.mapboxgl-ctrl': {
         marginRight: 0,
         backgroundColor: theme.palette.base.color2,
+
+        '.suggestions-wrapper': {
+            '.suggestions': {
+                ...theme.typography.text12,
+                backgroundColor: theme.palette.background.background1,
+                border: `1px solid ${alpha(theme.palette.border.border3, 0.1)}`,
+                borderRadius: '12px',
+                boxShadow: `0px 4px 20px ${alpha('#5C5C5C', 0.2)}, !important`,
+                color: theme.palette.text.text8,
+                padding: '4px',
+                marginBottom: '4px',
+
+                'li a': {
+                    '&:hover': {
+                        borderRadius: '6px',
+                        background: theme.palette.background.background5,
+                        color: theme.palette.text.text6,
+                    },
+                },
+
+                'li.active a': {
+                    color: theme.palette.base.color6,
+                    backgroundColor: theme.palette.background.background1,
+                    '.mapboxgl-ctrl-geocoder--suggestion .custom-suggestion': {
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    },
+                    '.mapboxgl-ctrl-geocoder--suggestion .custom-suggestion .selected-icon': {
+                        width: ' 10.5px',
+                        height: '7.5px',
+                        backgroundColor: theme.palette.base.color6,
+                        backgroundRepeat: 'no-repeat',
+                        maskImage: `url("${checkmarkIcon}") `,
+                        '-webkit-mask-position-x': '50%',
+                        '-webkit-mask-position-y': '50%',
+                        backgroundImage: 'none',
+                    },
+                    '.mapboxgl-ctrl-geocoder--suggestion .custom-suggestion .address': {
+                        maxWidth: '305px',
+                    },
+                },
+            },
+        },
+
+        '.mapboxgl-ctrl-geocoder--pin-right': {
+            button: {
+                background: 'none',
+                svg: {
+                    marginTop: '0px',
+                    backgroundImage: 'none',
+                    backgroundColor: theme.palette.text.text4,
+                    maskImage: `url("${closeIcon}") `,
+                    '-webkit-mask-position-x': '50%',
+                    '-webkit-mask-position-y': '50%',
+                },
+            },
+        },
 
         '.mapboxgl-ctrl-geocoder--icon-search': {
             backgroundImage: 'none',
@@ -164,9 +257,9 @@ export const MapContainer = styled(Box, {
             '-webkit-mask-position-y': '50%',
         },
         '.mapboxgl-ctrl-geocoder--input': {
-            color: theme.palette.text.primary,
+            color: theme.palette.text.text4,
             '&:placeholder': {
-                color: theme.palette.text.tertiary,
+                color: theme.palette.text.text8,
             },
             '&:focus': {
                 outline: 'none',
@@ -181,11 +274,10 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl-geocoder--input': {
+        ...theme.typography.text1402,
+        color: theme.palette.text.text1 + '!important',
         height: '28px',
-
-        svg: {
-            fill: '#ff0000 !important',
-        },
+        padding: '10px 36px',
     },
 
     '.mapboxgl-ctrl-zoom-in': {
@@ -350,25 +442,6 @@ export const MapContainer = styled(Box, {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-        },
-    },
-
-    '.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup.mapboxgl-popup:not(.speed-popup)': {
-        '.mapboxgl-popup-tip': {
-            display: 'none',
-        },
-
-        '.mapboxgl-popup-content': {
-            background: theme.palette.background.background15,
-            border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
-            borderRadius: '12px',
-            padding: '16px',
-            ...theme.typography.mono1213,
-            color: theme.palette.text.text4,
-        },
-
-        button: {
-            display: 'none',
         },
     },
 

@@ -135,7 +135,9 @@ const Graph: React.FC<GraphProps> = ({
                     'axes',
                     'slices',
                 ]}
-                sliceTooltip={(props) => <Tooltip {...props} config={config} postfix={postfix} />}
+                sliceTooltip={(props) => (
+                    <Tooltip {...props} config={config} postfix={postfix} minY={minY} maxY={maxY} />
+                )}
                 theme={createFlatChartTheme(theme)}
                 xScale={{ type: 'time' }}
             />

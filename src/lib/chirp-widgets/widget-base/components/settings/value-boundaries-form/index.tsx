@@ -26,9 +26,10 @@ type Props = {
     valueFrom?: number;
     valueTo?: number;
     onSave(boundaries: ValueBoundaries): void;
+    units: string;
 };
 
-export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, valueTo, onSave }) => {
+export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, valueTo, onSave, units }) => {
     const {
         control,
         formState: { errors, isValid },
@@ -96,6 +97,7 @@ export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, val
                                 {...field}
                                 label={errors[fieldName]?.message || capitalizeString(fieldName)}
                                 error={!!errors[fieldName]}
+                                placeholder={`0 ${units}`}
                             />
                         )}
                     />
