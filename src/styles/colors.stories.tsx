@@ -20,8 +20,8 @@ export const Default = {
         const theme = useTheme();
         const palette =
             theme.palette.mode === 'light'
-                ? (lightTheme?.palette as { [key: string]: any })
-                : (darkTheme?.palette as { [key: string]: any });
+                ? (lightTheme()?.palette as { [key: string]: any })
+                : (darkTheme()?.palette as { [key: string]: any });
         return (
             <Stack gap={4} direction="row">
                 {palette &&

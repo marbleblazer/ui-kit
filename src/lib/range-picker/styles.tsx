@@ -14,8 +14,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             border: 'none',
 
             '.react-datepicker__current-month': {
-                ...theme.typography.paragraphSecondary,
-                fontFamily: theme.typography.fontFamily,
+                ...theme.typography.caption12,
                 color: theme.palette.text.text3,
             },
             'button.react-datepicker__navigation': {},
@@ -27,7 +26,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
 
             justifyContent: 'space-around',
             '.react-datepicker__day-name': {
-                ...theme.typography.caption,
+                ...theme.typography.caption12,
                 color: theme.palette.text.text8,
             },
         },
@@ -47,7 +46,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            ...theme.typography.body1,
+            ...theme.typography.caption12,
 
             '&:hover:not(&--disabled)': {
                 borderColor: theme.palette.base.color6,
@@ -69,7 +68,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
 
         '.react-datepicker__day--selected': {
             backgroundColor: theme.palette.base.color6,
-            color: theme.palette.text.text7,
+            color: theme.palette.base.color1,
         },
     },
 }));

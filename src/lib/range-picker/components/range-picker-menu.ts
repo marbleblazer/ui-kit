@@ -8,8 +8,8 @@ export const RangePickerMenu = styled(Menu)(({ theme }) => ({
         height: 'auto',
         borderRadius: '8px',
         border: '1px solid',
-        borderColor: alpha(theme.palette.border.border3, 0.1),
-        background: theme.palette.background.background16,
+        borderColor: `${alpha(theme.palette.border.border3, 0.1)} !important`,
+        background: `${theme.palette.background.background16} !important`,
         padding: '16px',
 
         '.MuiMenu-list': {
