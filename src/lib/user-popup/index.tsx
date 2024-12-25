@@ -1,4 +1,4 @@
-import { Stack, useTheme, Popover, Divider } from '@mui/material';
+import { Stack, useTheme, Popover, Divider, alpha } from '@mui/material';
 import * as S from './style';
 import { useState, FC } from 'react';
 import { Avatar } from '../avatar';
@@ -57,7 +57,12 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                     vertical: 'bottom',
                     horizontal: 'left',
                 }}
-                sx={{ '*.MuiPaper-root': { borderRadius: '12px' } }}
+                sx={{
+                    '*.MuiPaper-root': {
+                        borderRadius: '12px',
+                        boxShadow: `4px 0px 20px 0px ${alpha('#5C5C5C', 0.2)}`,
+                    },
+                }}
             >
                 <S.PopupBody>
                     <S.List>
@@ -76,14 +81,16 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                             </Stack>
                         )}
                         <Logout onLogout={onLogout} />
-                        <Divider />
+                        <Divider sx={{ background: alpha(theme.palette.text.text1, 0.08), width: '197px' }} />
                         <S.ListItem>
                             <Stack>
                                 <S.ListItemContent sx={{ alignItems: 'center' }}>
                                     <Stack sx={{ marginLeft: '-4px' }}>
                                         <ThemeSwitch onChange={onChangeMode} checked={isDarkMode} />
                                     </Stack>
-                                    <Typography>{theme.palette.mode === 'dark' ? 'Dark' : 'Light'}</Typography>
+                                    <Typography variant="mono1213" color="text.text8">
+                                        {theme.palette.mode === 'dark' ? 'Dark' : 'Light'}
+                                    </Typography>
                                 </S.ListItemContent>
                             </Stack>
                         </S.ListItem>

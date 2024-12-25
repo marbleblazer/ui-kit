@@ -117,7 +117,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         <Divider
                             orientation="horizontal"
                             flexItem
-                            sx={{ width: '12px', borderColor: theme.palette.text.quaternary }}
+                            sx={{ width: '12px', borderColor: theme.palette.text.text8 }}
                         />
                     </div>
                     <TextField

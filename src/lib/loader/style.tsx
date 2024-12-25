@@ -91,5 +91,5 @@ export const LoaderSpan = styled('span')<ILoaderSpanProps>(({ size }) => ({
 
 export const LoaderText = styled(Typography)(({ theme }) => ({
     marginLeft: '20px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.text1,
 }));
