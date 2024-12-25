@@ -1,4 +1,4 @@
-import { Box, Stack, useTheme } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React, { useRef } from 'react';
 
 import { CalculatedValue } from './calculated-value';
@@ -15,7 +15,6 @@ type Props = {
 };
 
 export const ProgressBar: React.FC<Props> = ({ current, min, max, avg, postfix, gradientColors, currentColor }) => {
-    const { palette } = useTheme();
     const sliderRef = useRef<HTMLElement>(null);
 
     return (

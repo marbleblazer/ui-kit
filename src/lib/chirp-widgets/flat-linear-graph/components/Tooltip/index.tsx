@@ -1,15 +1,17 @@
-import { useTheme } from '@nivo/core';
 import { SliceTooltipProps } from '@nivo/line';
 import { TableTooltip } from '@nivo/tooltip';
 import moment from 'moment';
 import { AttributeConfig, WidgetTypes } from '@chirp/ui/lib/chirp-widgets/types';
 import { Typography } from '@chirp/ui/lib/typogrpahy';
+import { useTheme } from '@mui/material';
 
 export const Tooltip = ({
     slice,
     config,
     postfix,
-}: SliceTooltipProps & { config?: AttributeConfig; postfix?: string }) => {
+    minY,
+    maxY,
+}: SliceTooltipProps & { config?: AttributeConfig; postfix?: string; minY: number | null; maxY: number | null }) => {
     const theme = useTheme();
 
     const dateString = moment(slice.points[0].data.xFormatted).format('DD.MM, HH:mm');
@@ -31,16 +33,39 @@ export const Tooltip = ({
 
                     return [
                         // TODO - "No data" in case of a data failure
-                        <Typography
-                            key="value"
-                            style={theme.tooltip.tableCellValue}
-                            fontSize={13}
-                            color={point.serieColor}
-                        >
-                            {value}
-                            <Typography component="span" sx={{ verticalAlign: 'super' }} fontSize="10px">
-                                {postfix}
-                            </Typography>
+                        <Typography key="value" color={theme.palette.text.text4}>
+                            <div>
+                                <Typography variant="text13" color={theme.palette.text.text4}>
+                                    Current {value}
+                                </Typography>
+                                <Typography variant="caption8" sx={{ verticalAlign: 'super' }}>
+                                    {postfix}
+                                </Typography>
+                            </div>
+                            <div>
+                                <Typography variant="text13" color={theme.palette.base.color6}>
+                                    Max {maxY}
+                                </Typography>
+                                <Typography
+                                    variant="caption8"
+                                    sx={{ verticalAlign: 'super' }}
+                                    color={theme.palette.base.color6}
+                                >
+                                    {postfix}
+                                </Typography>
+                            </div>
+                            <div>
+                                <Typography variant="text13" color={theme.palette.base.color23}>
+                                    Min {minY}
+                                </Typography>
+                                <Typography
+                                    variant="caption8"
+                                    sx={{ verticalAlign: 'super' }}
+                                    color={theme.palette.base.color23}
+                                >
+                                    {postfix}
+                                </Typography>
+                            </div>
                         </Typography>,
                     ];
                 }),
