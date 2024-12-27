@@ -5,7 +5,7 @@ import { getTimeString, getChartData, getValueString } from '../helpers/index';
 import { WidgetProps } from '../types';
 import { WidgetBase } from '../widget-base';
 import { converter } from './converter';
-import { graphEmptyStateValue } from '@chirp/ui/lib/chirp-widgets/helpers/emptyStateValue';
+import { graphEmptyStateValue } from '@chirp/ui/lib/chirp-widgets/helpers/empty-state-value';
 
 export const GraphicWidget: FC<WidgetProps> = ({
     config,

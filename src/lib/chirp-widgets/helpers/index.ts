@@ -1,7 +1,7 @@
 import { Serie } from '@nivo/line';
 import moment from 'moment';
 
-import { AttributeConverter } from './unitConverter';
+import { AttributeConverter } from './unit-converter';
 import { AttributeConfig, CalculatedValues, Metrics, Timequant, WidgetTypes } from '../types';
 
 export const toValidTimeString = (property: string) => {

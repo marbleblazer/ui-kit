@@ -64,7 +64,7 @@ export const createFlatChartTheme = (theme: MuiTheme): ChartTheme => ({
                 fontWeight: theme.typography.caption8.fontWeight,
                 color: theme.palette.text.titleInput,
                 shapeRendering: 'crispEdges',
-                // textShadow: `${theme.palette.darkShades.primary} 0 0 5px`,
+                textShadow: `${theme.palette.darkShades.primary} 0 0 5px`,
             },
         },
     },
