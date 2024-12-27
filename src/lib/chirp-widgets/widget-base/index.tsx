@@ -86,15 +86,10 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
     const gradient = useMemo(
         () =>
             new LinearGradientHelper([
-                ['#5F75FF', 0],
-                ['#FFA824', 0.49],
-                ['#FF4D14', 1],
+                [palette.additionalColors.blue, 0],
+                [palette.additionalColors.yellow, 0.49],
+                [palette.alerts.alert, 1],
             ]),
-        // new LinearGradientHelper([
-        //     [palette.additionalColors.blue, 0],
-        //     [palette.additionalColors.yellow, 0.49],
-        //     [palette.alerts.alert, 1],
-        // ]),
         [palette],
     );
 
@@ -227,7 +222,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                         chartData={chartData}
                         calculatedValues={calculatedValues}
                         color={isHovered || isAlert ? color : palette.text.secondary}
-                        withAxisBottom={isHovered || isAlert}
+                        withAxis
                         isInteractive={isInteractive}
                         config={config}
                         postfix={postfix}

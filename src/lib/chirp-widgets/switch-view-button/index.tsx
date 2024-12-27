@@ -24,9 +24,9 @@ export const SwitchViewButton: React.FC<Props> = ({
             sx={{
                 height: '20px',
                 padding: 0,
-                color: isAccent ? 'text.text8' : 'text.text8',
+                color: isAccent ? 'base.color6' : 'text.text8',
                 '&:hover': {
-                    color: isAccent ? 'text.text4' : 'text.text4',
+                    color: isAccent ? 'base.hover' : 'text.text4',
                     bgcolor: 'transparent',
                 },
             }}
