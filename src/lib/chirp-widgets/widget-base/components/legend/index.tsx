@@ -7,12 +7,9 @@ interface LegendProps {
 
 export const Legend: React.FC<LegendProps> = ({ color }) => {
     const { palette } = useTheme();
-    const minColor = '#5F75FF';
-    const maxColor = palette.base.color6;
-    const avgColor = '#FFA825';
-    //   const minColor = palette.additionalColors.blue;
-    //   const maxColor = palette.alerts.alert;
-    //   const avgColor = palette.additionalColors.air;
+    const minColor = palette.additionalColors.blue;
+    const maxColor = palette.alerts.alert;
+    const avgColor = palette.additionalColors.air;
 
     return (
         <Stack alignItems="end" gap="4px" width="60px" color="lightShades.ternary">

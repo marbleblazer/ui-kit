@@ -51,7 +51,6 @@ export const ImagePreview: FC<IImagePreviewProps> = ({
         if (file && onLoad) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                console.log(file);
                 onLoad(file);
             };
             reader.readAsDataURL(file);

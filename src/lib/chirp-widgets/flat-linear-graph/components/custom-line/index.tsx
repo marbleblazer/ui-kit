@@ -59,8 +59,7 @@ export const CustomLine: React.FC<Props> = ({
 
     const renderBorder = (range: Range, type: 'min' | 'max') => {
         const value = type === 'min' ? yScale(Number(minY)) : yScale(Number(maxY));
-        const color = type === 'min' ? 'blue' : palette.base.color6;
-        // const color = type === 'min' ? palette.additionalColors.blue : palette.alerts.alert;
+        const color = type === 'min' ? palette.additionalColors.blue : palette.alerts.alert;
 
         return range.start.getTime() === range.end.getTime() ? (
             <circle

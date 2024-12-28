@@ -1,8 +1,7 @@
 import { Slider as MuiSlider, styled } from '@mui/material';
 
 export const Slider = styled(MuiSlider)(({ theme }) => ({
-    //   '--gradient': `linear-gradient(90deg, ${theme.palette.additionalColors.blue} 0%, ${theme.palette.additionalColors.yellow} 49%, ${theme.palette.alerts.alert} 100%)`,
-    '--gradient': `linear-gradient(90deg, #5F75FF 0%, #FFA824 49%, #FF4D14 100%)`,
+    '--gradient': `linear-gradient(90deg, ${theme.palette.additionalColors.blue} 0%, ${theme.palette.additionalColors.yellow} 49%, ${theme.palette.alerts.alert} 100%)`,
 
     height: '6px',
     padding: 0,

@@ -36,7 +36,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         color: theme.palette.base.color1,
 
         '&:hover, &:active': {
-            background: theme.palette.base.color6,
+            background: theme.palette.base.hover,
         },
 
         '&:disabled': {
@@ -56,7 +56,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
         '&:hover, &:checked': {
             background: theme.palette.base.color63,
-            borderColor: theme.palette.base.color6,
+            borderColor: theme.palette.base.hover,
         },
 
         '&:active': {

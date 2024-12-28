@@ -11,9 +11,11 @@ import { Coordinates } from './map.types';
 import { renderLineStringPoints, renderPoints } from './trip-map/utils';
 import { BaseMap, IBaseMapProps } from './base-map';
 import { customDrawStyles } from './constance';
-import { useTheme } from '@mui/material';
+import { debounce, useTheme } from '@mui/material';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
+
+type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
@@ -43,7 +45,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     const map = useRef<mapboxgl.Map>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
 
-    const onMapLoad = () => {
+    const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
 
         // Для работы с источником mapbox-gl-draw-cold
@@ -60,7 +62,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         drawRef.current = draw;
         map.current.addControl(draw);
 
-        addDataToMap();
+        addDataToMap(localData);
     };
 
     const clearMap = useCallback(() => {
@@ -73,65 +75,75 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         drawRef.current && drawRef.current.deleteAll();
     }, []);
 
-    const addDataToMap = useCallback(() => {
-        if (!map.current) return;
+    const addDataToMap = useCallback(
+        (localData?: DataType) => {
+            if (!map.current) return;
 
-        clearMap();
+            clearMap();
 
-        let singleMarkerCenter: number[] | null = null;
+            let singleMarkerCenter: number[] | null = null;
 
-        if (!data) {
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
-                type: 'FeatureCollection',
-                features: [],
-            });
+            if (!localData) {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
+                    type: 'FeatureCollection',
+                    features: [],
+                });
 
-            return;
-        }
-
-        if (data.type === 'FeatureCollection') {
-            for (const feature of data.features) {
-                const geometry = feature.geometry;
-                const popupMarkup: string = feature?.properties?.popupMarkup;
-
-                if (geometry.type === 'Point') {
-                    if (data.features.length === 1) {
-                        singleMarkerCenter = geometry.coordinates;
-                    }
-                    renderPoints(geometry, popupMarkup, map, markersRef, theme);
-                } else if (geometry.type === 'LineString') {
-                    // Отрисовка маркеров на линии
-                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, theme);
-                }
+                return;
             }
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
-                type: 'FeatureCollection',
-                features: data.features,
-            });
-        } else {
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
-        }
 
-        if (singleMarkerCenter?.length === 2) {
-            map.current.flyTo({ center: singleMarkerCenter as [number, number], essential: true });
-        } else {
-            // bbox logic
-            const bbox = bboxTurf(data, { recompute: true });
-            const [west, south, east, north] = bbox;
-            map.current.fitBounds([west, south, east, north], { padding: 50 });
-        }
-    }, [data, theme]);
+            if (localData.type === 'FeatureCollection') {
+                for (const feature of localData.features) {
+                    const geometry = feature.geometry;
+                    const popupMarkup: string = feature?.properties?.popupMarkup;
+
+                    if (geometry.type === 'Point') {
+                        if (localData.features.length === 1) {
+                            singleMarkerCenter = geometry.coordinates;
+                        }
+                        renderPoints(geometry, popupMarkup, map, markersRef, theme);
+                    } else if (geometry.type === 'LineString') {
+                        // Отрисовка маркеров на линии
+                        renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, theme);
+                    }
+                }
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
+                    type: 'FeatureCollection',
+                    features: localData.features,
+                });
+            } else {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(localData);
+            }
+
+            if (singleMarkerCenter?.length === 2) {
+                map.current.flyTo({ center: singleMarkerCenter as [number, number], essential: true });
+            } else {
+                // bbox logic
+                const bbox = bboxTurf(localData);
+                const [west, south, east, north] = bbox;
+                map.current.fitBounds([west, south, east, north], { padding: 50, duration: 100, essential: true });
+            }
+        },
+        [theme],
+    );
 
     useEffect(() => {
         if (!map.current) return;
 
-        if (map.current.isStyleLoaded()) {
-            addDataToMap();
-        }
+        const updateMap = debounce(() => {
+            if (map.current?.isStyleLoaded()) {
+                addDataToMap(data);
+            } else {
+                map.current?.on('style.load', () => addDataToMap(data));
+            }
+        }, 100);
 
-        map.current.on('style.load', () => {
-            addDataToMap();
-        });
+        updateMap();
+
+        return () => {
+            updateMap?.clear();
+            if (map.current) map.current.stop();
+        };
     }, [data, theme]);
 
     // Центрирование карты по координатам centeringCoordinates
@@ -141,5 +153,5 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         }
     }, [centeringCoordinates]);
 
-    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad()} />;
+    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
 };

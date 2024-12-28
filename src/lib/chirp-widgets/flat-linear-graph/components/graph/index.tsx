@@ -3,21 +3,22 @@ import { LineSvgProps, ResponsiveLine, Serie } from '@nivo/line';
 import { Scale } from '@nivo/scales';
 import { useMemo } from 'react';
 
-import { AttributeConfig, CalculatedValues, Timequant, Timequants } from '@chirp/ui/lib/chirp-widgets/types';
+import { AttributeConfig, CalculatedValues, Series, Timequant, Timequants } from '@chirp/ui/lib/chirp-widgets/types';
 import { AreaLayer } from '../custom-area';
 import { CustomLine } from '../custom-line';
-import { Skeleton } from '../skeleton/Skeleton';
+import { Skeleton } from '../skeleton';
 import { Tooltip } from '../Tooltip';
 import { DEFAULT_COLORS, DEFAULT_DEFS, createFlatChartTheme } from './chart-theme';
-import { CustomRangeLayer } from './сustom-range-layer';
 import { getFlatChartDefs } from './helpers';
 import * as S from './style';
+import { CustomRangeLayer } from './сustom-range-layer';
 
-type GraphProps = {
+export type GraphProps = {
     chartData: Array<Serie> | null;
     calculatedValues: CalculatedValues;
     color: string;
-    withAxisBottom?: boolean;
+    withAxis?: boolean;
+    isLoading?: boolean;
     isInteractive?: boolean;
     timeFormat?: string;
     config?: AttributeConfig;
@@ -25,18 +26,18 @@ type GraphProps = {
     timequant?: Timequant;
 } & Pick<LineSvgProps, 'curve'>;
 
-const getTickValues = (timequant: Timequant | undefined, dataLength?: number): number | string => {
-    if (dataLength && dataLength > 16) {
+const getTickValues = (timequant: Timequant | undefined, dataLength: number): number | string => {
+    if (dataLength > 16) {
         return 8;
     }
 
-    if (dataLength && dataLength > 28) {
+    if (dataLength > 28) {
         return 6;
     }
 
     switch (timequant) {
         case Timequants.hour:
-            return 12;
+            return dataLength > 12 ? 12 : 'every hour';
         case Timequants.day:
             return 'every day';
         case Timequants.week:
@@ -54,7 +55,8 @@ const Graph: React.FC<GraphProps> = ({
     curve = 'linear',
     color,
     config,
-    withAxisBottom,
+    withAxis,
+    isLoading = false,
     isInteractive,
     timeFormat,
     timequant,
@@ -69,32 +71,45 @@ const Graph: React.FC<GraphProps> = ({
         return max !== null && min !== null ? min - (max - min) : 'auto';
     }, [calculatedValues]);
 
-    // const defs = getFlatChartDefs(rgbToHex(color), '#656565');
-    const defs = getFlatChartDefs(rgbToHex(color), rgbToHex(theme.palette.background.background4));
+    const defs = getFlatChartDefs(rgbToHex(color), rgbToHex(theme.palette.darkShades.ternary));
 
-    const tickValues = getTickValues(timequant, chartData?.[0]?.data?.length);
+    const tickValues = getTickValues(timequant, chartData?.[0]?.data?.length ?? 0);
 
     const { min: minY, max: maxY, avg: avgY } = calculatedValues;
 
-    return !chartData ? (
-        <Skeleton />
-    ) : (
+    if (isLoading) {
+        return <Skeleton />;
+    }
+
+    if (!chartData) {
+        return null;
+    }
+
+    return (
         <S.Wrapper>
             <ResponsiveLine
-                margin={{ top: 4 }}
+                margin={{ top: 4, bottom: 20, left: 32, right: 4 }}
                 isInteractive={isInteractive}
                 areaOpacity={1}
                 axisBottom={
-                    withAxisBottom && isInteractive
+                    withAxis && isInteractive
                         ? {
                               tickSize: 0,
-                              tickPadding: -20,
+                              tickPadding: 4,
                               tickValues,
                               format: timeFormat,
                           }
                         : null
                 }
-                axisLeft={null}
+                axisLeft={
+                    withAxis && isInteractive
+                        ? {
+                              tickSize: 0,
+                              tickPadding: 4,
+                              tickValues: 6,
+                          }
+                        : null
+                }
                 colors={color ? [rgbToHex(color)] : DEFAULT_COLORS}
                 fill={[{ match: '*', id: `transparent` }]}
                 data={chartData}
@@ -105,7 +120,16 @@ const Graph: React.FC<GraphProps> = ({
                 yScale={{ type: 'linear', min: minValue }}
                 layers={[
                     'areas',
-                    AreaLayer,
+                    ({ innerHeight, series, curve, colors, xScale, yScale }) => (
+                        <AreaLayer
+                            series={series as unknown as Series[]}
+                            xScale={xScale as Scale<unknown, number>}
+                            yScale={yScale as Scale<unknown, number>}
+                            innerHeight={innerHeight}
+                            curve={curve}
+                            colors={colors as string[]}
+                        />
+                    ),
                     ({ data, series, lineGenerator, xScale, yScale }) => (
                         <CustomLine
                             chartData={data}
@@ -117,8 +141,9 @@ const Graph: React.FC<GraphProps> = ({
                             yScale={yScale as Scale<unknown, number>}
                         />
                     ),
-                    ({ innerWidth, innerHeight, lineGenerator, points, series, xScale, yScale }) => (
+                    ({ data, innerWidth, innerHeight, lineGenerator, points, series, xScale, yScale }) => (
                         <CustomRangeLayer
+                            chartData={data}
                             innerWidth={innerWidth}
                             innerHeight={innerHeight}
                             lineGenerator={lineGenerator}

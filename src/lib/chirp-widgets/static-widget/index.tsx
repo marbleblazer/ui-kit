@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getTimeString, getValueString } from '../helpers/index';
 import { WidgetProps } from '../types';
 import { WidgetBase } from '../widget-base';
-import { graphEmptyStateValue } from '@chirp/ui/lib/chirp-widgets/helpers/emptyStateValue';
+import { graphEmptyStateValue } from '@chirp/ui/lib/chirp-widgets/helpers/empty-state-value';
 
 export const StaticWidget: React.FC<WidgetProps> = ({
     deviceId,
