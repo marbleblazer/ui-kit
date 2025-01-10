@@ -87,7 +87,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
                         paddingTop: '8px !important',
                         paddingBottom: '8px !important',
                     }}
-                    selectedItems={selectedNode?.id}
+                    selectedItems={selectedNode?.id || ''}
                     slots={{
                         expandIcon: SelectIndicator,
                     }}
