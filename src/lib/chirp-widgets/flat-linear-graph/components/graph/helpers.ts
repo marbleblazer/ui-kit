@@ -1,8 +1,4 @@
-import { getTheme } from '@chirp/ui/styles/theme/index';
-
 export const getFlatChartDefs = (color: string, shadowColor: string) => {
-    const { palette } = getTheme();
-
     return [
         {
             id: `flat-lines-pattern-${color}`,
