@@ -12,8 +12,8 @@ type Props = Pick<CustomLayerProps, 'series' | 'lineGenerator'> & {
     chartData: CustomLayerProps['data'];
     minY: number | null;
     maxY: number | null;
-    xScale: Scale<unknown, number>;
-    yScale: Scale<unknown, number>;
+    xScale: Scale<number, number>;
+    yScale: Scale<number, number>;
 };
 
 export const CustomLine: React.FC<Props> = ({
@@ -64,7 +64,7 @@ export const CustomLine: React.FC<Props> = ({
         return range.start.getTime() === range.end.getTime() ? (
             <circle
                 key={`${type}Y-${range.start}`}
-                cx={xScale(range.start)}
+                cx={xScale(range.start.getTime())}
                 cy={value}
                 r={4}
                 fill={color}
@@ -73,8 +73,8 @@ export const CustomLine: React.FC<Props> = ({
         ) : (
             <line
                 key={`${type}Y-${range.start}`}
-                x1={xScale(range.start)}
-                x2={xScale(range.end)}
+                x1={xScale(range.start.getTime())}
+                x2={xScale(range.end.getTime())}
                 y1={value}
                 y2={value}
                 stroke={color}
