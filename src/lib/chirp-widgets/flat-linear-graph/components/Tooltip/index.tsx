@@ -26,10 +26,15 @@ export const Tooltip = ({
                 ],
                 slice.points.map((point) => {
                     const isBoolean = config && config.type === WidgetTypes.Boolean;
-                    const value =
-                        isBoolean && config.value_map
-                            ? config.value_map[String(point.data.yFormatted)]
-                            : point.data.yFormatted;
+
+                    const yFormatted = String(point.data.yFormatted);
+
+                    const valueMap =
+                        typeof config?.value_map === 'object' && config.value_map !== null
+                            ? (config.value_map as { [key: string | number]: string })
+                            : {};
+
+                    const value = isBoolean && valueMap ? valueMap[yFormatted] : point.data.yFormatted;
 
                     return [
                         // TODO - "No data" in case of a data failure

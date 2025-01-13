@@ -90,7 +90,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         mapRef.current.addControl(geolocate, 'bottom-right');
         mapRef.current.addControl(
             new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
+                accessToken: mapboxgl.accessToken || '',
                 marker: false,
                 placeholder: 'Search location',
                 collapsed: true,
