@@ -224,8 +224,8 @@ export const MapContainer = styled(Box, {
                         backgroundColor: theme.palette.base.color6,
                         backgroundRepeat: 'no-repeat',
                         maskImage: `url("${checkmarkIcon}") `,
-                        '-webkit-mask-position-x': '50%',
-                        '-webkit-mask-position-y': '50%',
+                        WebkitMaskPositionX: '50%',
+                        WebkitMaskPositionY: '50%',
                         backgroundImage: 'none',
                     },
                     '.mapboxgl-ctrl-geocoder--suggestion .custom-suggestion .address': {
@@ -243,8 +243,8 @@ export const MapContainer = styled(Box, {
                     backgroundImage: 'none',
                     backgroundColor: theme.palette.text.text4,
                     maskImage: `url("${closeIcon}") `,
-                    '-webkit-mask-position-x': '50%',
-                    '-webkit-mask-position-y': '50%',
+                    WebkitMaskPositionX: '50%',
+                    WebkitMaskPositionY: '50%',
                 },
             },
         },
@@ -253,8 +253,8 @@ export const MapContainer = styled(Box, {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
             maskImage: `url("${searchIcon}") `,
-            '-webkit-mask-position-x': '50%',
-            '-webkit-mask-position-y': '50%',
+            WebkitMaskPositionX: '50%',
+            WebkitMaskPositionY: '50%',
         },
         '.mapboxgl-ctrl-geocoder--input': {
             color: theme.palette.text.text4,
@@ -286,8 +286,8 @@ export const MapContainer = styled(Box, {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
             maskImage: `url("${plusIcon}") `,
-            '-webkit-mask-position-x': '50%',
-            '-webkit-mask-position-y': '50%',
+            WebkitMaskPositionX: '50%',
+            WebkitMaskPositionY: '50%',
         },
     },
 
@@ -296,8 +296,8 @@ export const MapContainer = styled(Box, {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
             maskImage: `url("${minusIcon}") `,
-            '-webkit-mask-position-x': '50%',
-            '-webkit-mask-position-y': '50%',
+            WebkitMaskPositionX: '50%',
+            WebkitMaskPositionY: '50%',
         },
     },
 
@@ -305,8 +305,8 @@ export const MapContainer = styled(Box, {
         backgroundImage: 'none',
         backgroundColor: theme.palette.text.text4,
         maskImage: `url("${questionIcon}") `,
-        '-webkit-mask-position-x': '50%',
-        '-webkit-mask-position-y': '50%',
+        WebkitMaskPositionX: '50%',
+        WebkitMaskPositionY: '50%',
     },
 
     '.help-menu': {
@@ -352,8 +352,8 @@ export const MapContainer = styled(Box, {
             backgroundImage: 'none',
             backgroundColor: theme.palette.text.text4,
             maskImage: `url("${fullScreenIcon}") `,
-            '-webkit-mask-position-x': '50%',
-            '-webkit-mask-position-y': '50%',
+            WebkitMaskPositionX: '50%',
+            WebkitMaskPositionY: '50%',
         },
     },
 
@@ -391,8 +391,8 @@ export const MapContainer = styled(Box, {
         backgroundImage: 'none',
         backgroundColor: theme.palette.text.text4,
         maskImage: `url("${fullScreenIcon}") `,
-        '-webkit-mask-position-x': '50%',
-        '-webkit-mask-position-y': '50%',
+        WebkitMaskPositionX: '50%',
+        WebkitMaskPositionY: '50%',
     },
 
     '.mapboxgl-ctrl-geolocate': {
@@ -400,8 +400,8 @@ export const MapContainer = styled(Box, {
             backgroundImage: 'none !important',
             backgroundColor: theme.palette.accent.accent,
             maskImage: `url("${locationUserIcon}") `,
-            '-webkit-mask-position-x': '50%',
-            '-webkit-mask-position-y': '50%',
+            WebkitMaskPositionX: '50%',
+            WebkitMaskPositionY: '50%',
         },
     },
 
