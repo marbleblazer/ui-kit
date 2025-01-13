@@ -1,11 +1,7 @@
 import { alpha, styled } from '@mui/material';
 import { TextField } from '../text-field';
 
-interface ISearchInputWrapperProps {
-    isLoading?: boolean;
-}
-
-export const SearchInputWrapper = styled(TextField)<ISearchInputWrapperProps>(({ theme, isLoading }) => ({
+export const SearchInputWrapper = styled(TextField)(({ theme }) => ({
     backgroundColor: theme.palette.background.background2,
     marginTop: 0,
 
@@ -33,17 +29,10 @@ export const SearchInputWrapper = styled(TextField)<ISearchInputWrapperProps>(({
         padding: '4px 12px 4px 0',
         FontSize: '13px',
         height: '20px',
-        color: isLoading ? theme.palette.text.textInput60 : theme.palette.text.text1,
-        cursor: isLoading ? 'wait' : 'text',
-    },
-
-    '&:focus-within .MuiInputBase-input': {
-        color: isLoading ? theme.palette.text.textInput60 : theme.palette.text.text1,
     },
 
     '.MuiInputAdornment-root': {
         width: '24px',
         height: '24px',
-        marginRight: isLoading ? '4px' : '8px',
     },
 }));
