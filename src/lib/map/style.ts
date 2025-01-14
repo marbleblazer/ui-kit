@@ -383,7 +383,7 @@ export const MapContainer = styled(Box, {
         },
 
         '&:hover': {
-            border: `1px solid ${theme.palette.border.secondary}`,
+            border: `1px solid ${theme.palette.border.border3}`,
         },
     },
 
@@ -398,7 +398,7 @@ export const MapContainer = styled(Box, {
     '.mapboxgl-ctrl-geolocate': {
         '& span': {
             backgroundImage: 'none !important',
-            backgroundColor: theme.palette.accent.accent,
+            backgroundColor: theme.palette.base.color6,
             maskImage: `url("${locationUserIcon}") `,
             WebkitMaskPositionX: '50%',
             WebkitMaskPositionY: '50%',
@@ -496,7 +496,7 @@ export const MapContainer = styled(Box, {
         fontSize: '14px',
         lineHeight: '16px',
         color: theme.palette.primary.light,
-        textShadow: `2px 2px 0 ${theme.palette.text.primary}`,
+        textShadow: `2px 2px 0 ${theme.palette.text.text1}`,
         fontFamily: theme.typography.body2.fontFamily,
         textTransform: 'uppercase',
         position: 'absolute',
@@ -508,7 +508,7 @@ export const MapContainer = styled(Box, {
         fontSize: '14px',
         lineHeight: '16px',
         color: theme.palette.primary.light,
-        textShadow: `2px 2px 0 ${theme.palette.text.primary}`,
+        textShadow: `2px 2px 0 ${theme.palette.text.text1}`,
         fontFamily: theme.typography.body2.fontFamily,
         textTransform: 'uppercase',
         position: 'absolute',
@@ -557,7 +557,7 @@ export const MapContainer = styled(Box, {
             marginBottom: '4px',
 
             '&.map-style-button': {
-                stroke: theme.palette.text.primary,
+                stroke: theme.palette.text.text1,
 
                 svg: {
                     opacity: 0.6,
@@ -587,7 +587,7 @@ export const MapContainer = styled(Box, {
             fontFamily: theme.typography.overline.fontFamily,
             backgroundColor: theme.palette.background.paper,
             letterSpacing: '0.05em',
-            color: theme.palette.text.tertiary,
+            color: theme.palette.text.text8,
             padding: '8px',
         },
 

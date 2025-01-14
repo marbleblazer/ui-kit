@@ -250,11 +250,7 @@ export interface CustomPalette extends ReferencePalette {
         quaternary: string;
         fifth: string;
     };
-    accent: {
-        accent: string;
-        accent10: string;
-        accentHover: string;
-    };
+
     // border: {
     //     primary: string;
     //     secondary: string;
@@ -270,10 +266,7 @@ export interface CustomPalette extends ReferencePalette {
     // пока оставляем старые типы для совместимости
     background: CustomTypeBackground & Record<BackgroundColorNameType, string>; // TODO: remove CustomTypeBackground
     text: CustomTypeText & Record<TextColorNameType, string>;
-    border: {
-        primary: string;
-        secondary: string;
-    } & Record<BorderColorNameType, string>;
+    border: Record<BorderColorNameType, string>;
     darkening: Record<DarkeningColorNameType, string>;
     base: Record<BaseColorNameType, string>;
 }

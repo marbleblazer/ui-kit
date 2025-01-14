@@ -20,7 +20,7 @@ export const Title = styled(Typography)(({ theme }) => ({
 //     height: '1px',
 //     width: '100%',
 //     borderRadius: '1px',
-//     background: theme.palette.border.secondary,
+//     background: theme.palette.border.border3,
 // }));
 
 export const StyledStarFilled = styled(StarFilled)(({ theme }) => ({

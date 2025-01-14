@@ -11,29 +11,11 @@ export const lightTheme = (
         palette: {
             ...refLightTheme,
             mode: CurrentTheme.Light,
-            // REFERENCE COLORS
-            // FLEET COLORS
-            // primary: {
-            //     main: '#FF4D14',
-            //     light: '#ffffff',
-            //     dark: '#101010',
-            // },
-            // info: {
-            //     main: '#FF4D14',
-            // },
             shadow: {
                 primary: '0px 3px 40px 2px rgba(0, 0, 0, 0.14), 0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
             },
             background: {
                 ...refLightTheme.background,
-
-                primary: refLightTheme.darkShades.fifth, //'#F4F4F4',
-                secondary: refLightTheme.lightShades.primary, // #FFFFFF
-                tertiary: refLightTheme.lightShades.primary, // #FFFFFF
-                fifth: '#E5E5E5',
-                fifthInput: refLightTheme.darkShades.fifth, //'#F4F4F4',
-
-                // new colors
                 background1: refLightTheme.lightShades.primary, // #FFFFFF
                 background2: refLightTheme.lightShades.primary, // #FFFFFF
                 background3: refLightTheme.lightShades.primary, // #FFFFFF
@@ -49,21 +31,12 @@ export const lightTheme = (
                 background13: alpha(refLightTheme.primaryColors.accent, 0.1), //'#FF4D140D',
                 background14: refLightTheme.lightShades.primary, // #FFFFFF
                 background15: refLightTheme.lightShades.primary, // #FFFFFF
-                background16: refLightTheme.darkShades.fifth, //'#F4F4F4',
+                background16: refDarkTheme.darkShades.fifth, //'#F4F4F4',
             },
             primaryColors: {
                 ...refLightTheme.primaryColors,
             },
-            accent: {
-                accent: refLightTheme.primaryColors.accent, //'#FF4D14',
-                accent10: refLightTheme.additionalColors.buttonSecondary, // #FF4D141A
-                accentHover: refLightTheme.primaryColors.accentHover, // '#E7440F',
-            },
             border: {
-                primary: refLightTheme.borders.primary, //  #bababa1a
-                secondary: refLightTheme.borders.secondary, //#bababa4d
-
-                // new colors
                 border1: alpha(refLightTheme.lightShades.primary, 0.08), // #00000014
                 border2: alpha(refLightTheme.lightShades.primary, 0.08), // #0000001
                 border3: alpha(refLightTheme.lightShades.primary, 0.1), // '#0000001A',/
@@ -75,13 +48,7 @@ export const lightTheme = (
                 input4Error: refLightTheme.alerts.alert, //'#FF4949',
             },
             text: {
-                primary: refLightTheme.widgets.text, //'#101010',
-                secondary: '#353535',
-                tertiary: '#808080',
-                quaternary: '#A2A2A2',
-                fifth: refLightTheme.widgets.text, //'#101010',
-
-                // new colors
+                ...refLightTheme.text,
                 text1: refLightTheme.grey?.[50], //'#000000',
                 text2: refLightTheme.grey?.[50], //'#000000',
                 text3: refLightTheme.grey?.[50], //'#000000',
@@ -97,13 +64,6 @@ export const lightTheme = (
                 textInput80: alpha(refLightTheme.darkShades.secondary, 0.8), //'#5C5C5CCC',
                 textInput802: alpha(refLightTheme.darkShades.secondary, 0.8), //'#5C5C5CCC',
             },
-            // alerts: {
-            //     ...referenceLightThemePalette.alerts,
-            //     green: referenceLightThemePalette.alerts.success, // '#55E050',
-            //     yellow: referenceLightThemePalette.alerts.warning, // '#FFF614',
-            //     red: referenceLightThemePalette.alerts.alert, //'#FF4949',
-            // },
-
             // new colors:
             darkening: {
                 darkening: alpha(refLightTheme.darkShades.ternary, 0.2), //'#A6A6A633',

@@ -11,27 +11,12 @@ export const darkTheme = (
         palette: {
             ...refDarkTheme,
             mode: CurrentTheme.Dark,
-            // primary: {
-            //     main:  '#FF4D14',
-            //     light: '#ffffff',
-            //     dark: '#101010',
-            // },
             shadow: {
                 primary: '0px 3px 40px 2px rgba(0, 0, 0, 0.14), 0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
             },
-            // info: {
-            //     main: '#FF4D14',
-            // },
+
             background: {
                 ...refDarkTheme.background,
-
-                primary: refDarkTheme.darkShades.primary, // '#101010',
-                secondary: refDarkTheme.darkShades.ternary, // '#232323',
-                tertiary: refDarkTheme.darkShades.secondary, //'#171717',
-                fifth: refDarkTheme.darkShades.fifth, // '#444444',
-                fifthInput: refDarkTheme.darkShades.quaternary, // '#353535',
-
-                // new colors
                 background1: refDarkTheme.darkShades.primary, // '#101010',
                 background2: refDarkTheme.darkShades.quaternary, // '#353535',
                 background3: refDarkTheme.darkShades.fifth, // '#444444',
@@ -45,21 +30,12 @@ export const darkTheme = (
                 background11: refDarkTheme.darkShades.fifth, // '#444444',
                 background12: refDarkTheme.darkShades.fifth, // '#444444',
                 background13: refDarkTheme.darkShades.secondary, //'#171717',
-                background14: alpha(refLightTheme.darkShades.primary, 0.5), //'#00000080',
-                background15: alpha(refLightTheme.darkShades.secondary, 0.8), //'#171717CC',
-                background16: alpha(refLightTheme.darkShades.secondary, 0.8), //'#171717CC',
+                background14: alpha(refDarkTheme.darkShades.primary, 0.5), //'#00000080',
+                background15: alpha(refDarkTheme.darkShades.secondary, 0.8), //'#171717CC',
+                background16: alpha(refDarkTheme.darkShades.secondary, 0.8), //'#171717CC',
             },
 
-            accent: {
-                accent: refDarkTheme.primaryColors.accent, // '#FF4D14',
-                accent10: '#FF4D141A',
-                accentHover: refDarkTheme.primaryColors.accentHover, //'#E7440F',
-            },
             border: {
-                primary: refDarkTheme.borders.primary, //'#BABABA1A',
-                secondary: refDarkTheme.borders.secondary, //'#BABABA4D',
-
-                // new colors
                 border1: refDarkTheme.borders.secondary, //'#BABABA4D',
                 border2: alpha(refDarkTheme.darkShades.ternary, 0.1), // '#2323241A',
                 border3: refDarkTheme.borders.primary, //'#BABABA1A',
@@ -70,20 +46,9 @@ export const darkTheme = (
                 input3: refDarkTheme.borders.secondary, //'#BABABA4D',
                 input4Error: refDarkTheme.alerts.alert, //'#FF4949',
             },
-            // alerts: {
-            //     ...referenceLightThemePalette.alerts,
-            //     green: referenceLightThemePalette.alerts.success, // '#55E050',
-            //     yellow: referenceLightThemePalette.alerts.warning, // '#FFF614',
-            //     red: referenceLightThemePalette.alerts.alert, //'#FF4949',
-            // },
-            text: {
-                primary: refDarkTheme.lightShades.primary, //'#FFFFFF',
-                secondary: refDarkTheme.lightShades.secondary, // '#EBEBEB',
-                tertiary: refDarkTheme.lightShades.ternary, // '#BABABA',
-                quaternary: '#A2A2A2',
-                fifth: refDarkTheme.text?.secondary, // '#656565',
 
-                // new colors
+            text: {
+                ...refDarkTheme.text,
                 text1: refDarkTheme.lightShades.secondary, // '#EBEBEB',
                 text2: refDarkTheme.lightShades.primary, //'#FFFFFF',
                 text3: refDarkTheme.lightShades.ternary, // '#BABABA',
@@ -99,7 +64,6 @@ export const darkTheme = (
                 textInput80: refDarkTheme.lightShades.secondary, // '#EBEBEB',
                 textInput802: refDarkTheme.lightShades.ternary, // '#BABABA',
             },
-            // new colors:
             darkening: {
                 darkening: refDarkTheme.darkShades.primary, // '#101010',
             },

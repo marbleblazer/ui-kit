@@ -8,7 +8,7 @@ export const ChirpBigIcon = () => {
         <svg xmlns="http://www.w3.org/2000/svg" width="121" height="122" viewBox="0 0 121 122" fill="none">
             <path
                 d="M108.432 96.965C88.3286 123.696 50.7235 129.335 24.4392 109.568C-1.84509 89.8014 -6.86279 52.1084 13.2401 25.3773C33.3429 -1.35385 70.9481 -6.99285 97.2324 12.774C123.517 32.5408 128.534 70.2339 108.432 96.965Z"
-                fill={palette.text.primary}
+                fill={palette.text.text1}
                 stroke={strokeColor}
                 strokeWidth="0.334254"
             />
