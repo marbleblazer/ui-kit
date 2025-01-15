@@ -5,8 +5,6 @@ export const Row = styled(TableRow)`
     position: relative;
 
     &:hover {
-        // background-color: red;
-
         td:first-of-type {
             position: relative;
         }
@@ -23,7 +21,6 @@ export const Row = styled(TableRow)`
             top: -1px;
             bottom: -1px;
             width: 12px;
-            //  background-color: red;
         }
 
         td:first-of-type:before {

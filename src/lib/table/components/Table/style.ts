@@ -5,7 +5,7 @@ export { Cell } from '../../style';
 
 export const TableWrapper = styled(Box)(({ theme }) => ({
     width: '100%',
-    overflowX: 'hidden',
+    // overflowX: 'hidden',
     backgroundColor: 'transparent',
     td: {
         color: theme.palette.text.text4,
