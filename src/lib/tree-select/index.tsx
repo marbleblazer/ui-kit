@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { Box, Popover, MenuItem, SelectProps } from '@mui/material';
+import { Box, Popover, MenuItem } from '@mui/material';
 import { SimpleTreeView } from '@mui/x-tree-view';
-import { Select } from '../select';
+import { Select, SelectPropsType } from '../select';
 import * as S from './style';
 import { SelectIndicator } from '../select-indicator';
 
@@ -17,7 +17,7 @@ interface TreeSelectProps {
     onChange?: (selectedValue: TreeNodeType) => void;
     selectedNode?: TreeNodeType;
     width?: number | string;
-    selectProps: SelectProps;
+    selectProps: SelectPropsType;
     treeViewMaxHeight?: number;
 }
 

@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
-import { useBreakpoints } from '@chirp/ui/hooks/useBreakpoints';
+import { useBreakpoints } from '@chirp/ui/hooks/use-breakpoints';
 import * as S from './style';
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -32,7 +32,6 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     sx,
     children,
 }) => {
-    const theme = useTheme();
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     // const mapRef = useRef<mapboxgl.Map>(null);
@@ -44,6 +43,12 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         if (!mapRef || !mapRef.current) return;
 
         mapRef.current.setStyle(getMapStyleId(palette.mode));
+
+        // Для обновления цветов в HelpControl
+        if (mapRef.current && mapRef.current._controls) {
+            const helpControl = mapRef.current._controls.find((control) => control instanceof HelpControl);
+            helpControl && helpControl.updatePalette(palette);
+        }
     }, [palette.mode]);
 
     useEffect(() => {
@@ -125,7 +130,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             mapRef.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
         });
 
-        const helpControl = new HelpControl(theme);
+        const helpControl = new HelpControl(palette);
         mapRef.current.addControl(helpControl, 'bottom-left');
 
         return () => {

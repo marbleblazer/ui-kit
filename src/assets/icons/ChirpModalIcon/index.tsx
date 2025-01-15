@@ -8,7 +8,7 @@ export const ChirpModalIcon = () => {
         <svg width="72" height="73" viewBox="0 0 72 73" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M64.5207 57.6968C52.5587 73.6029 30.1821 76.9584 14.5418 65.1963C-1.09842 53.4342 -4.08416 31.0053 7.87787 15.0992C19.8399 -0.806939 42.2165 -4.16238 57.8568 7.5997C73.497 19.3618 76.4827 41.7907 64.5207 57.6968Z"
-                fill={palette.primaryColors.primary}
+                fill={palette.background.background1}
                 stroke={strokeColor}
                 strokeWidth="0.198895"
             />

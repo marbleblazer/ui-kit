@@ -76,10 +76,6 @@ type CustomTypeText = {
 
 type CustomTypeBackground = {
     primary: string;
-    secondary: string;
-    tertiary: string;
-    fifth: string;
-    fifthInput: string;
 };
 
 type BackgroundColorNameType =
@@ -163,12 +159,6 @@ export interface ReferencePalette extends PaletteOptions {
     primaryColors: {
         accent: string;
         accentHover: string;
-
-        primary: string;
-        secondary: string;
-        tertiary: string;
-        quaternary: string;
-        fifth: string;
     };
     darkShades: {
         primary: string;
@@ -236,35 +226,7 @@ export interface CustomPalette extends ReferencePalette {
     shadow: {
         primary: string;
     };
-
-    // TODO: удалить все старые типы
-    // background: CustomTypeBackground;
-    primaryColors: {
-        // reference
-        accent: string;
-        accentHover: string;
-
-        primary: string;
-        secondary: string;
-        tertiary: string;
-        quaternary: string;
-        fifth: string;
-    };
-
-    // border: {
-    //     primary: string;
-    //     secondary: string;
-    // };
-    // text: CustomTypeText; // TODO: remove after move on new design system
-    // alerts: {
-    //     green: string;
-    //     yellow: string;
-    //     red: string;
-    // };
-
-    // new colors
-    // пока оставляем старые типы для совместимости
-    background: CustomTypeBackground & Record<BackgroundColorNameType, string>; // TODO: remove CustomTypeBackground
+    background: CustomTypeBackground & Record<BackgroundColorNameType, string>;
     text: CustomTypeText & Record<TextColorNameType, string>;
     border: Record<BorderColorNameType, string>;
     darkening: Record<DarkeningColorNameType, string>;

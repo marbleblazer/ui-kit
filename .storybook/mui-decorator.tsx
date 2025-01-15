@@ -9,7 +9,7 @@ const MuiDecorator = (StoryComponent: StoryFn, context: StoryContext) => {
     return (
         <ThemeProvider mode={theme}>
             <CssBaseline />
-            <StoryComponent />
+            {StoryComponent(context.args, context)}
         </ThemeProvider>
     );
 };

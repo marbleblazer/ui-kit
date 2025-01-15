@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useState, type JSX } from 'react';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { DonutChart } from '@chirp/ui/lib';
 import { Box } from '@mui/system';

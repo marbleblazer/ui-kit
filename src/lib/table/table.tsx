@@ -2,25 +2,25 @@ import { SxProps } from '@mui/material';
 import { SortingState } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 
-import { Table } from './components/Table';
+import { TableComponent } from './components/table-component';
 import { useReactTable } from './hooks/useReactTable';
 import { TableColumnDef } from './types';
 
-export type Props<TData> = {
-    data: TData[];
-    columns: TableColumnDef<TData>[];
+export interface ITableContainerProps<T> {
+    data: T[];
+    columns: TableColumnDef<T>[];
     sx?: SxProps;
     isLoading?: boolean;
     enableSorting?: boolean;
     defaultSorting?: SortingState;
     expandedRowIndex?: number;
-    onRowClick?(row: TData): void;
+    onRowClick?(row: T): void;
     renderEmptyBlock?(): ReactElement;
-    renderExpandableBlock?(row: TData): ReactElement;
+    renderExpandableBlock?(row: T): ReactElement;
     page?: number;
-};
+}
 
-const TableContainer = <TData,>({
+export const Table = <T,>({
     data,
     columns,
     sx = {},
@@ -32,7 +32,7 @@ const TableContainer = <TData,>({
     renderExpandableBlock,
     renderEmptyBlock,
     page,
-}: Props<TData>) => {
+}: ITableContainerProps<T>) => {
     const { table, rows } = useReactTable({
         data,
         columns,
@@ -41,7 +41,7 @@ const TableContainer = <TData,>({
     });
 
     return (
-        <Table
+        <TableComponent
             table={table}
             rows={rows}
             sx={{
@@ -59,5 +59,3 @@ const TableContainer = <TData,>({
         />
     );
 };
-
-export { TableContainer as Table };
