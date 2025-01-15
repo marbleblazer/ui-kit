@@ -120,7 +120,7 @@ export const createComponents: ComponentCreator = (palette) => ({
         styleOverrides: {
             tooltip: {
                 borderRadius: 0,
-                background: palette?.background?.secondary,
+                background: palette?.background?.background15,
                 padding: '8px 16px',
                 fontSize: '14px',
                 lineHeight: '20px',
@@ -162,7 +162,7 @@ export const createComponents: ComponentCreator = (palette) => ({
             slotProps: {
                 paper: {
                     sx: {
-                        backgroundColor: palette?.background?.fifthInput,
+                        backgroundColor: palette?.background?.background2,
                     },
                 },
             },
@@ -172,7 +172,7 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiPaper: {
         styleOverrides: {
             root: {
-                backgroundColor: palette?.background?.fifthInput,
+                backgroundColor: palette?.background?.background2,
                 backgroundImage: 'none',
                 marginTop: '4px',
             },
