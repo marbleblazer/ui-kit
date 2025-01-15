@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useState, type JSX } from 'react';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { Stack, Typography } from '@mui/material';
 import { BaseWidgetCustomHeader } from '../base-widget/base-widget-custom-header';

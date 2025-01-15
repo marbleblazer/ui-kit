@@ -1,7 +1,8 @@
 import { alpha, styled } from '@mui/material';
 import { Select as MuiSelect } from '@mui/material';
+import { SelectPropsType } from '.';
 
-export const Select = styled(MuiSelect)(({ placeholder, theme }) => ({
+export const Select = styled(MuiSelect)<SelectPropsType>(({ placeholder, theme }) => ({
     backgroundColor: theme.palette.background.background2,
     borderRadius: '8px',
     border: '1px solid',

@@ -44,7 +44,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const [zoomState, setZoomState] = useState(ZOOM_BREAKPOINTS.MEDIUM);
 
     const animationPauseRef = useRef<{ frame: number; coordinates: [number, number][] } | boolean | null>(null);
-    const arrowRef = useRef<HTMLDivElement>();
+    const arrowRef = useRef<HTMLDivElement>(undefined);
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);

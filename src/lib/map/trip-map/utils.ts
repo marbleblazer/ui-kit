@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import moment from 'moment';
 import { mapMarkerSvgString } from '../mp-marker-string';
 import { LineString, Point } from 'geojson';
-import { MutableRefObject, RefObject } from 'react';
+import { RefObject } from 'react';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
 import { Theme } from '@mui/material';
 
@@ -131,8 +131,8 @@ export const createPopupsForLineString = (
 export const renderPoints = (
     geometry: Point,
     popupMarkup: string,
-    map: RefObject<mapboxgl.Map>,
-    markersRef: MutableRefObject<mapboxgl.Marker[]>,
+    map: RefObject<mapboxgl.Map | null>,
+    markersRef: RefObject<mapboxgl.Marker[]>,
     theme: Theme,
 ) => {
     const markerElement = document && document.createElement('div');
@@ -154,8 +154,8 @@ export const renderPoints = (
 /** Рендеринг маркеров при типе "LineString" */
 export const renderLineStringPoints = (
     geometry: LineString,
-    map: RefObject<mapboxgl.Map>,
-    markersRef: MutableRefObject<mapboxgl.Marker[]>,
+    map: RefObject<mapboxgl.Map | null>,
+    markersRef: RefObject<mapboxgl.Marker[]>,
     isLineMarkersNeeded: boolean,
     theme: Theme,
 ) => {

@@ -5,9 +5,9 @@ import { SxProps, Table as MuiTable, TableBody } from '@mui/material';
 import { EmptyFallback } from '@chirp/ui/lib/empty-fallback';
 
 import { TableColumn } from '../../types';
-import { SkeletonRows } from '../SkeletonRows';
-import { TableHead } from '../TableHead';
-import { TableRow } from '../TableRow';
+import { SkeletonRows } from '../skeleton-rows';
+import { TableHead } from '../table-head';
+import { TableRow } from '../table-row';
 import * as S from './style';
 
 type Row<TData> = RowType<TData> & {
@@ -29,7 +29,7 @@ type Props<TData> = {
     renderEmptyBlock?(): ReactElement;
 };
 
-export const Table = <TData,>({
+export const TableComponent = <TData,>({
     table,
     rows: allRows,
     sx = {},

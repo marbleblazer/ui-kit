@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useState, type JSX } from 'react';
 import * as S from './styles';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { Stack, Typography } from '@mui/material';

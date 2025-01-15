@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
-import { useBreakpoints } from '@chirp/ui/hooks/useBreakpoints';
+import { useBreakpoints } from '@chirp/ui/hooks/use-breakpoints';
 import * as S from './style';
 
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
