@@ -3,9 +3,9 @@ import { Row } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { Table } from './components/Table';
+import { TableComponent } from './components/table-component';
 import { useReactTable } from './hooks/useReactTable';
-import { Props as TableProps } from './Table';
+import { ITableContainerProps as TableProps } from './table';
 
 const DEFAULT_ESTIMATE_SIZE = 40;
 const HEADER_SIZE = 50;
@@ -88,7 +88,7 @@ export const TableVirtualized = <TData,>({
             ref={virtualizedRef}
             onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
         >
-            <Table
+            <TableComponent
                 isVirtualized
                 table={table}
                 rows={rows}

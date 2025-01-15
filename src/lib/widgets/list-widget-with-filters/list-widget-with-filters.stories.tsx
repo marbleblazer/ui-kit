@@ -78,7 +78,6 @@ export const Default: Story = {
                                 onChange={() => {}}
                             />
                             <Select
-                                size="small"
                                 placeholder="All"
                                 sx={{
                                     '&.MuiInputBase-root .MuiSelect-select': {

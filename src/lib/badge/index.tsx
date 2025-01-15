@@ -6,7 +6,7 @@ import * as S from './style';
 interface BadgeProps {
     index?: number;
     text: string;
-    getRef?: (index: number) => React.RefObject<HTMLElement>;
+    getRef?: (index: number) => React.RefObject<HTMLElement | null>;
 }
 
 export const Badge = forwardRef(({ index, getRef, text }: BadgeProps, ref) => {

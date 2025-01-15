@@ -1,6 +1,6 @@
-@import './fonts.scss';
-@import './react-toastify.scss';
-@import './sleekplan.scss';
+@forward './fonts.scss';
+@forward './react-toastify.scss';
+@forward './sleekplan.scss';
 
 * {
     margin: 0;
