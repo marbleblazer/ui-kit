@@ -129,20 +129,17 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     useEffect(() => {
         if (!map.current) return;
 
-        const handleStyleLoad = () => addDataToMap(data);
-
         const updateMap = debounce(() => {
             if (map.current?.isStyleLoaded()) {
                 addDataToMap(data);
-            } else {
-                map.current?.on('style.load', handleStyleLoad);
             }
+
+            map.current?.on('style.load', () => addDataToMap(data));
         }, 100);
 
         updateMap();
 
         return () => {
-            map.current?.off('style.load', handleStyleLoad);
             updateMap?.clear();
             if (map.current) map.current.stop();
         };
