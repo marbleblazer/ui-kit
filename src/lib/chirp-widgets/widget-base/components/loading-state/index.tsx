@@ -11,7 +11,7 @@ type LoadingStateProps = {
     isGraphicWidget: boolean;
 };
 
-export const LoadingState: React.FC<LoadingStateProps> = ({ withSensor, showGraph, isGraphicWidget }) => {
+export const LoadingState: React.FC<LoadingStateProps> = ({ showGraph, isGraphicWidget }) => {
     const theme = useTheme();
 
     return (

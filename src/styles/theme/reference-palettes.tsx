@@ -14,13 +14,6 @@ export const referenceDarkThemePalette: ReferencePaletteType = {
     primaryColors: {
         accent: '#ff4d14',
         accentHover: '#e7440f',
-
-        // TODO: remove
-        primary: '#101010',
-        secondary: '#171717',
-        tertiary: '#232323',
-        quaternary: '#353535',
-        fifth: '#444444',
     },
     text: {
         primary: '#ebebeb',
@@ -112,13 +105,6 @@ export const referenceLightThemePalette: ReferencePaletteType = {
     primaryColors: {
         accent: '#ff4d14',
         accentHover: '#e7440f',
-
-        // TODO: remove
-        primary: '#FFFFFF',
-        secondary: '#EBEBEB',
-        tertiary: '#BABABA',
-        quaternary: '#F4F4F4',
-        fifth: '#444444',
     },
     text: {
         primary: '#141414',
