@@ -12,7 +12,7 @@ import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from './utils';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { customDrawStyles } from '../constance';
-import { useTheme } from '@mui/material';
+import { debounce, useTheme } from '@mui/material';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -27,6 +27,7 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     isPaused: boolean;
     onAnimationEnd?: () => void;
 }
+type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 export const TripMap: React.FC<IFeatureMapProps> = ({
     data,
@@ -49,8 +50,9 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
+    const themeRef = useRef(theme);
 
-    const onMapLoad = () => {
+    const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
 
         arrowRef.current = document.createElement('div');
@@ -73,10 +75,10 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         drawRef.current = draw;
         map.current.addControl(draw);
 
-        addDataToMap();
+        addDataToMap(localData);
     };
 
-    const clearMap = useCallback(() => {
+    const clearMap = () => {
         if (!map.current) return;
 
         // Удаление всех маркеров
@@ -84,44 +86,70 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         markersRef.current = []; // Очистка массива маркеров после их удаления
 
         drawRef.current && drawRef.current.deleteAll();
-    }, []);
+    };
 
-    const addDataToMap = useCallback(() => {
+    const addDataToMap = useCallback(
+        (localData?: DataType) => {
+            if (!map.current) return;
+
+            clearMap();
+
+            if (!localData) {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
+                    type: 'FeatureCollection',
+                    features: [],
+                });
+
+                return;
+            }
+
+            if (localData.type === 'FeatureCollection') {
+                for (const feature of localData.features) {
+                    const geometry = feature.geometry;
+
+                    if (geometry.type === 'LineString') {
+                        // Отрисовка маркеров на линии
+                        renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, themeRef.current);
+                    }
+                }
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
+                    type: 'FeatureCollection',
+                    features: localData.features,
+                });
+            } else {
+                (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(localData);
+            }
+
+            // bbox logic
+            const bbox = bboxTurf(localData, { recompute: true });
+            const [west, south, east, north] = bbox;
+            map.current.fitBounds([west, south, east, north], { padding: 50 });
+        },
+        [theme],
+    );
+
+    useEffect(() => {
+        themeRef.current = theme;
+    }, [theme]);
+
+    useEffect(() => {
         if (!map.current) return;
 
-        clearMap();
-
-        if (!data) {
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
-                type: 'FeatureCollection',
-                features: [],
-            });
-
-            return;
-        }
-
-        if (data.type === 'FeatureCollection') {
-            for (const feature of data.features) {
-                const geometry = feature.geometry;
-
-                if (geometry.type === 'LineString') {
-                    // Отрисовка маркеров на линии
-                    renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, theme);
-                }
+        const updateMap = debounce(() => {
+            if (map.current?.isStyleLoaded()) {
+                addDataToMap(data);
             }
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
-                type: 'FeatureCollection',
-                features: data.features,
-            });
-        } else {
-            (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(data);
-        }
 
-        // bbox logic
-        const bbox = bboxTurf(data, { recompute: true });
-        const [west, south, east, north] = bbox;
-        map.current.fitBounds([west, south, east, north], { padding: 50 });
-    }, [data]);
+            map.current?.on('style.load', () => addDataToMap(data));
+        }, 100);
+
+        updateMap();
+
+        return () => {
+            updateMap?.clear();
+            if (map.current) map.current.stop();
+        };
+    }, [data, theme]);
 
     useEffect(() => {
         if (!map.current) return;
@@ -130,14 +158,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         map.current.on('zoom', handleZoomChange);
         map.current.on('move', updatePopups);
-
-        if (map.current.isStyleLoaded()) {
-            addDataToMap();
-        } else {
-            map.current.on('style.load', () => {
-                addDataToMap();
-            });
-        }
 
         return () => {
             map.current?.off('zoom', handleZoomChange);
@@ -302,5 +322,5 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         }
     }, [centeringCoordinates]);
 
-    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad()} />;
+    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
 };
