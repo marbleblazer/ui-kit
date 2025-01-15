@@ -24,9 +24,6 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
-    animateLineId?: number; // id по которому запускается анимация
-    animationDuration?: number;
-    onAnimationEnd?: () => void;
 }
 
 export const FeatureMap: React.FC<IFeatureMapProps> = ({
@@ -35,15 +32,13 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     scrollZoom = true,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
-    animateLineId,
-    animationDuration = 3000,
-    onAnimationEnd,
     ...baseProps
 }) => {
     const theme = useTheme();
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
+    const themeRef = useRef(theme);
 
     const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
@@ -65,7 +60,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         addDataToMap(localData);
     };
 
-    const clearMap = useCallback(() => {
+    const clearMap = () => {
         if (!map.current) return;
 
         // Удаление всех маркеров
@@ -73,7 +68,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         markersRef.current = []; // Очистка массива маркеров после их удаления
 
         drawRef.current && drawRef.current.deleteAll();
-    }, []);
+    };
 
     const addDataToMap = useCallback(
         (localData?: DataType) => {
@@ -101,10 +96,10 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                         if (localData.features.length === 1) {
                             singleMarkerCenter = geometry.coordinates;
                         }
-                        renderPoints(geometry, popupMarkup, map, markersRef, theme);
+                        renderPoints(geometry, popupMarkup, map, markersRef, themeRef.current);
                     } else if (geometry.type === 'LineString') {
                         // Отрисовка маркеров на линии
-                        renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, theme);
+                        renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, themeRef.current);
                     }
                 }
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
@@ -128,19 +123,26 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     );
 
     useEffect(() => {
+        themeRef.current = theme;
+    }, [theme]);
+
+    useEffect(() => {
         if (!map.current) return;
+
+        const handleStyleLoad = () => addDataToMap(data);
 
         const updateMap = debounce(() => {
             if (map.current?.isStyleLoaded()) {
                 addDataToMap(data);
             } else {
-                map.current?.on('style.load', () => addDataToMap(data));
+                map.current?.on('style.load', handleStyleLoad);
             }
         }, 100);
 
         updateMap();
 
         return () => {
+            map.current?.off('style.load', handleStyleLoad);
             updateMap?.clear();
             if (map.current) map.current.stop();
         };
