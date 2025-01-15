@@ -200,7 +200,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
             {isGraphicWidget && !showGraph && (
                 <Box width="100%" paddingX="20px">
                     {period && (
-                        <Typography mb="4px" fontSize="10px" lineHeight="16px" color="text.secondary">
+                        <Typography mb="4px" fontSize="10px" lineHeight="16px" color="text.text8">
                             {period}
                         </Typography>
                     )}
@@ -221,7 +221,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                         timeFormat={graphTimeFormat[timequant]}
                         chartData={chartData}
                         calculatedValues={calculatedValues}
-                        color={isHovered || isAlert ? color : palette.text.secondary}
+                        color={isHovered || isAlert ? color : palette.text.text8}
                         withAxis
                         isInteractive={isInteractive}
                         config={config}

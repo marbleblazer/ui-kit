@@ -98,7 +98,7 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                                 sx={{
                                     mt: 0,
                                     border: 'none',
-                                    backgroundColor: theme.palette.background.secondary,
+                                    backgroundColor: theme.palette.background.background2,
                                     height: '30px',
                                     '& .MuiInputBase-input.MuiOutlinedInput-input': {
                                         padding: '5.5px 12px',

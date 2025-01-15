@@ -54,7 +54,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ withSensor, showGrap
                         <FlatLinearGraph
                             chartData={null}
                             calculatedValues={{ min: null, max: null, avg: null }}
-                            color={theme.palette.text.secondary}
+                            color={theme.palette.text.text8}
                         />
                     </Box>
                 ) : (

@@ -44,7 +44,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     align: 'right',
                     padding: [-20, 15],
                     verticalAlign: 'bottom',
-                    color: theme.palette.text.secondary,
+                    color: theme.palette.text.text8,
                 },
                 axisLine: {
                     show: true,
@@ -57,7 +57,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     show: true,
                     lineStyle: {
                         type: 'dashed',
-                        color: alpha(theme.palette.border.secondary, 0.3),
+                        color: theme.palette.border.border3,
                     },
                 },
             },
@@ -70,7 +70,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     show: true,
                 },
                 nameTextStyle: {
-                    color: theme.palette.text.secondary,
+                    color: theme.palette.text.text8,
                     align: 'right',
                     padding: [-5, 12],
                 },
@@ -91,7 +91,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     show: true,
                     lineStyle: {
                         type: 'dashed',
-                        color: alpha(theme.palette.border.secondary, 0.3),
+                        color: theme.palette.border.border3,
                     },
                 },
             },

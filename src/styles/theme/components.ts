@@ -131,7 +131,7 @@ export const createComponents: ComponentCreator = (palette) => ({
     MuiDivider: {
         styleOverrides: {
             root: {
-                borderColor: palette?.border.primary,
+                borderColor: palette?.border.input,
             },
         },
     },

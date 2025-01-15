@@ -139,7 +139,7 @@ export const CustomDeviceIconBig = () => {
                 width="172"
                 height="172"
                 rx="12"
-                fill={palette.mode === CurrentTheme.Dark ? palette.text.secondary : palette.text.primary}
+                fill={palette.mode === CurrentTheme.Dark ? palette.text.text8 : palette.text.text1}
             />
             <g filter="url(#filter0_d_7815_25461)">
                 <g clipPath="url(#clip0_7815_25461)">

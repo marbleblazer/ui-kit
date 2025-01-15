@@ -57,7 +57,7 @@ export const createFlatChartTheme = (theme: MuiTheme): ChartTheme => ({
     axis: {
         ticks: {
             text: {
-                fill: theme.palette.text.secondary,
+                fill: theme.palette.text.text8,
                 //  8px as was set in Figma is too small
                 fontSize: theme.typography.caption8.fontSize,
                 fontFamily: theme.typography.caption8.fontFamily,
