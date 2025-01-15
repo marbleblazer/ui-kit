@@ -115,7 +115,7 @@ export const LoRaDeviceIconBig: FC<Props> = ({ theme }) => (
             width="172"
             height="172"
             rx="12"
-            fill={theme.palette.mode === CurrentTheme.Dark ? theme.palette.text.secondary : theme.palette.text.primary}
+            fill={theme.palette.mode === CurrentTheme.Dark ? theme.palette.text.text8 : theme.palette.text.text1}
         />
         <g filter="url(#filter0_d_7815_23734)">
             <g clipPath="url(#clip0_7815_23734)">

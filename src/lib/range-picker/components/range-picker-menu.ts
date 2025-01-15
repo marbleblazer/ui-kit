@@ -9,7 +9,7 @@ export const RangePickerMenu = styled(Menu)(({ theme }) => ({
         borderRadius: '8px',
         border: '1px solid',
         borderColor: `${alpha(theme.palette.border.border3, 0.1)} !important`,
-        background: `${theme.palette.background.background16} !important`,
+        background: `${theme.palette.background.background7} !important`,
         padding: '16px',
 
         '.MuiMenu-list': {
@@ -24,9 +24,9 @@ export const RangePickerMenu = styled(Menu)(({ theme }) => ({
                 justifyContent: 'space-between',
                 width: '100%',
             },
-            '&:hover': {
-                background: theme.palette.background.primary,
-            },
+            // '&:hover': {
+            // background: theme.palette.background.primary,
+            // },
         },
     },
 
@@ -39,7 +39,7 @@ export const RangePickerMenu = styled(Menu)(({ theme }) => ({
             right: '0 !important',
             zIndex: '901',
             opacity: 1,
-            background: theme.palette.background.secondary,
+            background: theme.palette.background.background2,
         },
     },
     [theme.breakpoints.between('md', 'lg')]: {
@@ -51,7 +51,7 @@ export const RangePickerMenu = styled(Menu)(({ theme }) => ({
             right: '0 !important',
             zIndex: '901',
             opacity: 1,
-            background: theme.palette.background.secondary,
+            background: theme.palette.background.background2,
         },
     },
 }));

@@ -21,7 +21,7 @@ export const Default: Story = {
             <DialogContent>
                 <DialogContentText sx={{ maxWidth: '420px', textAlign: 'center' }}>
                     Are you sure you want to unshare this device with user{' '}
-                    <Typography component="span" color="text.primary" textTransform="none">
+                    <Typography component="span" color="text.text1" textTransform="none">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dicta eaque asperiores
                         pariatur et, recusandae sed ipsam ad vero sequi molestias veniam eveniet cupiditate provident
                         quis, ratione obcaecati! Perferendis, cupiditate.

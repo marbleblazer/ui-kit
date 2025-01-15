@@ -15,7 +15,7 @@ export const SkeletonContainer = styled(Box)(({ theme: { palette } }) => ({
     position: 'relative',
     width: '100%',
     height: '100%',
-    background: `linear-gradient(240.16deg, ${palette.background.fifth} 0%, rgba(53, 53, 53, 0) 100%)`,
+    background: `linear-gradient(240.16deg, ${palette.background.background6} 0%, rgba(53, 53, 53, 0) 100%)`,
     overflow: 'hidden',
     '--diagonal-length': '0px',
 }));

@@ -14,7 +14,7 @@ import {
 
 export const Dialog = styled(MuiDialog)(({ theme }) => ({
     [`& .${dialogClasses.paper}`]: {
-        background: theme.palette.background.secondary,
+        background: theme.palette.background.background2,
         borderRadius: '12px',
         boxShadow: 'none',
         padding: '20px',
@@ -34,7 +34,7 @@ export const DialogTitle = styled(MuiDialogTitle)(({ theme }) => ({
     [`&.${dialogTitleClasses.root}`]: {
         fontSize: '16px',
         lineHeight: '20px',
-        color: theme.palette.text.primary,
+        color: theme.palette.text.text1,
         marginBottom: '8px',
     },
 }));
@@ -49,7 +49,7 @@ export const DialogContentText = styled(MuiDialogContentText)(({ theme }) => ({
     [`&.${dialogContentTextClasses.root}`]: {
         fontSize: '13px',
         lineHeight: '20px',
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.text8,
         margin: 0,
         textTransform: 'none',
         letterSpacing: '0.5%',
