@@ -49,7 +49,7 @@ export { TextSkeleton } from './text-skeleton';
 
 export { SearchInput } from './search-input';
 
-export { Dropdown } from './dropdown';
+export { DropdownMenu } from './dropdown-menu';
 
 export { Typography } from './typogrpahy';
 
@@ -118,3 +118,7 @@ export { Toggle } from './toggle';
 export { FilterItem } from './filter-item';
 
 export { SystemWidget } from './system-widget';
+
+export { Dropdown } from './dropdown';
+
+export { DropdownMultiselect } from './dropdown-multiselect';

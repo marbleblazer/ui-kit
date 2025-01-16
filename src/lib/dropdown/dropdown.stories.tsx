@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Dropdown } from '@chirp/ui/lib';
 import { useState } from 'react';
+import { PopoverPaper } from '@mui/material/Popover';
 
 const meta: Meta<typeof Dropdown> = {
     title: 'UI/Dropdown',
@@ -15,35 +16,19 @@ export default meta;
 
 type Story = StoryObj<typeof Dropdown>;
 
-const MOCK_DATA = [
-    {
-        id: 1,
-        title: 'Send by Email',
-    },
-    {
-        id: 2,
-        title: 'Planned',
-    },
-    {
-        id: 3,
-        title: 'Export',
-    },
-];
-
 export const Default: Story = {
     render: () => {
         const [openState, setOpenState] = useState(false);
         return (
-            <Dropdown<{ title: string; id: number }>
-                items={MOCK_DATA}
-                resolveTitle={(item) => item.title}
-                onClose={() => setOpenState(false)}
-                onOpen={() => setOpenState(true)}
+            <Dropdown
                 isOpened={openState}
+                anchorEl={
+                    <Button variant="tertiary" onClick={() => setOpenState(!openState)}>
+                        button
+                    </Button>
+                }
             >
-                <Button variant="tertiary" onClick={() => setOpenState(!openState)}>
-                    Show
-                </Button>
+                <PopoverPaper>123</PopoverPaper>
             </Dropdown>
         );
     },
