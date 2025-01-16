@@ -39,7 +39,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ showGraph, isGraphic
                 {showGraph && isGraphicWidget && (
                     <Box width="50%" height="64px" display="flex" justifyContent="end" gap="32px" padding="4px">
                         <Stack paddingTop="24px">
-                            <TextSkeleton height={theme.typography.h1.lineHeight} />
+                            <TextSkeleton height={theme.typography.h2.lineHeight} />
                         </Stack>
 
                         <Box minWidth="8px" overflow="hidden" borderRadius="8px">
@@ -71,7 +71,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ showGraph, isGraphic
                     >
                         <Box marginBottom="4px" paddingX="20px">
                             <Box height="64px">
-                                <TextSkeleton height={theme.typography.h1.lineHeight} />
+                                <TextSkeleton height={theme.typography.h2.lineHeight} />
                             </Box>
                             <Box
                                 sx={{

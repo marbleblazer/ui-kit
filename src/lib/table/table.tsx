@@ -47,7 +47,7 @@ export const Table = <T,>({
             sx={{
                 ...sx,
                 cursor: onRowClick || renderExpandableBlock ? 'pointer' : 'default',
-                overflowX: { xs: 'hidden' },
+                // overflowX: { xs: 'hidden' },
             }}
             isLoading={isLoading}
             enableSorting={enableSorting}

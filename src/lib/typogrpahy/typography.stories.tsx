@@ -24,15 +24,6 @@ export const Default: Story = {
     ),
 };
 
-export const h1: Story = {
-    render: () => (
-        <Typography variant="h1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo error eius adipisci sit harum quidem fugit
-            facilis, ipsa, necessitatibus cumque accusantium ducimus corporis quas, expedita rem? Debitis mollitia
-            consequuntur explicabo?
-        </Typography>
-    ),
-};
 export const h2: Story = {
     render: () => (
         <Typography variant="h2">
@@ -45,15 +36,6 @@ export const h2: Story = {
 export const h3: Story = {
     render: () => (
         <Typography variant="h3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo error eius adipisci sit harum quidem fugit
-            facilis, ipsa, necessitatibus cumque accusantium ducimus corporis quas, expedita rem? Debitis mollitia
-            consequuntur explicabo?
-        </Typography>
-    ),
-};
-export const h4: Story = {
-    render: () => (
-        <Typography variant="h4">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo error eius adipisci sit harum quidem fugit
             facilis, ipsa, necessitatibus cumque accusantium ducimus corporis quas, expedita rem? Debitis mollitia
             consequuntur explicabo?

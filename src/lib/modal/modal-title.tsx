@@ -11,7 +11,7 @@ interface IModalTitleProps {
 
 export const ModalTitle: FC<IModalTitleProps> = ({ title, subTitle, subTitleWidth, margin, size = 'mini' }) => (
     <Stack gap={title && subTitle ? '8px' : '0px'} sx={{ margin }}>
-        <Typography variant={size === 'big' ? 'title20' : 'title16'} textAlign="center" color="text.text1">
+        <Typography variant={size === 'big' ? 'h3' : 'title16'} textAlign="center" color="text.text1">
             {title}
         </Typography>
         <Typography

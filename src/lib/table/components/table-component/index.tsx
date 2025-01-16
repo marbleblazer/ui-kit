@@ -81,7 +81,7 @@ export const TableComponent = <TData,>({
             {rows.length === 0 && isLoading === false && renderEmptyBlock ? (
                 renderEmptyBlock()
             ) : (
-                <MuiTable stickyHeader>
+                <MuiTable stickyHeader sx={{ paddingRight: '12px' }}>
                     {isLoading ? (
                         <SkeletonRows columns={columns} />
                     ) : (
