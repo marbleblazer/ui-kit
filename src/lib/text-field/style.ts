@@ -5,7 +5,7 @@ import { StandardTextFieldProps } from '@mui/material/TextField/TextField';
 export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }) => ({
     borderRadius: '8px',
     marginTop: '20px',
-    ...theme.typography.inputText,
+    ...theme.typography.body1,
 
     '.MuiInputBase-root': {
         backgroundColor: theme.palette.background.background2,
@@ -40,7 +40,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
         paddingTop: '12px',
         paddingLeft: '16px',
         paddingBottom: '10px',
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
 
         '&.MuiInputBase-input': {
             paddingTop: '12px',
@@ -56,7 +56,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
     'input::placeholder': {
         opacity: 0.6,
         color: theme.palette.text.textInput60,
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
     },
 
     '.MuiSelect-icon': {
@@ -84,7 +84,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
         padding: '10px 16px 10px 16px',
         color: theme.palette.text.text1,
         borderRadius: '8px',
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
     },
 
     '.MuiInputBase-root.Mui-error': {
@@ -121,7 +121,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
     },
 
     '& textarea': {
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
         color: theme.palette.text.text1,
     },
 

@@ -2,12 +2,8 @@ import { ThemeOptions } from '@mui/material';
 import { FontStyleOptions, TypographyStyleOptions } from '@mui/material/styles/createTypography';
 
 export type CustomTypographyVariant =
-    | 'h1'
     | 'h2'
     | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
     | 'paragraphPrimary'
     | 'paragraphSecondary'
     | 'subtitle1'
@@ -19,13 +15,9 @@ export type CustomTypographyVariant =
     | 'overline'
 
     // new typos
-    | 'title20'
     | 'title16'
     | 'title14'
     | 'title12'
-    | 'btnPrimary'
-    | 'btnSecondary'
-    | 'inputText'
     | 'inputLabel'
     | 'text16'
     | 'text14'
@@ -62,23 +54,17 @@ export const themeTemplate: CustomThemeOptions = {
     typography: {
         fontSize: 16,
         fontFamily: '"Alliance No.2", Arial, sans-serif',
-        h1: {
-            fontSize: 24,
-            lineHeight: '32px',
-            fontWeight: 500,
-            letterSpacing: 0,
-        },
         h2: {
             fontSize: 20,
             lineHeight: '24px',
             fontWeight: 500,
             letterSpacing: '0.15%',
         },
-        title20: {
+        h3: {
             fontSize: 20,
             lineHeight: '24px',
             fontWeight: 500,
-            letterSpacing: '0.5%',
+            letterSpacing: '0.15px',
         },
         title16: {
             fontSize: 16,
@@ -97,24 +83,6 @@ export const themeTemplate: CustomThemeOptions = {
             lineHeight: '20px',
             fontWeight: 500,
             letterSpacing: '0.4%',
-        },
-        btnPrimary: {
-            fontSize: 13,
-            lineHeight: '20px',
-            fontWeight: 500,
-            letterSpacing: '0.5%',
-        },
-        btnSecondary: {
-            fontSize: 12,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.5%',
-        },
-        inputText: {
-            fontSize: 13,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.5%',
         },
         inputLabel: {
             fontSize: 12,
@@ -192,29 +160,6 @@ export const themeTemplate: CustomThemeOptions = {
             letterSpacing: '0.5%',
             fontFamily: '"Simplon mono", Arial, sans-serif',
         },
-        // TODO: удалить все что снизу после того как эти шрифты перестанут где либо использоваться
-        // h1: {
-        //     fontSize: 40,
-        //     lineHeight: '48px',
-        //     fontWeight: 500,
-        // },
-        // h2: {
-        //     fontSize: 24,
-        //     lineHeight: '32px',
-        //     fontWeight: 500,
-        // },
-        h3: {
-            fontSize: 20,
-            lineHeight: '24px',
-            fontWeight: 500,
-            letterSpacing: '0.15px',
-        },
-        h4: {
-            fontSize: 18,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.3px',
-        },
         paragraphPrimary: {
             fontSize: 14,
             lineHeight: '20px',
@@ -257,7 +202,7 @@ export const themeTemplate: CustomThemeOptions = {
         button: {
             fontSize: 13,
             lineHeight: '16px',
-            fontWeight: 400,
+            fontWeight: 500,
             textTransform: 'none',
             letterSpacing: '0.4px',
             fontFamily: '"Alliance No.2", Arial, sans-serif',

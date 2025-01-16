@@ -6,7 +6,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     cursor: 'pointer',
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
-    ...theme.typography.btnPrimary,
+    ...theme.typography.button,
 
     '.MuiButton-icon': {
         '& > svg': {

@@ -63,7 +63,7 @@ export const StyledTextField = styled(Stack)(({ theme }) => ({
     background: theme.palette.background.background2,
 
     '&, input': {
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
     },
     input: {
         width: 'auto',

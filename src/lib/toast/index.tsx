@@ -11,7 +11,7 @@ export const Toast: React.FC<Props> = ({ message, sx }) => {
     return (
         <S.Root direction="row" gap={2} sx={{ ...sx }}>
             <Typography
-                variant="inputText"
+                variant="body1"
                 sx={{
                     color: 'text.textInput60',
                 }}

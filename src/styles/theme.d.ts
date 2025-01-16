@@ -46,13 +46,9 @@ declare module '@mui/material/Button' {
 }
 
 type CustomTypographyKeys =
-    | 'title20'
     | 'title16'
     | 'title14'
     | 'title12'
-    | 'btnPrimary'
-    | 'btnSecondary'
-    | 'inputText'
     | 'inputLabel'
     | 'text16'
     | 'text14'

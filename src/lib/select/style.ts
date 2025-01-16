@@ -7,7 +7,7 @@ export const Select = styled(MuiSelect)<SelectPropsType>(({ placeholder, theme }
     borderRadius: '8px',
     border: '1px solid',
     borderColor: alpha(theme.palette.border.input, 0.14),
-    ...theme.typography.inputText,
+    ...theme.typography.body1,
     marginTop: '20px',
 
     '&:hover:not(.Mui-disabled)': {
@@ -29,7 +29,7 @@ export const Select = styled(MuiSelect)<SelectPropsType>(({ placeholder, theme }
         paddingTop: '12px',
         paddingLeft: '16px',
         paddingBottom: '8px',
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
 
         '&.MuiInputBase-input': {
             paddingTop: '10px',
@@ -70,14 +70,14 @@ export const Select = styled(MuiSelect)<SelectPropsType>(({ placeholder, theme }
         padding: '12px 16px 8px 16px',
         fontSize: '13px',
         lineHeight: '20px',
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
     },
     fieldset: {
         border: 'none',
         top: 0,
     },
     legend: {
-        ...theme.typography.inputText,
+        ...theme.typography.body1,
         backgroundColor: 'transparent',
         span: {
             padding: 0,
