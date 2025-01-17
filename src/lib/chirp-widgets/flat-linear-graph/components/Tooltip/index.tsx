@@ -20,7 +20,7 @@ export const Tooltip = ({
         <TableTooltip
             rows={[
                 [
-                    <Typography key="date" color="text.text8" variant="text12">
+                    <Typography key="date" color="text.text8" variant="caption12">
                         {dateString}
                     </Typography>,
                 ],

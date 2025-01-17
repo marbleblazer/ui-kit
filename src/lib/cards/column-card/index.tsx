@@ -37,15 +37,15 @@ export const ColumnCard: React.FC<IColumnCardProps> = ({
                     {columns.map((column, index) => (
                         <Grid item key={index} xs={index === columns.length - 1 ? 8 : 4}>
                             <Stack>
-                                <S.ColumnTitleTypography variant="text12">{column.title}</S.ColumnTitleTypography>
+                                <S.ColumnTitleTypography variant="caption12">{column.title}</S.ColumnTitleTypography>
 
                                 {column.data.map((item, itemIndex) =>
                                     tooltipColumnIndex === index ? (
                                         <S.CustomTooltip title={item} placement="top-start" key={itemIndex}>
-                                            <S.ColumnDataTypography variant="text12">{item}</S.ColumnDataTypography>
+                                            <S.ColumnDataTypography variant="caption12">{item}</S.ColumnDataTypography>
                                         </S.CustomTooltip>
                                     ) : (
-                                        <S.ColumnDataTypography variant="text12" key={itemIndex}>
+                                        <S.ColumnDataTypography variant="caption12" key={itemIndex}>
                                             {item}
                                         </S.ColumnDataTypography>
                                     ),

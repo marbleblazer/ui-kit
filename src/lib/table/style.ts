@@ -51,7 +51,7 @@ export const Cell = styled(TableCell)(({ theme }) => ({
     borderBottom: `1px solid ${alpha(theme.palette.border.border3, 0.1)}`,
     opacity: 1,
     color: `${theme.palette.text.text4} !important`,
-    ...theme.typography.text14,
+    ...theme.typography.body1,
 
     [theme.breakpoints.down('lg')]: {
         padding: '8px 6px',

@@ -17,7 +17,7 @@ export interface ICheckboxProps extends CheckboxProps {
 export const Checkbox: FC<ICheckboxProps> = ({
     label,
     variant = 'check',
-    labelTypographyVariant = 'text12',
+    labelTypographyVariant = 'caption12',
     formControlLabelProps,
     ...props
 }) => {

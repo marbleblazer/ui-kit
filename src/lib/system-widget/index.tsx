@@ -36,14 +36,14 @@ export const SystemWidget: FC<Props> = ({ attributeName, title, value, units, da
     return (
         <S.Card>
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb="8px" spacing="16px">
-                <Typography variant="text12" color="text.text4" noWrap title={title}>
+                <Typography variant="caption12" color="text.text4" noWrap title={title}>
                     {title}
                 </Typography>
-                <Typography variant="text12" color="text.text8" flexShrink={0}>
+                <Typography variant="caption12" color="text.text8" flexShrink={0}>
                     Last update:
                     <Typography
                         component="span"
-                        variant="text12"
+                        variant="caption12"
                         color="text.text4"
                         sx={{ verticalAlign: 'bottom', ml: '4px' }}
                     >

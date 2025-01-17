@@ -29,7 +29,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
         left: 0,
         top: '-24px',
         color: theme.palette.text.titleInput,
-        ...theme.typography.inputLabel,
+        ...theme.typography.caption12,
     },
 
     '.MuiFormControl-root.MuiTextField-root': {

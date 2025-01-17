@@ -21,7 +21,7 @@ export const BaseWidgetCustomHeader: FC<IBaseWidgetCustomHeaderProps> = ({ title
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <S.Title variant="title12">{title}</S.Title>
                 </Stack>
-                <S.WidgetTypeName variant="caption10">{typeText}</S.WidgetTypeName>
+                <S.WidgetTypeName variant="overline">{typeText}</S.WidgetTypeName>
             </Stack>
         </Stack>
     );

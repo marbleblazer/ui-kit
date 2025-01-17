@@ -41,11 +41,11 @@ export const VerticalBarsChartWidget = <T,>(props: PropsWithChildren<IVerticalBa
             <Box>
                 <Stack direction="row" gap={4} justifyContent="space-between">
                     <Stack gap={1}>
-                        <Typography sx={{ color: 'text.text8' }} variant="caption10">
+                        <Typography sx={{ color: 'text.text8' }} variant="overline">
                             {listLabel}
                         </Typography>
                         {listData.map((elem) => (
-                            <Typography sx={{ color: 'text.text1' }} key={elem} variant="text12">
+                            <Typography sx={{ color: 'text.text1' }} key={elem} variant="caption12">
                                 {elem}
                             </Typography>
                         ))}

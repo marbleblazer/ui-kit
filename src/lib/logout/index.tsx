@@ -25,7 +25,7 @@ export const Logout: FC<LogoutProps> = ({ onLogout }) => {
             <ListItem onClick={handleLogout}>
                 <ListItemContent>
                     <LogoutIcon />
-                    <Typography variant="mono1213" color="text.text8">
+                    <Typography variant="paragraphSecondary" color="text.text8">
                         Logout
                     </Typography>
                 </ListItemContent>

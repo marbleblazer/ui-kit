@@ -32,7 +32,7 @@ export const BaseListItem: FC<IListItemProps> = ({ title, subTitle, checkboxProp
                     />
                 ) : null}
                 <Stack>
-                    <Typography variant="text14" color="text.text4">
+                    <Typography variant="body1" color="text.text4">
                         {title}
                     </Typography>
                     {subTitle && (

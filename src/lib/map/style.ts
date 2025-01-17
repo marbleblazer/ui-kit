@@ -192,7 +192,7 @@ export const MapContainer = styled(Box, {
 
         '.suggestions-wrapper': {
             '.suggestions': {
-                ...theme.typography.text12,
+                ...theme.typography.caption12,
                 backgroundColor: theme.palette.background.background1,
                 border: `1px solid ${alpha(theme.palette.border.border3, 0.1)}`,
                 borderRadius: '12px',
@@ -274,7 +274,7 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-ctrl-geocoder--input': {
-        ...theme.typography.text1402,
+        ...theme.typography.body1,
         color: theme.palette.text.text1 + '!important',
         height: '28px',
         padding: '10px 36px',
@@ -328,7 +328,7 @@ export const MapContainer = styled(Box, {
         width: '92px',
         height: '22px',
         color: theme.palette.text.text4,
-        ...theme.typography.caption10,
+        ...theme.typography.overline,
         '& svg': {
             width: '22px',
             height: '22px',
@@ -463,7 +463,7 @@ export const MapContainer = styled(Box, {
             border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
             backdropFilter: 'blur(20px)',
             boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
-            ...theme.typography.mono1213,
+            ...theme.typography.paragraphSecondary,
 
             '& .speed': {
                 ...theme.typography.mono10,

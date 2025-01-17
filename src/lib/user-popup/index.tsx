@@ -40,7 +40,7 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                 sx={{ cursor: 'pointer' }}
             >
                 <Avatar sx={{ width: '40px', height: '40px' }} />
-                <Typography variant="text1402" color="text.text4" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                <Typography variant="body1" color="text.text4" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
                     {name}
                 </Typography>
             </Stack>
@@ -88,7 +88,7 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                                     <Stack sx={{ marginLeft: '-4px' }}>
                                         <ThemeSwitch onChange={onChangeMode} checked={isDarkMode} />
                                     </Stack>
-                                    <Typography variant="mono1213" color="text.text8">
+                                    <Typography variant="paragraphSecondary" color="text.text8">
                                         {theme.palette.mode === 'dark' ? 'Dark' : 'Light'}
                                     </Typography>
                                 </S.ListItemContent>

@@ -41,7 +41,7 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                                     sx={{
                                         color: 'text.text8',
                                     }}
-                                    variant="caption10"
+                                    variant="overline"
                                 >
                                     {name}
                                 </Typography>
@@ -69,7 +69,7 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                                     sx={{
                                         color: 'text.text1',
                                     }}
-                                    variant="text12"
+                                    variant="caption12"
                                 >
                                     {String(row[nameKey])}
                                 </Typography>
@@ -77,7 +77,7 @@ export const ListWidget = <T,>(props: PropsWithChildren<IListWidgetProps<T>>) =>
                                     sx={{
                                         color: 'text.text1',
                                     }}
-                                    variant="text12"
+                                    variant="caption12"
                                     textAlign="end"
                                 >
                                     {String(row[valueKey])}

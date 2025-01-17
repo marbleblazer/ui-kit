@@ -36,9 +36,7 @@ export const Default: Story = {
                     type="online"
                     title="Geofences with units"
                 >
-                    <Typography variant="caption10">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </Typography>
+                    <Typography variant="overline">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Typography>
                 </BaseWidget>
             </Box>
         );
