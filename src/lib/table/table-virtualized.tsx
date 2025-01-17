@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { Row } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -31,7 +30,7 @@ export const TableVirtualized = <TData,>({
     renderEmptyBlock,
     renderExpandableBlock,
 }: Props<TData>) => {
-    const virtualizedRef = useRef<HTMLDivElement>(null);
+    const virtualizedRef = useRef<HTMLDivElement | null>(null);
 
     const { table, rows: allRows } = useReactTable({
         data,
@@ -82,28 +81,24 @@ export const TableVirtualized = <TData,>({
     }, [fetchMoreOnBottomReached]);
 
     return (
-        <Box
-            height="100%"
-            overflow="hidden"
-            ref={virtualizedRef}
+        <TableComponent
+            isVirtualized
+            table={table}
+            rows={rows}
+            sx={{
+                ...sx,
+                height: rows.length ? `${tableSize}px` : '100%',
+                cursor: onRowClick ? 'pointer' : 'default',
+                overflowY: 'initial',
+            }}
+            isLoading={isLoading}
+            enableSorting={enableSorting}
+            expandedRowIndex={expandedRowIndex}
+            onRowClick={onRowClick}
+            renderEmptyBlock={renderEmptyBlock}
+            renderExpandableBlock={renderExpandableBlock}
             onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}
-        >
-            <TableComponent
-                isVirtualized
-                table={table}
-                rows={rows}
-                sx={{
-                    ...sx,
-                    height: rows.length ? `${tableSize}px` : '100%',
-                    cursor: onRowClick ? 'pointer' : 'default',
-                }}
-                isLoading={isLoading}
-                enableSorting={enableSorting}
-                expandedRowIndex={expandedRowIndex}
-                onRowClick={onRowClick}
-                renderEmptyBlock={renderEmptyBlock}
-                renderExpandableBlock={renderExpandableBlock}
-            />
-        </Box>
+            ref={virtualizedRef}
+        />
     );
 };
