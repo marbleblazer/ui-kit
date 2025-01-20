@@ -11,7 +11,7 @@ export const PhoneField = styled(TextField, {
         color: alpha(theme.palette.text.textInput60, 0.6),
         height: '40px',
         paddingLeft: '0px',
-        backgroundColor: isDisabled ? theme.palette.background.background8 : 'transparent',
+        backgroundColor: isDisabled ? theme.palette.background.background8 : theme.palette.background.background2,
     },
 
     '& svg': { height: '20px' },
