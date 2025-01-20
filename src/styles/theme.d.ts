@@ -45,22 +45,7 @@ declare module '@mui/material/Button' {
     }
 }
 
-type CustomTypographyKeys =
-    | 'title16'
-    | 'title14'
-    | 'title12'
-    | 'inputLabel'
-    | 'text16'
-    | 'text14'
-    | 'text1402'
-    | 'text13'
-    | 'text12'
-    | 'caption12'
-    | 'caption10'
-    | 'caption8'
-    | 'mono1218'
-    | 'mono1213'
-    | 'mono10';
+type CustomTypographyKeys = 'title16' | 'title14' | 'title12' | 'text13' | 'caption12' | 'caption8' | 'mono10';
 
 type CustomTypeText = {
     primary: string;

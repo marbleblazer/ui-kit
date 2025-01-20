@@ -10,7 +10,7 @@ export const HeadCell = styled(MuiTableCell)(({ theme }) => ({
     color: theme.palette.text.text8,
     whiteSpace: 'nowrap',
     cursor: 'auto',
-    ...theme.typography.text14,
+    ...theme.typography.body1,
 
     span: {
         svg: {

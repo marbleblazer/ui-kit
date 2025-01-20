@@ -87,7 +87,7 @@ export const ImagePreview: FC<IImagePreviewProps> = ({
                                     sx={{
                                         color: 'text.text8',
                                     }}
-                                    variant="text12"
+                                    variant="caption12"
                                     textAlign="center"
                                 >
                                     {subTitle}

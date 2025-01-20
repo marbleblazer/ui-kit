@@ -16,7 +16,7 @@ export const TreeItem = styled(MUITreeItem)<TreeItemProps>(({ theme, level = 0 }
             color: theme.palette.text.textInput80,
             background: 'transparent',
             borderRadius: '0px',
-            ...theme.typography.text14,
+            ...theme.typography.body1,
 
             svg: {
                 color: alpha(theme.palette?.text?.textInput80, 0.8),

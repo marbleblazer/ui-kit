@@ -18,17 +18,9 @@ export type CustomTypographyVariant =
     | 'title16'
     | 'title14'
     | 'title12'
-    | 'inputLabel'
-    | 'text16'
-    | 'text14'
-    | 'text1402'
     | 'text13'
-    | 'text12'
     | 'caption12'
-    | 'caption10'
     | 'caption8'
-    | 'mono1218'
-    | 'mono1213'
     | 'mono10';
 
 export interface CustomThemeTypography
@@ -55,8 +47,8 @@ export const themeTemplate: CustomThemeOptions = {
         fontSize: 16,
         fontFamily: '"Alliance No.2", Arial, sans-serif',
         h2: {
-            fontSize: 20,
-            lineHeight: '24px',
+            fontSize: 24,
+            lineHeight: '32px',
             fontWeight: 500,
             letterSpacing: '0.15%',
         },
@@ -84,40 +76,9 @@ export const themeTemplate: CustomThemeOptions = {
             fontWeight: 500,
             letterSpacing: '0.4%',
         },
-        inputLabel: {
-            fontSize: 12,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.5%',
-        },
-        text16: {
-            fontSize: 16,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.5%',
-        },
-        text14: {
-            fontSize: 14,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.2%',
-        },
-        text1402: {
-            fontSize: 14,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.2px',
-        },
         text13: {
             fontSize: 13,
             lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.5px',
-        },
-
-        text12: {
-            fontSize: 12,
-            lineHeight: '16px',
             fontWeight: 400,
             letterSpacing: '0.5px',
         },
@@ -127,31 +88,11 @@ export const themeTemplate: CustomThemeOptions = {
             fontWeight: 400,
             letterSpacing: '0.4px',
         },
-        caption10: {
-            fontSize: 10,
-            lineHeight: '20px',
-            fontWeight: 400,
-            letterSpacing: '0.2%',
-        },
         caption8: {
             fontSize: 8,
             lineHeight: '20px',
             fontWeight: 400,
             letterSpacing: '0.5%',
-        },
-        mono1218: {
-            fontSize: 12,
-            lineHeight: '18px',
-            fontWeight: 400,
-            letterSpacing: 0,
-            fontFamily: '"Simplon mono", Arial, sans-serif',
-        },
-        mono1213: {
-            fontSize: 12,
-            lineHeight: '13px',
-            fontWeight: 400,
-            letterSpacing: '0.25px',
-            fontFamily: '"Simplon mono", Arial, sans-serif',
         },
         mono10: {
             fontSize: 12,
@@ -169,7 +110,7 @@ export const themeTemplate: CustomThemeOptions = {
         },
         paragraphSecondary: {
             fontSize: 12,
-            lineHeight: '16px',
+            lineHeight: '24px',
             fontWeight: 400,
             letterSpacing: '0.5%',
             fontFamily: '"Simplon mono", Arial, sans-serif',

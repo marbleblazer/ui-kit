@@ -55,7 +55,7 @@ export const ListWidgetWithFilters = <T,>(props: PropsWithChildren<IListWidgetPr
                                     sx={{
                                         color: 'text.text1',
                                     }}
-                                    variant="text12"
+                                    variant="caption12"
                                 >
                                     {String(row[nameKey])}
                                 </Typography>
@@ -63,7 +63,7 @@ export const ListWidgetWithFilters = <T,>(props: PropsWithChildren<IListWidgetPr
                                     sx={{
                                         color: 'text.text1',
                                     }}
-                                    variant="text12"
+                                    variant="caption12"
                                     textAlign="end"
                                 >
                                     {String(row[valueKey])}

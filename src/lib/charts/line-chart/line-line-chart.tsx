@@ -142,9 +142,9 @@ const LineChart: FC<ILineChartProps> = memo(
                 padding: 8,
                 textStyle: {
                     color: theme.palette.text.text4,
-                    fontFamily: theme.typography.mono1213.fontFamily,
-                    fontSize: theme.typography.mono1213.fontSize,
-                    fontWeight: theme.typography.mono1213.fontWeight as number,
+                    fontFamily: theme.typography.paragraphSecondary.fontFamily,
+                    fontSize: theme.typography.paragraphSecondary.fontSize,
+                    fontWeight: theme.typography.paragraphSecondary.fontWeight as number,
                 },
                 shadowBlur: 20,
                 shadowOffsetX: 0,

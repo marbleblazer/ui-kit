@@ -19,7 +19,7 @@ export const CardHeader = styled(Box)(({ theme }) => ({
 }));
 
 export const CardContent = styled(Box)(({ theme }) => ({
-    ...theme.typography.text12,
+    ...theme.typography.caption12,
     minHeight: '20px',
     height: '100%',
     overflow: 'auto',

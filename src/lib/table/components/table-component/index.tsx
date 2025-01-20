@@ -27,6 +27,8 @@ type Props<TData> = {
     onRowClick?(row: TData): void;
     renderExpandableBlock?(row: TData): ReactElement;
     renderEmptyBlock?(): ReactElement;
+    onScroll?: (e: React.UIEvent<HTMLDivElement, UIEvent>) => void;
+    ref?: React.RefObject<HTMLDivElement | null>;
 };
 
 export const TableComponent = <TData,>({
@@ -40,6 +42,8 @@ export const TableComponent = <TData,>({
     onRowClick,
     renderExpandableBlock,
     renderEmptyBlock = () => <EmptyFallback />,
+    onScroll,
+    ref,
 }: Props<TData>) => {
     const columns = table.getVisibleFlatColumns() as TableColumn<TData>[];
 
@@ -72,11 +76,13 @@ export const TableComponent = <TData,>({
 
     return (
         <S.TableWrapper
+            ref={ref}
             sx={{
-                overflowY: 'auto',
                 ...sx,
+                overflowY: 'auto',
                 height: '100%',
             }}
+            onScroll={onScroll}
         >
             {rows.length === 0 && isLoading === false && renderEmptyBlock ? (
                 renderEmptyBlock()

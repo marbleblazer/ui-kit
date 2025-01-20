@@ -1,47 +1,21 @@
-import { PropsWithChildren, useRef } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import { Menu } from '@mui/material';
+import * as React from 'react';
+import { FC, ReactNode, PropsWithChildren } from 'react';
+import { Popper } from '@mui/material';
 
-export interface IDropdownProps<T> {
-    items: T[];
+interface IDropdownProps {
     isOpened?: boolean;
-    gap?: string;
-
-    onOpen: () => void;
-    onClose: () => void;
-    onSelect?: (val: T) => void;
-    resolveTitle: (val: T) => string;
+    anchorEl?: ReactNode;
 }
 
-export const Dropdown = <T,>({
-    children,
-    isOpened = false,
-    onClose,
-    items,
-    resolveTitle,
-    gap = '5px',
-}: PropsWithChildren<IDropdownProps<T>>) => {
-    const controlWrapperRef = useRef(null);
+export const Dropdown: FC<PropsWithChildren<IDropdownProps>> = ({ isOpened = false, anchorEl, children }) => {
+    const anchorElRef = React.useRef<HTMLDivElement>(null);
+
     return (
         <>
-            <div ref={controlWrapperRef}>{children}</div>
-            <Menu
-                sx={{
-                    mt: gap,
-                }}
-                open={isOpened}
-                onClose={onClose}
-                anchorEl={controlWrapperRef.current}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                {items?.map((item, idx) => (
-                    <MenuItem key={idx} onClick={onClose}>
-                        {resolveTitle(item)}
-                    </MenuItem>
-                ))}
-            </Menu>
+            <div ref={anchorElRef}>{anchorEl}</div>
+            <Popper open={isOpened} anchorEl={anchorElRef.current}>
+                {children}
+            </Popper>
         </>
     );
 };

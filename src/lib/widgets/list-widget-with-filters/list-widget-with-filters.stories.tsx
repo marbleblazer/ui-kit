@@ -116,7 +116,7 @@ export const Default: Story = {
                                         sx={{
                                             color: 'text.text8',
                                         }}
-                                        variant="caption10"
+                                        variant="overline"
                                     >
                                         {name}
                                     </Typography>
@@ -128,7 +128,7 @@ export const Default: Story = {
                                         sx={{
                                             color: 'text.text1',
                                         }}
-                                        variant="text12"
+                                        variant="caption12"
                                     >
                                         {item.name}
                                     </Typography>
@@ -136,7 +136,7 @@ export const Default: Story = {
                                         sx={{
                                             color: 'text.text1',
                                         }}
-                                        variant="text12"
+                                        variant="caption12"
                                         textAlign="end"
                                     >
                                         {new Date().toISOString().split('T')[0]}

@@ -147,7 +147,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                     </Stack>
                     {date && (
                         <Box>
-                            <Typography component="span" variant="caption10" color="text.text8">
+                            <Typography component="span" variant="overline" color="text.text8">
                                 Last update:
                             </Typography>
 

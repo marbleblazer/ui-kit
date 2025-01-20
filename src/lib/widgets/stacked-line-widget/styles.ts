@@ -28,6 +28,6 @@ export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     '&.Mui-selected': {
         background: 'transparent',
     },
-    ...theme.typography.text12,
+    ...theme.typography.caption12,
     color: theme.palette.text.text1,
 }));

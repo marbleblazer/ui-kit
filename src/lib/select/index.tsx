@@ -46,7 +46,7 @@ export const Select: FC<SelectPropsType> = ({
                         left: 0,
                         top: '-5px',
                         color: theme.palette.text.titleInput,
-                        ...theme.typography.inputLabel,
+                        ...theme.typography.caption12,
                     },
                 }}
             />
