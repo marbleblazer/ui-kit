@@ -47,6 +47,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         // Для обновления цветов в HelpControl
         if (mapRef.current && mapRef.current._controls) {
             const helpControl = mapRef.current._controls.find((control) => control instanceof HelpControl);
+             // @ts-ignore
             helpControl && helpControl.updatePalette(palette);
         }
     }, [palette.mode]);
@@ -119,6 +120,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         const mapControls = mapRef.current._controls;
         const geocoderControl = mapControls.find((control) => control instanceof MapboxGeocoder);
         if (geocoderControl) {
+            // @ts-ignore
             geocoderControl.setPlaceholder('Search');
         }
 

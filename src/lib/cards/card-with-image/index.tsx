@@ -3,6 +3,7 @@ import * as S from './styles';
 import { BaseCard } from '../base-card';
 import { Stack } from '@mui/material';
 import { ImagePreview } from '../../image-preview';
+import { Typography } from '../../typogrpahy';
 
 interface ICardWithImageProps {
     containerSx?: SxProps;
@@ -39,9 +40,9 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
                     />
                     <Stack sx={{ overflow: 'hidden', whiteSpace: 'nowrap', width: '100%' }}>
                         <S.TitleTypography variant="title16">{title}</S.TitleTypography>
-                        <S.SubtitleTypography variant="title12" sx={{ color: 'text.text8' }}>
+                        <Typography variant="title12" color="text.text8">
                             {subTitle}
-                        </S.SubtitleTypography>
+                        </Typography>
                     </Stack>
                 </Stack>
             }

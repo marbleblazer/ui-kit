@@ -37,11 +37,7 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
                 formatter: `{value} ${unit}`,
             },
             axisLine: {
-                show: true,
-                lineStyle: {
-                    color: theme.palette.border.border3,
-                    type: 'solid',
-                },
+                show: false,
             },
         },
         xAxis: {

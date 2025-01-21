@@ -9,10 +9,6 @@ export const TitleTypography = styled(Typography)(({ theme }) => ({
     textOverflow: 'ellipsis',
 }));
 
-export const SubtitleTypography = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.text8,
-}));
-
 export const CustomTooltip = styled(Tooltip)(() => ({
     width: '77px',
     overflow: 'hidden',

@@ -1,6 +1,6 @@
 import { Autocomplete as MuiAutocomplete, styled } from '@mui/material';
 
-export const Autocomplete = styled(MuiAutocomplete)(({ theme }) => ({
+export const Autocomplete = styled(MuiAutocomplete)(() => ({
     borderRadius: '8px',
     border: 'none',
 

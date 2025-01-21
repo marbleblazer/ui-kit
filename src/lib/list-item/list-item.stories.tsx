@@ -181,7 +181,7 @@ export const AccordionListItemVisible: Story = {
                                 height: '100%',
                             }}
                         >
-                            <Stack direction={'row'} sx={{ color: 'red' }}>
+                            <Stack direction="row" sx={{ color: 'red' }}>
                                 <IconButton size="small" variant="gray" aria-label="comment">
                                     <PenIcon />
                                 </IconButton>

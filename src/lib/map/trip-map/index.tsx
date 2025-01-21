@@ -73,6 +73,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         });
 
         drawRef.current = draw;
+        // https://github.com/mapbox/mapbox-gl-draw/issues/1257
         map.current.addControl(draw);
 
         addDataToMap(localData);
