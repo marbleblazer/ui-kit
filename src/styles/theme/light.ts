@@ -37,9 +37,9 @@ export const lightTheme = (
                 ...refLightTheme.primaryColors,
             },
             border: {
-                border1: alpha(refLightTheme.lightShades.primary, 0.08), // #00000014
-                border2: alpha(refLightTheme.lightShades.primary, 0.08), // #0000001
-                border3: alpha(refLightTheme.lightShades.primary, 0.1), // '#0000001A',/
+                border1: alpha(refLightTheme.darkShades.primary, 0.08), // #00000014
+                border2: alpha(refLightTheme.darkShades.primary, 0.08), // #0000001
+                border3: alpha(refLightTheme.darkShades.primary, 0.1), // '#0000001A',/
                 border4: alpha(refLightTheme.lightShades.primary, 0.2), // '#FFFFFF33',
                 border5: refLightTheme.darkShades.quaternary, // '#E4E4E4',
                 input: alpha(refLightTheme.darkShades.secondary, 0.14), //'#5C5C5C24',
