@@ -53,7 +53,8 @@ export const createComponents: ComponentCreator = (palette) => ({
         },
         styleOverrides: {
             icon: {
-                top: 'calc(50% - 12px)',
+                top: '50%',
+                transform: 'translateY(-50%)',
                 transition: 'transform 200ms',
                 color: palette?.text?.secondary,
             },

@@ -21,3 +21,15 @@ export const Default: Story = {
 export const Simple: Story = {
     render: () => <SimpleBadge text="1209" />,
 };
+
+export const Success: Story = {
+    render: () => <Badge text="Sum of distance: 30 km" variant="success" />,
+};
+
+export const Primary: Story = {
+    render: () => <Badge text="Sum of distance: 30 km" variant="primary" />,
+};
+
+export const Danger: Story = {
+    render: () => <Badge text="Sum of distance: 30 km" variant="danger" />,
+};
