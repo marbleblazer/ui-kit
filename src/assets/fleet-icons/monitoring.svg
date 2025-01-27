@@ -1,27 +1,12 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_13958_40263)">
+<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#a)" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
         <path
-            d="M17.4286 14V16.2857C17.4286 16.5888 17.3082 16.8795 17.0938 17.0938C16.8795 17.3082 16.5888 17.4286 16.2857 17.4286H14"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-            d="M14 2.57144H16.2857C16.5888 2.57144 16.8795 2.69185 17.0938 2.90618C17.3082 3.1205 17.4286 3.41119 17.4286 3.7143V6.00001"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-            d="M2.57143 6.00001V3.7143C2.57143 3.41119 2.69183 3.1205 2.90616 2.90618C3.12049 2.69185 3.41118 2.57144 3.71428 2.57144H6"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-            d="M6 17.4286H3.71428C3.41118 17.4286 3.12049 17.3082 2.90616 17.0938C2.69183 16.8795 2.57143 16.5888 2.57143 16.2857V14"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-            d="M15.1429 10C15.1429 10 12.8571 13.4286 10 13.4286C7.14286 13.4286 4.85715 10 4.85715 10C4.85715 10 7.14286 6.57144 10 6.57144C12.8571 6.57144 15.1429 10 15.1429 10Z"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-            d="M10 10.5714C10.3156 10.5714 10.5714 10.3156 10.5714 10C10.5714 9.68443 10.3156 9.42859 10 9.42859C9.68441 9.42859 9.42857 9.68443 9.42857 10C9.42857 10.3156 9.68441 10.5714 10 10.5714Z"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+            d="M17.429 14v2.286a1.143 1.143 0 0 1-1.143 1.143H14m0-14.858h2.286a1.143 1.143 0 0 1 1.143 1.143V6M2.571 6V3.714a1.143 1.143 0 0 1 1.143-1.143H6m0 14.858H3.714a1.143 1.143 0 0 1-1.143-1.143V14m12.572-4S12.857 13.429 10 13.429C7.143 13.429 4.857 10 4.857 10S7.143 6.571 10 6.571c2.857 0 5.143 3.429 5.143 3.429Z" />
+        <path d="M10 10.571a.571.571 0 1 0 0-1.142.571.571 0 0 0 0 1.142Z" />
     </g>
     <defs>
-        <clipPath id="clip0_13958_40263">
-            <rect width="16" height="16" fill="white" transform="translate(2 2)" />
+        <clipPath id="a">
+            <path fill="#fff" transform="translate(2 2)" d="M0 0h16v16H0z" />
         </clipPath>
     </defs>
 </svg>
