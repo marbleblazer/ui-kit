@@ -122,3 +122,7 @@ export { SystemWidget } from './system-widget';
 export { Dropdown } from './dropdown';
 
 export { DropdownMultiselect } from './dropdown-multiselect';
+
+export { BadgeSelect } from './badge-select';
+
+export { Slider } from './slider';

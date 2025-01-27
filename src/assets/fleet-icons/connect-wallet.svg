@@ -1,41 +1,42 @@
-<svg width="172" height="44" viewBox="0 0 172 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <mask id="mask0_10984_64773" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-9" y="0" width="190" height="44">
-        <ellipse cx="86" cy="22" rx="95" ry="22" fill="url(#paint0_radial_10984_64773)"/>
+<svg width="172" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <mask id="b" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-9" y="0" width="190" height="44">
+        <ellipse cx="86" cy="22" rx="95" ry="22" fill="url(#a)" />
     </mask>
-    <g mask="url(#mask0_10984_64773)">
-        <circle cx="85.5" cy="21.5" r="13.0516" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5003" cy="21.4984" r="11.9289" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4997" cy="21.5016" r="14.1743" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5003" cy="21.4993" r="15.2971" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4998" cy="21.4998" r="16.9811" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5001" cy="21.4992" r="19.2266" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5003" cy="21.5013" r="22.0334" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5003" cy="21.4983" r="25.4015" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5001" cy="21.4982" r="29.3311" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4996" cy="21.4996" r="34.3833" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5001" cy="21.5011" r="39.4355" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4996" cy="21.4986" r="44.4878" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5004" cy="21.4994" r="51.7854" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5004" cy="21.5004" r="68.6262" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4996" cy="21.5005" r="78.1694" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5004" cy="21.4984" r="88.8352" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4999" cy="21.5018" r="100.624" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5" cy="21.499" r="113.535" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5" cy="21.5" r="130.376" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4998" cy="21.4998" r="147.778" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4998" cy="21.5017" r="167.987" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5004" cy="21.5014" r="189.319" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4997" cy="21.4987" r="211.773" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4998" cy="21.4998" r="238.157" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.4999" cy="21.5019" r="267.909" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5001" cy="21.501" r="301.029" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5" cy="21.5" r="338.079" stroke="#353535" stroke-width="0.84204"/>
-        <circle cx="85.5001" cy="21.4991" r="59.6445" stroke="#353535" stroke-width="0.84204"/>
+    <g mask="url(#b)" stroke="#353535" stroke-width=".842">
+        <circle cx="85.5" cy="21.5" r="13.052" />
+        <circle cx="85.5" cy="21.498" r="11.929" />
+        <circle cx="85.5" cy="21.502" r="14.174" />
+        <circle cx="85.5" cy="21.499" r="15.297" />
+        <circle cx="85.5" cy="21.5" r="16.981" />
+        <circle cx="85.5" cy="21.499" r="19.227" />
+        <circle cx="85.5" cy="21.501" r="22.033" />
+        <circle cx="85.5" cy="21.498" r="25.401" />
+        <circle cx="85.5" cy="21.498" r="29.331" />
+        <circle cx="85.5" cy="21.5" r="34.383" />
+        <circle cx="85.5" cy="21.501" r="39.435" />
+        <circle cx="85.5" cy="21.499" r="44.488" />
+        <circle cx="85.5" cy="21.499" r="51.785" />
+        <circle cx="85.5" cy="21.5" r="68.626" />
+        <circle cx="85.5" cy="21.5" r="78.169" />
+        <circle cx="85.5" cy="21.498" r="88.835" />
+        <circle cx="85.5" cy="21.502" r="100.624" />
+        <circle cx="85.5" cy="21.499" r="113.535" />
+        <circle cx="85.5" cy="21.5" r="130.376" />
+        <circle cx="85.5" cy="21.5" r="147.778" />
+        <circle cx="85.5" cy="21.502" r="167.987" />
+        <circle cx="85.5" cy="21.501" r="189.319" />
+        <circle cx="85.5" cy="21.499" r="211.773" />
+        <circle cx="85.5" cy="21.5" r="238.157" />
+        <circle cx="85.5" cy="21.502" r="267.909" />
+        <circle cx="85.5" cy="21.501" r="301.029" />
+        <circle cx="85.5" cy="21.5" r="338.079" />
+        <circle cx="85.5" cy="21.499" r="59.645" />
     </g>
     <defs>
-        <radialGradient id="paint0_radial_10984_64773" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(86 22) rotate(90) scale(22 95)">
-            <stop stop-color="#D9D9D9"/>
-            <stop offset="1" stop-color="#737373" stop-opacity="0"/>
+        <radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+            gradientTransform="matrix(0 22 -95 0 86 22)">
+            <stop stop-color="#D9D9D9" />
+            <stop offset="1" stop-color="#737373" stop-opacity="0" />
         </radialGradient>
     </defs>
 </svg>

@@ -30,12 +30,12 @@ export const ColorListItem: FC<IColorListItemProps> = ({ color, name, value, onC
         >
             <Stack direction="row" gap={1} alignItems="center">
                 <S.Marker sx={{ backgroundColor: color }} />
-                <Typography variant="caption12" sx={{ color: 'text.text1' }}>
+                <Typography variant="caption12" color="text.text1">
                     {name}
                 </Typography>
             </Stack>
             {value === null ? null : (
-                <Typography variant="caption12" sx={{ color: 'text.text1' }}>
+                <Typography variant="caption12" color="text.text1">
                     {value}
                 </Typography>
             )}

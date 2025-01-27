@@ -35,7 +35,7 @@ export const Default: Story = {
                     isFavorite={favoriteState}
                     onFavoriteClick={() => setFavoriteState(!favoriteState)}
                     onDeleteClick={() => setDeleteState(!deleteState)}
-                    collection={mockBarsData}
+                    collection={[mockBarsData[0]]}
                     listLabel="Units"
                     valueKey="total"
                     nameKey="name"

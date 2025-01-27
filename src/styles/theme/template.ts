@@ -84,7 +84,7 @@ export const themeTemplate: CustomThemeOptions = {
         },
         caption12: {
             fontSize: 12,
-            lineHeight: '20px',
+            lineHeight: '16px',
             fontWeight: 400,
             letterSpacing: '0.4px',
         },
