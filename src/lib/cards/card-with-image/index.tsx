@@ -1,7 +1,7 @@
 import { SxProps } from '@mui/system/styleFunctionSx';
 import * as S from './styles';
 import { BaseCard } from '../base-card';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { ImagePreview } from '../../image-preview';
 import { Typography } from '../../typogrpahy';
 
@@ -31,13 +31,15 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
             contentSx={contentSx}
             headerChildren={
                 <Stack flexDirection="row" gap="16px" alignItems="center">
-                    <ImagePreview
-                        previewUrl={image ?? ''}
-                        title="Photo"
-                        borderRadius="8px"
-                        width="48px"
-                        height="48px"
-                    />
+                    <Box>
+                        <ImagePreview
+                            previewUrl={image ?? ''}
+                            title="Photo"
+                            borderRadius="8px"
+                            width="48px"
+                            height="48px"
+                        />
+                    </Box>
                     <Stack sx={{ overflow: 'hidden', whiteSpace: 'nowrap', width: '100%' }}>
                         <S.TitleTypography variant="title16">{title}</S.TitleTypography>
                         <Typography variant="title12" color="text.text8">
