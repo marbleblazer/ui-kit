@@ -31,7 +31,7 @@ export const lightTheme = (
                 background13: alpha(refLightTheme.primaryColors.accent, 0.1), //'#FF4D140D',
                 background14: refLightTheme.lightShades.primary, // #FFFFFF
                 background15: refLightTheme.lightShades.primary, // #FFFFFF
-                background16: refDarkTheme.darkShades.fifth, //'#F4F4F4',
+                background16: refLightTheme.darkShades.fifth, //'#F4F4F4',
             },
             primaryColors: {
                 ...refLightTheme.primaryColors,
