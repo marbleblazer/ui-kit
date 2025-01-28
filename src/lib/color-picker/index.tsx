@@ -93,6 +93,9 @@ export const ColorPicker: FC<IColorPickerProps> = ({
                 onClose={() => setPopoverState(false)}
                 sx={{
                     transform: 'translateX(44px)',
+                    '.MuiPaper-root': {
+                        borderRadius: '10px',
+                    },
                 }}
                 anchorOrigin={{
                     vertical: 'top',
