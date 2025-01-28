@@ -12,6 +12,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.background16,
     borderRadius: '10px',
     width: '300px',
+    overflow: 'hidden',
     height: '521px',
     '.react-colorful': {
         width: '300px',
@@ -63,6 +64,7 @@ export const StyledTextField = styled(Stack)(({ theme }) => ({
     background: theme.palette.background.background2,
 
     '&, input': {
+        color: theme.palette.text.text1,
         ...theme.typography.body1,
     },
     input: {

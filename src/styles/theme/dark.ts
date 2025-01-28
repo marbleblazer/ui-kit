@@ -41,7 +41,7 @@ export const darkTheme = (
                 border3: refDarkTheme.borders.primary, //'#BABABA1A',
                 border4: alpha(refLightTheme.darkShades.primary, 0.2), //'#00000033',
                 border5: refDarkTheme.borders.secondary, //'#BABABA4D',
-                input: alpha(refDarkTheme.darkShades.secondary, 0.14), //'#5C5C5C24',
+                input: alpha(refLightTheme.darkShades.secondary, 0.14), //'#5C5C5C24',
                 input2: alpha(refDarkTheme.darkShades.secondary, 0.24), //'#5C5C5C3D',
                 input3: refDarkTheme.borders.secondary, //'#BABABA4D',
                 input4Error: refDarkTheme.alerts.alert, //'#FF4949',
