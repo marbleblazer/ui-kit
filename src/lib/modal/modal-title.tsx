@@ -15,7 +15,7 @@ export const ModalTitle: FC<IModalTitleProps> = ({ title, subTitle, subTitleWidt
             {title}
         </Typography>
         <Typography
-            variant={size === 'big' ? 'title16' : 'title12'}
+            variant={size === 'big' ? 'subtitle1' : 'caption12'}
             textAlign="center"
             color="text.text8"
             width={subTitleWidth}
