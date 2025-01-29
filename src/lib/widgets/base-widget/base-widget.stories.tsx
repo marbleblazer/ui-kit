@@ -42,3 +42,31 @@ export const Default: Story = {
         );
     },
 };
+
+export const Disabled: Story = {
+    render: () => {
+        const [favoriteState, setFavoriteState] = useState(false);
+        const [deleteState, setDeleteState] = useState(false);
+        return (
+            <Box
+                p={5}
+                sx={{
+                    width: '440px',
+                    height: '487px',
+                    background: 'gray',
+                }}
+            >
+                <BaseWidget
+                    isFavorite={favoriteState}
+                    onFavoriteClick={() => setFavoriteState(!favoriteState)}
+                    onDeleteClick={() => setDeleteState(!deleteState)}
+                    type="online"
+                    title="Geofences with units"
+                    deleteDisabled
+                >
+                    <Typography variant="overline">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Typography>
+                </BaseWidget>
+            </Box>
+        );
+    },
+};
