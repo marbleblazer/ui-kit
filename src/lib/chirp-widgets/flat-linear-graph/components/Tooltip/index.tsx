@@ -20,7 +20,7 @@ export const Tooltip = ({
         <TableTooltip
             rows={[
                 [
-                    <Typography key="date" color="text.text8" variant="caption12">
+                    <Typography key="date" color="text.text8" variant="caption12" component="span">
                         {dateString}
                     </Typography>,
                 ],
@@ -38,7 +38,7 @@ export const Tooltip = ({
 
                     return [
                         // TODO - "No data" in case of a data failure
-                        <Typography key="value" color={theme.palette.text.text4}>
+                        <Typography key="value" color={theme.palette.text.text4} component="span">
                             <div>
                                 <Typography variant="text13" color={theme.palette.text.text4}>
                                     Current {value}
