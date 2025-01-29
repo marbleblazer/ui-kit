@@ -68,7 +68,6 @@ export const PhoneField = styled(TextField, {
 
     '.MuiSelect-icon': {
         right: '0px !important',
-        top: '10px',
         color: alpha(theme.palette.text.textInput60, 0.6) + '!important',
     },
 
