@@ -63,6 +63,7 @@ export const Settings: FC<SettingsProps> = ({
             disableHoverListener
             open={isOpen}
             placement="bottom-end"
+            sx={{ display: 'inline-flex' }}
             title={
                 <ClickAwayListener onClickAway={handleTooltipClose}>
                     <Stack minWidth="240px" py="10px">
@@ -143,6 +144,7 @@ export const Settings: FC<SettingsProps> = ({
                     alignSelf: 'flex-start',
                     zIndex: 10,
                     '&:hover': { color: 'text.text4' },
+                    padding: 0,
                 }}
                 onClick={handleTooltipOpen}
             >

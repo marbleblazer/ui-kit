@@ -29,6 +29,10 @@ export const SwitchViewButton: React.FC<Props> = ({
                     color: isAccent ? 'base.hover' : 'text.text4',
                     bgcolor: 'transparent',
                 },
+                svg: {
+                    width: '16px',
+                    height: '16px',
+                },
             }}
             disabled={disabled}
             onClick={handleClick}

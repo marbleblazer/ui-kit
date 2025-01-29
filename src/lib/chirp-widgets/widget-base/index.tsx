@@ -130,7 +130,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
             onMouseLeave={handleMouseLeave}
         >
             <Stack px="20px" direction="row" alignItems="flex-start" justifyContent="space-between">
-                <Stack maxWidth="50%" minHeight="40px">
+                <Stack maxWidth="50%" minHeight="40px" justifyContent="space-around">
                     <Stack alignItems="center" direction="row" spacing="8px">
                         {config.icon &&
                             config.icon !== 'none' &&
@@ -157,7 +157,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                         </Box>
                     )}
                 </Stack>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Stack flexDirection="row" alignItems="center" gap="10px">
                     {isGraphicWidget && (
                         <Settings
                             units={unitsOfMeasurement}
@@ -180,8 +180,11 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                             switchView={switchView}
                         />
                     )}
-                </Box>
+                </Stack>
             </Stack>
+            <Box sx={{ position: 'absolute', top: '44px', right: '20px' }}>
+                {isGraphView && <Legend color={color} />}
+            </Box>
             <Stack
                 direction="row"
                 justifyContent={isGraphicWidget ? 'space-between' : 'center'}
@@ -195,7 +198,6 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                     postfix={postfix}
                     color={isGraphicWidget && !showGraph ? currentColor : color}
                 />
-                {isGraphView && <Legend color={color} />}
             </Stack>
             {isGraphicWidget && !showGraph && (
                 <Box width="100%" paddingX="20px">
