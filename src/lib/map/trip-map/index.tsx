@@ -57,7 +57,9 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         arrowRef.current = document.createElement('div');
         arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
-        arrowRef.current.className = 'map-marker-arrow';
+        arrowRef.current.style.width = '34px';
+        arrowRef.current.style.height = '34px';
+        arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
@@ -268,18 +270,12 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             data.features.forEach((feature) => {
                 if (feature.geometry.type === 'LineString') {
                     const { coordinates } = feature.geometry;
-                    const { speeds, serverTimes } = feature.properties as {
+                    const { speeds, time } = feature.properties as {
                         speeds: (number | null)[];
-                        serverTimes: (string | null)[];
+                        time: (string | null)[];
                     };
-                    if (speeds && serverTimes) {
-                        createPopupsForLineString(
-                            map.current!,
-                            coordinates as [number, number][],
-                            speeds,
-                            serverTimes,
-                            zoom,
-                        );
+                    if (speeds && time) {
+                        createPopupsForLineString(map.current!, coordinates as [number, number][], speeds, time, zoom);
                     }
                 }
             });
