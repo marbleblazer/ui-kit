@@ -446,13 +446,14 @@ export const MapContainer = styled(Box, {
     },
 
     '.mapboxgl-popup.speed-popup': {
+        width: '142px',
+        height: '57px',
+
         '.mapboxgl-popup-tip': {
             display: 'none',
         },
 
         '& .mapboxgl-popup-content': {
-            width: '146px',
-            height: '46px',
             display: 'flex',
             flexDirection: 'column',
             gap: '4px',
@@ -617,6 +618,12 @@ export const MapContainer = styled(Box, {
                 transform: 'translate(-50%, -50%)',
             },
         },
+    },
+
+    '.map-marker-arrow': {
+        width: 'auto',
+        height: 'auto',
+        transformOrigin: 'center',
     },
 }));
 
