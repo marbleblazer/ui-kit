@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DrawableMap, FeatureMap, TripMap } from '@chirp/ui/lib';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/material';
 import { useState } from 'react';
 import { mockSecondTripData, mockTripData } from './mock';
-import { useTheme } from '@emotion/react';
 
 const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
@@ -189,6 +188,41 @@ export const LineWithPolygons: Story = {
                 ) : (
                     <Box>No features to display</Box>
                 )}
+            </Box>
+        );
+    },
+};
+
+export const Centering: Story = {
+    render: () => {
+        const [data, setData] = useState(0);
+
+        const centers = [
+            {
+                lat: 27.707938391380537,
+                lon: 50.629305557231135,
+            },
+            { lat: 35.707938391380537, lon: 50.629305557231135 },
+            { lat: 45.707938391380537, lon: 50.629305557231135 },
+        ];
+
+        return (
+            <Box sx={{ width: '500px', height: '500px' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 2 }}>
+                    <label>
+                        <input type="checkbox" checked={data === 0} onChange={() => setData(0)} />
+                        Line 1
+                    </label>
+                    <label>
+                        <input type="checkbox" checked={data === 1} onChange={() => setData(1)} />
+                        Line 2
+                    </label>
+                    <label>
+                        <input type="checkbox" checked={data === 2} onChange={() => setData(2)} />
+                        Line 3
+                    </label>
+                </Box>
+                <FeatureMap data={null} centeringCoordinates={centers[data]} />
             </Box>
         );
     },

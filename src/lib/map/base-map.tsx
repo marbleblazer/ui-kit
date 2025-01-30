@@ -47,7 +47,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         // Для обновления цветов в HelpControl
         if (mapRef.current && mapRef.current._controls) {
             const helpControl = mapRef.current._controls.find((control) => control instanceof HelpControl);
-             // @ts-ignore
+            // @ts-ignore
             helpControl && helpControl.updatePalette(palette);
         }
     }, [palette.mode]);
@@ -60,7 +60,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             container: mapContainer.current || '',
             style: getMapStyleId(palette.mode),
             zoom: 6,
-            minZoom: 4,
+            minZoom: 1,
             projection: { name: 'equirectangular' },
             scrollZoom,
             logoPosition: 'bottom-right',
