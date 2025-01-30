@@ -619,6 +619,12 @@ export const MapContainer = styled(Box, {
             },
         },
     },
+
+    '.map-marker-arrow': {
+        width: 'auto',
+        height: 'auto',
+        transformOrigin: 'center',
+    },
 }));
 
 export const MapDrawModeTabsWrapper = styled(Box)(({ theme }) => ({
