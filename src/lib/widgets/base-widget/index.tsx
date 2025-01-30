@@ -13,6 +13,7 @@ export interface IBaseWidgetProps {
     onDeleteClick: () => void;
     wrapperSxProps?: SxProps;
     deleteDisabled?: boolean;
+    makeFavouriteDisabled?: boolean;
 }
 
 export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
@@ -24,6 +25,7 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
     onFavoriteClick,
     onDeleteClick,
     deleteDisabled = false,
+    makeFavouriteDisabled = false,
     children,
 }) => {
     const resolveWidgetTypName = type === 'period' ? 'Data for period ' : 'Online data';
@@ -40,7 +42,12 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
                                 <S.WidgetTypeName variant="overline">{resolveWidgetTypName}</S.WidgetTypeName>
                             </Stack>
                             <Stack direction="row">
-                                <IconButton size="small" variant="gray" onClick={onFavoriteClick}>
+                                <IconButton
+                                    disabled={makeFavouriteDisabled}
+                                    size="small"
+                                    variant="gray"
+                                    onClick={onFavoriteClick}
+                                >
                                     {isFavorite ? <S.StyledStarFilled /> : <StarIcon />}
                                 </IconButton>
                                 <IconButton
