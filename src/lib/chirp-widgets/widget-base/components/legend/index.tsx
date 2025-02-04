@@ -1,5 +1,6 @@
 import { Stack, Typography, useTheme } from '@mui/material';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface LegendProps {
     color: string;
@@ -7,6 +8,7 @@ interface LegendProps {
 
 export const Legend: React.FC<LegendProps> = ({ color }) => {
     const { palette } = useTheme();
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
     const minColor = palette.additionalColors.blue;
     const maxColor = palette.alerts.alert;
     const avgColor = palette.additionalColors.air;
@@ -18,7 +20,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                     <line y1="0.5" x2="9" y2="0.5" stroke={color} />
                 </svg>
                 <Typography fontSize="12px" lineHeight="16px">
-                    Current
+                    {t('current')}
                 </Typography>
             </Stack>
             <Stack alignItems="center" direction="row" spacing="6px">
@@ -67,7 +69,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                 </svg>
 
                 <Typography fontSize="12px" lineHeight="16px">
-                    Average
+                    {t('average')}
                 </Typography>
             </Stack>
             <Stack alignItems="center" direction="row" spacing="6px">
@@ -85,7 +87,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                 </svg>
 
                 <Typography fontSize="12px" lineHeight="16px">
-                    Normal
+                    {t('normal')}
                 </Typography>
             </Stack>
             <Stack alignItems="center" direction="row" spacing="6px">
@@ -127,7 +129,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                 </svg>
 
                 <Typography fontSize="12px" lineHeight="16px">
-                    Max
+                    {t('max')}
                 </Typography>
             </Stack>
             <Stack alignItems="center" direction="row" spacing="6px">
@@ -172,7 +174,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                 </svg>
 
                 <Typography fontSize="12px" lineHeight="16px">
-                    Min
+                    {t('min')}
                 </Typography>
             </Stack>
         </Stack>

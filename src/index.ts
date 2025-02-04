@@ -27,3 +27,5 @@ export { lightTheme } from './styles/theme/light';
 export { darkTheme } from './styles/theme/dark';
 
 export { type ReferencePaletteType } from './styles/theme/types';
+
+export { uiKitLocaleModule } from './locales/resources/merged-resourses';

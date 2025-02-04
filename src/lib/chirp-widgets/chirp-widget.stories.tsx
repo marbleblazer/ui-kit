@@ -112,6 +112,53 @@ export const Boolean: Story = {
     },
 };
 
+export const NoData: Story = {
+    render: () => {
+        const [configTypeState, setConfigTypeState] = useState<boolean>(false);
+
+        const handleSwitchView = () => {
+            setConfigTypeState((prev) => !prev);
+        };
+
+        return (
+            <Box width="414px">
+                {configTypeState ? (
+                    <SystemWidget
+                        attributeName="allgateways"
+                        title="All gateways"
+                        value={true}
+                        units={null}
+                        date={0}
+                        switchView={handleSwitchView}
+                    />
+                ) : (
+                    <ChirpWidget
+                        deviceId="28584348-d0b1-4d74-8182-7c2343ba30be"
+                        lastSeen={1734513384}
+                        graphValues={null}
+                        attributeName="valveState"
+                        isLoading={false}
+                        isError={false}
+                        timequant="hour"
+                        switchView={handleSwitchView}
+                        config={{
+                            type: WidgetTypes.Boolean,
+                            sensor_type: 'none',
+                            display_value: 'avg',
+                            alertColor: '',
+                            color: 'text.text1',
+                            title: '',
+                            units: '',
+                            icon: '',
+                            value_map: '',
+                        }}
+                    />
+                )}
+            </Box>
+        );
+    },
+};
+
 export const Graphic: Story = {
     render: () => {
         const [configTypeState, setConfigTypeState] = useState<boolean>(false);

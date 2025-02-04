@@ -1,0 +1,226 @@
+{
+    "en": {
+        "widgets": {
+            "No data": "No data",
+            "Current value": "Current {{value}}",
+            "Max value": "Max {{value}}",
+            "Min value": "Min {{value}}",
+            "average": "Average",
+            "current": "Current",
+            "normal": "Normal",
+            "max": "Max",
+            "min": "Min",
+            "Last update": "Last update:",
+            "Show graph": "Show Graph",
+            "Units of measurement": "Units of measurement",
+            "Set the optimal value range": "Set the optimal value range",
+            "Reset": "Reset"
+        },
+        "colorPicker": {
+            "Color": "Color"
+        },
+        "logout": {
+            "Logout": "Logout",
+            "modal": {
+                "Are you sure that you want to logout?": "Are you sure that you want to logout?"
+            }
+        },
+        "map": {
+            "Your location": "Your location",
+            "GPS tracker": "GPS tracker",
+            "Search location": "Search location",
+            "Search": "Search"
+        },
+        "modal": {
+            "Cancel": "Cancel",
+            "Confirm": "Confirm"
+        },
+        "DropdownMultiselect": {
+            "Search by name": "Search by name"
+        },
+        "SearchInput": {
+            "Search location": "Search location"
+        },
+        "RangePicker": {
+            "Choose date range": "Choose date range",
+            "Start date": "Start date",
+            "End date": "End date",
+            "Input": "Input",
+            "Label": "Label",
+            "Clear data range": "Clear data range",
+            "Apply changes": "Apply changes"
+        },
+        "UserPopup": {
+            "Connect your wallet": "Connect your wallet",
+            "themeSwith": {
+                "Dark": "Dark",
+                "Light": "Light"
+            }
+        }
+    },
+    "de": {
+        "widgets": {
+            "No data": "Keine Daten",
+            "Current value": "Aktueller Wert: {{value}}",
+            "Max value": "Maximalwert: {{value}}",
+            "Min value": "Minimalwert: {{value}}",
+            "average": "Durchschnitt",
+            "current": "Aktuell",
+            "normal": "Normal",
+            "max": "Max",
+            "min": "Min",
+            "Last update": "Letzte Aktualisierung:",
+            "Show graph": "Diagramm anzeigen",
+            "Units of measurement": "Maßeinheiten",
+            "Set the optimal value range": "Optimalen Wertebereich festlegen",
+            "Reset": "Zurücksetzen"
+        },
+        "colorPicker": {
+            "Color": "Farbe"
+        },
+        "logout": {
+            "Logout": "Abmelden",
+            "modal": {
+                "Are you sure that you want to logout?": "Sind Sie sicher, dass Sie sich abmelden möchten?"
+            }
+        },
+        "map": {
+            "Your location": "Ihr Standort",
+            "GPS tracker": "GPS-Tracker",
+            "Search location": "Standort suchen",
+            "Search": "Suche"
+        },
+        "DropdownMultiselect": {
+            "Search by name": "Nach Namen suchen"
+        },
+        "SearchInput": {
+            "Search location": "Standort suchen"
+        },
+        "RangePicker": {
+            "Choose date range": "Datumsbereich wählen",
+            "Start date": "Startdatum",
+            "End date": "Enddatum",
+            "Input": "Eingabe",
+            "Label": "Beschriftung",
+            "Clear data range": "Datenbereich löschen",
+            "Apply changes": "Änderungen anwenden"
+        },
+        "UserPopup": {
+            "Connect your wallet": "Verbinden Sie Ihre Wallet",
+            "themeSwith": {
+                "Dark": "Dunkel",
+                "Light": "Hell"
+            }
+        }
+    },
+    "es": {
+        "widgets": {
+            "No data": "Sin datos",
+            "Current value": "Valor actual: {{value}}",
+            "Max value": "Valor máximo: {{value}}",
+            "Min value": "Valor mínimo: {{value}}",
+            "average": "Promedio",
+            "current": "Actual",
+            "normal": "Normal",
+            "max": "Máx",
+            "min": "Mín",
+            "Last update": "Última actualización:",
+            "Show graph": "Mostrar gráfico",
+            "Units of measurement": "Unidades de medida",
+            "Set the optimal value range": "Establecer el rango de valores óptimos",
+            "Reset": "Restablecer"
+        },
+        "colorPicker": {
+            "Color": "Color"
+        },
+        "logout": {
+            "Logout": "Cerrar sesión",
+            "modal": {
+                "Are you sure that you want to logout?": "¿Está seguro de que desea cerrar sesión?"
+            }
+        },
+        "map": {
+            "Your location": "Tu ubicación",
+            "GPS tracker": "Rastreador GPS",
+            "Search location": "Buscar ubicación",
+            "Search": "Buscar"
+        },
+        "DropdownMultiselect": {
+            "Search by name": "Buscar por nombre"
+        },
+        "SearchInput": {
+            "Search location": "Buscar ubicación"
+        },
+        "RangePicker": {
+            "Choose date range": "Elegir rango de fechas",
+            "Start date": "Fecha de inicio",
+            "End date": "Fecha de finalización",
+            "Input": "Entrada",
+            "Label": "Etiqueta",
+            "Clear data range": "Borrar rango de datos",
+            "Apply changes": "Aplicar cambios"
+        },
+        "UserPopup": {
+            "Connect your wallet": "Conectar tu billetera",
+            "themeSwith": {
+                "Dark": "Oscuro",
+                "Light": "Claro"
+            }
+        }
+    },
+    "fr": {
+        "widgets": {
+            "No data": "Pas de données",
+            "Current value": "Valeur actuelle : {{value}}",
+            "Max value": "Valeur maximale : {{value}}",
+            "Min value": "Valeur minimale : {{value}}",
+            "average": "Moyenne",
+            "current": "Actuel",
+            "normal": "Normal",
+            "max": "Max",
+            "min": "Min",
+            "Last update": "Dernière mise à jour :",
+            "Show graph": "Afficher le graphique",
+            "Units of measurement": "Unités de mesure",
+            "Set the optimal value range": "Définir la plage de valeurs optimales",
+            "Reset": "Réinitialiser"
+        },
+        "colorPicker": {
+            "Color": "Couleur"
+        },
+        "logout": {
+            "Logout": "Déconnexion",
+            "modal": {
+                "Are you sure that you want to logout?": "Êtes-vous sûr de vouloir vous déconnecter ?"
+            }
+        },
+        "map": {
+            "Your location": "Votre emplacement",
+            "GPS tracker": "Traceur GPS",
+            "Search location": "Rechercher un emplacement",
+            "Search": "Rechercher"
+        },
+        "DropdownMultiselect": {
+            "Search by name": "Rechercher par nom"
+        },
+        "SearchInput": {
+            "Search location": "Rechercher un emplacement"
+        },
+        "RangePicker": {
+            "Choose date range": "Choisir une plage de dates",
+            "Start date": "Date de début",
+            "End date": "Date de fin",
+            "Input": "Entrée",
+            "Label": "Étiquette",
+            "Clear data range": "Effacer la plage de données",
+            "Apply changes": "Appliquer les modifications"
+        },
+        "UserPopup": {
+            "Connect your wallet": "Connectez votre portefeuille",
+            "themeSwith": {
+                "Dark": "Sombre",
+                "Light": "Clair"
+            }
+        }
+    }
+}

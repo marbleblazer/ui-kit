@@ -10,6 +10,7 @@ import { IconButton } from '../icon-button';
 import { Typography } from '../typogrpahy';
 import * as S from './style';
 import { TextField } from '../text-field';
+import { useTranslation } from 'react-i18next';
 
 interface IColorPickerProps {
     color: string;
@@ -28,6 +29,8 @@ export const ColorPicker: FC<IColorPickerProps> = ({
     setError,
     isError,
 }) => {
+    const { t } = useTranslation('uiKit');
+
     const controlRef = useRef(null);
     const [popoverState, setPopoverState] = useState(false);
 
@@ -109,7 +112,7 @@ export const ColorPicker: FC<IColorPickerProps> = ({
                 <S.Wrapper>
                     <Box p={3}>
                         <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <Typography fontWeight={500}>Color</Typography>
+                            <Typography fontWeight={500}>{t('colorPicker.Color')}</Typography>
                             <IconButton size="small" onClick={() => setPopoverState(false)} variant="gray">
                                 <CloseIcon />
                             </IconButton>

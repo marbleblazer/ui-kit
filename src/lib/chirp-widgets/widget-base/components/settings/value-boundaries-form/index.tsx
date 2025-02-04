@@ -9,6 +9,7 @@ import { capitalizeString } from '@chirp/ui/helpers/capitalizeString';
 import { Checkmark } from '@chirp/ui/assets/icons';
 import { Button } from '@chirp/ui/lib/button';
 import { Typography } from '@chirp/ui/lib/typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 const convertValue = (value: number | string | null) => {
     if (value === null || value === '' || isNaN(+value)) {
@@ -30,6 +31,7 @@ type Props = {
 };
 
 export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, valueTo, onSave, units }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
     const {
         control,
         formState: { errors, isValid },
@@ -77,9 +79,9 @@ export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, val
         <S.Form component="form" onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
             <Stack direction="row" justifyContent="space-between">
                 <Typography color="text.text3" variant="caption12">
-                    Set the optimal value range
+                    {t('Set the optimal value range')}
                 </Typography>
-                <S.ResetInput type="reset" value="Reset" disableUnderline disabled={isLoading} onClick={onReset} />
+                <S.ResetInput type="reset" value={t('Reset')} disableUnderline disabled={isLoading} onClick={onReset} />
             </Stack>
             <Stack direction="row" gap="8px" alignItems="flex-end">
                 {fieldNames.map((fieldName) => (

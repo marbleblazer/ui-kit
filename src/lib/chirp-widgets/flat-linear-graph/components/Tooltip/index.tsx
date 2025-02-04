@@ -4,6 +4,7 @@ import moment from 'moment';
 import { AttributeConfig, WidgetTypes } from '@chirp/ui/lib/chirp-widgets/types';
 import { Typography } from '@chirp/ui/lib/typogrpahy';
 import { useTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export const Tooltip = ({
     slice,
@@ -13,6 +14,7 @@ export const Tooltip = ({
     maxY,
 }: SliceTooltipProps & { config?: AttributeConfig; postfix?: string; minY: number | null; maxY: number | null }) => {
     const theme = useTheme();
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
 
     const dateString = moment(slice.points[0].data.xFormatted).format('DD.MM, HH:mm');
 
@@ -41,7 +43,7 @@ export const Tooltip = ({
                         <Typography key="value" color={theme.palette.text.text4} component="span">
                             <div>
                                 <Typography variant="text13" color={theme.palette.text.text4}>
-                                    Current {value}
+                                    {t('Current value', { value })}
                                 </Typography>
                                 <Typography variant="caption8" sx={{ verticalAlign: 'super' }}>
                                     {postfix}
@@ -49,7 +51,7 @@ export const Tooltip = ({
                             </div>
                             <div>
                                 <Typography variant="text13" color={theme.palette.base.color6}>
-                                    Max {maxY}
+                                    {t('Max value', { value: maxY })}
                                 </Typography>
                                 <Typography
                                     variant="caption8"
@@ -61,7 +63,7 @@ export const Tooltip = ({
                             </div>
                             <div>
                                 <Typography variant="text13" color={theme.palette.base.color23}>
-                                    Min {minY}
+                                    {t('Min value', { value: minY })}
                                 </Typography>
                                 <Typography
                                     variant="caption8"

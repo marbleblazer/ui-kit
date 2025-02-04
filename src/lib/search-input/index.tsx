@@ -2,6 +2,7 @@ import { InputAdornment, StandardTextFieldProps, useTheme } from '@mui/material'
 import * as S from './style';
 import { SearchIcon } from '@chirp/ui/assets/fleet-icons';
 import { Loader } from '../loader';
+import { useTranslation } from 'react-i18next';
 
 interface ISearchInputProps extends Omit<StandardTextFieldProps, 'onChange'> {
     value: string;
@@ -13,11 +14,12 @@ interface ISearchInputProps extends Omit<StandardTextFieldProps, 'onChange'> {
 export const SearchInput: React.FC<ISearchInputProps> = ({
     value,
     onChange,
-    placeholder = 'Search location',
+    placeholder,
     isLoading = false,
     ...props
 }) => {
     const theme = useTheme();
+    const { t } = useTranslation('uiKit', { keyPrefix: 'SearchInput' });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -28,7 +30,7 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
     return (
         <S.SearchInputWrapper
             fullWidth
-            placeholder={placeholder}
+            placeholder={placeholder || t('Search location')}
             InputProps={{
                 value: isLoading ? 'Loading' : value,
                 readOnly: isLoading,

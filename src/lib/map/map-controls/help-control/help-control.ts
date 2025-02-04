@@ -1,5 +1,6 @@
 import { Palette } from '@mui/material/styles';
 import { locationSvg, trackerSvg } from './help-control-svg';
+import { t } from 'i18next';
 
 /** Control кнопки с вопросом на карте */
 export class HelpControl {
@@ -19,12 +20,12 @@ export class HelpControl {
         // Перерисовать иконки
         if (this.locationItem) {
             this.locationItem.innerHTML = locationSvg(this.palette);
-            this.locationItem.insertAdjacentText('beforeend', 'Your location');
+            this.locationItem.insertAdjacentText('beforeend', t('uiKit:map.Your location'));
         }
 
         if (this.trackerItem) {
             this.trackerItem.innerHTML = trackerSvg(this.palette);
-            this.trackerItem.insertAdjacentText('beforeend', 'GPS tracker');
+            this.trackerItem.insertAdjacentText('beforeend', t('uiKit:map.GPS tracker'));
         }
     }
 
@@ -49,7 +50,7 @@ export class HelpControl {
         this.locationItem = document.createElement('div');
         this.locationItem.className = 'help-menu-item';
         this.locationItem.innerHTML = locationSvg(this.palette);
-        this.locationItem.insertAdjacentText('beforeend', 'Your location');
+        this.locationItem.insertAdjacentText('beforeend', t('uiKit:map.Your location'));
         menu.appendChild(this.locationItem);
 
         const divider = document.createElement('div');
@@ -59,7 +60,7 @@ export class HelpControl {
         this.trackerItem = document.createElement('div');
         this.trackerItem.className = 'help-menu-item';
         this.trackerItem.innerHTML = trackerSvg(this.palette);
-        this.trackerItem.insertAdjacentText('beforeend', 'GPS tracker');
+        this.trackerItem.insertAdjacentText('beforeend', t('uiKit:map.GPS tracker'));
         menu.appendChild(this.trackerItem);
 
         this.container.appendChild(menu);

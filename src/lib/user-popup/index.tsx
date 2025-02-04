@@ -7,6 +7,7 @@ import { ThemeSwitch } from '../theme-switch';
 import { Logout } from '../logout';
 import { ConnectWalletBanner } from '../connect-wallet-banner';
 import { Typography } from '../typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 interface UserPopupProps {
     onLogout?: () => void;
@@ -17,6 +18,7 @@ interface UserPopupProps {
 }
 
 export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onChangeMode, isDarkMode, name }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'UserPopup' });
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const theme = useTheme();
 
@@ -76,7 +78,7 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                                     size="small"
                                     onClick={onWalletConnect}
                                 >
-                                    Connect your wallet
+                                    {t('Connect your wallet')}
                                 </Button>
                             </Stack>
                         )}
@@ -89,7 +91,7 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                                         <ThemeSwitch onChange={onChangeMode} checked={isDarkMode} />
                                     </Stack>
                                     <Typography variant="paragraphSecondary" color="text.text8">
-                                        {theme.palette.mode === 'dark' ? 'Dark' : 'Light'}
+                                        {theme.palette.mode === 'dark' ? t('themeSwith.Dark') : t('themeSwith.Light')}
                                     </Typography>
                                 </S.ListItemContent>
                             </Stack>

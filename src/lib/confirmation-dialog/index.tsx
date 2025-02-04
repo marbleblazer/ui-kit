@@ -3,6 +3,7 @@ import { PropsWithChildren, ReactNode } from 'react';
 import * as S from './style';
 import { Button } from '../button';
 import { ModalTitle } from '../modal/modal-title';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
     isOpen: boolean;
@@ -22,12 +23,13 @@ export const ConfirmationDialog: React.FC<Props> = ({
     subTitle,
     icon,
     disabled = false,
-    confirmButtonText = 'Confirm',
-    cancelButtonText = 'Cancel',
+    confirmButtonText,
+    cancelButtonText,
     children,
     onConfirm,
     onCancel,
 }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'modal' });
     return (
         <S.Dialog open={isOpen}>
             {icon && <S.IconWrapper>{icon}</S.IconWrapper>}
@@ -38,10 +40,10 @@ export const ConfirmationDialog: React.FC<Props> = ({
             </S.Content>
             <S.ButtonGroup>
                 <Button variant="secondary" size="medium" fullWidth disabled={disabled} onClick={onCancel}>
-                    {cancelButtonText}
+                    {cancelButtonText || t('Cancel')}
                 </Button>
                 <Button variant="primary" size="medium" fullWidth disabled={disabled} onClick={onConfirm}>
-                    {confirmButtonText}
+                    {confirmButtonText || t('Confirm')}
                 </Button>
             </S.ButtonGroup>
         </S.Dialog>

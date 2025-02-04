@@ -6,6 +6,7 @@ import { Checkbox } from '../checkbox';
 import { DropdownFooter } from './dropdown-content/footer';
 import { SearchInput } from '../search-input';
 import { useDebounce } from '@chirp/ui/hooks/use-debounce';
+import { useTranslation } from 'react-i18next';
 
 type CheckedStateType<T> = {
     array: T[];
@@ -37,6 +38,7 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
     onAccept,
     onClear,
 }: IDropdownMultiselectProps<T>) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'DropdownMultiselect' });
     const [openState, setOpenState] = useState(false);
     const [searchState, setSearchState] = useState('');
     const [checkedItemsState, setCheckedItemsState] = useState<CheckedStateType<T>>({
@@ -99,7 +101,7 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
                                 <SearchInput
                                     value={searchState}
                                     onChange={setSearchState}
-                                    placeholder="Search by name"
+                                    placeholder={t('Search by name')}
                                 />
                                 {filteredOptions.map((item, index) => (
                                     <Checkbox
