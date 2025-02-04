@@ -58,7 +58,6 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
     }, [selectedOptions]);
 
     const handleChangeCheckedITem = (elem: T, checked: boolean) => {
-        console.log(checked);
         if (checked) {
             setCheckedItemsState((prev) => ({
                 array: [...prev.array, elem],

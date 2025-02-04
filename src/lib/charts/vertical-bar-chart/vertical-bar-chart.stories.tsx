@@ -39,3 +39,26 @@ export const Default: Story = {
         );
     },
 };
+
+export const OneData: Story = {
+    render: () => {
+        const theme = useTheme();
+        const mockedData = [110, 80];
+
+        return (
+            <Box
+                sx={{
+                    width: '800px',
+                    height: '221px',
+                }}
+            >
+                <VerticalBarChart
+                    unit="lt"
+                    color={theme.palette.base.color6}
+                    style={{ width: '100%', height: '100%' }}
+                    data={mockedData}
+                />
+            </Box>
+        );
+    },
+};

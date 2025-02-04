@@ -3,7 +3,7 @@ import * as echarts from 'echarts/core';
 import { BarChart as EChartsBarChart } from 'echarts/charts';
 import { GridComponent, TitleComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
-import { CSSProperties, FC, memo } from 'react';
+import { CSSProperties, FC, memo, useMemo } from 'react';
 import { useTheme } from '@mui/material';
 
 echarts.use([TitleComponent, GridComponent, EChartsBarChart, CanvasRenderer]);
@@ -20,6 +20,16 @@ export interface IVerticalBarsChartProps {
 const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color, unit = '' }) => {
     const theme = useTheme();
 
+    const paddedData = useMemo(() => {
+        const copyOfArray = [...data];
+
+        copyOfArray.slice(0, 10);
+        if (copyOfArray.length < 10) {
+            return [...copyOfArray, ...new Array(10 - copyOfArray.length).fill('')];
+        }
+        return copyOfArray;
+    }, [data]);
+
     const option = {
         textStyle: {
             color: theme.palette.text.text8,
@@ -29,12 +39,13 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
                 show: false,
             },
             type: 'category',
-            data: data,
-            inverse: true,
+            data: paddedData,
+            boundaryGap: true, // Убираем распределение space-around
+            inverse: true, // Сверху вниз
             axisLabel: {
                 fontSize: 8,
                 color: theme.palette.text.text8,
-                formatter: `{value} ${unit}`,
+                formatter: (value: unknown) => (value || value === 0 ? `${value} ${unit}` : ''), // Показываем только реальные значения
             },
             axisLine: {
                 show: false,
@@ -58,15 +69,19 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
         },
         grid: {
             left: 80,
-            top: 0,
+            top: 16,
             right: 30,
-            bottom: 40,
+            bottom: 54,
+            containLabel: true, // Чтобы учесть отступы между барами
         },
         series: [
             {
                 type: 'bar',
-                data,
+                data: paddedData,
                 barWidth: 12,
+                align: 'left',
+                barGap: '4px',
+                barCategoryGap: '0%',
                 itemStyle: {
                     color,
                 },
