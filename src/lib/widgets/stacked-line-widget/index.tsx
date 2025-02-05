@@ -132,7 +132,7 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                                     <ColorListItem
                                         key={item}
                                         onClick={() => setCurrentItemIdx(idx)}
-                                        name={mappedOptions[item].label}
+                                        name={mappedOptions[item]?.label}
                                         value={null}
                                         color={colors[idx % colors.length]}
                                     />
