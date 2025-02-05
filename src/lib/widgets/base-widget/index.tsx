@@ -3,6 +3,7 @@ import { IconButton } from '../../icon-button';
 import { StarIcon, TrashIcon } from '@chirp/ui/assets/fleet-icons';
 import { FC, PropsWithChildren } from 'react';
 import * as S from './styles';
+import { useTranslation } from 'react-i18next';
 
 export interface IBaseWidgetProps {
     type: 'period' | 'online';
@@ -28,7 +29,8 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
     makeFavouriteDisabled = false,
     children,
 }) => {
-    const resolveWidgetTypName = type === 'period' ? 'Data for period ' : 'Online data';
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
+    const resolveWidgetTypName = type === 'period' ? t('Data for period') : t('Online data');
     return (
         <S.Wrapper sx={wrapperSxProps}>
             <Stack gap={2}>

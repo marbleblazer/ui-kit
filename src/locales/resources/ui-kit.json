@@ -14,6 +14,8 @@
             "Show graph": "Show Graph",
             "Units of measurement": "Units of measurement",
             "Set the optimal value range": "Set the optimal value range",
+            "Online data": "Online data",
+            "Data for period": "Data for period",
             "Reset": "Reset"
         },
         "colorPicker": {
@@ -58,12 +60,74 @@
             }
         }
     },
+    "fr": {
+        "widgets": {
+            "No data": "Pas de données",
+            "Current value": "Valeur actuelle {{value}}",
+            "Max value": "Valeur max {{value}}",
+            "Min value": "Valeur min {{value}}",
+            "average": "Moyenne",
+            "current": "Actuel",
+            "normal": "Normal",
+            "max": "Max",
+            "min": "Min",
+            "Last update": "Dernière mise à jour :",
+            "Show graph": "Afficher le graphique",
+            "Units of measurement": "Unités de mesure",
+            "Set the optimal value range": "Définir la plage de valeurs optimales",
+            "Online data": "Données en ligne",
+            "Data for period": "Données pour la période",
+            "Reset": "Réinitialiser"
+        },
+        "colorPicker": {
+            "Color": "Couleur"
+        },
+        "logout": {
+            "Logout": "Déconnexion",
+            "modal": {
+                "Are you sure that you want to logout?": "Êtes-vous sûr de vouloir vous déconnecter ?"
+            }
+        },
+        "map": {
+            "Your location": "Votre emplacement",
+            "GPS tracker": "Traceur GPS",
+            "Search location": "Rechercher un emplacement",
+            "Search": "Rechercher"
+        },
+        "modal": {
+            "Cancel": "Annuler",
+            "Confirm": "Confirmer"
+        },
+        "DropdownMultiselect": {
+            "Search by name": "Rechercher par nom"
+        },
+        "SearchInput": {
+            "Search location": "Rechercher un emplacement"
+        },
+        "RangePicker": {
+            "Choose date range": "Choisir une plage de dates",
+            "Start date": "Date de début",
+            "End date": "Date de fin",
+            "Input": "Entrée",
+            "Label": "Étiquette",
+            "Clear data range": "Effacer la plage de données",
+            "Apply changes": "Appliquer les modifications"
+        },
+        "UserPopup": {
+            "Connect your wallet": "Connectez votre portefeuille",
+            "themeSwith": {
+                "Dark": "Sombre",
+                "Light": "Clair"
+            }
+        }
+    },
+
     "de": {
         "widgets": {
             "No data": "Keine Daten",
-            "Current value": "Aktueller Wert: {{value}}",
-            "Max value": "Maximalwert: {{value}}",
-            "Min value": "Minimalwert: {{value}}",
+            "Current value": "Aktueller Wert {{value}}",
+            "Max value": "Maximalwert {{value}}",
+            "Min value": "Minimalwert {{value}}",
             "average": "Durchschnitt",
             "current": "Aktuell",
             "normal": "Normal",
@@ -73,6 +137,8 @@
             "Show graph": "Diagramm anzeigen",
             "Units of measurement": "Maßeinheiten",
             "Set the optimal value range": "Optimalen Wertebereich festlegen",
+            "Online data": "Online-Daten",
+            "Data for period": "Daten für den Zeitraum",
             "Reset": "Zurücksetzen"
         },
         "colorPicker": {
@@ -88,7 +154,11 @@
             "Your location": "Ihr Standort",
             "GPS tracker": "GPS-Tracker",
             "Search location": "Standort suchen",
-            "Search": "Suche"
+            "Search": "Suchen"
+        },
+        "modal": {
+            "Cancel": "Abbrechen",
+            "Confirm": "Bestätigen"
         },
         "DropdownMultiselect": {
             "Search by name": "Nach Namen suchen"
@@ -97,13 +167,13 @@
             "Search location": "Standort suchen"
         },
         "RangePicker": {
-            "Choose date range": "Datumsbereich wählen",
+            "Choose date range": "Datumsbereich auswählen",
             "Start date": "Startdatum",
             "End date": "Enddatum",
             "Input": "Eingabe",
-            "Label": "Beschriftung",
+            "Label": "Label",
             "Clear data range": "Datenbereich löschen",
-            "Apply changes": "Änderungen anwenden"
+            "Apply changes": "Änderungen übernehmen"
         },
         "UserPopup": {
             "Connect your wallet": "Verbinden Sie Ihre Wallet",
@@ -113,12 +183,13 @@
             }
         }
     },
+
     "es": {
         "widgets": {
-            "No data": "Sin datos",
-            "Current value": "Valor actual: {{value}}",
-            "Max value": "Valor máximo: {{value}}",
-            "Min value": "Valor mínimo: {{value}}",
+            "No data": "No hay datos",
+            "Current value": "Valor actual {{value}}",
+            "Max value": "Valor máx. {{value}}",
+            "Min value": "Valor mín. {{value}}",
             "average": "Promedio",
             "current": "Actual",
             "normal": "Normal",
@@ -127,7 +198,9 @@
             "Last update": "Última actualización:",
             "Show graph": "Mostrar gráfico",
             "Units of measurement": "Unidades de medida",
-            "Set the optimal value range": "Establecer el rango de valores óptimos",
+            "Set the optimal value range": "Establecer el rango óptimo de valores",
+            "Online data": "Datos en línea",
+            "Data for period": "Datos del período",
             "Reset": "Restablecer"
         },
         "colorPicker": {
@@ -144,6 +217,10 @@
             "GPS tracker": "Rastreador GPS",
             "Search location": "Buscar ubicación",
             "Search": "Buscar"
+        },
+        "modal": {
+            "Cancel": "Cancelar",
+            "Confirm": "Confirmar"
         },
         "DropdownMultiselect": {
             "Search by name": "Buscar por nombre"
@@ -168,58 +245,64 @@
             }
         }
     },
-    "fr": {
+    "ru": {
         "widgets": {
-            "No data": "Pas de données",
-            "Current value": "Valeur actuelle : {{value}}",
-            "Max value": "Valeur maximale : {{value}}",
-            "Min value": "Valeur minimale : {{value}}",
-            "average": "Moyenne",
-            "current": "Actuel",
-            "normal": "Normal",
-            "max": "Max",
-            "min": "Min",
-            "Last update": "Dernière mise à jour :",
-            "Show graph": "Afficher le graphique",
-            "Units of measurement": "Unités de mesure",
-            "Set the optimal value range": "Définir la plage de valeurs optimales",
-            "Reset": "Réinitialiser"
+            "No data": "Нет данных",
+            "Current value": "Текущее {{value}}",
+            "Max value": "Максимальное {{value}}",
+            "Min value": "Минимальное {{value}}",
+            "average": "Среднее",
+            "current": "Текущее",
+            "normal": "Нормальное",
+            "max": "Макс",
+            "min": "Мин",
+            "Last update": "Последнее обновление:",
+            "Show graph": "Показать график",
+            "Units of measurement": "Единицы измерения",
+            "Set the optimal value range": "Установите оптимальный диапазон значений",
+            "Online data": "Онлайн-данные",
+            "Data for period": "Данные за период",
+            "Reset": "Сброс"
         },
         "colorPicker": {
-            "Color": "Couleur"
+            "Color": "Цвет"
         },
         "logout": {
-            "Logout": "Déconnexion",
+            "Logout": "Выйти",
             "modal": {
-                "Are you sure that you want to logout?": "Êtes-vous sûr de vouloir vous déconnecter ?"
+                "Are you sure that you want to logout?": "Вы уверены, что хотите выйти?"
             }
         },
         "map": {
-            "Your location": "Votre emplacement",
-            "GPS tracker": "Traceur GPS",
-            "Search location": "Rechercher un emplacement",
-            "Search": "Rechercher"
+            "Your location": "Ваше местоположение",
+            "GPS tracker": "GPS-трекер",
+            "Search location": "Поиск местоположения",
+            "Search": "Поиск"
+        },
+        "modal": {
+            "Cancel": "Отмена",
+            "Confirm": "Подтвердить"
         },
         "DropdownMultiselect": {
-            "Search by name": "Rechercher par nom"
+            "Search by name": "Поиск по названию"
         },
         "SearchInput": {
-            "Search location": "Rechercher un emplacement"
+            "Search location": "Поиск местоположения"
         },
         "RangePicker": {
-            "Choose date range": "Choisir une plage de dates",
-            "Start date": "Date de début",
-            "End date": "Date de fin",
-            "Input": "Entrée",
-            "Label": "Étiquette",
-            "Clear data range": "Effacer la plage de données",
-            "Apply changes": "Appliquer les modifications"
+            "Choose date range": "Выберите диапазон дат",
+            "Start date": "Дата начала",
+            "End date": "Дата окончания",
+            "Input": "Ввод",
+            "Label": "Метка",
+            "Clear data range": "Очистить диапазон данных",
+            "Apply changes": "Применить изменения"
         },
         "UserPopup": {
-            "Connect your wallet": "Connectez votre portefeuille",
+            "Connect your wallet": "Подключите ваш кошелек",
             "themeSwith": {
-                "Dark": "Sombre",
-                "Light": "Clair"
+                "Dark": "Темная",
+                "Light": "Светлая"
             }
         }
     }

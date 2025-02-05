@@ -3,4 +3,5 @@ export const languages = {
     de: 'Deutsch',
     fr: 'Français',
     es: 'Español',
+    ru: 'Русский',
 };
