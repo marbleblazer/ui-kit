@@ -8,8 +8,10 @@ import { Logout } from '../logout';
 import { ConnectWalletBanner } from '../connect-wallet-banner';
 import { Typography } from '../typogrpahy';
 import { useTranslation } from 'react-i18next';
+import { ILanguageSelectorProps, LanguageSelector } from '../language-selector';
 
 interface UserPopupProps {
+    languageSelectorProps: ILanguageSelectorProps;
     onLogout?: () => void;
     onWalletConnect?: () => void;
     onChangeMode?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -17,7 +19,14 @@ interface UserPopupProps {
     name?: string;
 }
 
-export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onChangeMode, isDarkMode, name }) => {
+export const UserPopup: FC<UserPopupProps> = ({
+    onLogout,
+    onWalletConnect,
+    onChangeMode,
+    isDarkMode,
+    name,
+    languageSelectorProps,
+}) => {
     const { t } = useTranslation('uiKit', { keyPrefix: 'UserPopup' });
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const theme = useTheme();
@@ -82,6 +91,7 @@ export const UserPopup: FC<UserPopupProps> = ({ onLogout, onWalletConnect, onCha
                                 </Button>
                             </Stack>
                         )}
+                        <LanguageSelector {...languageSelectorProps} />
                         <Logout onLogout={onLogout} />
                         <Divider sx={{ background: alpha(theme.palette.text.text1, 0.08), width: '197px' }} />
                         <S.ListItem>
