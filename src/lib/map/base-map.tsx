@@ -11,6 +11,7 @@ import * as S from './style';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { Coordinates } from './map.types';
 import { HelpControl } from './map-controls/help-control/help-control';
+import { useTranslation } from 'react-i18next';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -32,6 +33,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     sx,
     children,
 }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'map' });
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     // const mapRef = useRef<mapboxgl.Map>(null);
@@ -98,7 +100,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken || '',
                 marker: false,
-                placeholder: 'Search location',
+                placeholder: t('Search location'),
                 collapsed: true,
                 render: (item) => {
                     // Кастомная структура HTML для предложений
@@ -121,7 +123,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         const geocoderControl = mapControls.find((control) => control instanceof MapboxGeocoder);
         if (geocoderControl) {
             // @ts-ignore
-            geocoderControl.setPlaceholder('Search');
+            geocoderControl.setPlaceholder(t('Search'));
         }
 
         mapRef.current.getCanvas().style.cursor = 'pointer';

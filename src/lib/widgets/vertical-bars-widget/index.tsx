@@ -26,8 +26,8 @@ export const VerticalBarsChartWidget = <T,>(props: PropsWithChildren<IVerticalBa
         if (!collection?.length) return;
         const preparedData: VerticalBarsChartDataType[] = [];
         const preparedList: string[] = [];
-
-        collection.forEach((elem) => {
+        const sortedCollection = collection.sort((elem1, elem2) => Number(elem2[valueKey]) - Number(elem1[valueKey]));
+        sortedCollection.forEach((elem) => {
             preparedData.push(elem[valueKey] as VerticalBarsChartDataType);
             preparedList.push(elem[nameKey] as string);
         });

@@ -10,13 +10,7 @@ type Props = {
 export const Toast: React.FC<Props> = ({ message, sx }) => {
     return (
         <S.Root direction="row" gap={2} sx={{ ...sx }}>
-            <Typography
-                variant="body1"
-                component="span"
-                sx={{
-                    color: 'text.textInput60',
-                }}
-            >
+            <Typography variant="body1" component="span" color="text.textInput60">
                 {message}
             </Typography>
         </S.Root>

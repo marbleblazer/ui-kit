@@ -11,6 +11,7 @@ import { DatePickerWrapper } from './styles';
 import { TextField } from '../text-field';
 import { Button } from '../button';
 import { Typography } from '../typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 export interface RangePickerProps {
     initialStartDate?: Date;
@@ -30,7 +31,7 @@ export const RangePicker: FC<RangePickerProps> = ({
     initialEndDate = new Date(),
 }) => {
     const theme = useTheme();
-
+    const { t } = useTranslation('uiKit', { keyPrefix: 'RangePicker' });
     const [startDate, setStartDate] = useState(() => moment(initialStartDate));
     const [endDate, setEndDate] = useState(() => moment(initialEndDate));
 
@@ -94,16 +95,16 @@ export const RangePicker: FC<RangePickerProps> = ({
         <Stack direction="column" gap="8px">
             <Stack direction="column" gap="14px">
                 <Typography variant="caption12" color={theme.palette.text.text8}>
-                    Choose date range
+                    {t('Choose date range')}
                 </Typography>
             </Stack>
             <Stack direction="row">
                 <Stack direction="row" gap="8px" alignItems="center">
                     <TextField
-                        label="Input"
+                        label={t('Input')}
                         error={!isStartDateValid}
                         value={startInputDate}
-                        placeholder="Start date"
+                        placeholder={t('Start date')}
                         onChange={(e) => handleInputDateChange(e, 'start')}
                         sx={{
                             label: { color: `${theme.palette.text.text8} !important` },
@@ -121,10 +122,10 @@ export const RangePicker: FC<RangePickerProps> = ({
                         />
                     </div>
                     <TextField
-                        label="Label"
+                        label={t('Label')}
                         error={!isEndDateValid}
                         value={endInputDate}
-                        placeholder="End date"
+                        placeholder={t('End date')}
                         onChange={(e) => handleInputDateChange(e, 'end')}
                         sx={{
                             label: { color: `${theme.palette.text.text8} !important` },
@@ -169,7 +170,7 @@ export const RangePicker: FC<RangePickerProps> = ({
             </Stack>
             <Stack justifyContent="flex-end" direction="row" gap="8px">
                 <Button size="medium" variant="secondary" onClick={handleClearDateRange}>
-                    Clear data range
+                    {t('Clear data range')}
                 </Button>
                 <Button
                     size="medium"
@@ -177,7 +178,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                     onClick={handleApplyDateRange}
                     disabled={!isStartDateValid || !isEndDateValid}
                 >
-                    Apply changes
+                    {t('Apply changes')}
                 </Button>
             </Stack>
         </Stack>

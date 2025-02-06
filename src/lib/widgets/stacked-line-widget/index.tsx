@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo, useState } from 'react';
+import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { Checkbox, Select, StackedChart } from '@chirp/ui/lib';
 import { Box } from '@mui/system';
@@ -60,6 +60,13 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
         return arrayToMap(selectOptions, 'value');
     }, [selectOptions]);
 
+    useEffect(() => {
+        if (!selectOptions) return;
+
+        const keys = selectOptions.map((elem) => elem.value);
+        setSelectedKeys(keys);
+    }, [selectOptions]);
+
     return (
         <BaseWidget
             title={title}
@@ -105,6 +112,7 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                                     },
                                 }}
                                 defaultValue={[]}
+                                value={selectedKeys}
                                 renderValue={() => 'All'}
                                 placeholder="All"
                                 MenuProps={{ PaperProps: { sx: { maxHeight: '300px' } } }}
@@ -124,7 +132,7 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                                     <ColorListItem
                                         key={item}
                                         onClick={() => setCurrentItemIdx(idx)}
-                                        name={mappedOptions[item].label}
+                                        name={mappedOptions[item]?.label}
                                         value={null}
                                         color={colors[idx % colors.length]}
                                     />

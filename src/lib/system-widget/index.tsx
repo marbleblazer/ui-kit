@@ -6,6 +6,7 @@ import { Tooltip } from '../tooltip';
 import { getTimeString } from '../chirp-widgets/helpers';
 import { SwitchViewButton } from '../chirp-widgets/switch-view-button';
 import { Typography } from '../typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 type ValueType = number | string | boolean | null;
 
@@ -31,6 +32,7 @@ const Value: FC<{ value: ValueType; units: string | null }> = ({ value, units })
 };
 
 export const SystemWidget: FC<Props> = ({ attributeName, title, value, units, date, switchView }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
     const formattedValue = typeof value === 'string' && value.includes(',') ? value.split(',') : value;
 
     return (
@@ -40,7 +42,7 @@ export const SystemWidget: FC<Props> = ({ attributeName, title, value, units, da
                     {title}
                 </Typography>
                 <Typography variant="caption12" color="text.text8" flexShrink={0}>
-                    Last update:
+                    {t('Last update')}
                     <Typography
                         component="span"
                         variant="caption12"

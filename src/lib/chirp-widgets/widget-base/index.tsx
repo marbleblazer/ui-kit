@@ -20,6 +20,7 @@ import { FlatLinearGraph } from '../flat-linear-graph';
 import { ProgressBar } from '../progress-bar/progress-bar';
 import { FooterGradient } from '../footer-gradient/footer-gradient';
 import { Typography } from '../../typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 type WidgetBaseProps = {
     id: string;
@@ -57,6 +58,9 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
         switchView,
         onSettingsChange,
     } = props;
+
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
+
     const [isHovered, setIsHovered] = useState(false);
 
     const { palette } = useTheme();
@@ -148,7 +152,7 @@ export const WidgetBase: React.FC<WidgetBaseProps> = (props) => {
                     {date && (
                         <Box>
                             <Typography component="span" variant="overline" color="text.text8">
-                                Last update:
+                                {t('Last update')}
                             </Typography>
 
                             <Typography component="span" variant="caption12" ml={1} color="text.text4">

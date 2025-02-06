@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import * as S from './style';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
     value: number | string | boolean | undefined;
@@ -9,10 +10,12 @@ type Props = {
 };
 
 export const CurrentValue: FC<Props> = ({ value, postfix, color }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
+
     if (value === undefined || value === '') {
         return (
             <S.Wrapper color={color}>
-                <S.NoDataText>No data</S.NoDataText>
+                <S.NoDataText>{t('No data')}</S.NoDataText>
             </S.Wrapper>
         );
     }

@@ -11,6 +11,7 @@ import { FilterItem } from '@chirp/ui/lib/filter-item';
 import { IconButton } from '@chirp/ui/lib/icon-button';
 import { Tooltip } from '@chirp/ui/lib/tooltip';
 import { Typography } from '@chirp/ui/lib/typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 type SettingsProps = {
     units: string;
@@ -37,6 +38,7 @@ export const Settings: FC<SettingsProps> = ({
     toggleGraphVisibility,
     onUnitsChange,
 }) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
     const [isOpen, setIsOpen] = useState(false);
     const unitsConverter = converter[config.units];
 
@@ -70,7 +72,7 @@ export const Settings: FC<SettingsProps> = ({
                         {unitsConverter && (
                             <S.SettingsItem>
                                 <Typography color="text.text3" variant="caption12">
-                                    Units of measurement
+                                    {t('Units of measurement')}
                                 </Typography>
                                 <S.UnitsOfMeasurementWrapper
                                     direction="row"
@@ -97,7 +99,7 @@ export const Settings: FC<SettingsProps> = ({
                         {toggleGraphVisibility && (
                             <S.SettingsItem>
                                 <Typography color="text.text3" variant="caption12">
-                                    Show graph
+                                    {t('Show graph')}
                                 </Typography>
                                 <Toggle
                                     name="show-graph"
