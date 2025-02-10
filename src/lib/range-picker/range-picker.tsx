@@ -12,7 +12,7 @@ import { TextField } from '../text-field';
 import { Button } from '../button';
 import { Typography } from '../typogrpahy';
 import { useTranslation } from 'react-i18next';
-import * as locales from 'date-fns/locale'; // Импортируем все локали
+import { getLocaleObj } from './helpers/get-locale';
 export interface RangePickerProps {
     initialStartDate?: Date;
     initialEndDate?: Date;
@@ -31,7 +31,9 @@ export const RangePicker: FC<RangePickerProps> = ({
     initialEndDate = new Date(),
 }) => {
     const theme = useTheme();
+
     const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'RangePicker' });
+
     const [startDate, setStartDate] = useState(() => moment(initialStartDate));
     const [endDate, setEndDate] = useState(() => moment(initialEndDate));
     const [startInputDate, setStartInputDate] = useState<string | Date>(moment(initialStartDate).format(DATE_FORMAT));
@@ -90,13 +92,7 @@ export const RangePicker: FC<RangePickerProps> = ({
     const isStartDateValid = moment(startInputDate).isValid();
     const isEndDateValid = moment(endInputDate).isValid() && moment(startInputDate) <= moment(endInputDate);
 
-    const localesTyped = locales as { [key: string]: locales.Locale };
-    const localeKey = i18n.language.split('-')[0];
-    const locale = localesTyped[localeKey] || localesTyped.enUS;
-
-    if (locale) {
-        registerLocale(localeKey, locale);
-    }
+    registerLocale(i18n.language.split('-')[0], getLocaleObj(i18n.language));
 
     return (
         <Stack direction="column" gap="8px">
