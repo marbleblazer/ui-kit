@@ -57,6 +57,7 @@ export const lightTheme = (
                 text6: refLightTheme.darkShades.secondary, // '#5C5C5C',
                 text7: refLightTheme.darkShades.secondary, // '#5C5C5C',
                 text8: refLightTheme.darkShades.ternary, // '#A6A6A6',
+                text9: refLightTheme.darkShades.quaternary, // '#E4E4E4',
                 search: refLightTheme.darkShades.ternary, // '#A6A6A6',
                 titleInput: '#656565', //'#656565',
                 textInput40: alpha(refLightTheme.darkShades.secondary, 0.4), //'#5C5C5C66',
