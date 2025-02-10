@@ -126,3 +126,5 @@ export { DropdownMultiselect } from './dropdown-multiselect';
 export { BadgeSelect } from './badge-select';
 
 export { Slider } from './slider';
+
+export { LanguageSelector } from './language-selector';
