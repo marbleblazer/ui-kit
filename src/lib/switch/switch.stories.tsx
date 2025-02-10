@@ -21,6 +21,21 @@ export const Default: Story = {
 
         return (
             <Switch
+                activeText="Переключиться на карту"
+                inactiveText="Переключиться на список"
+                checked={checkedState}
+                onChange={setCheckedState}
+            />
+        );
+    },
+};
+
+export const English: Story = {
+    render: () => {
+        const [checkedState, setCheckedState] = useState(false);
+
+        return (
+            <Switch
                 activeText="Switch map"
                 inactiveText="Switch list"
                 checked={checkedState}
