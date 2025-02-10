@@ -1,14 +1,17 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chirp/ui/assets/fleet-icons';
 import { IconButton } from '../../icon-button';
-import { Stack } from '@mui/material';
+import { capitalize, Stack } from '@mui/material';
 import { ReactDatePickerCustomHeaderProps } from 'react-datepicker';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
     decreaseMonth,
     monthDate,
     increaseMonth,
 }) => {
+    const { i18n } = useTranslation();
+
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center">
             <IconButton
@@ -22,10 +25,12 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
                 <ChevronLeftIcon />
             </IconButton>
             <span className="react-datepicker__current-month">
-                {monthDate.toLocaleString('en-US', {
-                    month: 'long',
-                    year: 'numeric',
-                })}
+                {capitalize(
+                    monthDate.toLocaleString(i18n.language, {
+                        month: 'long',
+                        year: 'numeric',
+                    }),
+                )}
             </span>
             <IconButton
                 size="small"
