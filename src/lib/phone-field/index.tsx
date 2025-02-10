@@ -16,6 +16,7 @@ import * as S from './styles';
 import { applyMask, getMaxLength, stripDialCode } from './helpers';
 import { COUNTRIES } from './constants';
 import { SelectIndicator } from '../select-indicator';
+import { useTranslation } from 'react-i18next';
 
 type PhoneFieldProps = Omit<TextFieldProps, 'onChange' | 'variant'> & {
     value: string;
@@ -37,7 +38,11 @@ export const PhoneField: FC<PhoneFieldProps> = ({
 }) => {
     const theme = useTheme();
 
-    const countryList = useMemo(() => countries.map((code) => ({ code, ...COUNTRIES[code] })), [countries]);
+    const { t: countriesT } = useTranslation('uiKit', { keyPrefix: 'PhoneField.countries' });
+
+    const translatedCountries = COUNTRIES(countriesT);
+
+    const countryList = useMemo(() => countries.map((code) => ({ code, ...translatedCountries[code] })), [countries]);
 
     const extractInitialValues = (inputValue: string) => {
         for (const country of countryList) {
@@ -64,7 +69,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     const [localValue, setLocalValue] = useState<string>(applyMask(initialLocalValue, initialCountry));
 
     useEffect(() => {
-        const dialCode = COUNTRIES[selectedCountry].dialCode.replace('+', '');
+        const dialCode = translatedCountries[selectedCountry].dialCode.replace('+', '');
         const fullValue = `${dialCode}${localValue}`;
         if (fullValue !== value) {
             onChange(fullValue);

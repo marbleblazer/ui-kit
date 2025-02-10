@@ -58,6 +58,15 @@
                 "Dark": "Dark",
                 "Light": "Light"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "USA",
+                "Russia": "Russia",
+                "Germany": "Germany",
+                "Portugal": "Portugal",
+                "Spain": "Spain"
+            }
         }
     },
     "fr": {
@@ -118,6 +127,15 @@
             "themeSwith": {
                 "Dark": "Sombre",
                 "Light": "Clair"
+            }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "États-Unis",
+                "Russia": "Russie",
+                "Germany": "Allemagne",
+                "Portugal": "Portugal",
+                "Spain": "Espagne"
             }
         }
     },
@@ -181,6 +199,15 @@
                 "Dark": "Dunkel",
                 "Light": "Hell"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "USA",
+                "Russia": "Russland",
+                "Germany": "Deutschland",
+                "Portugal": "Portugal",
+                "Spain": "Spanien"
+            }
         }
     },
 
@@ -243,6 +270,15 @@
                 "Dark": "Oscuro",
                 "Light": "Claro"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "Estados Unidos",
+                "Russia": "Rusia",
+                "Germany": "Alemania",
+                "Portugal": "Portugal",
+                "Spain": "España"
+            }
         }
     },
     "ru": {
@@ -303,6 +339,15 @@
             "themeSwith": {
                 "Dark": "Темная",
                 "Light": "Светлая"
+            }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "США",
+                "Russia": "Россия",
+                "Germany": "Германия",
+                "Portugal": "Португалия",
+                "Spain": "Испания"
             }
         }
     }
