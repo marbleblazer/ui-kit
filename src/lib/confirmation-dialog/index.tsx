@@ -10,7 +10,8 @@ type Props = {
     title: string;
     subTitle?: string;
     icon?: ReactNode;
-    disabled?: boolean;
+    isConfirmBtnDisabled?: boolean;
+    isCancelBtnDisabled?: boolean;
     confirmButtonText?: string;
     cancelButtonText?: string;
     onConfirm(): void;
@@ -22,7 +23,8 @@ export const ConfirmationDialog: React.FC<Props> = ({
     title,
     subTitle,
     icon,
-    disabled = false,
+    isConfirmBtnDisabled = false,
+    isCancelBtnDisabled = false,
     confirmButtonText,
     cancelButtonText,
     children,
@@ -39,10 +41,10 @@ export const ConfirmationDialog: React.FC<Props> = ({
                 {children}
             </S.Content>
             <S.ButtonGroup>
-                <Button variant="secondary" size="medium" fullWidth disabled={disabled} onClick={onCancel}>
+                <Button variant="secondary" size="medium" fullWidth disabled={isCancelBtnDisabled} onClick={onCancel}>
                     {cancelButtonText || t('Cancel')}
                 </Button>
-                <Button variant="primary" size="medium" fullWidth disabled={disabled} onClick={onConfirm}>
+                <Button variant="primary" size="medium" fullWidth disabled={isConfirmBtnDisabled} onClick={onConfirm}>
                     {confirmButtonText || t('Confirm')}
                 </Button>
             </S.ButtonGroup>
