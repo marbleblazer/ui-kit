@@ -16,7 +16,8 @@
             "Set the optimal value range": "Set the optimal value range",
             "Online data": "Online data",
             "Data for period": "Data for period",
-            "Reset": "Reset"
+            "Reset": "Reset",
+            "All": "All"
         },
         "colorPicker": {
             "Color": "Color"
@@ -31,7 +32,10 @@
             "Your location": "Your location",
             "GPS tracker": "GPS tracker",
             "Search location": "Search location",
-            "Search": "Search"
+            "Search": "Search",
+            "Line": "Line",
+            "Circle": "Circle",
+            "Polygon": "Polygon"
         },
         "modal": {
             "Cancel": "Cancel",
@@ -58,6 +62,15 @@
                 "Dark": "Dark",
                 "Light": "Light"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "USA",
+                "Russia": "Russia",
+                "Germany": "Germany",
+                "Portugal": "Portugal",
+                "Spain": "Spain"
+            }
         }
     },
     "fr": {
@@ -77,7 +90,8 @@
             "Set the optimal value range": "Définir la plage de valeurs optimales",
             "Online data": "Données en ligne",
             "Data for period": "Données pour la période",
-            "Reset": "Réinitialiser"
+            "Reset": "Réinitialiser",
+            "All": "Tous"
         },
         "colorPicker": {
             "Color": "Couleur"
@@ -92,7 +106,10 @@
             "Your location": "Votre emplacement",
             "GPS tracker": "Traceur GPS",
             "Search location": "Rechercher un emplacement",
-            "Search": "Rechercher"
+            "Search": "Rechercher",
+            "Line": "Ligne",
+            "Circle": "Cercle",
+            "Polygon": "Polygone"
         },
         "modal": {
             "Cancel": "Annuler",
@@ -119,9 +136,17 @@
                 "Dark": "Sombre",
                 "Light": "Clair"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "États-Unis",
+                "Russia": "Russie",
+                "Germany": "Allemagne",
+                "Portugal": "Portugal",
+                "Spain": "Espagne"
+            }
         }
     },
-
     "de": {
         "widgets": {
             "No data": "Keine Daten",
@@ -139,7 +164,8 @@
             "Set the optimal value range": "Optimalen Wertebereich festlegen",
             "Online data": "Online-Daten",
             "Data for period": "Daten für den Zeitraum",
-            "Reset": "Zurücksetzen"
+            "Reset": "Zurücksetzen",
+            "All": "Alle"
         },
         "colorPicker": {
             "Color": "Farbe"
@@ -154,7 +180,10 @@
             "Your location": "Ihr Standort",
             "GPS tracker": "GPS-Tracker",
             "Search location": "Standort suchen",
-            "Search": "Suchen"
+            "Search": "Suchen",
+            "Line": "Linie",
+            "Circle": "Kreis",
+            "Polygon": "Polygon"
         },
         "modal": {
             "Cancel": "Abbrechen",
@@ -181,6 +210,15 @@
                 "Dark": "Dunkel",
                 "Light": "Hell"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "USA",
+                "Russia": "Russland",
+                "Germany": "Deutschland",
+                "Portugal": "Portugal",
+                "Spain": "Spanien"
+            }
         }
     },
 
@@ -201,7 +239,8 @@
             "Set the optimal value range": "Establecer el rango óptimo de valores",
             "Online data": "Datos en línea",
             "Data for period": "Datos del período",
-            "Reset": "Restablecer"
+            "Reset": "Restablecer",
+            "All": "Todos"
         },
         "colorPicker": {
             "Color": "Color"
@@ -216,7 +255,10 @@
             "Your location": "Tu ubicación",
             "GPS tracker": "Rastreador GPS",
             "Search location": "Buscar ubicación",
-            "Search": "Buscar"
+            "Search": "Buscar",
+            "Line": "Línea",
+            "Circle": "Círculo",
+            "Polygon": "Polígono"
         },
         "modal": {
             "Cancel": "Cancelar",
@@ -243,6 +285,15 @@
                 "Dark": "Oscuro",
                 "Light": "Claro"
             }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "Estados Unidos",
+                "Russia": "Rusia",
+                "Germany": "Alemania",
+                "Portugal": "Portugal",
+                "Spain": "España"
+            }
         }
     },
     "ru": {
@@ -262,7 +313,8 @@
             "Set the optimal value range": "Установите оптимальный диапазон значений",
             "Online data": "Онлайн-данные",
             "Data for period": "Данные за период",
-            "Reset": "Сброс"
+            "Reset": "Сброс",
+            "All": "Все"
         },
         "colorPicker": {
             "Color": "Цвет"
@@ -277,7 +329,10 @@
             "Your location": "Ваше местоположение",
             "GPS tracker": "GPS-трекер",
             "Search location": "Поиск местоположения",
-            "Search": "Поиск"
+            "Search": "Поиск",
+            "Line": "Линия",
+            "Circle": "Круг",
+            "Polygon": "Полигон"
         },
         "modal": {
             "Cancel": "Отмена",
@@ -303,6 +358,15 @@
             "themeSwith": {
                 "Dark": "Темная",
                 "Light": "Светлая"
+            }
+        },
+        "PhoneField": {
+            "countries": {
+                "USA": "США",
+                "Russia": "Россия",
+                "Germany": "Германия",
+                "Portugal": "Португалия",
+                "Spain": "Испания"
             }
         }
     }

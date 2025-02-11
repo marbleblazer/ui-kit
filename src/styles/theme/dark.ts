@@ -57,6 +57,7 @@ export const darkTheme = (
                 text6: refDarkTheme.lightShades.primary, //'#FFFFFF',
                 text7: refDarkTheme.lightShades.secondary, // '#EBEBEB',
                 text8: refDarkTheme.lightShades?.quaternary, // '#656565',
+                text9: refDarkTheme.lightShades.quaternary, // '#656565',
                 search: refDarkTheme.lightShades.ternary, // '#BABABA',
                 titleInput: '#656565', // '#656565',
                 textInput40: refDarkTheme.lightShades.ternary, // '#BABABA',

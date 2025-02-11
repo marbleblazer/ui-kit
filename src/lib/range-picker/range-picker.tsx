@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Divider, Stack } from '@mui/material';
-import DatePicker from 'react-datepicker';
+import { capitalize, Divider, Stack } from '@mui/material';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,7 +12,7 @@ import { TextField } from '../text-field';
 import { Button } from '../button';
 import { Typography } from '../typogrpahy';
 import { useTranslation } from 'react-i18next';
-
+import { getLocaleObj } from './helpers/get-locale';
 export interface RangePickerProps {
     initialStartDate?: Date;
     initialEndDate?: Date;
@@ -31,10 +31,11 @@ export const RangePicker: FC<RangePickerProps> = ({
     initialEndDate = new Date(),
 }) => {
     const theme = useTheme();
-    const { t } = useTranslation('uiKit', { keyPrefix: 'RangePicker' });
+
+    const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'RangePicker' });
+
     const [startDate, setStartDate] = useState(() => moment(initialStartDate));
     const [endDate, setEndDate] = useState(() => moment(initialEndDate));
-
     const [startInputDate, setStartInputDate] = useState<string | Date>(moment(initialStartDate).format(DATE_FORMAT));
     const [endInputDate, setEndInputDate] = useState<string | Date>(moment(initialEndDate).format(DATE_FORMAT));
 
@@ -91,6 +92,8 @@ export const RangePicker: FC<RangePickerProps> = ({
     const isStartDateValid = moment(startInputDate).isValid();
     const isEndDateValid = moment(endInputDate).isValid() && moment(startInputDate) <= moment(endInputDate);
 
+    registerLocale(i18n.language.split('-')[0], getLocaleObj(i18n.language));
+
     return (
         <Stack direction="column" gap="8px">
             <Stack direction="column" gap="14px">
@@ -146,10 +149,11 @@ export const RangePicker: FC<RangePickerProps> = ({
                         startDate={startDate.toDate()}
                         endDate={endDate.toDate()}
                         selectsStart
+                        locale={i18n.language}
                         showFullMonthYearPicker
                         inline
                         renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
-                        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 3)}
+                        formatWeekDay={(nameOfDay) => capitalize(nameOfDay.substr(0, 3))}
                     />
                 </DatePickerWrapper>
                 <DatePickerWrapper>
@@ -159,11 +163,12 @@ export const RangePicker: FC<RangePickerProps> = ({
                         startDate={startDate.toDate()}
                         endDate={endDate.toDate()}
                         selectsEnd
+                        locale={i18n.language}
                         minDate={startDate.toDate()}
                         showFullMonthYearPicker
                         inline
                         renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
-                        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 3)}
+                        formatWeekDay={(nameOfDay) => capitalize(nameOfDay.substr(0, 3))}
                     />
                 </DatePickerWrapper>
                 <Divider />
