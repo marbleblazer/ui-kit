@@ -10,6 +10,7 @@ import { arrayToMap } from '@chirp/ui/helpers/array-to-map';
 import * as S from './styles';
 import { BaseWidgetCustomHeader } from '../base-widget/base-widget-custom-header';
 import { CurrentItemContent } from './current-item-content';
+import { useTranslation } from 'react-i18next';
 
 type OptionType = {
     value: number;
@@ -27,6 +28,7 @@ export interface IStackedLineChartWidgetProps<T> extends IBaseWidgetProps {
 }
 
 export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLineChartWidgetProps<T>>) => {
+    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
     const theme = useTheme();
     const {
         collection,
@@ -113,8 +115,8 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                                 }}
                                 defaultValue={[]}
                                 value={selectedKeys}
-                                renderValue={() => 'All'}
-                                placeholder="All"
+                                renderValue={() => t('All')}
+                                placeholder={t('All')}
                                 MenuProps={{ PaperProps: { sx: { maxHeight: '300px' } } }}
                                 onChange={(e) => handleChangeSelectedKeys(e.target.value as number[])}
                             >
