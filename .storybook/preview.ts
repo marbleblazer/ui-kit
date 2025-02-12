@@ -44,6 +44,19 @@ export const globalTypes = {
             showName: true,
         },
     },
+    language: {
+        name: 'Language',
+        description: 'Global language for components',
+        defaultValue: 'en',
+        toolbar: {
+            // The icon for the toolbar item
+            icon: 'globe',
+            // Array of options
+            items: ['en', 'ru', 'es', 'fr', 'de'],
+            // Property that specifies if the name of the item will be displayed
+            showName: true,
+        },
+    },
 };
 
 export default preview;

@@ -20,6 +20,10 @@ i18n.use(initReactI18next).init({
     },
 });
 
+export const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+};
+
 export { languages };
 
 export default i18n;

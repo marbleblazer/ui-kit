@@ -12,6 +12,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { Coordinates } from './map.types';
 import { HelpControl } from './map-controls/help-control/help-control';
 import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
 
@@ -33,7 +34,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     sx,
     children,
 }) => {
-    const { t } = useTranslation('uiKit', { keyPrefix: 'map' });
+    const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'map' });
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
     // const mapRef = useRef<mapboxgl.Map>(null);
@@ -52,7 +53,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             // @ts-ignore
             helpControl && helpControl.updatePalette(palette);
         }
-    }, [palette.mode]);
+    }, [palette.mode, i18n.language]);
 
     useEffect(() => {
         if (mapRef.current) return;
@@ -65,6 +66,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             minZoom: 1,
             projection: { name: 'equirectangular' },
             scrollZoom,
+
             logoPosition: 'bottom-right',
             maxBounds: [
                 [-180, -72],
@@ -94,6 +96,13 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
                 animate: false,
             },
         });
+
+        // // Инициализируем плагин с нужным языком (например, русский)
+        // mapLanguageRef.current = new MapboxLanguage({
+        //     defaultLanguage: i18n.language,
+        // });
+        // mapRef.current.addControl(mapLanguageRef.current);
+        mapRef.current.setLanguage(i18n.language);
 
         mapRef.current.addControl(geolocate, 'bottom-right');
         mapRef.current.addControl(
@@ -141,6 +150,50 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             mapRef.current?.off('load', onMapLoad);
         };
     }, []);
+
+    const updateControlTexts = (trans: TFunction<'uiKit', 'map'>) => {
+        // Обновляем кнопку "Моё местоположение"
+        const geolocateButton = document.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+        if (geolocateButton) {
+            geolocateButton.setAttribute('title', trans('FindMyLocation'));
+        }
+
+        // Обновляем кнопки зума
+        const zoomInButton = document.querySelector('.mapboxgl-ctrl-zoom-in') as HTMLElement;
+        const zoomOutButton = document.querySelector('.mapboxgl-ctrl-zoom-out') as HTMLElement;
+
+        if (zoomInButton) {
+            const zoomInButtonIcon = zoomInButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+            if (zoomInButtonIcon) zoomInButtonIcon.setAttribute('title', trans('ZoomIn'));
+        }
+
+        if (zoomOutButton) {
+            const zoomOutButtonIcon = zoomOutButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+            if (zoomOutButtonIcon) zoomOutButtonIcon.setAttribute('title', trans('ZoomOut'));
+        }
+        // Обновляем кнопку полноэкранного режима
+        const fullscreenButton = document.querySelector('.mapboxgl-ctrl-fullscreen') as HTMLElement;
+        if (fullscreenButton) {
+            const isFullscreen = document.fullscreenElement !== null;
+            const fullscreenButtonIcon = fullscreenButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+
+            fullscreenButtonIcon.setAttribute('title', isFullscreen ? trans('Exit') : t('Enter'));
+        }
+
+        const mapControls = mapRef.current?._controls;
+        const geocoderControl = mapControls?.find((control) => control instanceof MapboxGeocoder);
+        if (geocoderControl) {
+            // @ts-ignore
+            geocoderControl.setPlaceholder(t('Search'));
+        }
+    };
+
+    useEffect(() => {
+        if (!mapRef.current) return;
+
+        mapRef.current.setLanguage(i18n.language);
+        updateControlTexts(t);
+    }, [i18n.language]);
 
     return (
         <S.MapContainer sx={{ ...sx }} width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>

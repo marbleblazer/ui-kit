@@ -103,7 +103,7 @@ export const Settings: FC<SettingsProps> = ({
                                 </Typography>
                                 <Toggle
                                     name="show-graph"
-                                    label={showGraph ? 'On' : 'Off'}
+                                    label={showGraph ? t('On') : t('Off')}
                                     checked={showGraph}
                                     isLoading={false}
                                     onChange={toggleGraphVisibility}
@@ -128,7 +128,7 @@ export const Settings: FC<SettingsProps> = ({
                                 </Typography>
                                 <Toggle
                                     name="show-alert"
-                                    label={showAlert ? 'On' : 'Off'}
+                                    label={showAlert ? t('On') : t('Off')}
                                     checked={showAlert}
                                     isLoading={false}
                                     onChange={toggleAlertVisibility}

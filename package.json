@@ -103,5 +103,7 @@
     "sideEffects": [
         "**/*.css"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "@mapbox/mapbox-gl-language": "^1.0.1"
+    }
 }
