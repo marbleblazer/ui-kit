@@ -9,4 +9,5 @@ export const COUNTRIES = (
     de: { dialCode: '+49', name: countriesT('Germany') },
     pt: { dialCode: '+351', name: countriesT('Portugal') },
     es: { dialCode: '+34', name: countriesT('Spain') },
+    fr: { dialCode: '+33', name: countriesT('France') },
 });
