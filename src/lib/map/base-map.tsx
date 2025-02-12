@@ -186,6 +186,15 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             // @ts-ignore
             geocoderControl.setPlaceholder(t('Search'));
         }
+
+        const mapboxglScrollZoomBlocker = document.querySelector('.mapboxgl-scroll-zoom-blocker') as HTMLElement;
+        if (mapboxglScrollZoomBlocker) {
+            mapboxglScrollZoomBlocker.innerHTML = t('CtrlMessage');
+        }
+        const mapboxglTouchPanBlocker = document.querySelector('.mapboxgl-touch-pan-blocker') as HTMLElement;
+        if (mapboxglTouchPanBlocker) {
+            mapboxglTouchPanBlocker.innerHTML = t('Message');
+        }
     };
 
     useEffect(() => {
