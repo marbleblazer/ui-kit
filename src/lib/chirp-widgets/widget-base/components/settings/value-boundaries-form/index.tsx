@@ -5,7 +5,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as S from './style';
 import { ValueBoundaries } from '@chirp/ui/lib/chirp-widgets/types';
 import { numericFormat } from '@chirp/ui/helpers/validation';
-import { capitalizeString } from '@chirp/ui/helpers/capitalizeString';
 import { Checkmark } from '@chirp/ui/assets/icons';
 import { Button } from '@chirp/ui/lib/button';
 import { Typography } from '@chirp/ui/lib/typogrpahy';
@@ -97,7 +96,7 @@ export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, val
                         render={({ field }) => (
                             <S.TextField
                                 {...field}
-                                label={errors[fieldName]?.message || capitalizeString(fieldName)}
+                                label={errors[fieldName]?.message || t(fieldName)}
                                 error={!!errors[fieldName]}
                                 placeholder={`0 ${units}`}
                             />
@@ -118,7 +117,7 @@ export const ValueBoundariesForm: React.FC<Props> = ({ isLoading, valueFrom, val
                         },
                     }}
                 >
-                    {isSaved ? 'Saved' : 'Save'}
+                    {isSaved ? t('Saved') : t('Save')}
                     {isSaved && <Checkmark />}
                 </Button>
             </Stack>

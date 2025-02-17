@@ -17,7 +17,13 @@
             "Online data": "Online data",
             "Data for period": "Data for period",
             "Reset": "Reset",
-            "All": "All"
+            "All": "All",
+            "On": "On",
+            "Off": "Off",
+            "from": "From",
+            "to": "To",
+            "Saved": "Saved",
+            "Save": "Save"
         },
         "colorPicker": {
             "Color": "Color"
@@ -35,7 +41,20 @@
             "Search": "Search",
             "Line": "Line",
             "Circle": "Circle",
-            "Polygon": "Polygon"
+            "Polygon": "Polygon",
+            "ToggleAttribution": "Toggle attribution",
+            "MapFeedback": "Map feedback",
+            "Enter": "Enter fullscreen",
+            "Exit": "Exit fullscreen",
+            "FindMyLocation": "Find my location",
+            "LocationNotAvailable": "Location not available",
+            "Title": "Map",
+            "ResetBearing": "Reset bearing to north",
+            "ZoomIn": "Zoom in",
+            "ZoomOut": "Zoom out",
+            "CtrlMessage": "Use ctrl + scroll to zoom the map",
+            "CmdMessage": "Use ⌘ + scroll to zoom the map",
+            "Message": "Use two fingers to move the map"
         },
         "modal": {
             "Cancel": "Cancel",
@@ -69,7 +88,8 @@
                 "Russia": "Russia",
                 "Germany": "Germany",
                 "Portugal": "Portugal",
-                "Spain": "Spain"
+                "Spain": "Spain",
+                "France": "France"
             }
         }
     },
@@ -91,7 +111,13 @@
             "Online data": "Données en ligne",
             "Data for period": "Données pour la période",
             "Reset": "Réinitialiser",
-            "All": "Tous"
+            "All": "Tous",
+            "On": "Activé",
+            "Off": "Désactivé",
+            "from": "De",
+            "to": "À",
+            "Saved": "Enregistré",
+            "Save": "Enregistrer"
         },
         "colorPicker": {
             "Color": "Couleur"
@@ -109,7 +135,20 @@
             "Search": "Rechercher",
             "Line": "Ligne",
             "Circle": "Cercle",
-            "Polygon": "Polygone"
+            "Polygon": "Polygone",
+            "ToggleAttribution": "Basculer l'attribution",
+            "MapFeedback": "Retour sur la carte",
+            "Enter": "Passer en plein écran",
+            "Exit": "Quitter le plein écran",
+            "FindMyLocation": "Trouver ma position",
+            "LocationNotAvailable": "Localisation non disponible",
+            "Title": "Carte",
+            "ResetBearing": "Réinitialiser l'orientation vers le nord",
+            "ZoomIn": "Zoom avant",
+            "ZoomOut": "Zoom arrière",
+            "CtrlMessage": "Utilisez ctrl + défilement pour zoomer sur la carte",
+            "CmdMessage": "Utilisez ⌘ + défilement pour zoomer sur la carte",
+            "Message": "Utilisez deux doigts pour déplacer la carte"
         },
         "modal": {
             "Cancel": "Annuler",
@@ -143,7 +182,8 @@
                 "Russia": "Russie",
                 "Germany": "Allemagne",
                 "Portugal": "Portugal",
-                "Spain": "Espagne"
+                "Spain": "Espagne",
+                "France": "France"
             }
         }
     },
@@ -165,7 +205,13 @@
             "Online data": "Online-Daten",
             "Data for period": "Daten für den Zeitraum",
             "Reset": "Zurücksetzen",
-            "All": "Alle"
+            "All": "Alle",
+            "On": "Ein",
+            "Off": "Aus",
+            "from": "Von",
+            "to": "Bis",
+            "Saved": "Gespeichert",
+            "Save": "Speichern"
         },
         "colorPicker": {
             "Color": "Farbe"
@@ -183,7 +229,20 @@
             "Search": "Suchen",
             "Line": "Linie",
             "Circle": "Kreis",
-            "Polygon": "Polygon"
+            "Polygon": "Polygon",
+            "ToggleAttribution": "Zuschreibung umschalten",
+            "MapFeedback": "Karten-Feedback",
+            "Enter": "Vollbildmodus aktivieren",
+            "Exit": "Vollbildmodus beenden",
+            "FindMyLocation": "Meinen Standort finden",
+            "LocationNotAvailable": "Standort nicht verfügbar",
+            "Title": "Karte",
+            "ResetBearing": "Ausrichtung nach Norden zurücksetzen",
+            "ZoomIn": "Hineinzoomen",
+            "ZoomOut": "Herauszoomen",
+            "CtrlMessage": "Verwenden Sie Strg + Scrollen, um die Karte zu zoomen",
+            "CmdMessage": "Verwenden Sie ⌘ + Scrollen, um die Karte zu zoomen",
+            "Message": "Verwenden Sie zwei Finger, um die Karte zu bewegen"
         },
         "modal": {
             "Cancel": "Abbrechen",
@@ -217,7 +276,8 @@
                 "Russia": "Russland",
                 "Germany": "Deutschland",
                 "Portugal": "Portugal",
-                "Spain": "Spanien"
+                "Spain": "Spanien",
+                "France": "Frankreich"
             }
         }
     },
@@ -240,7 +300,26 @@
             "Online data": "Datos en línea",
             "Data for period": "Datos del período",
             "Reset": "Restablecer",
-            "All": "Todos"
+            "All": "Todos",
+            "ToggleAttribution": "Alternar atribución",
+            "MapFeedback": "Comentarios del mapa",
+            "Enter": "Entrar en pantalla completa",
+            "Exit": "Salir de pantalla completa",
+            "FindMyLocation": "Encontrar mi ubicación",
+            "LocationNotAvailable": "Ubicación no disponible",
+            "Title": "Mapa",
+            "ResetBearing": "Restablecer orientación al norte",
+            "ZoomIn": "Acercar",
+            "ZoomOut": "Alejar",
+            "CtrlMessage": "Usa ctrl + desplazamiento para hacer zoom en el mapa",
+            "CmdMessage": "Usa ⌘ + desplazamiento para hacer zoom en el mapa",
+            "Message": "Usa dos dedos para mover el mapa",
+            "On": "Encendido",
+            "Off": "Apagado",
+            "from": "Desde",
+            "to": "Hasta",
+            "Saved": "Guardado",
+            "Save": "Guardar"
         },
         "colorPicker": {
             "Color": "Color"
@@ -292,7 +371,8 @@
                 "Russia": "Rusia",
                 "Germany": "Alemania",
                 "Portugal": "Portugal",
-                "Spain": "España"
+                "Spain": "España",
+                "France": "Francia"
             }
         }
     },
@@ -314,7 +394,13 @@
             "Online data": "Онлайн-данные",
             "Data for period": "Данные за период",
             "Reset": "Сброс",
-            "All": "Все"
+            "All": "Все",
+            "On": "Включено",
+            "Off": "Выключено",
+            "from": "От",
+            "to": "До",
+            "Saved": "Сохранено",
+            "Save": "Сохранить"
         },
         "colorPicker": {
             "Color": "Цвет"
@@ -332,7 +418,20 @@
             "Search": "Поиск",
             "Line": "Линия",
             "Circle": "Круг",
-            "Polygon": "Полигон"
+            "Polygon": "Полигон",
+            "ToggleAttribution": "Переключить атрибуцию",
+            "MapFeedback": "Обратная связь по карте",
+            "Enter": "Перейти в полноэкранный режим",
+            "Exit": "Выйти из полноэкранного режима",
+            "FindMyLocation": "Найти мое местоположение",
+            "LocationNotAvailable": "Местоположение недоступно",
+            "Title": "Карта",
+            "ResetBearing": "Сбросить ориентацию на север",
+            "ZoomIn": "Увеличить",
+            "ZoomOut": "Уменьшить",
+            "CtrlMessage": "Используйте ctrl + прокрутку для изменения масштаба карты",
+            "CmdMessage": "Используйте ⌘ + прокрутку для изменения масштаба карты",
+            "Message": "Используйте два пальца для перемещения карты"
         },
         "modal": {
             "Cancel": "Отмена",
@@ -366,7 +465,8 @@
                 "Russia": "Россия",
                 "Germany": "Германия",
                 "Portugal": "Португалия",
-                "Spain": "Испания"
+                "Spain": "Испания",
+                "France": "Франция"
             }
         }
     }

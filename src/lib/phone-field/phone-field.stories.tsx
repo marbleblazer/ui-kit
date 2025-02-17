@@ -21,7 +21,7 @@ export const Default: Story = {
 
         return (
             <PhoneField
-                countries={['us', 'de', 'pt', 'es', 'ru']}
+                countries={['us', 'de', 'pt', 'es', 'ru', 'fr']}
                 defaultCountry="us"
                 value={value}
                 onChange={setValue}
@@ -43,7 +43,7 @@ export const Disabled: Story = {
         return (
             <PhoneField
                 isDisabled
-                countries={['us', 'de', 'pt', 'es', 'ru']}
+                countries={['us', 'de', 'pt', 'es', 'ru', 'fr']}
                 defaultCountry="us"
                 value={value}
                 onChange={setValue}
@@ -65,7 +65,7 @@ export const Error: Story = {
         return (
             <PhoneField
                 error
-                countries={['us', 'de', 'pt', 'es', 'ru']}
+                countries={['us', 'de', 'pt', 'es', 'ru', 'fr']}
                 defaultCountry="us"
                 value={value}
                 onChange={setValue}
@@ -89,7 +89,7 @@ export const Empty: Story = {
                 <TextField fullWidth label="Last name" placeholder="Last name" />
                 <TextField fullWidth label="First name" placeholder="First name" />
                 <PhoneField
-                    countries={['us', 'de', 'pt', 'es', 'ru']}
+                    countries={['us', 'de', 'pt', 'es', 'ru', 'fr']}
                     defaultCountry="us"
                     label="Phone number"
                     value={value}

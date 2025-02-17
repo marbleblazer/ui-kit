@@ -8,7 +8,7 @@ const LANGUAGE_COOKIE_KEY = 'language';
 
 i18n.use(initReactI18next).init({
     resources,
-    fallbackLng: 'es',
+    fallbackLng: 'ru',
     supportedLngs: Object.keys(languages),
     interpolation: {
         escapeValue: false,
@@ -19,6 +19,10 @@ i18n.use(initReactI18next).init({
         caches: ['cookie'],
     },
 });
+
+export const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+};
 
 export { languages };
 
