@@ -44,7 +44,6 @@ export const Select: FC<SelectPropsType> = ({
                     '&.MuiInputLabel-shrink': {
                         transform: 'none',
                         left: 0,
-                        top: '-5px',
                         color: theme.palette.text.titleInput,
                         ...theme.typography.caption12,
                     },
