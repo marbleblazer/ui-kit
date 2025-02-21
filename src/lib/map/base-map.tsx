@@ -198,6 +198,17 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     };
 
     useEffect(() => {
+        if (!wrapper.current) return;
+        const resizeObserver = new ResizeObserver(() => {
+            if (mapRef.current === null) return;
+            mapRef.current.resize();
+        });
+        resizeObserver.observe(wrapper.current);
+
+        return () => resizeObserver.disconnect(); // clean up
+    }, []);
+
+    useEffect(() => {
         if (!mapRef.current) return;
 
         mapRef.current.setLanguage(i18n.language);

@@ -361,3 +361,40 @@ export const TripMapExample: Story = {
         );
     },
 };
+
+export const DynamicWidthTest: Story = {
+    render: () => {
+        const [widthState, setWidthState] = useState('300px');
+
+        return (
+            <Box sx={{ width: widthState, height: '500px' }}>
+                <Stack>
+                    <Stack direction="row">
+                        <button onClick={() => setWidthState('300px')}>300px</button>
+                        <button onClick={() => setWidthState('500px')}>500px</button>
+                    </Stack>
+                </Stack>
+
+                <FeatureMap
+                    data={{
+                        type: 'FeatureCollection',
+                        features: [
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [49.687, 55.4745],
+                                },
+                                properties: {
+                                    title: 'Mapbox',
+                                    description: 'Washington, D.C.',
+                                },
+                            },
+                        ],
+                    }}
+                    coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
+                />
+            </Box>
+        );
+    },
+};
