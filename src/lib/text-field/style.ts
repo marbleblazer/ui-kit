@@ -27,7 +27,7 @@ export const TextField = styled(MuiTextField)<StandardTextFieldProps>(({ theme }
     '&.MuiFormControl-root .MuiFormLabel-root': {
         transform: 'none',
         left: 0,
-        top: '-24px',
+        top: '-20px',
         color: theme.palette.text.titleInput,
         ...theme.typography.caption12,
     },

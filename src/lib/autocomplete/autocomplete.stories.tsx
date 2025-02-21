@@ -40,7 +40,7 @@ export const Default: Story = {
                         {String(option)}
                     </li>
                 )}
-                renderInput={(params) => <TextField {...params} placeholder="Search" />}
+                renderInput={(params) => <TextField {...params} label="Search input" placeholder="Search" />}
             />
         );
     },
