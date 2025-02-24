@@ -1,7 +1,6 @@
-import { SxProps } from '@mui/system/styleFunctionSx';
 import * as S from './styles';
 import { BaseCard } from '../base-card';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, SxProps } from '@mui/material';
 import { ImagePreview } from '../../image-preview';
 import { Typography } from '../../typogrpahy';
 

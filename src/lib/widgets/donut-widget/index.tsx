@@ -1,8 +1,7 @@
 import { PropsWithChildren, useState, type JSX } from 'react';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { DonutChart } from '@chirp/ui/lib';
-import { Box } from '@mui/system';
-import { Stack } from '@mui/material';
+import { Stack, Box } from '@mui/material';
 import { ColorListItem } from '../common/color-list-item/list-item';
 import { DonutChartDataType } from '../../charts/donut-chart/donut-chart';
 import { BaseWidgetCustomHeader } from '../base-widget/base-widget-custom-header';

@@ -1,4 +1,0 @@
-{
-    "*.{js,ts,jsx,tsx}": ["npm run lint:fix"],
-    "*.{css,scss}": ["npm run lint:scss:fix"]
-}
