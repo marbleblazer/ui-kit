@@ -64,7 +64,8 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             style: getMapStyleId(palette.mode),
             zoom: 6,
             minZoom: 1,
-            projection: { name: 'equirectangular' },
+            // projection: { name: 'equirectangular' },
+            projection: { name: 'mercator' },
             scrollZoom,
 
             logoPosition: 'bottom-right',
@@ -88,13 +89,9 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         );
         mapRef.current.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
         const geolocate = new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true,
-            },
+            positionOptions: { enableHighAccuracy: true },
             showUserHeading: false,
-            fitBoundsOptions: {
-                animate: false,
-            },
+            fitBoundsOptions: { animate: false },
         });
 
         // // Инициализируем плагин с нужным языком (например, русский)
