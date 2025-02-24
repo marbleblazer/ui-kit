@@ -85,8 +85,9 @@ export const ThreeMarkers: Story = {
                                     coordinates: [49.687, 55.4745],
                                 },
                                 properties: {
-                                    title: 'Mapbox',
-                                    description: 'Washington, D.C.',
+                                    id: 227,
+                                    popupMarkup:
+                                        '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 10px"><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Last update:</label>\n                        <p>5d 14h 0 min ago</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Address:</label>\n                        <p></p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Motion state:</label>\n                        <p>No actual state</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unit name:</label>\n                        <p>FMC003 in the new car</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unique identifier:</label>\n                        <p>864636060361017</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Model:</label>\n                        <p>FMC003</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Speed:</label>\n                        <p>10 km/h</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Driver:</label>\n                        <p>Boris Borisov</p>\n                    </div></div>',
                                 },
                             },
                             {
@@ -96,8 +97,9 @@ export const ThreeMarkers: Story = {
                                     coordinates: [45.687, 55.4745],
                                 },
                                 properties: {
-                                    title: 'Mapbox',
-                                    description: 'Washington, D.C.',
+                                    id: 228,
+                                    popupMarkup:
+                                        '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 10px"><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Last update:</label>\n                        <p>5d 14h 0 min ago</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Address:</label>\n                        <p></p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Motion state:</label>\n                        <p>No actual state</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unit name:</label>\n                        <p>FMC003 in the new car</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unique identifier:</label>\n                        <p>864636060361017</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Model:</label>\n                        <p>FMC003</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Speed:</label>\n                        <p>10 km/h</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Driver:</label>\n                        <p>Boris Borisov</p>\n                    </div></div>',
                                 },
                             },
                         ],
@@ -356,6 +358,43 @@ export const TripMapExample: Story = {
                     animationDuration={30000}
                     isLineMarkersNeeded={false}
                     isPaused={isPaused}
+                />
+            </Box>
+        );
+    },
+};
+
+export const DynamicWidthTest: Story = {
+    render: () => {
+        const [widthState, setWidthState] = useState('300px');
+
+        return (
+            <Box sx={{ width: widthState, height: '500px' }}>
+                <Stack>
+                    <Stack direction="row">
+                        <button onClick={() => setWidthState('300px')}>300px</button>
+                        <button onClick={() => setWidthState('500px')}>500px</button>
+                    </Stack>
+                </Stack>
+
+                <FeatureMap
+                    data={{
+                        type: 'FeatureCollection',
+                        features: [
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [49.687, 55.4745],
+                                },
+                                properties: {
+                                    title: 'Mapbox',
+                                    description: 'Washington, D.C.',
+                                },
+                            },
+                        ],
+                    }}
+                    coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
                 />
             </Box>
         );

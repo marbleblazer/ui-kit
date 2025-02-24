@@ -135,19 +135,41 @@ export const renderPoints = (
     markersRef: RefObject<mapboxgl.Marker[]>,
     theme: Theme,
 ) => {
-    const markerElement = document && document.createElement('div');
+    const markerElement = document.createElement('div');
     markerElement.innerHTML = mapMarkerSvgString(theme.palette);
+
+    const circleElement = markerElement.querySelector('.marker-interactive') as HTMLElement;
 
     const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(geometry.coordinates as [number, number]);
 
+    let popup: mapboxgl.Popup | null = null;
+
     if (popupMarkup) {
-        const popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
+        popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
+    }
+
+    if (circleElement) {
+        circleElement.addEventListener('mouseover', () => {
+            if (popup) {
+                popup.addTo(map.current!);
+            }
+        });
+
+        circleElement.addEventListener('mouseout', () => {
+            if (popup) {
+                popup.remove();
+            }
+        });
+    }
+
+    if (popup) {
         markerInstance.setPopup(popup);
     }
 
     if (map.current) {
         markerInstance.addTo(map.current);
     }
+
     markersRef.current.push(markerInstance);
 };
 

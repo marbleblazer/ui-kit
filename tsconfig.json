@@ -28,6 +28,7 @@
         "baseUrl": "./",
         "types": [
             "node",
+            "@types/mapbox__mapbox-sdk",
             "vite/client"
         ],
         "paths": {
