@@ -24,10 +24,10 @@ import { Loader } from '@chirpwireless/ui-kit';
 
 ## Properties
 
-| Name   | Description                                                             | Type     | Default Value |           |
-| ------ | ----------------------------------------------------------------------- | -------- | ------------- | --------- |
-| `text` | Text to display alongside the loader.                                   | `string` | `undefined`   |           |
-| `size` | Size of the loader, determines the dimensions of the animated elements. | `'small' | 'large'`      | `'small'` |
+| Name   | Description                                                             | Type              | Default Value |
+| ------ | ----------------------------------------------------------------------- | ----------------- | ------------- |
+| `text` | Text to display alongside the loader.                                   | `string`          | `undefined`   |
+| `size` | Size of the loader, determines the dimensions of the animated elements. | `'small' 'large'` | `'small'`     |
 
 ## Size Configuration
 
