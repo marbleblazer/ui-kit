@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import { styled } from '@mui/material';
 import { Radio as MuiRadio } from '@mui/material';
 
 export const StyledRadio = styled(MuiRadio)(({ theme }) => ({

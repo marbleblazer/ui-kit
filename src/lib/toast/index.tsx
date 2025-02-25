@@ -1,4 +1,4 @@
-import { SxProps } from '@mui/system/index.js';
+import { SxProps } from '@mui/material';
 import { Typography } from '../typogrpahy/index.tsx';
 import * as S from './style.ts';
 

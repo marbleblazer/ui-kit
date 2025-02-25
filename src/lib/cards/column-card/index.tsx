@@ -1,7 +1,6 @@
-import { SxProps } from '@mui/system/styleFunctionSx';
 import * as S from './styles';
 import { BaseCard } from '../base-card';
-import { Stack, Grid } from '@mui/material';
+import { Stack, Grid, SxProps } from '@mui/material';
 import { Typography } from '../../typogrpahy';
 
 interface IColumnData {

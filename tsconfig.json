@@ -2,11 +2,7 @@
     "compilerOptions": {
         "target": "ESNext",
         "useDefineForClassFields": true,
-        "lib": [
-            "ES2020",
-            "DOM",
-            "DOM.Iterable"
-        ],
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "declaration": true,
         "outDir": "./dist",
@@ -26,33 +22,14 @@
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "baseUrl": "./",
-        "types": [
-            "node",
-            "@types/mapbox__mapbox-sdk",
-            "vite/client"
-        ],
+        "types": ["node", "@types/mapbox__mapbox-sdk", "vite/client"],
         "paths": {
-            "@mui/material/*": [
-                "./node_modules/@mui/material/*"
-            ],
-            "@mui/system/*": [
-                "./node_modules/@mui/system/*"
-            ],
-            "@chirp/ui/*": [
-                "./src/*"
-            ],
+            "@mui/material/*": ["./node_modules/@mui/material/*"],
+            "@chirp/ui/*": ["./src/*"]
         }
     },
-    "include": [
-        "src/**/*",
-        "./src",
-        "./vite.config.ts",
-        ".storybook/*",
-        "src/styles/theme.d.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ],
+    "include": ["src/**/*", "./src", "./vite.config.ts", ".storybook/*", "src/styles/theme.d.ts"],
+    "exclude": ["node_modules"],
     "references": [
         {
             "path": "./tsconfig.node.json"

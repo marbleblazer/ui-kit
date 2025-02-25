@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import * as S from './style';
-import { Stack } from '@mui/system';
+import { Stack } from '@mui/material';
 import { Typography } from '../../typogrpahy';
 import { SelectIndicator } from '../../select-indicator';
 

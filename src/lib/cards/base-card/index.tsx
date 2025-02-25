@@ -1,4 +1,4 @@
-import { SxProps } from '@mui/system/styleFunctionSx';
+import { SxProps } from '@mui/material';
 import * as S from './styles';
 
 interface IBaseCardProps {
