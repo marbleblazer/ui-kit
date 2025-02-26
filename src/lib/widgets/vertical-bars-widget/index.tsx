@@ -1,8 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import { Typography, VerticalBarChart } from '@chirp/ui/lib';
-import { Box } from '@mui/system';
-import { Stack, useTheme } from '@mui/material';
+import { Stack, useTheme, Box } from '@mui/material';
 
 import { VerticalBarsChartDataType } from '../../charts/vertical-bar-chart/vertical-bar-line-chart';
 

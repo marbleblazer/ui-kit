@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { VerticalBarsChartWidget } from '@chirp/ui/lib';
-import { Box } from '@mui/system';
+import { Box } from '@mui/material';
 import { useState } from 'react';
 import { mockBarsData } from '../../charts/vertical-bar-chart/mock-data';
 
