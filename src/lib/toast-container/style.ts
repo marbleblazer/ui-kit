@@ -11,8 +11,8 @@ export const ToastContainer = styled(RTToastContainer)`
         right: 32px;
     }
     .Toastify__toast {
-        padding: 0;
         background: transparent;
+        padding: 0;
         border-radius: 8px;
         min-height: 50px;
     }

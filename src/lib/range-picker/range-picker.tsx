@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
-import { capitalize, Divider, Stack } from '@mui/material';
+import { capitalize, Divider, Stack, alpha, useTheme } from '@mui/material';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import moment from 'moment';
 
@@ -111,7 +110,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         onChange={(e) => handleInputDateChange(e, 'start')}
                         sx={{
                             label: { color: `${theme.palette.text.text8} !important` },
-                            borderColor: alpha(theme.palette.border.input, 0.14),
+                            borderColor: alpha(theme.palette.border?.input, 0.14),
                             input: {
                                 backgroundColor: theme.palette.background.background2,
                             },
@@ -132,7 +131,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         onChange={(e) => handleInputDateChange(e, 'end')}
                         sx={{
                             label: { color: `${theme.palette.text.text8} !important` },
-                            borderColor: alpha(theme.palette.border.input, 0.14),
+                            borderColor: alpha(theme.palette.border?.input, 0.14),
                             input: {
                                 backgroundColor: theme.palette.background.background2,
                             },

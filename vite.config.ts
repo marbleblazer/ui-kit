@@ -61,7 +61,7 @@ export default defineConfig(({ mode }) => {
                             ]),
                     ),
                 },
-                external: ['react', 'react-dom', '@mui/material', 'react-i18next', 'i18next'], // Внешние зависимости
+                external: ['react', 'react-dom', '@mui/material', 'react-i18next', 'i18next', 'react-toastify'], // Внешние зависимости
                 output: {
                     minifyInternalExports: false,
                     inlineDynamicImports: false, // отключите инлайн динамические импорты
