@@ -17,6 +17,8 @@ interface UserPopupProps {
     onChangeMode?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
     isDarkMode?: boolean;
     name?: string;
+    userNameForAvatar?: string;
+    avatarUrl?: string;
 }
 
 export const UserPopup: FC<UserPopupProps> = ({
@@ -26,6 +28,8 @@ export const UserPopup: FC<UserPopupProps> = ({
     isDarkMode,
     name,
     languageSelectorProps,
+    userNameForAvatar,
+    avatarUrl,
 }) => {
     const { t } = useTranslation('uiKit', { keyPrefix: 'UserPopup' });
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -50,7 +54,11 @@ export const UserPopup: FC<UserPopupProps> = ({
                 columnGap={2}
                 sx={{ cursor: 'pointer' }}
             >
-                <Avatar sx={{ width: '40px', height: '40px' }} />
+                <Avatar
+                    sx={{ width: '40px', height: '40px' }}
+                    avatarUrl={avatarUrl}
+                    userName={userNameForAvatar ?? ''}
+                />
                 <Typography variant="body1" color="text.text4" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
                     {name}
                 </Typography>

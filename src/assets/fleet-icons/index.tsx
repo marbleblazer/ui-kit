@@ -72,3 +72,4 @@ export { default as GreenStopIcon } from './gray_stop.svg?react';
 export { default as GreenShieldIcon } from './green_shield.svg?react';
 export { default as YellowInDeliveryIcon } from './yellow_in-delivery.svg?react';
 export { default as YellowInYellowRepairIcon } from './yellow_repair.svg?react';
+export { default as CameraUploadIcon } from './camera.svg?react';
