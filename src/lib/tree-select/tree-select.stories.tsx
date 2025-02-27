@@ -20,6 +20,7 @@ type Story = StoryObj<typeof TreeSelect>;
 export const Default: Story = {
     render: () => {
         const [selectedNodeState, setSelectedNodeState] = useState<TreeNodeType>();
+
         return (
             <Box sx={{ width: '400px' }}>
                 <TreeSelect

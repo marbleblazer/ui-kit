@@ -32,6 +32,7 @@ export const ConfirmationDialog: React.FC<Props> = ({
     onCancel,
 }) => {
     const { t } = useTranslation('uiKit', { keyPrefix: 'modal' });
+
     return (
         <S.Dialog open={isOpen}>
             {icon && <S.IconWrapper>{icon}</S.IconWrapper>}

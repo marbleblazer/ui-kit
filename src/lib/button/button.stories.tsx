@@ -23,6 +23,7 @@ export const SmallSize: Story = {
         </Button>
     ),
 };
+
 export const SmallSizeWithIcons: Story = {
     render: () => (
         <Button size="small" variant="primary" startIcon={<MapIcon />} endIcon={<EyeIcon />}>

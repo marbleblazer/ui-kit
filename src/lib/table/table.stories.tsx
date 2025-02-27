@@ -103,7 +103,8 @@ export const Default: Story = {
         </Box>
     ),
 };
-export const virtualized: Story = {
+
+export const Virtualized: Story = {
     render: () => (
         <Box height="500px">
             <TableVirtualized

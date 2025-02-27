@@ -67,7 +67,7 @@ export const Default: Story = {
     },
 };
 
-export const СlickableСolorСells: Story = {
+export const ClickableСolorСells: Story = {
     render: () => {
         const [color, setColor] = useState('#aabbcc');
 

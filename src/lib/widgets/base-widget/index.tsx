@@ -31,6 +31,7 @@ export const BaseWidget: FC<PropsWithChildren<IBaseWidgetProps>> = ({
 }) => {
     const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
     const resolveWidgetTypName = type === 'period' ? t('Data for period') : t('Online data');
+
     return (
         <S.Wrapper sx={wrapperSxProps}>
             <Stack gap={2}>

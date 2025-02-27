@@ -54,6 +54,7 @@ export const Secondary: Story = {
         </IconButton>
     ),
 };
+
 export const Outlined: Story = {
     render: () => (
         <IconButton variant="outlined">
@@ -61,6 +62,7 @@ export const Outlined: Story = {
         </IconButton>
     ),
 };
+
 export const Tertiary: Story = {
     render: () => (
         <IconButton variant="tertiary">
@@ -68,6 +70,7 @@ export const Tertiary: Story = {
         </IconButton>
     ),
 };
+
 export const Gray: Story = {
     render: () => (
         <IconButton variant="gray">

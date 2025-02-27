@@ -16,7 +16,8 @@ import { BaseMap, IBaseMapProps } from '../base-map';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
 import { useTheme } from '@mui/material';
 
-mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
+// TODO: Проверить нужен ли. Вроде можно удалить
+mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 // FYI: withStartEndLineIndicators - for display one single line.
 // if you want display array of geojson - develop it
@@ -50,8 +51,21 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         if (!map.current) return;
 
         if (feature.properties && 'circleRadius' in feature.properties) {
-            const circleCenter = GeodesicDraw.getCircleCenter(feature);
-            const circleRadius = GeodesicDraw.getCircleRadius(feature);
+            // TODO: исправить это безобразие
+            // 1) Вынести в свои типы
+            // Найти типы для данной либы
+            const circleCenter = (
+                GeodesicDraw as unknown as {
+                    getCircleCenter: (
+                        features: GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>,
+                    ) => GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties>;
+                }
+            ).getCircleCenter(feature);
+            const circleRadius = (
+                GeodesicDraw as unknown as {
+                    getCircleRadius: (features: GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>) => number;
+                }
+            ).getCircleRadius(feature);
             const circle = circleTurf(circleCenter, circleRadius, { units: 'kilometres', steps: 64 });
             onChange(circle);
         } else {
@@ -64,7 +78,10 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
 
         // Инициализация контролов рисования
         let modes = MapboxDraw.modes;
-        modes = GeodesicDraw.enable(modes);
+        // TODO: исправить это безобразие
+        // 1) Вынести в свои типы
+        // Найти типы для данной либы
+        modes = (GeodesicDraw as unknown as { enable: (modes: MapboxDraw.Modes) => MapboxDraw.Modes }).enable(modes);
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {
@@ -90,6 +107,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
             const features = e.features as GeoJSON.Feature[];
             handleChange(features[0]);
         });
+
         if (defaultDrawMode) {
             drawRef.current.changeMode(defaultDrawMode);
         }
@@ -113,13 +131,20 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         }
 
         const isCircleData = checkCirclePolygon(data);
+
         // draw logic
         if (isCircleData) {
             const resolvedCircleGeometry = getCircleGeometryFromPolygon(data);
+
             if (resolvedCircleGeometry) {
                 const { center, radius } = resolvedCircleGeometry;
+
                 if (isCircleData) {
-                    const circle = GeodesicDraw.createCircle(center, radius);
+                    const circle = (
+                        GeodesicDraw as unknown as {
+                            createCircle: (features: GeoJSON.Position, radius: number) => GeoJSON.Feature;
+                        }
+                    ).createCircle(center, radius);
                     drawRef.current.add(circle);
                 }
             }
@@ -148,6 +173,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         const bbox = bboxTurf(data, { recompute: true });
         const [west, south, east, north] = bbox;
         map.current.fitBounds([west, south, east, north], { padding: 50 });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, drawMode, withStartEndLineIndicators]);
 
     useEffect(() => {
@@ -160,6 +186,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
                 addDataToMap();
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     const handleChangeMode = (key: string) => {

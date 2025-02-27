@@ -42,6 +42,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
 
     const translatedCountries = COUNTRIES(countriesT);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const countryList = useMemo(() => countries.map((code) => ({ code, ...translatedCountries[code] })), [countries]);
 
     const extractInitialValues = (inputValue: string) => {
@@ -71,9 +72,11 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     useEffect(() => {
         const dialCode = translatedCountries[selectedCountry].dialCode.replace('+', '');
         const fullValue = `${dialCode}${localValue}`;
+
         if (fullValue !== value) {
             onChange(fullValue);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCountry, localValue, onChange]);
 
     const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
@@ -107,6 +110,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
                                 displayEmpty
                                 renderValue={(selected) => {
                                     const country = countryList.find((c) => c.code === selected);
+
                                     return country ? country.dialCode : '';
                                 }}
                                 IconComponent={SelectIndicator}

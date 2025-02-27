@@ -33,6 +33,7 @@ const MOCK_DATA = [
 export const Default: Story = {
     render: () => {
         const [openState, setOpenState] = useState(false);
+
         return (
             <DropdownMenu<{ title: string; id: number }>
                 items={MOCK_DATA}

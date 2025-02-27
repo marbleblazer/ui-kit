@@ -3,7 +3,7 @@ import { SortingState } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 
 import { TableComponent } from './components/table-component';
-import { useReactTable } from './hooks/useReactTable';
+import { useReactTable } from './hooks/use-react-table';
 import { TableColumnDef } from './types';
 
 export interface ITableContainerProps<T> {

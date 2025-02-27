@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import { AttributeConverter } from './unit-converter';
 import { AttributeConfig, CalculatedValues, Metrics, Timequant, WidgetTypes } from '../types';
+import { AnyObject } from '@chirp/ui/helpers/global';
 
 export const toValidTimeString = (property: string) => {
     return property.replace(/\s(\d{2})/, 'T$1:00Z');
@@ -57,6 +58,7 @@ export const calculateValues = (chartData: Serie[] | null): CalculatedValues => 
         data.forEach(({ y }) => {
             if (typeof y === 'number') {
                 if (typeof min !== 'number' || y < min) min = y;
+
                 if (typeof max !== 'number' || y > max) max = y;
                 sum += y;
                 count++;
@@ -109,7 +111,7 @@ export const getValueString = ({
 }) => {
     if (config.type === 'boolean' && typeof value !== 'undefined') {
         try {
-            const valueMapObj = JSON.parse(config.value_map.replace(/'/g, '"'));
+            const valueMapObj = JSON.parse(config.value_map.replace(/'/g, '"')) as AnyObject;
 
             return valueMapObj[value ? '1' : '0'] ?? value;
         } catch (e) {

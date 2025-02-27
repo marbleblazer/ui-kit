@@ -13,14 +13,15 @@ import { BaseMap, IBaseMapProps } from './base-map';
 import { customDrawStyles } from './constance';
 import { debounce, useTheme } from '@mui/material';
 
-mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
+// TODO: Проверить нужен ли. Вроде можно удалить
+mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
+    // TODO: если coordinates  не нужны - удалить его во всех FeatureMap. Но а вообще, он должен передаваться в basemap и устанавливать дефолтный центр карты
     coordinates?: Coordinates;
-    scrollZoom?: boolean;
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
@@ -28,8 +29,6 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
 
 export const FeatureMap: React.FC<IFeatureMapProps> = ({
     data,
-    coordinates,
-    scrollZoom = true,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
     ...baseProps
@@ -47,7 +46,12 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
-        modes = GeodesicDraw.enable(modes);
+        // TODO: исправить это безобразие
+        // 1) Вынести в свои типы
+        // Найти типы для данной либы
+        modes = (GeodesicDraw as unknown as { enable: (modes: MapboxDraw.Modes) => MapboxDraw.Modes }).enable(
+            modes,
+        ) as MapboxDraw.Modes;
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {
@@ -92,7 +96,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
             if (localData.type === 'FeatureCollection') {
                 for (const feature of localData.features) {
                     const geometry = feature.geometry;
-                    const popupMarkup: string = feature?.properties?.popupMarkup;
+                    const popupMarkup: string = feature?.properties?.popupMarkup as string;
 
                     if (geometry.type === 'Point') {
                         if (localData.features.length === 1) {
@@ -122,6 +126,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                 map.current.fitBounds([west, south, east, north], { padding: 50, duration: 100, essential: true });
             }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [theme],
     );
 
@@ -130,23 +135,26 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     }, [theme]);
 
     useEffect(() => {
-        if (!map.current) return;
+        const mapCurrent = map.current;
+
+        if (!mapCurrent) return;
 
         const updateMap = debounce(() => {
-            if (map.current?.isStyleLoaded()) {
+            if (mapCurrent?.isStyleLoaded()) {
                 addDataToMap(data);
             }
 
-            map.current?.on('style.load', () => addDataToMap(data));
+            mapCurrent?.on('style.load', () => addDataToMap(data));
         }, 100);
 
         updateMap();
 
         return () => {
             updateMap?.clear();
-            if (map.current) map.current.stop();
+
+            if (mapCurrent) mapCurrent.stop();
         };
-    }, [data, theme]);
+    }, [addDataToMap, data, theme]);
 
     // Центрирование карты по координатам centeringCoordinates
     useEffect(() => {

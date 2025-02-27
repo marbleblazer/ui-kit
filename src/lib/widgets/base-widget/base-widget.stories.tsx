@@ -20,6 +20,7 @@ export const Default: Story = {
     render: () => {
         const [favoriteState, setFavoriteState] = useState(false);
         const [deleteState, setDeleteState] = useState(false);
+
         return (
             <Box
                 p={5}
@@ -47,6 +48,7 @@ export const Disabled: Story = {
     render: () => {
         const [favoriteState, setFavoriteState] = useState(false);
         const [deleteState, setDeleteState] = useState(false);
+
         return (
             <Box
                 p={5}

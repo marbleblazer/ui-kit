@@ -25,7 +25,7 @@ export const Tabs = <T,>({
         <S.Tabs
             className="tabs"
             value={activeTab}
-            onChange={(_, tabName) => setActiveTab(tabName)}
+            onChange={(_, tabName: string) => setActiveTab(tabName)}
             sx={sx}
             variant={variant}
         >

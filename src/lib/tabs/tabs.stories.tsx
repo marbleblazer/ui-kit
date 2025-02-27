@@ -18,6 +18,7 @@ type Story = StoryObj<typeof Tabs>;
 export const Default: Story = {
     render: () => {
         const [activeTabState, setActiveTabState] = useState('One');
+
         return <Tabs items={['One', 'Two', 'Three']} activeTab={activeTabState} setActiveTab={setActiveTabState} />;
     },
 };

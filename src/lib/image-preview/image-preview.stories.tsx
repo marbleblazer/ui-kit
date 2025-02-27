@@ -18,6 +18,7 @@ type Story = StoryObj<typeof ImagePreview>;
 export const Default: Story = {
     render: () => {
         const [loadedState, setLoadedState] = useState(false);
+
         return (
             <ImagePreview
                 title="Photo"

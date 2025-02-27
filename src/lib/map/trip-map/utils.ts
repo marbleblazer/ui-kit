@@ -16,6 +16,7 @@ const isTooCloseOnScreen = (
     return existingPopups.some((popupPoint) => {
         const dx = pixelPoint.x - popupPoint.x;
         const dy = pixelPoint.y - popupPoint.y;
+
         return Math.sqrt(dx * dx + dy * dy) < minDistance;
     });
 };
@@ -23,6 +24,7 @@ const isTooCloseOnScreen = (
 // Функция для получения границ текущей области карты
 const getMapBounds = (map: mapboxgl.Map) => {
     const bounds = map.getBounds();
+
     if (!bounds) return;
 
     return {
@@ -36,6 +38,7 @@ const getMapBounds = (map: mapboxgl.Map) => {
 // Проверка, находится ли точка в пределах экрана
 const isPointInBounds = (point: [number, number], bounds: ReturnType<typeof getMapBounds>) => {
     const [lon, lat] = point;
+
     if (!bounds) return false;
 
     return lon >= bounds.west && lon <= bounds.east && lat >= bounds.south && lat <= bounds.north;
@@ -74,6 +77,7 @@ export const createPopupsForLineString = (
     zoom?: number,
 ) => {
     clear();
+
     if (!zoom || !map || !coordinates) return;
 
     // если зум ниже порога ZOOM_BREAKPOINTS.NONE, удаляем все активные попапы и return
@@ -127,6 +131,7 @@ export const createPopupsForLineString = (
         }
     });
 };
+
 /** Рендеринг элементов типа "Point" */
 export const renderPoints = (
     geometry: Point,

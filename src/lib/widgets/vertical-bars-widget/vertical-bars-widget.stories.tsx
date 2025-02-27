@@ -48,6 +48,7 @@ export const Default: Story = {
         );
     },
 };
+
 export const TwoValue: Story = {
     render: () => {
         const [favoriteState, setFavoriteState] = useState(false);

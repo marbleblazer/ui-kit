@@ -55,6 +55,7 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
             {} as CheckedStateType<T>['map'],
         );
         setCheckedItemsState({ array: selectedOptions, map: mappedSelectedItems });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedOptions]);
 
     const handleChangeCheckedITem = (elem: T, checked: boolean) => {
@@ -85,6 +86,7 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
         return options.filter((item) =>
             String(item[nameKey]).toString().toLowerCase().includes(debouncedSearch.toLowerCase()),
         );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [options, debouncedSearch]);
 
     return (

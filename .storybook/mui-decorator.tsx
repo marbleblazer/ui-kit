@@ -7,10 +7,12 @@ import { useEffect } from 'react';
 import { changeLanguage } from '../src/locales/i18n';
 import { I18nextProvider } from 'react-i18next';
 import CssBaseline from '@mui/material/CssBaseline';
+import { PaletteMode } from '@mui/material/index';
 
 const MuiDecorator = (Story: React.ComponentType, context: StoryContext) => {
-    const theme = context.parameters.theme || context.globals.theme;
-    const lang = context.parameters.language || context.globals.language;
+    const theme = String(context.parameters.theme || context.globals.theme || 'light') as PaletteMode;
+    const lang: string = String(context.parameters.language || context.globals.language || 'en');
+
     useEffect(() => {
         changeLanguage(lang);
     }, [lang]);

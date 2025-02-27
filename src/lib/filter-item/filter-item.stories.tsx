@@ -18,6 +18,7 @@ type Story = StoryObj<typeof FilterItem>;
 export const Default: Story = {
     render: () => {
         const [checkedState, setCheckedState] = useState(false);
+
         return (
             <>
                 <FilterItem

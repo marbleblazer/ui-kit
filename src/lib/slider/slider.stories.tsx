@@ -19,6 +19,7 @@ type Story = StoryObj<typeof Slider>;
 export const Default: Story = {
     render: () => {
         const [value, setValue] = useState(70);
+
         return (
             <Box width="300px">
                 <Slider

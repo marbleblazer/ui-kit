@@ -20,7 +20,6 @@ export default defineConfig(({ mode }) => {
                 '@chirp/ui': path.resolve(__dirname, 'src'),
             },
         },
-
         css: {
             modules: {
                 generateScopedName:

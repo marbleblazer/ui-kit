@@ -18,6 +18,7 @@ type Story = StoryObj<typeof Toggle>;
 export const Default: Story = {
     render: () => {
         const [checkedState, setCheckedState] = useState(false);
+
         return (
             <>
                 <Toggle

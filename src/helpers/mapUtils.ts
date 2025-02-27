@@ -6,7 +6,7 @@ import distance from '@turf/distance';
 export type MapPoint = {
     lat: number;
     lon: number;
-    [key: string]: any;
+    [key: string]: number | string;
 };
 
 type Coordinates = [number, number];
@@ -98,6 +98,7 @@ export const checkCirclePolygon = (data: GeoJSON.GeoJSON) => {
 
 export const getCircleGeometryFromPolygon = (data: GeoJSON.GeoJSON) => {
     const center = centroid(data).geometry.coordinates;
+
     if (data.type === 'Feature' && data.geometry.type === 'Polygon') {
         const firstPoint = data.geometry.coordinates[0][0];
 
