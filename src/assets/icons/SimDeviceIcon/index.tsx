@@ -4,6 +4,7 @@ import { FC } from 'react';
 interface Props {
     theme?: Theme;
 }
+
 export const SimDeviceIcon: FC<Props> = () => (
     <svg width="36" height="34" viewBox="0 0 36 34" fill="none" xmlns="http://www.w3.org/2000/svg">
         <mask id="mask0_2365_8348" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="34">

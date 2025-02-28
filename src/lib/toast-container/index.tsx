@@ -3,7 +3,7 @@ import * as S from './style';
 export const ToastContainer = () => {
     return (
         <S.ToastContainer
-            autoClose={5000}
+            autoClose={2000}
             closeButton={false}
             closeOnClick={false}
             icon={false}

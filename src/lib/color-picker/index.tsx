@@ -47,6 +47,7 @@ export const ColorPicker: FC<IColorPickerProps> = ({
         } else setAlphaState(value ? Number(value) : '');
 
         const hexedAlpha = (((Number(value) / 100) * 255) | (1 << 8)).toString(16).slice(1);
+
         if (Number(value) === 0) return;
 
         if (color.length === 7) {
@@ -64,6 +65,7 @@ export const ColorPicker: FC<IColorPickerProps> = ({
 
         if (!isValid) setError(true);
         else setError(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [color]);
 
     const handleChange = (value: string) => {
@@ -73,6 +75,7 @@ export const ColorPicker: FC<IColorPickerProps> = ({
 
         setAlphaState(Math.round(rgbaColor[3] * 100));
     };
+
     return (
         <>
             <S.Control direction="row" gap={0.5} ref={controlRef} alignItems="flex-end">

@@ -14,7 +14,7 @@ import { HelpControl } from './map-controls/help-control/help-control';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
-mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
+mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 export interface IBaseMapProps {
     mapRef: RefObject<mapboxgl.Map | null>;
@@ -50,15 +50,13 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         // Для обновления цветов в HelpControl
         if (mapRef.current && mapRef.current._controls) {
             const helpControl = mapRef.current._controls.find((control) => control instanceof HelpControl);
-            // @ts-ignore
             helpControl && helpControl.updatePalette(palette);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [palette.mode, i18n.language]);
 
     useEffect(() => {
         if (mapRef.current) return;
-        // @ts-ignore
-
         mapRef.current = new mapboxgl.Map({
             container: mapContainer.current || '',
             style: getMapStyleId(palette.mode),
@@ -112,6 +110,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
                     // Кастомная структура HTML для предложений
                     const title = item.text || '';
                     const address = item.place_name || '';
+
                     return `
                       <div class="mapboxgl-ctrl-geocoder--suggestion">
                         <div class="custom-suggestion">
@@ -127,14 +126,14 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
 
         const mapControls = mapRef.current._controls;
         const geocoderControl = mapControls.find((control) => control instanceof MapboxGeocoder);
+
         if (geocoderControl) {
-            // @ts-ignore
             geocoderControl.setPlaceholder(t('Search'));
         }
 
         mapRef.current.getCanvas().style.cursor = 'pointer';
 
-        geolocate.on('geolocate', (e: any) => {
+        geolocate.on('geolocate', (e: GeolocationPosition) => {
             if (!mapRef.current) return;
             const latlng = new mapboxgl.LngLat(e.coords.longitude as number, e.coords.latitude as number);
             mapRef.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
@@ -146,11 +145,13 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         return () => {
             mapRef.current?.off('load', onMapLoad);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const updateControlTexts = (trans: TFunction<'uiKit', 'map'>) => {
         // Обновляем кнопку "Моё местоположение"
         const geolocateButton = document.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+
         if (geolocateButton) {
             geolocateButton.setAttribute('title', trans('FindMyLocation'));
         }
@@ -161,15 +162,18 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
 
         if (zoomInButton) {
             const zoomInButtonIcon = zoomInButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+
             if (zoomInButtonIcon) zoomInButtonIcon.setAttribute('title', trans('ZoomIn'));
         }
 
         if (zoomOutButton) {
             const zoomOutButtonIcon = zoomOutButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
+
             if (zoomOutButtonIcon) zoomOutButtonIcon.setAttribute('title', trans('ZoomOut'));
         }
         // Обновляем кнопку полноэкранного режима
         const fullscreenButton = document.querySelector('.mapboxgl-ctrl-fullscreen') as HTMLElement;
+
         if (fullscreenButton) {
             const isFullscreen = document.fullscreenElement !== null;
             const fullscreenButtonIcon = fullscreenButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
@@ -179,16 +183,18 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
 
         const mapControls = mapRef.current?._controls;
         const geocoderControl = mapControls?.find((control) => control instanceof MapboxGeocoder);
+
         if (geocoderControl) {
-            // @ts-ignore
             geocoderControl.setPlaceholder(t('Search'));
         }
 
         const mapboxglScrollZoomBlocker = document.querySelector('.mapboxgl-scroll-zoom-blocker') as HTMLElement;
+
         if (mapboxglScrollZoomBlocker) {
             mapboxglScrollZoomBlocker.innerHTML = t('CtrlMessage');
         }
         const mapboxglTouchPanBlocker = document.querySelector('.mapboxgl-touch-pan-blocker') as HTMLElement;
+
         if (mapboxglTouchPanBlocker) {
             mapboxglTouchPanBlocker.innerHTML = t('Message');
         }
@@ -203,6 +209,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         resizeObserver.observe(wrapper.current);
 
         return () => resizeObserver.disconnect(); // clean up
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -210,6 +217,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
 
         mapRef.current.setLanguage(i18n.language);
         updateControlTexts(t);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [i18n.language]);
 
     return (

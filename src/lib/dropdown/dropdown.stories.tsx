@@ -19,6 +19,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Default: Story = {
     render: () => {
         const [openState, setOpenState] = useState(false);
+
         return (
             <Dropdown
                 isOpened={openState}

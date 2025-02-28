@@ -5,6 +5,7 @@ import { FC } from 'react';
 interface Props {
     theme: Theme;
 }
+
 export const LoRaDeviceIcon: FC<Props> = ({ theme }) => (
     <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_7815_23856)">

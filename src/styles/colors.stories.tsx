@@ -20,20 +20,22 @@ export const Default = {
         const theme = useTheme();
         const palette =
             theme.palette.mode === 'light'
-                ? (lightTheme()?.palette as { [key: string]: any })
-                : (darkTheme()?.palette as { [key: string]: any });
+                ? (lightTheme()?.palette as unknown as Record<string, Record<string, string>>)
+                : (darkTheme()?.palette as unknown as Record<string, Record<string, string>>);
+
         return (
             <Stack gap={4} direction="row">
                 {palette &&
-                    Object.keys(palette).map((key: string) => (
+                    Object.keys(palette).map((key) => (
                         <Stack gap={4}>
                             <Typography>{key}</Typography>
-                            {Object.keys(palette[key]).map((color) => (
-                                <Stack direction="row" gap={1}>
-                                    <Typography>{color}</Typography>
-                                    <ClickableColorCell color={palette[key][color]} />
-                                </Stack>
-                            ))}
+                            {key in palette &&
+                                Object.keys(palette[key]).map((color) => (
+                                    <Stack direction="row" gap={1}>
+                                        <Typography>{color}</Typography>
+                                        <ClickableColorCell color={palette?.[key]?.[color]} />
+                                    </Stack>
+                                ))}
                         </Stack>
                     ))}
             </Stack>

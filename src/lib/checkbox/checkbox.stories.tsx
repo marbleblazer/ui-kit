@@ -17,9 +17,11 @@ type Story = StoryObj<typeof Checkbox>;
 export const Default: Story = {
     render: () => <Checkbox />,
 };
+
 export const CheckVariant: Story = {
     render: () => <Checkbox variant="check" label="Some label" />,
 };
+
 export const VisibleVariant: Story = {
     render: () => <Checkbox variant="visible" label="Some label" />,
 };

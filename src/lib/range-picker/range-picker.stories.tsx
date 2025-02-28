@@ -22,6 +22,7 @@ export const Default: Story = {
 
         const [openedState, setOpenedState] = useState(false);
         const [dateState, setDateState] = useState<{ start: string; end: string } | null>(null);
+
         return (
             <>
                 <Typography ref={ref} onClick={() => setOpenedState(true)}>

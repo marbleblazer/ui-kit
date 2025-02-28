@@ -13,6 +13,7 @@ export enum Timequants {
     week = 'week',
     month = 'month',
 }
+
 export interface DataPoint {
     x: number;
     y: number;

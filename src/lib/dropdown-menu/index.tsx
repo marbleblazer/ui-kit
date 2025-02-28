@@ -22,6 +22,7 @@ export const DropdownMenu = <T,>({
     gap = '5px',
 }: PropsWithChildren<IDropdownMenuProps<T>>) => {
     const controlWrapperRef = useRef(null);
+
     return (
         <>
             <div ref={controlWrapperRef}>{children}</div>

@@ -19,6 +19,7 @@ type Story = StoryObj<typeof SystemWidget>;
 export const Default: Story = {
     render: () => {
         const [selectedNodeState, setSelectedNodeState] = useState<boolean>(false);
+
         return (
             <Box sx={{ width: '400px' }}>
                 <SystemWidget

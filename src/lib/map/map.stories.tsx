@@ -44,6 +44,7 @@ export const Default: Story = {
         );
     },
 };
+
 export const ThreeMarkers: Story = {
     render: () => {
         const theme = useTheme();

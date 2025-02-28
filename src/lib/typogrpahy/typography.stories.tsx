@@ -24,7 +24,7 @@ export const Default: Story = {
     ),
 };
 
-export const h2: Story = {
+export const H2: Story = {
     render: () => (
         <Typography variant="h2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo error eius adipisci sit harum quidem fugit
@@ -33,7 +33,8 @@ export const h2: Story = {
         </Typography>
     ),
 };
-export const h3: Story = {
+
+export const H3: Story = {
     render: () => (
         <Typography variant="h3">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo error eius adipisci sit harum quidem fugit
@@ -62,6 +63,7 @@ export const ParagraphSecondary: Story = {
         </Typography>
     ),
 };
+
 export const Subtitle1: Story = {
     render: () => (
         <Typography variant="subtitle1">
@@ -71,6 +73,7 @@ export const Subtitle1: Story = {
         </Typography>
     ),
 };
+
 export const Body1: Story = {
     render: () => (
         <Typography variant="body1">
@@ -80,6 +83,7 @@ export const Body1: Story = {
         </Typography>
     ),
 };
+
 export const Caption: Story = {
     render: () => (
         <Typography variant="caption">
@@ -89,6 +93,7 @@ export const Caption: Story = {
         </Typography>
     ),
 };
+
 export const Overline: Story = {
     render: () => (
         <Typography variant="overline">
@@ -98,6 +103,7 @@ export const Overline: Story = {
         </Typography>
     ),
 };
+
 export const Button: Story = {
     render: () => (
         <Typography variant="button">

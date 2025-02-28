@@ -17,6 +17,7 @@ export interface ISizeConfig {
     element: IElementConfig;
     span: ISpanConfig;
 }
+
 export interface ILoaderElementProps {
     theme?: Theme;
     index: number;

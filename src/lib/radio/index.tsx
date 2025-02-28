@@ -15,7 +15,6 @@ export interface IRadioProps extends RadioProps {
 
 export const Radio: FC<IRadioProps> = ({
     label,
-    variant = 'check',
     labelTypographyVariant = 'body1',
     formControlLabelProps,
     ...props

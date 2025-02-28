@@ -7,7 +7,6 @@ export const Slider = styled(MuiSlider)(({ theme }) => ({
     padding: 0,
 
     '& .MuiSlider-rail': {
-        // eslint-disable-next-line max-len
         background: `url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjQiIHZpZXdCb3g9IjAgMCA4IDQiIGZpbGw9Im5vbmUiPgo8cGF0aCBkPSJNLTguNzQyMjhlLTA4IDJMMS44MDc2NyAxLjgwNzY3TDIgLTguNzQyMjhlLTA4TDIuMTkyMzMgMS44MDc2N0w0IDJMMi4xOTIzMyAyLjE5MjMzTDIgNEwxLjgwNzY3IDIuMTkyMzNMLTguNzQyMjhlLTA4IDJaIiBmaWxsPSIjMTAxMDEwIi8+Cjwvc3ZnPg==),
       var(--gradient)`,
         backgroundPosition: 'center',

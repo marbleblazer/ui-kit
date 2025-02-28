@@ -21,6 +21,7 @@ type Story = StoryObj<typeof StackedChart>;
 export const Default: Story = {
     render: () => {
         const preparedData = mockStackedData.map((elem) => elem.fuel_consumption);
+
         return (
             <Box
                 sx={{

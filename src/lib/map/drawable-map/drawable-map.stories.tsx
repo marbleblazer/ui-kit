@@ -93,7 +93,7 @@ export const EmptyDrawable: Story = {
     },
 };
 
-export const withStartEndLineIndicators: Story = {
+export const WithStartEndLineIndicators: Story = {
     render: () => {
         const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>({
             id: '60c44ec4be05c62bd01c761fa375b33a',
@@ -125,7 +125,8 @@ export const withStartEndLineIndicators: Story = {
         );
     },
 };
-export const withStartEndLineIndicatorsIsSingleDraw: Story = {
+
+export const WithStartEndLineIndicatorsIsSingleDraw: Story = {
     render: () => {
         const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>();
 

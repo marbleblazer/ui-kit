@@ -24,9 +24,13 @@ const VerticalBarChart: FC<IVerticalBarsChartProps> = memo(({ data, style, color
         const copyOfArray = [...data];
 
         copyOfArray.slice(0, 10);
+
         if (copyOfArray.length < 10) {
-            return [...copyOfArray, ...new Array(10 - copyOfArray.length).fill('')];
+            const newArray = new Array(10 - copyOfArray.length).fill('') as string[];
+
+            return [...copyOfArray, ...newArray];
         }
+
         return copyOfArray;
     }, [data]);
 

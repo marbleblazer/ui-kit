@@ -41,9 +41,11 @@ export const Default: Story = {
         </Box>
     ),
 };
+
 export const Clearable: Story = {
     render: () => {
         const [value, setValue] = useState<number | null>(null);
+
         return (
             <Box sx={{ width: '400px' }}>
                 <Select
@@ -76,6 +78,7 @@ export const Clearable: Story = {
 export const ClearableWithEndAdornment: Story = {
     render: () => {
         const [value, setValue] = useState<number | null>(null);
+
         return (
             <Box sx={{ width: '400px' }}>
                 <Select

@@ -1,8 +1,6 @@
-import { useTheme } from '@mui/material';
+import { Palette } from '@mui/material';
 
-export const getFlatChartDefs = (color: string, shadowColor: string) => {
-    const { palette } = useTheme();
-
+export const getFlatChartDefs = (color: string, shadowColor: string, palette: Palette) => {
     return [
         {
             id: `flat-lines-pattern-${color}`,

@@ -39,6 +39,7 @@ export const BaseListItem: Story = {
         </List>
     ),
 };
+
 export const CheckableBaseListItem: Story = {
     render: () => (
         <List sx={{ width: '500px' }}>
@@ -63,6 +64,7 @@ export const CheckableBaseListItem: Story = {
         </List>
     ),
 };
+
 export const VisibleBaseListItem: Story = {
     render: () => (
         <List sx={{ width: '500px' }}>

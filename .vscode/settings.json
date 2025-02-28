@@ -1,13 +1,39 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    /* FORMAT ON .. */
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    /* DEFAULT FORMATTERS */
+    "[javascript][javascriptreact][typescript][typescriptreact]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    },
+    "[css][scss]": {
+        "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    },
+    "[html]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    },
+    /* LINTERS */
     "stylelint.validate": [
         "css",
         "scss"
     ],
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": false,
-    "files.autoSave": "onFocusChange",
-    "[xml]": {
-        "editor.defaultFormatter": "redhat.vscode-xml"
-    }
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll.stylelint": "explicit"
+    },
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "mdx",
+        "json",
+        "jsonc"
+    ],
+    // OTHER
+    "yaml.customTags": [
+        "!reference sequence"
+    ] // Fix !reference type into gitlab-ci file
 }

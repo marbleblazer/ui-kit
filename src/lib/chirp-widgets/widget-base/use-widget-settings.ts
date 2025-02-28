@@ -15,7 +15,7 @@ export const useWidgetSettings = (
     const [unitsOfMeasurement, setUnitsOfMeasurement] = useState(config?.units);
     const [isBoundariesLoading, setIsBoundariesLoading] = useState(false);
 
-    const settings: Settings | null = getObjectFromStorage('widgetsSettings');
+    const settings = getObjectFromStorage('widgetsSettings') as Settings | undefined;
 
     const onlyGraphView = widgetAttributeNameConfig[attr]?.onlyGraphView;
 

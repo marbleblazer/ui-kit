@@ -11,4 +11,3 @@ interface IThemeProviderProps extends Omit<ThemeProviderProps, 'theme'> {
 export const ThemeProvider: FC<IThemeProviderProps> = ({ mode, customPalette, ...props }) => (
     <MUIThemeProvider theme={getTheme(mode, customPalette)} {...props} />
 );
-``;

@@ -13,6 +13,7 @@ interface IDropdownFooterProps {
 
 export const DropdownFooter: FC<IDropdownFooterProps> = ({ selectedCount, onAccept, onClear }) => {
     const applyText = selectedCount ? `Apply (${selectedCount})` : 'Apply';
+
     return (
         <S.Wrapper p={4} pt={3}>
             <Stack direction="row">

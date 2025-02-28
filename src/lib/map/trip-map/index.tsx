@@ -14,11 +14,11 @@ import { BaseMap, IBaseMapProps } from '../base-map';
 import { customDrawStyles } from '../constance';
 import { debounce, useTheme } from '@mui/material';
 
-mapboxgl.accessToken = import.meta.env.VITE_UI_MAPBOX_TOKEN || '';
+// TODO: Проверить нужен ли. Вроде можно удалить
+mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
-    coordinates?: Coordinates;
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
@@ -27,11 +27,11 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     isPaused: boolean;
     onAnimationEnd?: () => void;
 }
+
 type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 export const TripMap: React.FC<IFeatureMapProps> = ({
     data,
-    coordinates,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
     animateLineId,
@@ -63,7 +63,12 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
-        modes = GeodesicDraw.enable(modes);
+        // TODO: исправить это безобразие
+        // 1) Вынести в свои типы
+        // Найти типы для данной либы
+        modes = (GeodesicDraw as unknown as { enable: (modes: MapboxDraw.Modes) => MapboxDraw.Modes }).enable(
+            modes,
+        ) as MapboxDraw.Modes;
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {
@@ -126,6 +131,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [theme],
     );
 
@@ -134,7 +140,9 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     }, [theme]);
 
     useEffect(() => {
-        if (!map.current) return;
+        const mapCurrent = map.current;
+
+        if (!mapCurrent) return;
 
         const updateMap = debounce(() => {
             if (map.current?.isStyleLoaded()) {
@@ -148,22 +156,27 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         return () => {
             updateMap?.clear();
-            if (map.current) map.current.stop();
+
+            if (mapCurrent) mapCurrent.stop();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, theme]);
 
     useEffect(() => {
-        if (!map.current) return;
+        const mapCurrent = map.current;
+
+        if (!mapCurrent) return;
 
         clearObjects();
 
-        map.current.on('zoom', handleZoomChange);
-        map.current.on('move', updatePopups);
+        mapCurrent.on('zoom', handleZoomChange);
+        mapCurrent.on('move', updatePopups);
 
         return () => {
-            map.current?.off('zoom', handleZoomChange);
-            map.current?.off('move', updatePopups);
+            mapCurrent?.off('zoom', handleZoomChange);
+            mapCurrent?.off('move', updatePopups);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     const animate = (coordinates: [number, number][], frame: number) => {
@@ -172,6 +185,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         // завершение анимации
         if (frame >= totalFrames) {
             clearObjects();
+
             return;
         }
 
@@ -215,6 +229,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     // Функция для запуска анимации
     const startAnimation = useCallback(() => {
         if (!map.current || !data || (animating === animateLineId && animating) || animateLineId == null) return;
+
         if (data.type === 'FeatureCollection') {
             const lineFeature = data.features.find(
                 (feature) => feature.geometry.type === 'LineString' && feature.properties?.lineId === animateLineId,
@@ -223,6 +238,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             if (!lineFeature) {
                 console.warn(`No LineString found in data with lineId ${animateLineId} for animation.`);
                 setIsAnimating(null);
+
                 return;
             }
 
@@ -249,6 +265,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         } else {
             console.warn('Data is not a valid FeatureCollection with a LineString for animation.');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, animationDuration, animating, isPaused, onAnimationEnd, animateLineId]);
 
     // Вызов анимации при изменении shouldAnimate
@@ -258,6 +275,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             animationPauseRef.current = false;
             startAnimation();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [animateLineId]);
 
     const updatePopups = useCallback(() => {
@@ -274,6 +292,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                         speeds: (number | null)[];
                         time: (string | null)[];
                     };
+
                     if (speeds && time) {
                         createPopupsForLineString(map.current!, coordinates as [number, number][], speeds, time, zoom);
                     }
@@ -291,6 +310,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
     useEffect(() => {
         updatePopups();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [zoomState, data]);
 
     useEffect(() => {
@@ -299,10 +319,12 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
             animate(animationPauseRef.current?.coordinates, animationPauseRef.current?.frame);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPaused, data]);
 
     const handleZoomChange = () => {
         const zoom = map.current?.getZoom();
+
         if (zoom)
             if (zoom < ZOOM_BREAKPOINTS.NONE) setZoomState(ZOOM_BREAKPOINTS.NONE);
             else if (zoom < ZOOM_BREAKPOINTS.LOW) setZoomState(ZOOM_BREAKPOINTS.LOW);

@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-svgr/client" />
 
-import { Theme as MUITheme, TypeText, TypeBackground } from '@mui/material';
+import { Theme as MUITheme, TypeBackground } from '@mui/material';
 declare module '@emotion/react' {
     export interface Theme extends MUITheme {}
 }
@@ -107,6 +107,7 @@ type BorderColorNameType =
     | 'input4Error';
 
 type DarkeningColorNameType = 'darkening';
+
 type BaseColorNameType =
     | 'color1'
     | 'color2'

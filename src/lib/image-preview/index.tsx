@@ -33,6 +33,7 @@ export const ImagePreview: FC<IImagePreviewProps> = ({
         if (e.target.files && e.target.files[0] && onLoad) {
             const reader = new FileReader();
             const file = e.target.files[0];
+
             reader.onloadend = () => {
                 onLoad(file);
             };
@@ -42,14 +43,16 @@ export const ImagePreview: FC<IImagePreviewProps> = ({
 
     const onDropHandler = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        let files = [...e.dataTransfer.files];
-        let file = files[0];
+        const files = [...e.dataTransfer.files];
+        const file = files[0];
 
         if (!VALID_FILE_FORMATS.includes(file.type)) {
             return;
         }
+
         if (file && onLoad) {
             const reader = new FileReader();
+
             reader.onloadend = () => {
                 onLoad(file);
             };

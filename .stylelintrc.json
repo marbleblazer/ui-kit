@@ -1,0 +1,17 @@
+{
+    "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
+    "rules": {
+        "no-descending-specificity": null,
+        "selector-class-pattern": null,
+        "no-empty-source": null,
+        "scss/at-mixin-pattern": null,
+        "property-no-unknown": null,
+        "media-feature-range-notation": "prefix",
+        "selector-pseudo-class-no-unknown": [
+            true,
+            {
+                "ignorePseudoClasses": ["export"]
+            }
+        ]
+    }
+}

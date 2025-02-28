@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
-import { capitalize, Divider, Stack } from '@mui/material';
+import { capitalize, Divider, Stack, alpha, useTheme } from '@mui/material';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import moment from 'moment';
 
@@ -13,6 +12,7 @@ import { Button } from '../button';
 import { Typography } from '../typogrpahy';
 import { useTranslation } from 'react-i18next';
 import { getLocaleObj } from './helpers/get-locale';
+
 export interface RangePickerProps {
     initialStartDate?: Date;
     initialEndDate?: Date;
@@ -61,11 +61,13 @@ export const RangePicker: FC<RangePickerProps> = ({
 
         if (key === 'start') {
             setStartInputDate(value);
+
             if (moment(value).isValid()) {
                 setStartDate(moment(value));
             }
         } else {
             setEndInputDate(value);
+
             if (moment(value).isValid()) {
                 setEndDate(moment(value));
             }
@@ -75,6 +77,7 @@ export const RangePicker: FC<RangePickerProps> = ({
     const handleCalendarDateChange = (date: Date | null, key: 'start' | 'end') => {
         if (!date) return;
         const formattedDate = moment(date);
+
         if (key === 'start') {
             setStartDate(moment(date));
             setStartInputDate(formattedDate.format(DATE_FORMAT));
@@ -111,7 +114,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         onChange={(e) => handleInputDateChange(e, 'start')}
                         sx={{
                             label: { color: `${theme.palette.text.text8} !important` },
-                            borderColor: alpha(theme.palette.border.input, 0.14),
+                            borderColor: alpha(theme.palette.border?.input, 0.14),
                             input: {
                                 backgroundColor: theme.palette.background.background2,
                             },
@@ -132,7 +135,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                         onChange={(e) => handleInputDateChange(e, 'end')}
                         sx={{
                             label: { color: `${theme.palette.text.text8} !important` },
-                            borderColor: alpha(theme.palette.border.input, 0.14),
+                            borderColor: alpha(theme.palette.border?.input, 0.14),
                             input: {
                                 backgroundColor: theme.palette.background.background2,
                             },

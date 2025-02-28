@@ -71,7 +71,7 @@ const Graph: React.FC<GraphProps> = ({
         return max !== null && min !== null ? min - (max - min) : 'auto';
     }, [calculatedValues]);
 
-    const defs = getFlatChartDefs(rgbToHex(color), rgbToHex(theme.palette.darkShades.ternary));
+    const defs = getFlatChartDefs(rgbToHex(color), rgbToHex(theme.palette.darkShades.ternary), theme.palette);
 
     const tickValues = getTickValues(timequant, chartData?.[0]?.data?.length ?? 0);
 
