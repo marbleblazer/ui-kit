@@ -10,7 +10,7 @@ export const Loader: React.FC<ILoaderProps> = ({ text, size = 'small' }) => {
     return (
         <S.LoaderContainer text={text}>
             <S.LoaderSpan size={size}>
-                {Array(8).map((_, index) => (
+                {[...(Array(8) as unknown[])].map((_, index) => (
                     <S.LoaderElement key={index} index={index} size={size} />
                 ))}
             </S.LoaderSpan>
