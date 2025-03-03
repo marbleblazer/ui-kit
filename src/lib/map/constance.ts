@@ -1,4 +1,6 @@
 import { Palette } from '@mui/material';
+import { GeodesicDrawType } from './map.types';
+import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 
 export const customDrawStyles = (theme: Palette) => [
     {
@@ -74,3 +76,5 @@ export const customDrawStyles = (theme: Palette) => [
         },
     },
 ];
+
+export const typedGeodesicDraw = GeodesicDraw as unknown as GeodesicDrawType;
