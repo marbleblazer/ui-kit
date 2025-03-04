@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LineChart } from '@chirp/ui/lib';
 
-import { mockdata } from '../mock-data';
+import { mockData } from '../mock-data';
 import { Box } from '@mui/material';
 
 const meta: Meta<typeof LineChart> = {
@@ -20,15 +20,6 @@ type Story = StoryObj<typeof LineChart>;
 
 export const Default: Story = {
     render: () => {
-        const createData = () => {
-            const data = mockdata.map((item) => [
-                new Date(item.fixTime).toISOString().split('T')[1].split('.')[0],
-                item.speed,
-            ]);
-
-            return data;
-        };
-
         return (
             <Box
                 sx={{
@@ -38,7 +29,7 @@ export const Default: Story = {
             >
                 <LineChart
                     style={{ width: '100%', height: '100%' }}
-                    data={createData()}
+                    data={mockData} // [[fixTime, speed]]
                     xAxisName="Speed"
                     yAxisName="Time"
                     resolvedTooltipTitle={(data) => `${data[0]}`}
