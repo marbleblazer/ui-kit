@@ -30,9 +30,8 @@ export const StaticWidget: React.FC<WidgetProps> = ({
     }, [isLoading]);
 
     useEffect(() => {
-        // TODO: типизировать, разобраться
-        // eslint-disable-next-line  @typescript-eslint/no-unsafe-argument
-        setLastValue(getValueString({ value: currentValue, config, shouldBeConverted: false }));
+        const valueString = getValueString({ value: currentValue, config, shouldBeConverted: false });
+        setLastValue(valueString);
     }, [config, currentValue]);
 
     useEffect(() => {

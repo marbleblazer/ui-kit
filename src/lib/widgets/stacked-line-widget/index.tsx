@@ -95,7 +95,6 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
                 <Box>
                     <Stack direction="row" gap={4}>
                         <StackedChart
-                            handleClick={(data) => console.log(data)}
                             colors={colors}
                             style={{ width: '100%', height: '100%', paddingTop: '34px', ...chartStyles }}
                             data={preparedData}
