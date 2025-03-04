@@ -14,10 +14,12 @@ export interface ITableContainerProps<T> {
     enableSorting?: boolean;
     defaultSorting?: SortingState;
     expandedRowIndex?: number;
+    page?: number;
+
     onRowClick?(row: T): void;
+    onRowDoubleClick?(row: T): void;
     renderEmptyBlock?(): ReactElement;
     renderExpandableBlock?(row: T): ReactElement;
-    page?: number;
 }
 
 export const Table = <T,>({
@@ -29,6 +31,7 @@ export const Table = <T,>({
     defaultSorting,
     expandedRowIndex,
     onRowClick,
+    onRowDoubleClick,
     renderExpandableBlock,
     renderEmptyBlock,
     page,
@@ -54,6 +57,7 @@ export const Table = <T,>({
             page={page}
             expandedRowIndex={expandedRowIndex}
             onRowClick={onRowClick}
+            onRowDoubleClick={onRowDoubleClick}
             renderExpandableBlock={renderExpandableBlock}
             renderEmptyBlock={renderEmptyBlock}
         />

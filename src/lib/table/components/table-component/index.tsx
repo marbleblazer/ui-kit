@@ -25,6 +25,7 @@ type Props<TData> = {
     expandedRowIndex?: number;
     isVirtualized?: boolean;
     onRowClick?(row: TData): void;
+    onRowDoubleClick?(row: TData): void;
     renderExpandableBlock?(row: TData): ReactElement;
     renderEmptyBlock?(): ReactElement;
     onScroll?: (e: React.UIEvent<HTMLDivElement, UIEvent>) => void;
@@ -40,6 +41,7 @@ export const TableComponent = <TData,>({
     enableSorting = false,
     expandedRowIndex: defaultExpandedRowIndex,
     onRowClick,
+    onRowDoubleClick,
     renderExpandableBlock,
     renderEmptyBlock = () => <EmptyFallback />,
     onScroll,
@@ -62,6 +64,10 @@ export const TableComponent = <TData,>({
     const handleRowClick = (row: Row<TData>) => {
         onRowClick?.(row.original);
         setExpandedRowIndex(expandedRowIndex === row.index ? null : row.index);
+    };
+
+    const handleDoubleClick = (row: Row<TData>) => {
+        onRowDoubleClick?.(row.original);
     };
 
     useEffect(() => {
@@ -110,6 +116,7 @@ export const TableComponent = <TData,>({
                                                     row={subRow}
                                                     table={table}
                                                     isExpanded={subRow.isExpanded}
+                                                    onDoubleClick={handleDoubleClick}
                                                     onClick={handleRowClick}
                                                     renderExpandableBlock={renderExpandableBlock}
                                                 />
@@ -122,6 +129,7 @@ export const TableComponent = <TData,>({
                                             row={row}
                                             table={table}
                                             isExpanded={row.isExpanded}
+                                            onDoubleClick={handleDoubleClick}
                                             onClick={handleRowClick}
                                             renderExpandableBlock={renderExpandableBlock}
                                         />

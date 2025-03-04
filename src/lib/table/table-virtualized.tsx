@@ -29,6 +29,7 @@ export const TableVirtualized = <TData,>({
     onRowClick,
     renderEmptyBlock,
     renderExpandableBlock,
+    onRowDoubleClick,
 }: Props<TData>) => {
     const virtualizedRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,6 +96,7 @@ export const TableVirtualized = <TData,>({
             enableSorting={enableSorting}
             expandedRowIndex={expandedRowIndex}
             onRowClick={onRowClick}
+            onRowDoubleClick={onRowDoubleClick}
             renderEmptyBlock={renderEmptyBlock}
             renderExpandableBlock={renderExpandableBlock}
             onScroll={(e) => fetchMoreOnBottomReached(e.target as HTMLDivElement)}

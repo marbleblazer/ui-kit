@@ -81,6 +81,7 @@ export const Default: Story = {
                         someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
                     },
                 ]}
+                onRowDoubleClick={(data) => alert(data.id)}
                 columns={[
                     { header: 'ID', accessorFn: ({ first_name, last_name }) => `${first_name} ${last_name}` },
                     {
@@ -111,6 +112,7 @@ export const Virtualized: Story = {
                 hasNextPage={false}
                 estimateSize={106}
                 data={mockedData}
+                onRowDoubleClick={(data) => alert(data.id)}
                 columns={[
                     { header: 'ID', accessorKey: 'id' },
                     {
