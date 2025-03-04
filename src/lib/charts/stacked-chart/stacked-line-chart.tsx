@@ -5,7 +5,6 @@ import { GridComponent, TitleComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { CSSProperties, FC, memo, useRef } from 'react';
 import { useTheme } from '@mui/material';
-import { AnyObject } from '@chirp/ui/helpers/global';
 import { EChartsOption } from 'echarts';
 
 echarts.use([TitleComponent, GridComponent, EChartsLineChart, CanvasRenderer]);
@@ -17,8 +16,6 @@ export interface IStackedChartProps {
     xAxisData?: string[];
     colors: string[];
     style: CSSProperties;
-    // TODO: типизировать AnyObject
-    handleClick?: (params: AnyObject) => void;
 }
 
 const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style, colors }) => {

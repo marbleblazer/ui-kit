@@ -187,7 +187,10 @@ export const LineWithPolygons: Story = {
                     </label>
                 </Box>
                 {visibleData.features.length > 0 ? (
-                    <FeatureMap data={visibleData as GeoJSON.FeatureCollection} />
+                    <FeatureMap
+                        data={visibleData as GeoJSON.FeatureCollection}
+                        coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
+                    />
                 ) : (
                     <Box>No features to display</Box>
                 )}

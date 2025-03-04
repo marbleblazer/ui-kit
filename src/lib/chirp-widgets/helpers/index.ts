@@ -108,7 +108,7 @@ export const getValueString = ({
     config: AttributeConfig;
     unitsConverter?: AttributeConverter;
     shouldBeConverted: boolean;
-}) => {
+}): boolean | number | string | undefined => {
     if (config.type === 'boolean' && typeof value !== 'undefined') {
         try {
             const valueMapObj = JSON.parse(config.value_map.replace(/'/g, '"')) as AnyObject;

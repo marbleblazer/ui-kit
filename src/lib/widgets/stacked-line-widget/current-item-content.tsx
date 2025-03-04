@@ -17,12 +17,7 @@ export const CurrentItemContent = (props: PropsWithChildren<ICurrentItemContentP
     return (
         <Box>
             <Stack direction="row" gap={4} alignItems="center">
-                <StackedChart
-                    handleClick={(data) => console.log(data)}
-                    colors={[color]}
-                    style={{ width: '100%', height: '100%', ...chartStyles }}
-                    data={data}
-                />
+                <StackedChart colors={[color]} style={{ width: '100%', height: '100%', ...chartStyles }} data={data} />
                 <Stack>
                     <Stack gap={1} mt={3} width="220px">
                         <ColorListItem key={itemName} name={itemName} value={null} color={color} />

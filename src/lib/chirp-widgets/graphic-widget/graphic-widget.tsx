@@ -60,9 +60,8 @@ export const GraphicWidget: FC<WidgetProps> = ({
     }, [lastSeen]);
 
     useEffect(() => {
-        // TODO: типизировать
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setLastValue(getValueString({ value: currentValue, config, unitsConverter, shouldBeConverted }));
+        const valueString = getValueString({ value: currentValue, config, unitsConverter, shouldBeConverted });
+        setLastValue(valueString);
     }, [config, currentValue, shouldBeConverted, unitsConverter]);
 
     useEffect(() => {

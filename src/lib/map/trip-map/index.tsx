@@ -5,16 +5,14 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from '../map.types';
 import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from './utils';
 import { BaseMap, IBaseMapProps } from '../base-map';
-import { customDrawStyles } from '../constance';
+import { customDrawStyles, typedGeodesicDraw } from '../constance';
 import { debounce, useTheme } from '@mui/material';
 
-// TODO: Проверить нужен ли. Вроде можно удалить
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
@@ -63,12 +61,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
-        // TODO: исправить это безобразие
-        // 1) Вынести в свои типы
-        // Найти типы для данной либы
-        modes = (GeodesicDraw as unknown as { enable: (modes: MapboxDraw.Modes) => MapboxDraw.Modes }).enable(
-            modes,
-        ) as MapboxDraw.Modes;
+        modes = typedGeodesicDraw.enable(modes);
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {

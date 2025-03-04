@@ -42,7 +42,6 @@ export const Default: Story = {
                         '#CCFF5F',
                         '#E8C92D',
                     ]}
-                    handleClick={(data) => console.log(data)}
                     style={{ width: '100%', height: '100%' }}
                     data={preparedData}
                 />

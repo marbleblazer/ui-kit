@@ -1,14 +1,14 @@
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
 import { LineChart as EChartsLineChart } from 'echarts/charts';
-import { GridComponent, TooltipComponent, TitleComponent } from 'echarts/components';
+import { GridComponent, TooltipComponent, TitleComponent, DataZoomComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import { CSSProperties, FC, memo } from 'react';
 import { alpha, useTheme } from '@mui/material';
 import { EChartsOption } from 'echarts';
 import { TopLevelFormatterParams } from 'echarts/types/dist/shared';
 
-echarts.use([TitleComponent, TooltipComponent, GridComponent, EChartsLineChart, CanvasRenderer]);
+echarts.use([TitleComponent, TooltipComponent, GridComponent, EChartsLineChart, CanvasRenderer, DataZoomComponent]);
 
 type DataType = (string | number)[];
 
@@ -117,6 +117,66 @@ const LineChart: FC<ILineChartProps> = memo(
                             color: theme.palette.base.color6,
                         },
                     },
+                },
+            ],
+            dataZoom: [
+                {
+                    start: 30,
+                    end: 70,
+                    type: 'slider', // Ползунок
+                    show: true,
+                    brushStyle: {
+                        borderColor: theme.palette.border.border3,
+                        color: theme.palette.base.color63,
+                    },
+                    emphasis: {
+                        moveHandleStyle: {
+                            color: theme.palette.base.color6,
+                        },
+                        handleLabel: {},
+                        handleStyle: {
+                            color: theme.palette.base.hover,
+                        },
+                    },
+                    backgroundColor: 'transparent',
+                    fillerColor: 'transparent',
+                    borderColor: theme.palette.border.border3,
+                    handleStyle: {
+                        borderColor: theme.palette.border.border3,
+                        color: theme.palette.base.color6,
+                    },
+                    moveHandleStyle: {
+                        borderColor: theme.palette.border.border3,
+                        color: theme.palette.base.color6,
+                    },
+                    dataBackground: {
+                        lineStyle: {
+                            color: alpha(theme.palette.base.color6, 0.3), // Цвет линии данных
+                            width: 1,
+                        },
+                        areaStyle: {
+                            color: 'transaprent', // Цвеsт фона данных
+                        },
+                    },
+                    selectedDataBackground: {
+                        lineStyle: {
+                            color: theme.palette.base.hover, // Цвет выделенных данных
+                            width: 1,
+                        },
+                        areaStyle: {
+                            color: 'transparent', // Заливка выделенной области
+                        },
+                    },
+                    handleSize: '100%',
+                    textStyle: {
+                        color: theme.palette.text.text8,
+                        fontFamily: 'Alliance No.2',
+                        fontSize: 10,
+                        fontWeight: 400,
+                    },
+                },
+                {
+                    type: 'inside', // Масштабирование колесиком
                 },
             ],
             tooltip: {

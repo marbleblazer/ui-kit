@@ -1,26 +1,20 @@
-import mapboxgl from 'mapbox-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from './map.types';
 import { renderLineStringPoints, renderPoints } from './trip-map/utils';
 import { BaseMap, IBaseMapProps } from './base-map';
-import { customDrawStyles } from './constance';
+import { customDrawStyles, typedGeodesicDraw } from './constance';
 import { debounce, useTheme } from '@mui/material';
-
-// TODO: Проверить нужен ли. Вроде можно удалить
-mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
-    // TODO: если coordinates  не нужны - удалить его во всех FeatureMap. Но а вообще, он должен передаваться в basemap и устанавливать дефолтный центр карты
     coordinates?: Coordinates;
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
@@ -43,15 +37,9 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
 
     const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
-
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
-        // TODO: исправить это безобразие
-        // 1) Вынести в свои типы
-        // Найти типы для данной либы
-        modes = (GeodesicDraw as unknown as { enable: (modes: MapboxDraw.Modes) => MapboxDraw.Modes }).enable(
-            modes,
-        ) as MapboxDraw.Modes;
+        modes = typedGeodesicDraw.enable(modes);
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {
