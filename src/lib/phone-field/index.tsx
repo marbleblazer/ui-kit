@@ -40,10 +40,12 @@ export const PhoneField: FC<PhoneFieldProps> = ({
 
     const { t: countriesT } = useTranslation('uiKit', { keyPrefix: 'PhoneField.countries' });
 
-    const translatedCountries = COUNTRIES(countriesT);
+    const translatedCountries = useMemo(() => COUNTRIES(countriesT), [countriesT]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const countryList = useMemo(() => countries.map((code) => ({ code, ...translatedCountries[code] })), [countries]);
+    const countryList = useMemo(
+        () => countries.map((code) => ({ code, ...translatedCountries[code] })),
+        [countries, translatedCountries],
+    );
 
     const extractInitialValues = (inputValue: string) => {
         for (const country of countryList) {
@@ -69,16 +71,6 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     const [selectedCountry, setSelectedCountry] = useState<string>(initialCountry);
     const [localValue, setLocalValue] = useState<string>(applyMask(initialLocalValue, initialCountry));
 
-    useEffect(() => {
-        const dialCode = translatedCountries[selectedCountry].dialCode.replace('+', '');
-        const fullValue = `${dialCode}${localValue}`;
-
-        if (fullValue !== value) {
-            onChange(fullValue);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCountry, localValue, onChange]);
-
     const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
         const newCountry = event.target.value as string;
         setSelectedCountry(newCountry);
@@ -93,6 +85,15 @@ export const PhoneField: FC<PhoneFieldProps> = ({
             setLocalValue(applyMask(newValue, selectedCountry));
         }
     };
+
+    useEffect(() => {
+        const dialCode = translatedCountries[selectedCountry].dialCode.replace('+', '');
+        const fullValue = `${dialCode}${localValue}`;
+
+        if (fullValue !== value) {
+            onChange(fullValue);
+        }
+    }, [selectedCountry, localValue, onChange, translatedCountries, value]);
 
     return (
         <FormControl fullWidth>
