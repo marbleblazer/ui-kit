@@ -40,10 +40,12 @@ export const PhoneField: FC<PhoneFieldProps> = ({
 
     const { t: countriesT } = useTranslation('uiKit', { keyPrefix: 'PhoneField.countries' });
 
-    const translatedCountries = COUNTRIES(countriesT);
+    const translatedCountries = useMemo(() => COUNTRIES(countriesT), [countriesT]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const countryList = useMemo(() => countries.map((code) => ({ code, ...translatedCountries[code] })), [countries]);
+    const countryList = useMemo(
+        () => countries.map((code) => ({ code, ...translatedCountries[code] })),
+        [countries, translatedCountries],
+    );
 
     const extractInitialValues = (inputValue: string) => {
         for (const country of countryList) {
@@ -76,8 +78,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
         if (fullValue !== value) {
             onChange(fullValue);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCountry, localValue, onChange]);
+    }, [selectedCountry, localValue, onChange, translatedCountries]);
 
     const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
         const newCountry = event.target.value as string;
