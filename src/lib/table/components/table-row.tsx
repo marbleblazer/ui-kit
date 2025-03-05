@@ -10,6 +10,7 @@ type Props<TData> = {
     sx?: SxProps;
     isExpanded?: boolean;
     onClick?(row: Row<TData>): void;
+    onDoubleClick?(row: Row<TData>): void;
     renderExpandableBlock?(row: TData): ReactElement;
 };
 
@@ -19,11 +20,17 @@ export const TableRow = <TData,>({
     sx,
     isExpanded = false,
     onClick,
+    onDoubleClick,
     renderExpandableBlock,
 }: Props<TData>) => {
     return (
         <>
-            <S.Row sx={sx} onClick={() => onClick?.(row)}>
+            <S.Row
+                sx={sx}
+                className={onDoubleClick ? 'hoverable' : ''}
+                onClick={() => onClick?.(row)}
+                onDoubleClick={() => onDoubleClick?.(row)}
+            >
                 {row.getVisibleCells().map((cell) => (
                     <S.Cell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</S.Cell>
                 ))}
