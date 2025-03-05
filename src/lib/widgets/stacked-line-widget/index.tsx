@@ -56,12 +56,9 @@ export const StackedLineChartWidget = <T,>(props: PropsWithChildren<IStackedLine
         const filtered = collection.filter((elem) => selectedKeys.includes(elem[idKey] as number));
 
         return filtered.map((elem) => elem[dataKey]) as StackedLineChartDataType[];
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedKeys, collection]);
+    }, [selectedKeys, collection, dataKey, idKey]);
 
-    const mappedOptions = useMemo(() => {
-        return arrayToMap(selectOptions, 'value');
-    }, [selectOptions]);
+    const mappedOptions = useMemo(() => arrayToMap(selectOptions, 'value'), [selectOptions]);
 
     useEffect(() => {
         if (!selectOptions) return;
