@@ -30,11 +30,9 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
     title = '',
     width = '230px',
     selectedOptions = [],
-
     options = [],
     idKey,
     nameKey,
-
     onAccept,
     onClear,
 }: IDropdownMultiselectProps<T>) => {
@@ -55,8 +53,7 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
             {} as CheckedStateType<T>['map'],
         );
         setCheckedItemsState({ array: selectedOptions, map: mappedSelectedItems });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedOptions]);
+    }, [idKey, selectedOptions]);
 
     const handleChangeCheckedITem = (elem: T, checked: boolean) => {
         if (checked) {
@@ -82,12 +79,13 @@ export const DropdownMultiselect = <T extends Record<keyof T, unknown>>({
         setOpenState(false);
     };
 
-    const filteredOptions = useMemo(() => {
-        return options.filter((item) =>
-            String(item[nameKey]).toString().toLowerCase().includes(debouncedSearch.toLowerCase()),
-        );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [options, debouncedSearch]);
+    const filteredOptions = useMemo(
+        () =>
+            options.filter((item) =>
+                String(item[nameKey]).toString().toLowerCase().includes(debouncedSearch.toLowerCase()),
+            ),
+        [options, nameKey, debouncedSearch],
+    );
 
     return (
         <Box width={width}>
