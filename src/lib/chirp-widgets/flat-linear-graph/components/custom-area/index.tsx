@@ -1,10 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import {
     area,
     curveLinear,
@@ -18,6 +11,9 @@ import {
     curveStepAfter,
     curveStepBefore,
 } from 'd3-shape';
+import { FC } from 'react';
+import { ComputedDatum, CustomLayerProps } from '@nivo/line';
+import { Scale } from '@nivo/scales';
 
 const curveMap = {
     basis: curveBasis,
@@ -32,44 +28,38 @@ const curveMap = {
     stepBefore: curveStepBefore,
 };
 
-export const AreaLayer = ({ series, xScale, yScale, innerHeight, curve, colors }: any) => {
-    const areaGenerator = area()
-        //@ts-ignore
-        .x((d) => xScale(d.data.x))
+interface IAreaLayerProps extends Pick<CustomLayerProps, 'series' | 'innerHeight' | 'curve' | 'colors'> {
+    xScale: Scale<number, number>;
+    yScale: Scale<number, number>;
+    colors: string[];
+}
+
+export const AreaLayer: FC<IAreaLayerProps> = ({ series, xScale, yScale, innerHeight, curve, colors }) => {
+    const areaGenerator = area<ComputedDatum>()
+        .x((d) => xScale(d.data.x as number) as number)
         .y0((d) => {
-            //@ts-ignore
             const value = typeof d.data.y === 'number' ? d.data.y : 0;
 
-            return Math.min(innerHeight, yScale(value));
+            return Math.min(innerHeight, yScale(value) as number);
         })
         .y1((d) => {
-            //@ts-ignore
             const value = typeof d.data.y === 'number' ? d.data.y : 0;
 
-            return Math.max(innerHeight, yScale(value));
+            return Math.max(innerHeight, yScale(value) as number);
         })
         .curve(curveMap[curve as keyof typeof curveMap]);
 
     return (
         <>
-            {series.map(({ id, data }: any) => (
+            {series.map(({ id, data }) => (
                 <g key={id}>
+                    <path d={areaGenerator(data) ?? undefined} fill={`url(#flat-area-gradient-${colors[0]})`} />
                     <path
-                        // @ts-ignore
-                        d={areaGenerator(data)}
-                        fill={`url(#flat-area-gradient-${colors[0]})`}
-                    />
-                    <path
-                        // @ts-ignore
-                        d={areaGenerator(data)}
+                        d={areaGenerator(data) ?? undefined}
                         fill={`url(#flat-lines-pattern-${colors[0]})`}
                         fillOpacity={0.4}
                     />
-                    <path
-                        // @ts-ignore
-                        d={areaGenerator(data)}
-                        fill={`url(#flat-area-gradient-shadow)`}
-                    />
+                    <path d={areaGenerator(data) ?? undefined} fill={`url(#flat-area-gradient-shadow)`} />
                 </g>
             ))}
         </>
