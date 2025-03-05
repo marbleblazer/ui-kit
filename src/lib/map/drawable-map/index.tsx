@@ -151,8 +151,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         const bbox = bboxTurf(data, { recompute: true });
         const [west, south, east, north] = bbox;
         map.current.fitBounds([west, south, east, north], { padding: 50 });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, drawMode, withStartEndLineIndicators]);
+    }, [data, drawMode, theme.palette, withStartEndLineIndicators]);
 
     useEffect(() => {
         if (!map.current || !drawRef.current) return;
@@ -164,8 +163,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
                 addDataToMap();
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data]);
+    }, [addDataToMap, data]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
