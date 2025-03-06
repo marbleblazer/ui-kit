@@ -33,8 +33,7 @@ export const VerticalBarsChartWidget = <T,>(props: PropsWithChildren<IVerticalBa
 
         setChartData(preparedData);
         setListData(preparedList);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [collection]);
+    }, [collection, nameKey, valueKey]);
 
     return (
         <BaseWidget {...baseWidgetProps}>

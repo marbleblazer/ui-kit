@@ -1,9 +1,9 @@
 import { rgbToHex, useTheme } from '@mui/material';
-import { LineSvgProps, ResponsiveLine, Serie } from '@nivo/line';
+import { ComputedSerie, LineSvgProps, ResponsiveLine, Serie } from '@nivo/line';
 import { Scale } from '@nivo/scales';
 import { useMemo } from 'react';
 
-import { AttributeConfig, CalculatedValues, Series, Timequant, Timequants } from '@chirp/ui/lib/chirp-widgets/types';
+import { AttributeConfig, CalculatedValues, Timequant, Timequants } from '@chirp/ui/lib/chirp-widgets/types';
 import { AreaLayer } from '../custom-area';
 import { CustomLine } from '../custom-line';
 import { Skeleton } from '../skeleton';
@@ -120,14 +120,15 @@ const Graph: React.FC<GraphProps> = ({
                 yScale={{ type: 'linear', min: minValue }}
                 layers={[
                     'areas',
-                    ({ innerHeight, series, curve, colors, xScale, yScale }) => (
+                    ({ innerHeight, series, curve, colors, xScale, yScale, ...rest }) => (
                         <AreaLayer
-                            series={series as unknown as Series[]}
-                            xScale={xScale as Scale<unknown, number>}
-                            yScale={yScale as Scale<unknown, number>}
+                            series={series as ComputedSerie[]}
+                            xScale={xScale}
+                            yScale={yScale}
                             innerHeight={innerHeight}
                             curve={curve}
                             colors={colors as string[]}
+                            {...rest}
                         />
                     ),
                     ({ data, series, lineGenerator, xScale, yScale }) => (

@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { FC, ReactNode, useCallback, useRef, useState } from 'react';
 import { HexAlphaColorPicker } from 'react-colorful';
 import { Box, Popover, Stack } from '@mui/material';
 import { hex2rgba } from '@chirp/ui/helpers/colors';
@@ -49,31 +49,42 @@ export const ColorPicker: FC<IColorPickerProps> = ({
         const hexedAlpha = (((Number(value) / 100) * 255) | (1 << 8)).toString(16).slice(1);
 
         if (Number(value) === 0) return;
+        let colorString = '';
 
         if (color.length === 7) {
-            onChange(`${color}${hexedAlpha}`);
+            colorString = `${color}${hexedAlpha}`;
+            onChange(colorString);
         } else {
             const curentValue = color.slice(0, 7);
+            colorString = `${curentValue}${hexedAlpha}`;
             onChange(`${curentValue}${hexedAlpha}`);
         }
+        validateColor(colorString);
     };
 
-    useEffect(() => {
-        if (!setError) return;
+    const validateColor = useCallback(
+        (color: string) => {
+            if (!setError) return;
 
-        const isValid = HEX_REGEXP.test(color);
+            const isValid = HEX_REGEXP.test(color);
 
-        if (!isValid) setError(true);
-        else setError(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [color]);
+            setError(!isValid);
+        },
+        [setError],
+    );
 
     const handleChange = (value: string) => {
         onChange(value);
-
+        validateColor(value);
         const rgbaColor = hex2rgba(value);
 
         setAlphaState(Math.round(rgbaColor[3] * 100));
+    };
+
+    const handlePickerInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        onChange(value);
+        validateColor(value);
     };
 
     return (
@@ -133,7 +144,7 @@ export const ColorPicker: FC<IColorPickerProps> = ({
                                 </S.StyledTextField>
                                 <Stack direction="row" gap="1px" width="194px" borderRadius={2} overflow="hidden">
                                     <S.StyledTextField width="136px">
-                                        <input value={color} onChange={(e) => onChange(e.target.value)} />
+                                        <input value={color} onChange={handlePickerInputChange} />
                                     </S.StyledTextField>
                                     <S.StyledTextField width="58px">
                                         <input
