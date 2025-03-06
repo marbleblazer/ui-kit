@@ -55,8 +55,8 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         arrowRef.current = document.createElement('div');
         arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
-        arrowRef.current.style.width = '34px';
-        arrowRef.current.style.height = '34px';
+        arrowRef.current.style.width = '19px';
+        arrowRef.current.style.height = '16px';
         arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
 
         // Для работы с источником mapbox-gl-draw-cold
