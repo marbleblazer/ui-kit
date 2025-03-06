@@ -358,7 +358,7 @@ export const TripMapExample: Story = {
                 <TripMap
                     data={checkedState ? mockTripData : mockSecondTripData}
                     animateLineId={shouldAnimate}
-                    onAnimationEnd={() => setShouldAnimate(undefined)}
+                    setAnimateLineId={setShouldAnimate}
                     animationDuration={30000}
                     isLineMarkersNeeded={false}
                     isPaused={isPaused}
