@@ -12,7 +12,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { Coordinates } from './map.types';
 import { HelpControl } from './map-controls/help-control/help-control';
 import { useTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
+import { updateControlTexts } from './helpers/update-controls-text';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -34,10 +34,9 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     sx,
     children,
 }) => {
-    const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'map' });
+    const { i18n } = useTranslation('uiKit', { keyPrefix: 'map' });
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
-    // const mapRef = useRef<mapboxgl.Map>(null);
     const { isMobile } = useBreakpoints();
 
     const { palette } = useTheme();
@@ -52,17 +51,16 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             const helpControl = mapRef.current._controls.find((control) => control instanceof HelpControl);
             helpControl && helpControl.updatePalette(palette);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [palette.mode, i18n.language]);
+    }, [i18n.language, mapRef, getMapStyleId, palette]);
 
     useEffect(() => {
         if (mapRef.current) return;
+
         mapRef.current = new mapboxgl.Map({
             container: mapContainer.current || '',
             style: getMapStyleId(palette.mode),
             zoom: 6,
             minZoom: 1,
-            // projection: { name: 'equirectangular' },
             projection: { name: 'mercator' },
             scrollZoom,
 
@@ -92,11 +90,6 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             fitBoundsOptions: { animate: false },
         });
 
-        // // Инициализируем плагин с нужным языком (например, русский)
-        // mapLanguageRef.current = new MapboxLanguage({
-        //     defaultLanguage: i18n.language,
-        // });
-        // mapRef.current.addControl(mapLanguageRef.current);
         mapRef.current.setLanguage(i18n.language);
 
         mapRef.current.addControl(geolocate, 'bottom-right');
@@ -104,7 +97,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken || '',
                 marker: false,
-                placeholder: t('Search location'),
+                placeholder: i18n.t('uiKit:map.Search location'),
                 collapsed: true,
                 render: (item) => {
                     // Кастомная структура HTML для предложений
@@ -128,7 +121,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         const geocoderControl = mapControls.find((control) => control instanceof MapboxGeocoder);
 
         if (geocoderControl) {
-            geocoderControl.setPlaceholder(t('Search'));
+            geocoderControl.setPlaceholder(i18n.t('uiKit:map.Search'));
         }
 
         mapRef.current.getCanvas().style.cursor = 'pointer';
@@ -148,60 +141,9 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const updateControlTexts = (trans: TFunction<'uiKit', 'map'>) => {
-        // Обновляем кнопку "Моё местоположение"
-        const geolocateButton = document.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
-
-        if (geolocateButton) {
-            geolocateButton.setAttribute('title', trans('FindMyLocation'));
-        }
-
-        // Обновляем кнопки зума
-        const zoomInButton = document.querySelector('.mapboxgl-ctrl-zoom-in') as HTMLElement;
-        const zoomOutButton = document.querySelector('.mapboxgl-ctrl-zoom-out') as HTMLElement;
-
-        if (zoomInButton) {
-            const zoomInButtonIcon = zoomInButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
-
-            if (zoomInButtonIcon) zoomInButtonIcon.setAttribute('title', trans('ZoomIn'));
-        }
-
-        if (zoomOutButton) {
-            const zoomOutButtonIcon = zoomOutButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
-
-            if (zoomOutButtonIcon) zoomOutButtonIcon.setAttribute('title', trans('ZoomOut'));
-        }
-        // Обновляем кнопку полноэкранного режима
-        const fullscreenButton = document.querySelector('.mapboxgl-ctrl-fullscreen') as HTMLElement;
-
-        if (fullscreenButton) {
-            const isFullscreen = document.fullscreenElement !== null;
-            const fullscreenButtonIcon = fullscreenButton.querySelector('.mapboxgl-ctrl-icon') as HTMLElement;
-
-            fullscreenButtonIcon.setAttribute('title', isFullscreen ? trans('Exit') : t('Enter'));
-        }
-
-        const mapControls = mapRef.current?._controls;
-        const geocoderControl = mapControls?.find((control) => control instanceof MapboxGeocoder);
-
-        if (geocoderControl) {
-            geocoderControl.setPlaceholder(t('Search'));
-        }
-
-        const mapboxglScrollZoomBlocker = document.querySelector('.mapboxgl-scroll-zoom-blocker') as HTMLElement;
-
-        if (mapboxglScrollZoomBlocker) {
-            mapboxglScrollZoomBlocker.innerHTML = t('CtrlMessage');
-        }
-        const mapboxglTouchPanBlocker = document.querySelector('.mapboxgl-touch-pan-blocker') as HTMLElement;
-
-        if (mapboxglTouchPanBlocker) {
-            mapboxglTouchPanBlocker.innerHTML = t('Message');
-        }
-    };
-
     useEffect(() => {
         if (!wrapper.current) return;
+
         const resizeObserver = new ResizeObserver(() => {
             if (mapRef.current === null) return;
             mapRef.current.resize();
@@ -209,16 +151,16 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         resizeObserver.observe(wrapper.current);
 
         return () => resizeObserver.disconnect(); // clean up
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [mapRef]);
 
     useEffect(() => {
-        if (!mapRef.current) return;
+        const localMapRef = mapRef.current;
 
-        mapRef.current.setLanguage(i18n.language);
-        updateControlTexts(t);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [i18n.language]);
+        if (!localMapRef) return;
+
+        localMapRef.setLanguage(i18n.language);
+        updateControlTexts(i18n.t, localMapRef._controls);
+    }, [i18n, mapRef]);
 
     return (
         <S.MapContainer sx={{ ...sx }} width="100%" height="100%" position="relative" className="wrapper" ref={wrapper}>
