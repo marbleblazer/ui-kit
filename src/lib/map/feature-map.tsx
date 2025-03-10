@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
@@ -28,12 +28,14 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     ...baseProps
 }) => {
     const theme = useTheme();
-    const markersRef = useRef<mapboxgl.Marker[]>([]);
-    const map = useRef<mapboxgl.Map>(null);
-    const drawRef = useRef<MapboxDraw | null>(null);
     const themeRef = useRef(theme);
 
-    const [isMapFittedBoundsState, setIsMapFittedBoundsState] = useState(false);
+    const map = useRef<mapboxgl.Map>(null);
+
+    const markersRef = useRef<mapboxgl.Marker[]>([]);
+    const drawRef = useRef<MapboxDraw | null>(null);
+
+    const isMapFittedBoundsRef = useRef(false);
 
     const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
@@ -106,15 +108,15 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
 
             if (singleMarkerCenter?.length === 2) {
                 map.current.flyTo({ center: singleMarkerCenter as [number, number], essential: true });
-            } else if (!isMapFittedBoundsState) {
+            } else if (!isMapFittedBoundsRef.current) {
                 // bbox logic
-                setIsMapFittedBoundsState(true);
+                isMapFittedBoundsRef.current = true;
                 const bbox = bboxTurf(localData);
                 const [west, south, east, north] = bbox;
                 map.current.fitBounds([west, south, east, north], { padding: 50, duration: 100, essential: true });
             }
         },
-        [isLineMarkersNeeded, isMapFittedBoundsState],
+        [isLineMarkersNeeded],
     );
 
     useEffect(() => {
