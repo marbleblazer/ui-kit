@@ -8,10 +8,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from '../map.types';
 import { mapMarkerArrowSvgString } from '../mp-marker-string';
-import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from './utils';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { customDrawStyles, typedGeodesicDraw } from '../constance';
 import { debounce, useTheme } from '@mui/material';
+import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from '../helpers/utils';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -117,8 +117,13 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                     const geometry = feature.geometry;
 
                     if (geometry.type === 'LineString') {
-                        // Отрисовка маркеров на линии
-                        renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, themeRef.current);
+                        renderLineStringPoints({
+                            geometry,
+                            map,
+                            markersRef,
+                            isLineMarkersNeeded,
+                            theme: themeRef.current,
+                        });
                     }
                 }
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
