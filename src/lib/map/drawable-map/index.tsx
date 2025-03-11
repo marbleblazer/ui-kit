@@ -104,9 +104,9 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
             drawRef.current.deleteAll();
             drawRef.current.changeMode(drawMode);
         }
+        drawRef.current.deleteAll();
 
         if (!data) {
-            drawRef.current.deleteAll();
             drawMode && drawRef.current.changeMode(drawMode);
 
             return;
