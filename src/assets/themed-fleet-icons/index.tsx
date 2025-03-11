@@ -21,3 +21,5 @@ export { LoadingIcon } from './LoadingIcon';
 export { SmallLorawanIcon } from './SmallLorawanIcon';
 
 export { SmallGpsIcon } from './SmallGpsIcon';
+
+export { PickupIcon } from './PickupIcon';
