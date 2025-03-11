@@ -5,7 +5,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import circleTurf from '@turf/circle';
 
-import { checkCirclePolygon, getCircleGeometryFromPolygon } from '@chirp/ui/helpers/mapUtils';
+import { checkCirclePolygon, getCircleGeometryFromPolygon } from '@chirp/ui/helpers/map-utils';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from '../map.types';
 import { MapDrawModeTabs } from './map-draw-tabs';
