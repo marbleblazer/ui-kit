@@ -1,16 +1,36 @@
 import mapboxgl from 'mapbox-gl';
 import moment from 'moment';
-import { mapMarkerSvgString } from '../mp-marker-string';
 import { LineString, Point } from 'geojson';
 import { RefObject } from 'react';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
-import { Theme } from '@mui/material';
+import { Palette, Theme } from '@mui/material';
+import { mapMarkerSvgString } from '../mp-marker-string';
 
-type PixelCoordType = { x: number; y: number };
+interface IPixelCoordType {
+    x: number;
+    y: number;
+}
+
+interface IRenderPoints {
+    geometry: Point;
+    popupMarkup: string;
+    map: RefObject<mapboxgl.Map | null>;
+    markersRef: RefObject<mapboxgl.Marker[]>;
+    theme: Theme;
+    specificMarkerIcon?: (theme: Palette) => string;
+}
+
+interface IRenderLineStringPoints {
+    geometry: LineString;
+    map: RefObject<mapboxgl.Map | null>;
+    markersRef: RefObject<mapboxgl.Marker[]>;
+    isLineMarkersNeeded: boolean;
+    theme: Theme;
+}
 
 const isTooCloseOnScreen = (
-    pixelPoint: PixelCoordType,
-    existingPopups: PixelCoordType[],
+    pixelPoint: IPixelCoordType,
+    existingPopups: IPixelCoordType[],
     minDistance: number,
 ): boolean => {
     return existingPopups.some((popupPoint) => {
@@ -53,7 +73,7 @@ export const ZOOM_BREAKPOINTS = {
 
 // массив для хранения активных попапов
 let activePopups: mapboxgl.Popup[] = [];
-let activePixelPopups: PixelCoordType[] = [];
+let activePixelPopups: IPixelCoordType[] = [];
 
 const clear = () => {
     activePopups.forEach((popup) => popup.remove());
@@ -133,34 +153,33 @@ export const createPopupsForLineString = (
 };
 
 /** Рендеринг элементов типа "Point" */
-export const renderPoints = (
-    geometry: Point,
-    popupMarkup: string,
-    map: RefObject<mapboxgl.Map | null>,
-    markersRef: RefObject<mapboxgl.Marker[]>,
-    theme: Theme,
-) => {
+export const renderPoints = ({ geometry, popupMarkup, map, markersRef, theme, specificMarkerIcon }: IRenderPoints) => {
     const markerElement = document.createElement('div');
-    markerElement.innerHTML = mapMarkerSvgString(theme.palette);
-
-    const circleElement = markerElement.querySelector('.marker-interactive') as HTMLElement;
-
-    const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(geometry.coordinates as [number, number]);
 
     let popup: mapboxgl.Popup | null = null;
+
+    if (specificMarkerIcon) {
+        markerElement.innerHTML = specificMarkerIcon(theme.palette);
+    } else {
+        markerElement.innerHTML = mapMarkerSvgString(theme.palette);
+    }
+
+    const markerInstance = new mapboxgl.Marker({ element: markerElement }).setLngLat(
+        geometry.coordinates as [number, number],
+    );
 
     if (popupMarkup) {
         popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
     }
 
-    if (circleElement) {
-        circleElement.addEventListener('mouseover', () => {
+    if (markerElement) {
+        markerElement.addEventListener('mouseover', () => {
             if (popup) {
                 popup.addTo(map.current!);
             }
         });
 
-        circleElement.addEventListener('mouseout', () => {
+        markerElement.addEventListener('mouseout', () => {
             if (popup) {
                 popup.remove();
             }
@@ -179,13 +198,13 @@ export const renderPoints = (
 };
 
 /** Рендеринг маркеров при типе "LineString" */
-export const renderLineStringPoints = (
-    geometry: LineString,
-    map: RefObject<mapboxgl.Map | null>,
-    markersRef: RefObject<mapboxgl.Marker[]>,
-    isLineMarkersNeeded: boolean,
-    theme: Theme,
-) => {
+export const renderLineStringPoints = ({
+    geometry,
+    map,
+    markersRef,
+    isLineMarkersNeeded,
+    theme,
+}: IRenderLineStringPoints) => {
     if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
         geometry.coordinates.forEach((coordinate, index) => {
             if (Array.isArray(coordinate) && coordinate.length === 2) {

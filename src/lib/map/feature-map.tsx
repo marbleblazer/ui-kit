@@ -6,10 +6,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from './map.types';
-import { renderLineStringPoints, renderPoints } from './trip-map/utils';
 import { BaseMap, IBaseMapProps } from './base-map';
 import { customDrawStyles, typedGeodesicDraw } from './constance';
-import { debounce, useTheme } from '@mui/material';
+import { debounce, Palette, useTheme } from '@mui/material';
+import { renderLineStringPoints, renderPoints } from './helpers/utils';
 
 type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
@@ -84,16 +84,29 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
             if (localData.type === 'FeatureCollection') {
                 for (const feature of localData.features) {
                     const geometry = feature.geometry;
-                    const popupMarkup: string = feature?.properties?.popupMarkup as string;
+                    const popupMarkup = feature?.properties?.popupMarkup as string;
+                    const specificMarkerIcon = feature?.properties?.specificMarkerIcon as (theme: Palette) => string;
 
                     if (geometry.type === 'Point') {
                         if (localData.features.length === 1) {
                             singleMarkerCenter = geometry.coordinates;
                         }
-                        renderPoints(geometry, popupMarkup, map, markersRef, themeRef.current);
+                        renderPoints({
+                            geometry,
+                            popupMarkup,
+                            map,
+                            markersRef,
+                            theme: themeRef.current,
+                            specificMarkerIcon,
+                        });
                     } else if (geometry.type === 'LineString') {
-                        // Отрисовка маркеров на линии
-                        renderLineStringPoints(geometry, map, markersRef, isLineMarkersNeeded, themeRef.current);
+                        renderLineStringPoints({
+                            geometry,
+                            map,
+                            markersRef,
+                            isLineMarkersNeeded,
+                            theme: themeRef.current,
+                        });
                     }
                 }
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
