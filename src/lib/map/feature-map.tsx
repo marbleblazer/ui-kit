@@ -127,8 +127,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                 map.current.fitBounds([west, south, east, north], { padding: 50, duration: 100, essential: true });
             }
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [theme],
+        [isLineMarkersNeeded, isMapFittedBoundsState],
     );
 
     useEffect(() => {
