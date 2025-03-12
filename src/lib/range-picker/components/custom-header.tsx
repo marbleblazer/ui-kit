@@ -10,15 +10,14 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
     monthDate,
     increaseMonth,
 }) => {
-    const { i18n } = useTranslation();
+    const { i18n, t } = useTranslation('uiKit', { keyPrefix: 'RangePicker' });
 
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center">
             <IconButton
                 size="small"
                 variant="gray"
-                aria-label="Previous Month"
-                // style={customHeaderCount === 1 ? { visibility: 'hidden' } : {}}
+                aria-label={t('Previous Month')}
                 onClick={decreaseMonth}
                 sx={{ icon: { color: 'text.text7' }, backgroundColor: 'background.background1' }}
             >
@@ -35,8 +34,7 @@ export const CustomDatepickerHeader: FC<ReactDatePickerCustomHeaderProps> = ({
             <IconButton
                 size="small"
                 variant="gray"
-                aria-label="Next Month"
-                // style={customHeaderCount === 0 ? { visibility: 'hidden' } : {}}
+                aria-label={t('Next Month')}
                 onClick={increaseMonth}
                 sx={{ icon: { color: 'text.text7' }, backgroundColor: 'background.background1' }}
             >

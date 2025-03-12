@@ -5,7 +5,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import circleTurf from '@turf/circle';
 
-import { checkCirclePolygon, getCircleGeometryFromPolygon } from '@chirp/ui/helpers/mapUtils';
+import { checkCirclePolygon, getCircleGeometryFromPolygon } from '@chirp/ui/helpers/map-utils';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from '../map.types';
 import { MapDrawModeTabs } from './map-draw-tabs';
@@ -104,9 +104,9 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
             drawRef.current.deleteAll();
             drawRef.current.changeMode(drawMode);
         }
+        drawRef.current.deleteAll();
 
         if (!data) {
-            drawRef.current.deleteAll();
             drawMode && drawRef.current.changeMode(drawMode);
 
             return;

@@ -1,5 +1,7 @@
 {
     "en": {
+        "Photo": "Photo",
+
         "widgets": {
             "No data": "No data",
             "Current value": "Current {{value}}",
@@ -8,8 +10,8 @@
             "average": "Average",
             "current": "Current",
             "normal": "Normal",
-            "max": "Max",
-            "min": "Min",
+            "Max": "Max",
+            "Min": "Min",
             "Last update": "Last update:",
             "Show graph": "Show Graph",
             "Units of measurement": "Units of measurement",
@@ -23,7 +25,10 @@
             "from": "From",
             "to": "To",
             "Saved": "Saved",
-            "Save": "Save"
+            "Save": "Save",
+            "max": "max",
+            "min": "min",
+            "avg": "avg"
         },
         "colorPicker": {
             "Color": "Color"
@@ -73,7 +78,9 @@
             "Input": "Input",
             "Label": "Label",
             "Clear data range": "Clear data range",
-            "Apply changes": "Apply changes"
+            "Apply changes": "Apply changes",
+            "Previous Month": "Previous Month",
+            "Next Month": "Next Month"
         },
         "UserPopup": {
             "Connect your wallet": "Connect your wallet",
@@ -94,6 +101,7 @@
         }
     },
     "fr": {
+        "Photo": "Photo",
         "widgets": {
             "No data": "Pas de données",
             "Current value": "Valeur actuelle {{value}}",
@@ -102,8 +110,8 @@
             "average": "Moyenne",
             "current": "Actuel",
             "normal": "Normal",
-            "max": "Max",
-            "min": "Min",
+            "Max": "Max",
+            "Min": "Min",
             "Last update": "Dernière mise à jour :",
             "Show graph": "Afficher le graphique",
             "Units of measurement": "Unités de mesure",
@@ -117,7 +125,10 @@
             "from": "De",
             "to": "À",
             "Saved": "Enregistré",
-            "Save": "Enregistrer"
+            "Save": "Enregistrer",
+            "max": "max",
+            "min": "min",
+            "avg": "moy"
         },
         "colorPicker": {
             "Color": "Couleur"
@@ -167,7 +178,9 @@
             "Input": "Entrée",
             "Label": "Étiquette",
             "Clear data range": "Effacer la plage de données",
-            "Apply changes": "Appliquer les modifications"
+            "Apply changes": "Appliquer les modifications",
+            "Previous Month": "Mois précédent",
+            "Next Month": "Mois suivant"
         },
         "UserPopup": {
             "Connect your wallet": "Connectez votre portefeuille",
@@ -188,6 +201,7 @@
         }
     },
     "de": {
+        "Photo": "Foto",
         "widgets": {
             "No data": "Keine Daten",
             "Current value": "Aktueller Wert {{value}}",
@@ -196,8 +210,8 @@
             "average": "Durchschnitt",
             "current": "Aktuell",
             "normal": "Normal",
-            "max": "Max",
-            "min": "Min",
+            "Max": "Max",
+            "Min": "Min",
             "Last update": "Letzte Aktualisierung:",
             "Show graph": "Diagramm anzeigen",
             "Units of measurement": "Maßeinheiten",
@@ -211,7 +225,10 @@
             "from": "Von",
             "to": "Bis",
             "Saved": "Gespeichert",
-            "Save": "Speichern"
+            "Save": "Speichern",
+            "max": "max",
+            "min": "min",
+            "avg": "durchschn."
         },
         "colorPicker": {
             "Color": "Farbe"
@@ -261,7 +278,9 @@
             "Input": "Eingabe",
             "Label": "Label",
             "Clear data range": "Datenbereich löschen",
-            "Apply changes": "Änderungen übernehmen"
+            "Apply changes": "Änderungen übernehmen",
+            "Previous Month": "Vorheriger Monat",
+            "Next Month": "Nächster Monat"
         },
         "UserPopup": {
             "Connect your wallet": "Verbinden Sie Ihre Wallet",
@@ -283,6 +302,7 @@
     },
 
     "es": {
+        "Photo": "Foto",
         "widgets": {
             "No data": "No hay datos",
             "Current value": "Valor actual {{value}}",
@@ -291,8 +311,8 @@
             "average": "Promedio",
             "current": "Actual",
             "normal": "Normal",
-            "max": "Máx",
-            "min": "Mín",
+            "Max": "Máx",
+            "Min": "Mín",
             "Last update": "Última actualización:",
             "Show graph": "Mostrar gráfico",
             "Units of measurement": "Unidades de medida",
@@ -319,7 +339,10 @@
             "from": "Desde",
             "to": "Hasta",
             "Saved": "Guardado",
-            "Save": "Guardar"
+            "Save": "Guardar",
+            "max": "máx",
+            "min": "mín",
+            "avg": "prom"
         },
         "colorPicker": {
             "Color": "Color"
@@ -356,7 +379,9 @@
             "Input": "Entrada",
             "Label": "Etiqueta",
             "Clear data range": "Borrar rango de datos",
-            "Apply changes": "Aplicar cambios"
+            "Apply changes": "Aplicar cambios",
+            "Previous Month": "Mes anterior",
+            "Next Month": "Próximo mes"
         },
         "UserPopup": {
             "Connect your wallet": "Conectar tu billetera",
@@ -377,6 +402,7 @@
         }
     },
     "ru": {
+        "Photo": "Фото",
         "widgets": {
             "No data": "Нет данных",
             "Current value": "Текущее {{value}}",
@@ -385,8 +411,8 @@
             "average": "Среднее",
             "current": "Текущее",
             "normal": "Нормальное",
-            "max": "Макс",
-            "min": "Мин",
+            "Max": "Макс",
+            "Min": "Мин",
             "Last update": "Последнее обновление:",
             "Show graph": "Показать график",
             "Units of measurement": "Единицы измерения",
@@ -400,7 +426,10 @@
             "from": "От",
             "to": "До",
             "Saved": "Сохранено",
-            "Save": "Сохранить"
+            "Save": "Сохранить",
+            "max": "макс",
+            "min": "мин",
+            "avg": "средн"
         },
         "colorPicker": {
             "Color": "Цвет"
@@ -450,7 +479,9 @@
             "Input": "Ввод",
             "Label": "Метка",
             "Clear data range": "Очистить диапазон данных",
-            "Apply changes": "Применить изменения"
+            "Apply changes": "Применить изменения",
+            "Previous Month": "Предыдущий месяц",
+            "Next Month": "Следующий месяц"
         },
         "UserPopup": {
             "Connect your wallet": "Подключите ваш кошелек",

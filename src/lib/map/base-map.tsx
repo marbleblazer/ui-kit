@@ -4,7 +4,7 @@ import { FC, PropsWithChildren, RefObject, useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import { getUiKitMapStyleId } from '@chirp/ui/helpers/mapUtils';
+import { getUiKitMapStyleId } from '@chirp/ui/helpers/map-utils';
 import { useBreakpoints } from '@chirp/ui/hooks/use-breakpoints';
 import * as S from './style';
 

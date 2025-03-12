@@ -1,5 +1,5 @@
 import { SxProps, useTheme } from '@mui/material';
-import { getStringAvatar } from '@chirp/ui/helpers/getStringAvatar';
+import { getStringAvatar } from '@chirp/ui/helpers/get-string-avatar';
 import { FC } from 'react';
 import { UserBoardIcon } from '@chirp/ui/assets/fleet-icons';
 import * as S from './styles';

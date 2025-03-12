@@ -1,5 +1,9 @@
 import './styles/style.scss';
 
+export * from './helpers';
+
+export * from './hooks';
+
 export * from './styles/theme';
 
 export * from './lib';

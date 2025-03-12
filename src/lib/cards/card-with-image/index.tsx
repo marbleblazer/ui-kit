@@ -3,6 +3,7 @@ import { BaseCard } from '../base-card';
 import { Box, Stack, SxProps } from '@mui/material';
 import { ImagePreview } from '../../image-preview';
 import { Typography } from '../../typogrpahy';
+import { useTranslation } from 'react-i18next';
 
 interface ICardWithImageProps {
     containerSx?: SxProps;
@@ -23,6 +24,8 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
     headerSx,
     contentSx,
 }) => {
+    const { t } = useTranslation('uiKit');
+
     return (
         <BaseCard
             containerSx={containerSx}
@@ -33,7 +36,7 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
                     <Box>
                         <ImagePreview
                             previewUrl={image ?? ''}
-                            title="Photo"
+                            title={t('Photo')}
                             borderRadius="8px"
                             width="48px"
                             height="48px"
