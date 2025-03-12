@@ -129,7 +129,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                 </svg>
 
                 <Typography fontSize="12px" lineHeight="16px">
-                    {t('max')}
+                    {t('Max')}
                 </Typography>
             </Stack>
             <Stack alignItems="center" direction="row" spacing="6px">
@@ -174,7 +174,7 @@ export const Legend: React.FC<LegendProps> = ({ color }) => {
                 </svg>
 
                 <Typography fontSize="12px" lineHeight="16px">
-                    {t('min')}
+                    {t('Min')}
                 </Typography>
             </Stack>
         </Stack>
