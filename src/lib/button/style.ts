@@ -1,11 +1,12 @@
-import { styled, Button } from '@mui/material';
+import { styled, Button, Stack } from '@mui/material';
 
-import { IButtonProps } from './types';
+import { IButtonLoaderProps, IButtonProps } from './types';
 
 export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, size, variant }) => ({
     cursor: 'pointer',
     transition: 'all 0.125s',
     width: fullWidth ? '100%' : '',
+    overflow: 'hidden',
     ...theme.typography.button,
 
     '.MuiButton-icon': {
@@ -134,4 +135,31 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
     [theme.breakpoints.between('md', 'lg')]: {
         lineHeight: '16px',
     },
+}));
+
+export const LoaderWrapper = styled(Stack)(() => ({
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+}));
+
+export const Backdrop = styled(Stack)<IButtonLoaderProps>(({ theme, variant }) => ({
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+
+    ...((variant === 'primary' || variant === 'outlined' || variant === 'secondary' || variant === 'text') && {
+        background: theme.palette.base.color6,
+    }),
+
+    ...(variant === 'tertiary' && {
+        background: theme.palette.background.background10,
+    }),
 }));

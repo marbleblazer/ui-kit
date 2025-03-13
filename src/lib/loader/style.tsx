@@ -56,13 +56,13 @@ const sizeConfig: Record<TLoaderSize, ISizeConfig> = {
 };
 
 // Стиль для одного оранжевого элемента
-export const LoaderElement = styled('div')<ILoaderElementProps>(({ theme, index, size }) => ({
+export const LoaderElement = styled('div')<ILoaderElementProps>(({ theme, index, size, color }) => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
     width: sizeConfig[size].element.width,
     height: sizeConfig[size].element.height,
-    backgroundColor: theme.palette.base.color6,
+    backgroundColor: color ?? theme.palette.base.color6,
     borderRadius: '1.5px',
     animation: `${fade} 1.2s infinite`,
     transformOrigin: 'center',

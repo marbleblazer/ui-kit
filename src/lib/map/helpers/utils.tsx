@@ -13,7 +13,7 @@ interface IPixelCoordType {
 
 interface IRenderPoints {
     geometry: Point;
-    popupMarkup: string;
+    popupNode: Node;
     map: RefObject<mapboxgl.Map | null>;
     markersRef: RefObject<mapboxgl.Marker[]>;
     theme: Theme;
@@ -153,47 +153,62 @@ export const createPopupsForLineString = (
 };
 
 /** Рендеринг элементов типа "Point" */
-export const renderPoints = ({ geometry, popupMarkup, map, markersRef, theme, specificMarkerIcon }: IRenderPoints) => {
+export const renderPoints = ({ geometry, popupNode, map, markersRef, theme, specificMarkerIcon }: IRenderPoints) => {
     const markerElement = document.createElement('div');
-
-    let popup: mapboxgl.Popup | null = null;
-
-    if (specificMarkerIcon) {
-        markerElement.innerHTML = specificMarkerIcon(theme.palette);
-    } else {
-        markerElement.innerHTML = mapMarkerSvgString(theme.palette);
-    }
+    markerElement.innerHTML = specificMarkerIcon
+        ? specificMarkerIcon(theme.palette)
+        : mapMarkerSvgString(theme.palette);
 
     const markerInstance = new mapboxgl.Marker({ element: markerElement }).setLngLat(
         geometry.coordinates as [number, number],
     );
 
-    if (popupMarkup) {
-        popup = new mapboxgl.Popup({ anchor: 'top-left' }).setHTML(popupMarkup);
-    }
-
-    if (markerElement) {
-        markerElement.addEventListener('mouseover', () => {
-            if (popup) {
-                popup.addTo(map.current!);
-            }
-        });
-
-        markerElement.addEventListener('mouseout', () => {
-            if (popup) {
-                popup.remove();
-            }
-        });
-    }
-
-    if (popup) {
+    if (popupNode) {
+        const popup = new mapboxgl.Popup({ anchor: 'top-left', closeButton: false }).setDOMContent(popupNode);
         markerInstance.setPopup(popup);
+
+        let isHovered = false;
+        let closeTimeout: ReturnType<typeof setTimeout>;
+
+        const openPopup = () => {
+            clearTimeout(closeTimeout);
+            popup.addTo(map.current!);
+        };
+
+        const closePopup = () => {
+            closeTimeout = setTimeout(() => {
+                if (!isHovered) popup.remove();
+            }, 100);
+        };
+
+        markerElement.addEventListener('mouseenter', () => {
+            isHovered = true;
+            openPopup();
+        });
+
+        markerElement.addEventListener('mouseleave', () => {
+            isHovered = false;
+            closePopup();
+        });
+
+        popup.on('open', () => {
+            const popupElement = popup.getElement();
+
+            if (!popupElement) return;
+
+            popupElement.addEventListener('mouseenter', () => {
+                isHovered = true;
+                clearTimeout(closeTimeout);
+            });
+
+            popupElement.addEventListener('mouseleave', () => {
+                isHovered = false;
+                closePopup();
+            });
+        });
     }
 
-    if (map.current) {
-        markerInstance.addTo(map.current);
-    }
-
+    markerInstance.addTo(map.current!);
     markersRef.current.push(markerInstance);
 };
 
