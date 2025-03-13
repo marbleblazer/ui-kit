@@ -48,7 +48,7 @@ export const Default: Story = {
 export const ThreeMarkers: Story = {
     render: () => {
         return (
-            <Box>
+            <Box sx={{ width: '500px', height: '500px' }}>
                 <FeatureMap
                     data={{
                         type: 'FeatureCollection',
