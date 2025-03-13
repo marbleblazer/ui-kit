@@ -1,11 +1,12 @@
-import { styled, IconButton } from '@mui/material';
+import { styled, IconButton, Stack } from '@mui/material';
 
-import { IIconButtonProps } from './types';
+import { IIconButtonLoaderProps, IIconButtonProps } from './types';
 
 export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size, variant }) => ({
     cursor: 'pointer',
     transition: 'all 0.125s',
     gap: '4px',
+    overflow: 'hidden',
 
     '.MuiButton-icon': {
         '& > svg': {
@@ -142,4 +143,31 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
     [theme.breakpoints.between('md', 'lg')]: {
         lineHeight: '16px',
     },
+}));
+
+export const LoaderWrapper = styled(Stack)(() => ({
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+}));
+
+export const Backdrop = styled(Stack)<IIconButtonLoaderProps>(({ theme, variant }) => ({
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+
+    ...((variant === 'primary' || variant === 'outlined' || variant === 'secondary' || variant === 'gray') && {
+        background: theme.palette.base.color6,
+    }),
+
+    ...(variant === 'tertiary' && {
+        background: theme.palette.background.background10,
+    }),
 }));
