@@ -147,3 +147,5 @@ export { default as YellowInDeliveryIcon } from './yellow_in-delivery.svg?react'
 export { default as YellowInYellowRepairIcon } from './yellow_repair.svg?react';
 
 export { default as CameraUploadIcon } from './camera.svg?react';
+
+export { default as FilterIcon } from './filter.svg?react';
