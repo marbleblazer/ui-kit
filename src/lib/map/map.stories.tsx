@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DrawableMap, FeatureMap, TripMap } from '@chirp/ui/lib';
-import { Box, Stack, useTheme } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 import { mockSecondTripData, mockTripData } from './mock';
 
@@ -47,23 +47,9 @@ export const Default: Story = {
 
 export const ThreeMarkers: Story = {
     render: () => {
-        const theme = useTheme();
-
         return (
-            <Box sx={{ width: '500px', height: '500px' }}>
+            <Box>
                 <FeatureMap
-                    sx={{
-                        '.mapboxgl-popup-content': {
-                            width: '334px',
-                            minHeight: '290px',
-                            fontSize: '12px',
-                            padding: '20px !important',
-
-                            label: {
-                                color: theme.palette.text.text1,
-                            },
-                        },
-                    }}
                     data={{
                         type: 'FeatureCollection',
                         features: [
@@ -76,7 +62,7 @@ export const ThreeMarkers: Story = {
                                 properties: {
                                     title: 'Mapbox',
                                     description: 'Washington, D.C.',
-                                    popupMarkup: '',
+                                    popupNode: '',
                                 },
                             },
                             {
@@ -85,11 +71,7 @@ export const ThreeMarkers: Story = {
                                     type: 'Point',
                                     coordinates: [49.687, 55.4745],
                                 },
-                                properties: {
-                                    id: 227,
-                                    popupMarkup:
-                                        '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 10px"><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Last update:</label>\n                        <p>5d 14h 0 min ago</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Address:</label>\n                        <p></p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Motion state:</label>\n                        <p>No actual state</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unit name:</label>\n                        <p>FMC003 in the new car</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unique identifier:</label>\n                        <p>864636060361017</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Model:</label>\n                        <p>FMC003</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Speed:</label>\n                        <p>10 km/h</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Driver:</label>\n                        <p>Boris Borisov</p>\n                    </div></div>',
-                                },
+                                properties: {},
                             },
                             {
                                 type: 'Feature',
@@ -97,11 +79,7 @@ export const ThreeMarkers: Story = {
                                     type: 'Point',
                                     coordinates: [45.687, 55.4745],
                                 },
-                                properties: {
-                                    id: 228,
-                                    popupMarkup:
-                                        '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; gap: 10px"><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Last update:</label>\n                        <p>5d 14h 0 min ago</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Address:</label>\n                        <p></p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Motion state:</label>\n                        <p>No actual state</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unit name:</label>\n                        <p>FMC003 in the new car</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Unique identifier:</label>\n                        <p>864636060361017</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Model:</label>\n                        <p>FMC003</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Speed:</label>\n                        <p>10 km/h</p>\n                    </div><div style="width: 100%; display: flex; flex-direction: row">\n                        <label style="margin-right: 12px;">Driver:</label>\n                        <p>Boris Borisov</p>\n                    </div></div>',
-                                },
+                                properties: {},
                             },
                         ],
                     }}

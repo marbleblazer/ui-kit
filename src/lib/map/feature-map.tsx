@@ -28,7 +28,6 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     ...baseProps
 }) => {
     const theme = useTheme();
-    const themeRef = useRef(theme);
 
     const map = useRef<mapboxgl.Map>(null);
 
@@ -86,7 +85,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
             if (localData.type === 'FeatureCollection') {
                 for (const feature of localData.features) {
                     const geometry = feature.geometry;
-                    const popupMarkup = feature?.properties?.popupMarkup as string;
+                    const popupNode = feature?.properties?.popupNode as Node;
                     const specificMarkerIcon = feature?.properties?.specificMarkerIcon as (theme: Palette) => string;
 
                     if (geometry.type === 'Point') {
@@ -95,10 +94,10 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                         }
                         renderPoints({
                             geometry,
-                            popupMarkup,
+                            popupNode,
                             map,
                             markersRef,
-                            theme: themeRef.current,
+                            theme,
                             specificMarkerIcon,
                         });
                     } else if (geometry.type === 'LineString') {
@@ -107,7 +106,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                             map,
                             markersRef,
                             isLineMarkersNeeded,
-                            theme: themeRef.current,
+                            theme,
                         });
                     }
                 }
@@ -129,32 +128,27 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                 map.current.fitBounds([west, south, east, north], { padding: 50, duration: 100, essential: true });
             }
         },
-        [isLineMarkersNeeded],
+        [isLineMarkersNeeded, theme],
     );
-
-    useEffect(() => {
-        themeRef.current = theme;
-    }, [theme]);
 
     useEffect(() => {
         const mapCurrent = map.current;
 
         if (!mapCurrent) return;
 
-        const updateMap = debounce(() => {
-            if (mapCurrent?.isStyleLoaded()) {
-                addDataToMap(data);
-            }
+        if (mapCurrent?.isStyleLoaded()) {
+            addDataToMap(data);
+        }
 
-            mapCurrent?.on('style.load', () => addDataToMap(data));
+        const debouncedUpdate = debounce(() => {
+            addDataToMap(data);
         }, 100);
 
-        updateMap();
+        mapCurrent.on('style.load', debouncedUpdate);
 
         return () => {
-            updateMap?.clear();
-
-            if (mapCurrent) mapCurrent.stop();
+            debouncedUpdate.clear();
+            mapCurrent.off('style.load', debouncedUpdate);
         };
     }, [addDataToMap, data, theme]);
 

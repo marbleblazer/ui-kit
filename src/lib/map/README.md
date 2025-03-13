@@ -81,7 +81,7 @@ const myGeoJSON = {
                 type: 'Point',
                 coordinates: [-74.006, 40.7128],
             },
-            properties: { popupMarkup: 'New York City' },
+            properties: { popupNode: 'New York City' },
         },
     ],
 };
