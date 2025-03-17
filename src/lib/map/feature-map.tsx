@@ -7,9 +7,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from './map.types';
 import { BaseMap, IBaseMapProps } from './base-map';
-import { customDrawStyles, typedGeodesicDraw } from './constance';
 import { debounce, Palette, useTheme } from '@mui/material';
 import { renderLineStringPoints, renderPoints } from './helpers/utils';
+import { customDrawStyles, typedGeodesicDraw } from './constance';
 
 type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
@@ -35,25 +35,6 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     const drawRef = useRef<MapboxDraw | null>(null);
 
     const [isMapFittedBounds, setIsMapFittedBounds] = useState(false);
-
-    const onMapLoad = (localData?: DataType) => {
-        if (!map.current) return;
-        // Для работы с источником mapbox-gl-draw-cold
-        let modes = MapboxDraw.modes;
-        modes = typedGeodesicDraw.enable(modes);
-        const draw = new MapboxDraw({
-            displayControlsDefault: false,
-            modes: {
-                ...modes,
-            },
-            styles: customDrawStyles(theme.palette),
-        });
-
-        drawRef.current = draw;
-        map.current.addControl(draw);
-
-        addDataToMap(localData);
-    };
 
     const clearMap = () => {
         if (!map.current) return;
@@ -131,6 +112,25 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         [isLineMarkersNeeded, isMapFittedBounds, theme],
     );
 
+    const onMapLoad = useCallback(() => {
+        if (!map.current) return;
+        // Для работы с источником mapbox-gl-draw-cold
+        let modes = MapboxDraw.modes;
+        modes = typedGeodesicDraw.enable(modes);
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            modes: {
+                ...modes,
+            },
+            styles: customDrawStyles(theme.palette),
+        });
+
+        drawRef.current = draw;
+        map.current.addControl(draw);
+
+        addDataToMap(data);
+    }, [addDataToMap, data, theme.palette]);
+
     useEffect(() => {
         const mapCurrent = map.current;
 
@@ -160,5 +160,5 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         }
     }, [centeringCoordinates]);
 
-    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
+    return <BaseMap {...baseProps} mapRef={map} onMapLoad={onMapLoad} />;
 };
