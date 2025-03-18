@@ -113,7 +113,7 @@ export const Gray: Story = {
             <IconButton variant="gray">
                 <DcIcon />
             </IconButton>
-            <IconButton isLoading variant="gray">
+            <IconButton isLoading variant="gray" sx={{ position: 'absolute' }}>
                 <DcIcon />
             </IconButton>
         </Stack>

@@ -1,5 +1,5 @@
 import mapboxgl, { MapEventType } from 'mapbox-gl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
@@ -30,7 +30,7 @@ interface IDrawableMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> 
     getMapStyleId?: (themeMode: string) => string;
 }
 
-export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
+export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
     const {
         data,
         isSingleDraw = true,
@@ -39,6 +39,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         drawMode,
         ...baseProps
     } = props;
+
     const theme = useTheme();
     const markersRef = useRef<HTMLDivElement[]>([]);
     const map = useRef<mapboxgl.Map>(null);
@@ -96,74 +97,83 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
         addDataToMap();
     };
 
-    const addDataToMap = useCallback(() => {
-        if (!map.current || !drawRef.current) return;
+    const addDataToMap = useCallback(
+        (geoData: GeoJSON.GeoJSON | null = null) => {
+            console.log('addDataToMap');
 
-        if (drawMode) {
-            markersRef.current.forEach((marker) => marker.remove());
+            if (!map.current || !drawRef.current) return;
+
             drawRef.current.deleteAll();
-            drawRef.current.changeMode(drawMode);
-        }
-        drawRef.current.deleteAll();
 
-        if (!data) {
-            drawMode && drawRef.current.changeMode(drawMode);
-
-            return;
-        }
-
-        const isCircleData = checkCirclePolygon(data);
-
-        // draw logic
-        if (isCircleData) {
-            const resolvedCircleGeometry = getCircleGeometryFromPolygon(data);
-
-            if (resolvedCircleGeometry) {
-                const { center, radius } = resolvedCircleGeometry;
-
-                if (isCircleData) {
-                    const circle = typedGeodesicDraw.createCircle(center, radius);
-                    drawRef.current.add(circle);
-                }
+            if (drawMode) {
+                markersRef.current.forEach((marker) => marker.remove());
+                drawRef.current.deleteAll();
+                drawRef.current.changeMode(drawMode);
             }
-        } else {
-            if (data.type === 'Feature' && withStartEndLineIndicators) {
-                if (data.geometry.type === 'LineString') {
-                    const [startPoint, endPoint] = [
-                        data.geometry.coordinates[0],
-                        data.geometry.coordinates[data.geometry.coordinates.length - 1],
-                    ];
-                    markersRef.current.forEach((marker) => marker.remove());
-                    const startMarker = document.createElement('div');
-                    startMarker.classList.add('start-end-line-marker');
-                    startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette);
-                    const endMarker = document.createElement('div');
-                    endMarker.classList.add('start-end-line-marker');
-                    endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette);
-                    new mapboxgl.Marker(startMarker).setLngLat(startPoint as [number, number]).addTo(map.current);
-                    new mapboxgl.Marker(endMarker).setLngLat(endPoint as [number, number]).addTo(map.current);
-                    markersRef.current = [startMarker, endMarker];
-                }
-            }
-            drawRef.current.add(data);
-        }
 
-        const bbox = bboxTurf(data, { recompute: true });
-        const [west, south, east, north] = bbox;
-        map.current.fitBounds([west, south, east, north], { padding: 50 });
-    }, [data, drawMode, theme.palette, withStartEndLineIndicators]);
+            if (!geoData) {
+                drawMode && drawRef.current.changeMode(drawMode);
+
+                return;
+            }
+
+            const isCircleData = checkCirclePolygon(geoData);
+
+            // draw logic
+            if (isCircleData) {
+                const resolvedCircleGeometry = getCircleGeometryFromPolygon(geoData);
+
+                if (resolvedCircleGeometry) {
+                    const { center, radius } = resolvedCircleGeometry;
+
+                    if (isCircleData) {
+                        const circle = typedGeodesicDraw.createCircle(center, radius);
+                        drawRef.current.add(circle);
+                    }
+                }
+            } else {
+                if (geoData.type === 'Feature' && withStartEndLineIndicators) {
+                    if (geoData.geometry.type === 'LineString') {
+                        const [startPoint, endPoint] = [
+                            geoData.geometry.coordinates[0],
+                            geoData.geometry.coordinates[geoData.geometry.coordinates.length - 1],
+                        ];
+                        markersRef.current.forEach((marker) => marker.remove());
+                        const startMarker = document.createElement('div');
+                        startMarker.classList.add('start-end-line-marker');
+                        startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette);
+                        const endMarker = document.createElement('div');
+                        endMarker.classList.add('start-end-line-marker');
+                        endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette);
+                        new mapboxgl.Marker(startMarker).setLngLat(startPoint as [number, number]).addTo(map.current);
+                        new mapboxgl.Marker(endMarker).setLngLat(endPoint as [number, number]).addTo(map.current);
+                        markersRef.current = [startMarker, endMarker];
+                    }
+                }
+                drawRef.current.add(geoData);
+            }
+
+            const bbox = bboxTurf(geoData, { recompute: true });
+            const [west, south, east, north] = bbox;
+            map.current.fitBounds([west, south, east, north], { padding: 50 });
+        },
+        [drawMode, theme.palette, withStartEndLineIndicators],
+    );
 
     useEffect(() => {
+        console.log('1useEffect(() => {addDataToMap, data}');
+
         if (!map.current || !drawRef.current) return;
 
         if (map.current.isStyleLoaded()) {
-            addDataToMap();
+            addDataToMap(data);
         } else {
             map.current.on('style.load', () => {
-                addDataToMap();
+                addDataToMap(data);
             });
         }
-    }, [addDataToMap, data]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
@@ -183,4 +193,4 @@ export const DrawableMap: React.FC<IDrawableMapProps> = (props) => {
             ) : null}
         </BaseMap>
     );
-};
+});

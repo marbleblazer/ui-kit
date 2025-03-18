@@ -126,17 +126,24 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
 
         mapRef.current.getCanvas().style.cursor = 'pointer';
 
-        geolocate.on('geolocate', (e: GeolocationPosition) => {
+        const handleGeolocate = (e: GeolocationPosition) => {
             if (!mapRef.current) return;
             const latlng = new mapboxgl.LngLat(e.coords.longitude as number, e.coords.latitude as number);
             mapRef.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
-        });
+        };
+        geolocate.on('geolocate', handleGeolocate);
 
         const helpControl = new HelpControl(palette);
         mapRef.current.addControl(helpControl, 'bottom-left');
 
         return () => {
             mapRef.current?.off('load', onMapLoad);
+            geolocate.off('geolocate', handleGeolocate);
+
+            if (mapRef.current) {
+                mapRef.current.remove();
+                mapRef.current = null;
+            }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
