@@ -10,8 +10,30 @@ export class HelpControl {
     locationItem: HTMLDivElement | undefined;
     trackerItem: HTMLDivElement | undefined;
 
+    private handleMouseEnter: () => void;
+    private handleMouseLeave: () => void;
+
     constructor(palette: Palette) {
         this.palette = palette;
+
+        this.handleMouseEnter = this.showMenu.bind(this);
+        this.handleMouseLeave = this.hideMenu.bind(this);
+    }
+
+    private showMenu() {
+        if (this.container) {
+            const menu = this.container.querySelector('.help-menu') as HTMLDivElement;
+
+            if (menu) menu.style.display = 'block';
+        }
+    }
+
+    private hideMenu() {
+        if (this.container) {
+            const menu = this.container.querySelector('.help-menu') as HTMLDivElement;
+
+            if (menu) menu.style.display = 'none';
+        }
     }
 
     updatePalette(palette: Palette) {
@@ -37,7 +59,6 @@ export class HelpControl {
         this.container.style.cursor = 'pointer';
 
         const button = document.createElement('button');
-
         const span = document.createElement('span');
         span.className = 'help-control';
 
@@ -65,22 +86,28 @@ export class HelpControl {
 
         this.container.appendChild(menu);
 
-        button.addEventListener('mouseenter', () => {
-            menu.style.display = 'block';
-        });
-
-        this.container.addEventListener('mouseleave', () => {
-            menu.style.display = 'none';
-        });
+        button.addEventListener('mouseenter', this.handleMouseEnter);
+        this.container.addEventListener('mouseleave', this.handleMouseLeave);
 
         return this.container;
     }
 
     onRemove() {
-        if (this.container && this.container.parentNode) {
-            this.container.parentNode.removeChild(this.container);
+        if (this.container) {
+            const button = this.container.querySelector('button');
+
+            if (button) {
+                button.removeEventListener('mouseenter', this.handleMouseEnter);
+            }
+            this.container.removeEventListener('mouseleave', this.handleMouseLeave);
+
+            if (this.container.parentNode) {
+                this.container.parentNode.removeChild(this.container);
+            }
         }
+
         this.map = undefined;
+        this.container = undefined;
         this.locationItem = undefined;
         this.trackerItem = undefined;
     }

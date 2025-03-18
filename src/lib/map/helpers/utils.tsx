@@ -171,40 +171,49 @@ export const renderPoints = ({ geometry, popupNode, map, markersRef, theme, spec
         let closeTimeout: ReturnType<typeof setTimeout>;
 
         const openPopup = () => {
+            isHovered = true;
             clearTimeout(closeTimeout);
             popup.addTo(map.current!);
         };
 
         const closePopup = () => {
+            isHovered = false;
             closeTimeout = setTimeout(() => {
                 if (!isHovered) popup.remove();
             }, 100);
         };
 
-        markerElement.addEventListener('mouseenter', () => {
-            isHovered = true;
-            openPopup();
-        });
+        markerElement.addEventListener('mouseenter', openPopup);
 
-        markerElement.addEventListener('mouseleave', () => {
-            isHovered = false;
-            closePopup();
-        });
+        markerElement.addEventListener('mouseleave', closePopup);
 
         popup.on('open', () => {
             const popupElement = popup.getElement();
 
             if (!popupElement) return;
 
-            popupElement.addEventListener('mouseenter', () => {
+            const handlePopupMouseEnter = () => {
                 isHovered = true;
                 clearTimeout(closeTimeout);
-            });
+            };
 
-            popupElement.addEventListener('mouseleave', () => {
+            const handlePopupMouseLeave = () => {
                 isHovered = false;
                 closePopup();
+            };
+
+            popupElement.addEventListener('mouseenter', handlePopupMouseEnter);
+            popupElement.addEventListener('mouseleave', handlePopupMouseLeave);
+
+            popup.on('close', () => {
+                popupElement.removeEventListener('mouseenter', handlePopupMouseEnter);
+                popupElement.removeEventListener('mouseleave', handlePopupMouseLeave);
             });
+        });
+
+        markerInstance.on('remove', () => {
+            markerElement.removeEventListener('mouseenter', openPopup);
+            markerElement.removeEventListener('mouseleave', closePopup);
         });
     }
 
