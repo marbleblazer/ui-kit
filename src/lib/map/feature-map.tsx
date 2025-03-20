@@ -19,10 +19,12 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
+    isFirstFocusOnly?: boolean;
 }
 
 export const FeatureMap: React.FC<IFeatureMapProps> = ({
     data,
+    isFirstFocusOnly,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
     ...baseProps
@@ -147,11 +149,11 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         mapCurrent.on('style.load', debouncedUpdate);
 
         return () => {
-            setIsMapFittedBounds(false);
+            !isFirstFocusOnly && setIsMapFittedBounds(false);
             debouncedUpdate.clear();
             mapCurrent.off('style.load', debouncedUpdate);
         };
-    }, [addDataToMap, data, theme]);
+    }, [addDataToMap, data, theme, isFirstFocusOnly]);
 
     // Центрирование карты по координатам centeringCoordinates
     useEffect(() => {
