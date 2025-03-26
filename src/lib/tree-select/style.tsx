@@ -42,6 +42,10 @@ export const TreeItem = styled(MUITreeItem)<TreeItemProps>(({ theme, level = 0 }
                 backgroundColor: alpha(theme.palette?.base.color61, 0.1),
                 color: theme.palette?.base.color6,
             },
+
+            '.MuiTreeItem-label': {
+                ...theme.typography.body1,
+            },
         },
 
         ul: {

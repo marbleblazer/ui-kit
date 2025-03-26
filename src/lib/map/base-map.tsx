@@ -63,6 +63,7 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             minZoom: 1,
             projection: { name: 'mercator' },
             scrollZoom,
+            // refreshExpiredTiles: false,
 
             logoPosition: 'bottom-right',
             maxBounds: [
