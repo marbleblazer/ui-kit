@@ -3,6 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
+import distance from '@turf/distance';
+import { point } from '@turf/helpers';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
@@ -43,7 +45,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const [animating, setIsAnimating] = useState<number | null>(null);
     const [zoomState, setZoomState] = useState(ZOOM_BREAKPOINTS.MEDIUM);
 
-    const animationPauseRef = useRef<{ frame: number; coordinates: [number, number][] } | boolean | null>(null);
+    const animationPauseRef = useRef<{ coordinates: [number, number][]; elapsedTime: number } | boolean | null>(null);
     const arrowRef = useRef<HTMLDivElement>(undefined);
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
@@ -169,19 +171,26 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     }, [addDataToMap, data]);
 
     const animate = useCallback(
-        (coordinates: [number, number][], frame: number) => {
-            const totalFrames = animationDuration / 16; // 60 FPS
+        (coordinates: [number, number][], startTime: number) => {
+            if (!coordinates.length) return;
 
-            // завершение анимации
-            if (frame >= totalFrames) {
-                clearObjects();
+            const now = performance.now();
 
-                return;
-            }
+            // Длины сегментов
+            const segmentLengths = coordinates.map((coord, i) =>
+                i === 0 ? 0 : distance(point(coordinates[i - 1]), point(coord)),
+            );
+            // Общая длина пути
+            const totalLength = segmentLengths.reduce((sum, len) => sum + len, 0);
+            const accumulatedLengths = segmentLengths.reduce<number[]>((acc, len, i) => {
+                acc.push((acc[i - 1] || 0) + len);
+
+                return acc;
+            }, []);
 
             if (animationPauseRef.current === true) {
                 animationPauseRef.current = {
-                    frame,
+                    elapsedTime: now - startTime,
                     coordinates,
                 };
 
@@ -192,28 +201,41 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                 return;
             }
 
-            const progress = frame / totalFrames;
-            const pointIndex = Math.floor(progress * (coordinates.length - 1));
-            const nextPointIndex = Math.min(pointIndex + 1, coordinates.length - 1);
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / animationDuration, 1);
+            const traveledDistance = progress * totalLength;
 
-            const [lng, lat] = coordinates[pointIndex];
-            const [nextLng, nextLat] = coordinates[nextPointIndex];
+            // Два ближайших сегмента
+            let segmentIndex = accumulatedLengths.findIndex((d) => d >= traveledDistance);
 
-            // Устанавливаем позицию маркера
-            animationMarkerRef.current?.setLngLat([lng, lat]);
+            if (segmentIndex === -1) segmentIndex = coordinates.length - 1;
 
-            // Рассчитываем угол между текущей и следующей точкой
-            const angle = Math.atan2(nextLat - lat, nextLng - lng) * (180 / Math.PI) + 210;
+            const [prevLng, prevLat] = coordinates[segmentIndex - 1] || coordinates[0];
+            const [nextLng, nextLat] = coordinates[segmentIndex] || coordinates[coordinates.length - 1];
 
-            // svg внутри элемента
-            const svgElement = arrowRef.current && arrowRef.current.querySelector('svg');
+            const segmentStart = accumulatedLengths[segmentIndex - 1] || 0;
+            const segmentEnd = accumulatedLengths[segmentIndex] || totalLength;
+            const segmentProgress = (traveledDistance - segmentStart) / (segmentEnd - segmentStart);
+
+            // Интерполяция координат
+            const currentLng = prevLng + (nextLng - prevLng) * segmentProgress;
+            const currentLat = prevLat + (nextLat - prevLat) * segmentProgress;
+
+            animationMarkerRef.current?.setLngLat([currentLng, currentLat]);
+
+            // Расчет угла направления движения
+            const angle = Math.atan2(nextLat - prevLat, nextLng - prevLng) * (180 / Math.PI) + 210;
+            const svgElement = arrowRef.current?.querySelector('svg');
 
             if (svgElement) {
                 svgElement.style.transform = `rotate(-${angle}deg)`;
             }
 
-            frame++;
-            requestAnimationFrame(() => animate(coordinates, frame));
+            if (progress < 1) {
+                requestAnimationFrame(() => animate(coordinates, startTime));
+            } else {
+                clearObjects();
+            }
         },
         [animationDuration, clearObjects],
     );
@@ -246,7 +268,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                         : [];
 
                 // Создаем кастомный HTML-элемент для маркера со стрелкой
-
                 if (animationMarkerRef.current) {
                     animationMarkerRef.current.remove();
                 }
@@ -257,7 +278,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                     .addTo(map.current);
 
                 animationPauseRef.current = null;
-                animate(coordinates, 0);
+                animate(coordinates, performance.now());
             } else {
                 console.warn('Data is not a valid FeatureCollection with a LineString for animation.');
             }
@@ -303,7 +324,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         if (isPaused) {
             animationPauseRef.current = true;
         } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
-            animate(animationPauseRef.current?.coordinates, animationPauseRef.current?.frame);
+            animate(animationPauseRef.current.coordinates, performance.now() - animationPauseRef.current.elapsedTime);
         }
     }, [isPaused, data, animate]);
 
