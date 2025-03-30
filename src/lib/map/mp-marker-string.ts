@@ -22,7 +22,7 @@ export const mapMarkerSvgString = (theme: Palette) =>
 `;
 
 export const mapMarkerArrowSvgString = (theme: Palette) =>
-    `<svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    `<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.8243 14.632L1.42518 1.42334L17.6316 1.8293L11.1376 6.58752L10.8243 14.632Z" fill="${theme.base.color6}" stroke="${theme.base.color6}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
 `;

@@ -5,6 +5,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
 import distance from '@turf/distance';
 import { point } from '@turf/helpers';
+import bearing from '@turf/bearing';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
@@ -58,7 +59,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         arrowRef.current = document.createElement('div');
         arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
-        arrowRef.current.style.width = '19px';
+        arrowRef.current.style.width = '20px';
         arrowRef.current.style.height = '16px';
         arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
 
@@ -224,12 +225,10 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             animationMarkerRef.current?.setLngLat([currentLng, currentLat]);
 
             // Расчет угла направления движения
-            const angle = Math.atan2(nextLat - prevLat, nextLng - prevLng) * (180 / Math.PI) + 210;
+            const angle = bearing([prevLng, prevLat], [nextLng, nextLat]) + 60; // 60 - значение для корректировки
             const svgElement = arrowRef.current?.querySelector('svg');
 
-            if (svgElement) {
-                svgElement.style.transform = `rotate(-${angle}deg)`;
-            }
+            if (svgElement) svgElement.style.transform = `rotate(${angle}deg)`;
 
             if (progress < 1) {
                 requestAnimationFrame(() => animate(coordinates, startTime));
@@ -273,7 +272,10 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                 }
 
                 // Создаём маркер с кастомной иконкой
-                animationMarkerRef.current = new mapboxgl.Marker({ element: arrowRef.current })
+                animationMarkerRef.current = new mapboxgl.Marker({
+                    element: arrowRef.current,
+                    anchor: 'center',
+                })
                     .setLngLat(coordinates[0])
                     .addTo(map.current);
 

@@ -397,7 +397,11 @@ export const TripMapExample: Story = {
         const [isPaused, setIsPaused] = useState(false);
 
         const handleStartAnimation = () => {
-            setShouldAnimate(1176);
+            if (checkedState) {
+                setShouldAnimate(1176);
+            } else {
+                setShouldAnimate(1978);
+            }
             setIsPaused(false);
         };
 
