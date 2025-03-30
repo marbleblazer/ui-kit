@@ -52,7 +52,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
-    const themeRef = useRef(theme);
 
     const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
@@ -61,7 +60,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
         arrowRef.current.style.width = '20px';
         arrowRef.current.style.height = '16px';
-        arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
+        arrowRef.current.style.transformOrigin = 'center'; // Устанавливаем центр как точку вращения
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
@@ -125,7 +124,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                             map,
                             markersRef,
                             isLineMarkersNeeded,
-                            theme: themeRef.current,
+                            theme,
                         });
                     }
                 }
@@ -142,34 +141,8 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
         },
-        [clearMap, isLineMarkersNeeded],
+        [clearMap, isLineMarkersNeeded, theme],
     );
-
-    useEffect(() => {
-        themeRef.current = theme;
-    }, [theme]);
-
-    useEffect(() => {
-        const mapCurrent = map.current;
-
-        if (!mapCurrent) return;
-
-        const updateMap = debounce(() => {
-            if (map.current?.isStyleLoaded()) {
-                addDataToMap(data);
-            }
-
-            map.current?.on('style.load', () => addDataToMap(data));
-        }, 100);
-
-        updateMap();
-
-        return () => {
-            updateMap?.clear();
-
-            if (mapCurrent) mapCurrent.stop();
-        };
-    }, [addDataToMap, data]);
 
     const animate = useCallback(
         (coordinates: [number, number][], startTime: number) => {
@@ -288,13 +261,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         [data, animating, animate],
     );
 
-    // Вызов анимации при изменении shouldAnimate
-    useEffect(() => {
-        if (animateLineId && startAnimation) {
-            startAnimation(animateLineId);
-        }
-    }, [animateLineId, startAnimation]);
-
     const updatePopups = useCallback(() => {
         if (!data) {
             createPopupsForLineString();
@@ -318,18 +284,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         }
     }, [data]);
 
-    useEffect(() => {
-        updatePopups();
-    }, [zoomState, data, updatePopups]);
-
-    useEffect(() => {
-        if (isPaused) {
-            animationPauseRef.current = true;
-        } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
-            animate(animationPauseRef.current.coordinates, performance.now() - animationPauseRef.current.elapsedTime);
-        }
-    }, [isPaused, data, animate]);
-
     const handleZoomChange = () => {
         const zoom = map.current?.getZoom();
 
@@ -339,6 +293,46 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             else if (zoom < ZOOM_BREAKPOINTS.MEDIUM) setZoomState(ZOOM_BREAKPOINTS.MEDIUM);
             else if (zoom < ZOOM_BREAKPOINTS.HIGH) setZoomState(ZOOM_BREAKPOINTS.HIGH);
     };
+
+    useEffect(() => {
+        const mapCurrent = map.current;
+
+        if (!mapCurrent) return;
+
+        if (mapCurrent?.isStyleLoaded()) {
+            addDataToMap(data);
+        }
+
+        const debouncedUpdate = debounce(() => {
+            addDataToMap(data);
+        }, 100);
+
+        mapCurrent.on('style.load', debouncedUpdate);
+
+        return () => {
+            debouncedUpdate.clear();
+            mapCurrent.off('style.load', debouncedUpdate);
+
+            if (mapCurrent) mapCurrent.stop();
+        };
+    }, [addDataToMap, data]);
+
+    // Вызов анимации при изменении shouldAnimate
+    useEffect(() => {
+        if (animateLineId && startAnimation) {
+            startAnimation(animateLineId);
+        }
+    }, [animateLineId, startAnimation]);
+
+    useEffect(() => updatePopups(), [zoomState, data, updatePopups]);
+
+    useEffect(() => {
+        if (isPaused) {
+            animationPauseRef.current = true;
+        } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
+            animate(animationPauseRef.current.coordinates, performance.now() - animationPauseRef.current.elapsedTime);
+        }
+    }, [isPaused, data, animate]);
 
     // Центрирование карты по координатам centeringCoordinates
     useEffect(() => {
