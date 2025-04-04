@@ -3,6 +3,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import bboxTurf from '@turf/bbox';
+import distance from '@turf/distance';
+import { point } from '@turf/helpers';
+import bearing from '@turf/bearing';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
@@ -43,22 +46,21 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const [animating, setIsAnimating] = useState<number | null>(null);
     const [zoomState, setZoomState] = useState(ZOOM_BREAKPOINTS.MEDIUM);
 
-    const animationPauseRef = useRef<{ frame: number; coordinates: [number, number][] } | boolean | null>(null);
+    const animationPauseRef = useRef<{ coordinates: [number, number][]; elapsedTime: number } | boolean | null>(null);
     const arrowRef = useRef<HTMLDivElement>(undefined);
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
-    const themeRef = useRef(theme);
 
     const onMapLoad = (localData?: DataType) => {
         if (!map.current) return;
 
         arrowRef.current = document.createElement('div');
         arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
-        arrowRef.current.style.width = '19px';
+        arrowRef.current.style.width = '20px';
         arrowRef.current.style.height = '16px';
-        arrowRef.current.style.transformOrigin = 'center'; // устанавливаем центр как точку вращения
+        arrowRef.current.style.transformOrigin = 'center'; // Устанавливаем центр как точку вращения
 
         // Для работы с источником mapbox-gl-draw-cold
         let modes = MapboxDraw.modes;
@@ -122,7 +124,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                             map,
                             markersRef,
                             isLineMarkersNeeded,
-                            theme: themeRef.current,
+                            theme,
                         });
                     }
                 }
@@ -139,49 +141,30 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
         },
-        [clearMap, isLineMarkersNeeded],
+        [clearMap, isLineMarkersNeeded, theme],
     );
 
-    useEffect(() => {
-        themeRef.current = theme;
-    }, [theme]);
-
-    useEffect(() => {
-        const mapCurrent = map.current;
-
-        if (!mapCurrent) return;
-
-        const updateMap = debounce(() => {
-            if (map.current?.isStyleLoaded()) {
-                addDataToMap(data);
-            }
-
-            map.current?.on('style.load', () => addDataToMap(data));
-        }, 100);
-
-        updateMap();
-
-        return () => {
-            updateMap?.clear();
-
-            if (mapCurrent) mapCurrent.stop();
-        };
-    }, [addDataToMap, data]);
-
     const animate = useCallback(
-        (coordinates: [number, number][], frame: number) => {
-            const totalFrames = animationDuration / 16; // 60 FPS
+        (coordinates: [number, number][], startTime: number) => {
+            if (!coordinates.length) return;
 
-            // завершение анимации
-            if (frame >= totalFrames) {
-                clearObjects();
+            const now = performance.now();
 
-                return;
-            }
+            // Длины сегментов
+            const segmentLengths = coordinates.map((coord, i) =>
+                i === 0 ? 0 : distance(point(coordinates[i - 1]), point(coord)),
+            );
+            // Общая длина пути
+            const totalLength = segmentLengths.reduce((sum, len) => sum + len, 0);
+            const accumulatedLengths = segmentLengths.reduce<number[]>((acc, len, i) => {
+                acc.push((acc[i - 1] || 0) + len);
+
+                return acc;
+            }, []);
 
             if (animationPauseRef.current === true) {
                 animationPauseRef.current = {
-                    frame,
+                    elapsedTime: now - startTime,
                     coordinates,
                 };
 
@@ -192,28 +175,39 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                 return;
             }
 
-            const progress = frame / totalFrames;
-            const pointIndex = Math.floor(progress * (coordinates.length - 1));
-            const nextPointIndex = Math.min(pointIndex + 1, coordinates.length - 1);
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / animationDuration, 1);
+            const traveledDistance = progress * totalLength;
 
-            const [lng, lat] = coordinates[pointIndex];
-            const [nextLng, nextLat] = coordinates[nextPointIndex];
+            // Два ближайших сегмента
+            let segmentIndex = accumulatedLengths.findIndex((d) => d >= traveledDistance);
 
-            // Устанавливаем позицию маркера
-            animationMarkerRef.current?.setLngLat([lng, lat]);
+            if (segmentIndex === -1) segmentIndex = coordinates.length - 1;
 
-            // Рассчитываем угол между текущей и следующей точкой
-            const angle = Math.atan2(nextLat - lat, nextLng - lng) * (180 / Math.PI) + 210;
+            const [prevLng, prevLat] = coordinates[segmentIndex - 1] || coordinates[0];
+            const [nextLng, nextLat] = coordinates[segmentIndex] || coordinates[coordinates.length - 1];
 
-            // svg внутри элемента
-            const svgElement = arrowRef.current && arrowRef.current.querySelector('svg');
+            const segmentStart = accumulatedLengths[segmentIndex - 1] || 0;
+            const segmentEnd = accumulatedLengths[segmentIndex] || totalLength;
+            const segmentProgress = (traveledDistance - segmentStart) / (segmentEnd - segmentStart);
 
-            if (svgElement) {
-                svgElement.style.transform = `rotate(-${angle}deg)`;
+            // Интерполяция координат
+            const currentLng = prevLng + (nextLng - prevLng) * segmentProgress;
+            const currentLat = prevLat + (nextLat - prevLat) * segmentProgress;
+
+            animationMarkerRef.current?.setLngLat([currentLng, currentLat]);
+
+            // Расчет угла направления движения
+            const angle = bearing([prevLng, prevLat], [nextLng, nextLat]) + 60; // 60 - значение для корректировки
+            const svgElement = arrowRef.current?.querySelector('svg');
+
+            if (svgElement) svgElement.style.transform = `rotate(${angle}deg)`;
+
+            if (progress < 1) {
+                requestAnimationFrame(() => animate(coordinates, startTime));
+            } else {
+                clearObjects();
             }
-
-            frame++;
-            requestAnimationFrame(() => animate(coordinates, frame));
         },
         [animationDuration, clearObjects],
     );
@@ -246,31 +240,26 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                         : [];
 
                 // Создаем кастомный HTML-элемент для маркера со стрелкой
-
                 if (animationMarkerRef.current) {
                     animationMarkerRef.current.remove();
                 }
 
                 // Создаём маркер с кастомной иконкой
-                animationMarkerRef.current = new mapboxgl.Marker({ element: arrowRef.current })
+                animationMarkerRef.current = new mapboxgl.Marker({
+                    element: arrowRef.current,
+                    anchor: 'center',
+                })
                     .setLngLat(coordinates[0])
                     .addTo(map.current);
 
                 animationPauseRef.current = null;
-                animate(coordinates, 0);
+                animate(coordinates, performance.now());
             } else {
                 console.warn('Data is not a valid FeatureCollection with a LineString for animation.');
             }
         },
         [data, animating, animate],
     );
-
-    // Вызов анимации при изменении shouldAnimate
-    useEffect(() => {
-        if (animateLineId && startAnimation) {
-            startAnimation(animateLineId);
-        }
-    }, [animateLineId, startAnimation]);
 
     const updatePopups = useCallback(() => {
         if (!data) {
@@ -295,18 +284,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         }
     }, [data]);
 
-    useEffect(() => {
-        updatePopups();
-    }, [zoomState, data, updatePopups]);
-
-    useEffect(() => {
-        if (isPaused) {
-            animationPauseRef.current = true;
-        } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
-            animate(animationPauseRef.current?.coordinates, animationPauseRef.current?.frame);
-        }
-    }, [isPaused, data, animate]);
-
     const handleZoomChange = () => {
         const zoom = map.current?.getZoom();
 
@@ -316,6 +293,46 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             else if (zoom < ZOOM_BREAKPOINTS.MEDIUM) setZoomState(ZOOM_BREAKPOINTS.MEDIUM);
             else if (zoom < ZOOM_BREAKPOINTS.HIGH) setZoomState(ZOOM_BREAKPOINTS.HIGH);
     };
+
+    useEffect(() => {
+        const mapCurrent = map.current;
+
+        if (!mapCurrent) return;
+
+        if (mapCurrent?.isStyleLoaded()) {
+            addDataToMap(data);
+        }
+
+        const debouncedUpdate = debounce(() => {
+            addDataToMap(data);
+        }, 100);
+
+        mapCurrent.on('style.load', debouncedUpdate);
+
+        return () => {
+            debouncedUpdate.clear();
+            mapCurrent.off('style.load', debouncedUpdate);
+
+            if (mapCurrent) mapCurrent.stop();
+        };
+    }, [addDataToMap, data]);
+
+    // Вызов анимации при изменении shouldAnimate
+    useEffect(() => {
+        if (animateLineId && startAnimation) {
+            startAnimation(animateLineId);
+        }
+    }, [animateLineId, startAnimation]);
+
+    useEffect(() => updatePopups(), [zoomState, data, updatePopups]);
+
+    useEffect(() => {
+        if (isPaused) {
+            animationPauseRef.current = true;
+        } else if (typeof animationPauseRef.current !== 'boolean' && animationPauseRef.current) {
+            animate(animationPauseRef.current.coordinates, performance.now() - animationPauseRef.current.elapsedTime);
+        }
+    }, [isPaused, data, animate]);
 
     // Центрирование карты по координатам centeringCoordinates
     useEffect(() => {
