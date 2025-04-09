@@ -5,7 +5,7 @@ import { Fragment, useState } from 'react';
 import * as S from './styles';
 
 const meta: Meta<typeof ListWidgetWithFilters> = {
-    title: 'UI/Widgets/ListWidgetWithFilters',
+    title: 'UI/OldWidgets/ListWidgetWithFilters',
     component: ListWidgetWithFilters,
     parameters: {
         layout: 'centered',

@@ -92,7 +92,7 @@ export {
     VerticalBarsChartWidget,
     StackedLineChartWidget,
     ListWidgetWithFilters,
-} from './widgets';
+} from './old-widgets';
 
 export { VerticalBarChart } from './charts/vertical-bar-chart';
 

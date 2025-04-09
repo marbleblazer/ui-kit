@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { mockStackedData } from '../../charts/stacked-chart/mock-data';
 
 const meta: Meta<typeof StackedLineChartWidget> = {
-    title: 'UI/Widgets/StackedLineChartWidget',
+    title: 'UI/OldWidgets/StackedLineChartWidget',
     component: StackedLineChartWidget,
     parameters: {
         layout: 'centered',
