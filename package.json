@@ -1,6 +1,6 @@
 {
     "name": "@chirpwireless/ui-kit",
-    "version": "0.353.0",
+    "version": "0.355.0",
     "type": "module",
     "declaration": true,
     "main": "dist/index.cjs.js",
@@ -43,6 +43,7 @@
         "@tanstack/react-table": "^8.20.6",
         "@tanstack/react-virtual": "^3.10.7",
         "@turf/bbox": "^7.1.0",
+        "@turf/bearing": "^7.2.0",
         "@turf/centroid": "^7.1.0",
         "@turf/circle": "^7.1.0",
         "@turf/distance": "^7.1.0",

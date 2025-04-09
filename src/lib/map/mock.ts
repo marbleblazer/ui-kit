@@ -1572,7 +1572,7 @@ export const mockTripData: GeoJSON.FeatureCollection = {
                     746.0, 746.5, 747.0, 747.5, 748.0, 748.5, 749.0, 749.5, 750.0, 750.5, 751.0, 751.5, 752.0, 752.5,
                     753.0, 753.5, 754.0, 754.5, 755.0, 755.5, 756.0, 756.5, 757.0, 757.5, 758.0,
                 ],
-                serverTimes: [
+                time: [
                     '2024-11-08T12:00:00Z',
                     '2024-11-08T12:01:00Z',
                     '2024-11-08T12:02:00Z',
@@ -3044,47 +3044,6 @@ export const mockSecondTripData: GeoJSON.FeatureCollection = {
             geometry: {
                 type: 'LineString',
                 coordinates: [
-                    [37.4832653, 55.879444],
-                    [37.4804885, 55.8789237],
-                    [37.4795589, 55.8787866],
-                    [37.4795589, 55.8787866],
-                    [37.4795589, 55.8787866],
-                    [37.4795589, 55.8787866],
-                    [37.4807038, 55.8789624],
-                    [37.4807038, 55.8789624],
-                ],
-            },
-            properties: {
-                lineId: 1980,
-                speeds: [32.6387590480957, 10.296223608839034, 0, 0, 0, 0, 0, 0],
-                serverTimes: [null, null, null, null, null, null, null, null],
-            },
-        },
-        {
-            type: 'Feature',
-            geometry: {
-                type: 'LineString',
-                coordinates: [
-                    [37.4798499, 55.8771394],
-                    [37.4789902, 55.8769503],
-                    [37.4789902, 55.8769503],
-                    [37.4789902, 55.8769503],
-                    [37.4789902, 55.8769503],
-                    [37.4789902, 55.8769503],
-                    [37.4781075, 55.8795004],
-                ],
-            },
-            properties: {
-                lineId: 1979,
-                speeds: [2.129567752043724, 0, 0, 0, 0, 0, 0],
-                serverTimes: [null, null, null, null, null, null, null],
-            },
-        },
-        {
-            type: 'Feature',
-            geometry: {
-                type: 'LineString',
-                coordinates: [
                     [37.7157491, 56.1487251],
                     [37.7968288, 56.3382363],
                     [37.7115837, 56.1489838],
@@ -3094,8 +3053,14 @@ export const mockSecondTripData: GeoJSON.FeatureCollection = {
             },
             properties: {
                 lineId: 1978,
-                speeds: [39.22677251321411, 38.87688, 38.9935096018753, 0, 0],
-                serverTimes: [null, null, null, null, null],
+                speeds: [72.65, 72, 72.22, 0, 0],
+                time: [
+                    '2024-09-19T02:44:37Z',
+                    '2024-09-19T03:14:47Z',
+                    '2024-09-19T03:44:56Z',
+                    '2024-09-19T04:06:04Z',
+                    '2024-09-19T04:48:17Z',
+                ],
             },
         },
     ],

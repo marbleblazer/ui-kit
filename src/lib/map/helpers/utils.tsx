@@ -86,14 +86,14 @@ const clear = () => {
  * @param map - объект карты Mapbox.
  * @param coordinates - массив координат [долгота, широта] для LineString.
  * @param speeds - массив скоростей для каждой точки.
- * @param serverTimes - массив времени сервера для каждой точки.
+ * @param time - массив времени сервера для каждой точки.
  * @param zoom - текущий уровень зума.
  */
 export const createPopupsForLineString = (
     map?: mapboxgl.Map,
     coordinates?: [number, number][],
     speeds?: (number | null)[],
-    serverTimes?: (string | null)[],
+    time?: (string | null)[],
     zoom?: number,
 ) => {
     clear();
@@ -133,7 +133,7 @@ export const createPopupsForLineString = (
                 // Добавляем попап только если он не слишком близко к другим
 
                 const speed = speeds ? speeds[index] : null;
-                const serverTime = serverTimes ? serverTimes[index] : null;
+                const serverTime = time ? time[index] : null;
 
                 const popupContent = `
                 <div>${serverTime ? moment(serverTime).format('YYYY.MM.DD HH:mm') : 'N/A'}</div>
