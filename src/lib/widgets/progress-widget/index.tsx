@@ -1,4 +1,4 @@
-import { Stack, useTheme } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import * as S from './style';
 import { PercentLabels } from './percent-labels/percent-labels';
@@ -17,13 +17,13 @@ interface IProgressWidgetProps extends IBaseWidgetProps {
 export const ProgressWidget: React.FC<React.PropsWithChildren<IProgressWidgetProps>> = (props) => {
     const { data, ...baseWidgetProps } = props;
 
-    const theme = useTheme();
-
     const total = data.reduce((sum, item) => sum + item.value, 0);
 
     const progressBar = (
         <Stack gap="4px">
-            <PercentLabels data={data} total={total} theme={theme} />
+            <Box position="relative" height="16px">
+                <PercentLabels data={data} total={total} />
+            </Box>
             <S.ProgressContainer>
                 {
                     data.reduce(
@@ -53,8 +53,8 @@ export const ProgressWidget: React.FC<React.PropsWithChildren<IProgressWidgetPro
     return (
         <BaseWidget
             {...baseWidgetProps}
-            mainContainerSx={{ gap: '32px' }}
-            renderSubHeader={<Labels data={data} theme={theme} />}
+            mainContainerSx={{ gap: '32px', ...baseWidgetProps.mainContainerSx }}
+            renderSubHeader={<Labels data={data} />}
             renderMainContent={progressBar}
         />
     );
