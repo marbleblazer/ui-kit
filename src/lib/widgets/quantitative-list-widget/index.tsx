@@ -23,7 +23,7 @@ export const QuantitativeListWidget: React.FC<ListWidgetProps> = (props: React.P
 
     const renderMainContent = (
         <Stack gap="12px" sx={{ ...listContainerSx }}>
-            {data.map((item) => (
+            {data.map((item, index) => (
                 <S.ListItem
                     key={item.status}
                     onClick={() => {
@@ -31,7 +31,10 @@ export const QuantitativeListWidget: React.FC<ListWidgetProps> = (props: React.P
                             onItemClick(item.status);
                         }
                     }}
-                    sx={{ ...listItemSx }}
+                    sx={{
+                        ...listItemSx,
+                        borderBottom: index === data.length - 1 ? 'none' : `1px solid ${palette.border.border3}`,
+                    }}
                 >
                     <Stack direction="row" gap="8px" alignItems="center">
                         <S.Circle sx={{ backgroundColor: item.color }} />

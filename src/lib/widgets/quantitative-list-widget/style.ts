@@ -1,10 +1,9 @@
 import { Box, Stack, styled } from '@mui/material';
 
-export const ListItem = styled(Stack)(({ theme }) => ({
+export const ListItem = styled(Stack)(() => ({
     cursor: 'pointer',
     flexDirection: 'row',
     borderBottom: `1px solid`,
-    borderColor: theme.palette.border.border3,
     justifyContent: 'space-between',
     paddingBottom: '12px',
 }));
