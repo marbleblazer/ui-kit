@@ -18,11 +18,11 @@ export default meta;
 type Story = StoryObj<typeof QuantitativeListWidget>;
 
 const data = [
-    { value: 144, status: 'Active', color: '#55E050' },
-    { value: 18, status: 'Available', color: '#85EDFF' },
-    { value: 6, status: 'In transit', color: '#CCA6FF' },
-    { value: 3, status: 'Require maintenance', color: '#FFD262' },
-    { value: 1, status: 'Under maintenance', color: '#678AFB' },
+    { label: 'Active', value: 144, status: 'Active', color: '#55E050' },
+    { label: 'Available', value: 18, status: 'Available', color: '#85EDFF' },
+    { label: 'In transit', value: 6, status: 'In transit', color: '#CCA6FF' },
+    { label: 'Require maintenance', value: 3, status: 'Require maintenance', color: '#FFD262' },
+    { label: 'Under maintenance', value: 1, status: 'Under maintenance', color: '#678AFB' },
 ];
 
 export const Default: Story = {

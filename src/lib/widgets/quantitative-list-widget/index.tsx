@@ -7,6 +7,7 @@ interface ListItem {
     value: number;
     status: string;
     color: string;
+    label: string;
 }
 
 interface ListWidgetProps extends IBaseWidgetProps {
@@ -41,7 +42,7 @@ export const QuantitativeListWidget: React.FC<ListWidgetProps> = (props: React.P
                     <Stack direction="row" gap="8px" alignItems="center">
                         <S.Circle sx={{ backgroundColor: item.color }} />
                         <Typography variant="body1" color={palette.text.text1}>
-                            {item.status}
+                            {item.label}
                         </Typography>
                     </Stack>
                     <S.QuantityBox sx={{ backgroundColor: alpha(item.color, 0.2), color: item.color }}>
