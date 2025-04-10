@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Box, useTheme } from '@mui/material';
 import { ProgressWidget } from '.';
 import { Typography } from '../../typogrpahy';
+import { SmallFleetSuccessIcon } from '@chirp/ui/assets/fleet-icons';
 
 const meta: Meta<typeof ProgressWidget> = {
     title: 'UI/Widgets/ProgressWidget',
@@ -36,7 +37,13 @@ export const Default: Story = {
                         { label: 'In progress', value: 12, color: palette.base.color6 },
                         { label: 'To do', value: 24, color: palette.text.text9 },
                     ]}
-                    renderLeftHeaderContent={<Typography variant="body1">Routes status</Typography>}
+                    leftHeaderContentSx={{ gap: '8px', alignItems: 'center' }}
+                    renderLeftHeaderContent={
+                        <>
+                            <SmallFleetSuccessIcon width="14px" height="14px" />
+                            <Typography variant="body1">Routes status</Typography>
+                        </>
+                    }
                 />
             </Box>
         );
