@@ -120,6 +120,7 @@ type BaseColorNameType =
     | 'color62'
     | 'color63'
     | 'color7'
+    | 'color7_20'
     | 'color8'
     | 'color21'
     | 'color9'
@@ -127,15 +128,23 @@ type BaseColorNameType =
     | 'color11'
     | 'color12'
     | 'color16'
+    | 'color16_20'
     | 'color17'
     | 'color22'
     | 'color19'
+    | 'color19_20'
     | 'color15'
     | 'color13'
     | 'color14'
     | 'color18'
     | 'color23'
-    | 'color20';
+    | 'color20'
+    | 'colorNewGreen'
+    | 'colorNewGreen_20'
+    | 'colorNewYellow'
+    | 'colorNewYellow_20'
+    | 'colorNewGrey'
+    | 'colorNewGrey_20';
 
 export interface ReferencePalette extends PaletteOptions {
     background: Partial<TypeBackground> | undefined;

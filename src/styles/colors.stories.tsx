@@ -24,7 +24,7 @@ export const Default = {
                 : (darkTheme()?.palette as unknown as Record<string, Record<string, string>>);
 
         return (
-            <Stack gap={4} direction="row">
+            <Stack gap={4} direction="row" sx={{ backgroundColor: 'white' }}>
                 {palette &&
                     Object.keys(palette).map((key) => (
                         <Stack gap={4}>
