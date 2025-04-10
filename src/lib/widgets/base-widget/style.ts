@@ -1,11 +1,10 @@
-import { Stack } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Stack, styled } from '@mui/material';
 
 export const Container = styled(Stack)(({ theme }) => ({
     gap: '20px',
     padding: '20px',
-    minWidth: '100%',
-    minHeight: '100%',
+    width: '100%',
+    height: '100%',
     borderRadius: '12px',
     backgroundColor: theme.palette.background.background7,
 }));
