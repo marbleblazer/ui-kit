@@ -26,7 +26,9 @@ export const QuantitativeListWidget: React.FC<ListWidgetProps> = (props: React.P
             {data.map((item, index) => (
                 <S.ListItem
                     key={item.status}
-                    onClick={() => {
+                    onClick={(event) => {
+                        event.stopPropagation();
+
                         if (onItemClick) {
                             onItemClick(item.status);
                         }

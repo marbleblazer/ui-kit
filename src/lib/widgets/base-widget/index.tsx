@@ -9,6 +9,7 @@ export interface IBaseWidgetProps {
     renderLeftHeaderContent?: React.ReactNode;
     renderRightHeaderContent?: React.ReactNode;
     renderMainContent?: React.ReactNode;
+    onContainerClick?: () => void;
 }
 
 export const BaseWidget: React.FC<IBaseWidgetProps> = ({
@@ -19,9 +20,13 @@ export const BaseWidget: React.FC<IBaseWidgetProps> = ({
     renderLeftHeaderContent,
     renderRightHeaderContent,
     renderMainContent,
+    onContainerClick,
 }) => {
     return (
-        <S.Container sx={{ ...mainContainerSx }}>
+        <S.Container
+            sx={{ ...mainContainerSx, cursor: onContainerClick ? 'pointer' : 'default' }}
+            onClick={onContainerClick}
+        >
             <S.Header sx={{ ...headerSx }}>
                 <S.HeaderContent sx={{ ...leftHeaderContentSx }}>{renderLeftHeaderContent}</S.HeaderContent>
                 <S.HeaderContent sx={{ ...rightHeaderContentSx }}>{renderRightHeaderContent}</S.HeaderContent>
