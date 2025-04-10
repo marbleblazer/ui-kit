@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Box, useTheme } from '@mui/material';
 import { ProgressWidget } from '.';
+import { Typography } from '../../typogrpahy';
 
 const meta: Meta<typeof ProgressWidget> = {
     title: 'UI/Widgets/ProgressWidget',
@@ -28,7 +29,15 @@ export const Default: Story = {
                     background: 'gray',
                 }}
             >
-                <ProgressWidget />
+                <ProgressWidget
+                    mainContainerSx={{ height: '144px' }}
+                    data={[
+                        { label: 'Done', value: 59, color: palette.base.colorNewGreen },
+                        { label: 'In progress', value: 12, color: palette.base.color6 },
+                        { label: 'To do', value: 24, color: palette.text.text9 },
+                    ]}
+                    renderLeftHeaderContent={<Typography variant="body1">Routes status</Typography>}
+                />
             </Box>
         );
     },
