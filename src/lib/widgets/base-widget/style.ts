@@ -16,5 +16,6 @@ export const Header = styled(Stack)(() => ({
 }));
 
 export const HeaderContent = styled(Stack)(() => ({
+    alignItems: 'center',
     flexDirection: 'row',
 }));
