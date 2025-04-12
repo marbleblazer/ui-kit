@@ -32,7 +32,7 @@ export const ListWithIconsWidget: React.FC<React.PropsWithChildren<IListWithIcon
                                 </S.IconContainer>
                                 <Stack gap="4px">{item.renderDescription}</Stack>
                             </S.IconDescriptionContainer>
-                            {item.time}
+                            <S.TimeText variant="caption12">{item.time}</S.TimeText>
                         </S.Row>
                     ))}
                 </Stack>

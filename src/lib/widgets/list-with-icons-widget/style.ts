@@ -24,10 +24,6 @@ export const IconContainer = styled(Stack)(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-export const DescriptionHeader = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.text3,
-}));
-
-export const DescriptionSubheader = styled(Typography)(({ theme }) => ({
+export const TimeText = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.text8,
 }));
