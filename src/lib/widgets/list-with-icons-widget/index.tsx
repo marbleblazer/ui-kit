@@ -56,7 +56,7 @@ export const ListWithIconsWidget: React.FC<React.PropsWithChildren<IListWithIcon
                                     }}
                                 >
                                     {item.image}
-                                    {(item.isUnread || item.isAlert) && (
+                                    {item.isUnread && (
                                         <S.Circle
                                             sx={{
                                                 backgroundColor: item.isAlert
