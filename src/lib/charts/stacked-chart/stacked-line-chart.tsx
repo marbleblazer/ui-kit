@@ -52,11 +52,10 @@ const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style
                 color: theme.palette.text.text8,
             },
             axisLine: {
-                show: true,
-                lineStyle: {
-                    color: theme.palette.border.border3,
-                    type: 'solid',
-                },
+                show: false,
+            },
+            axisTick: {
+                show: false,
             },
             data: xAxisData ?? seriesKeys, // используем кастомные значения или значения по умолчанию
         },
@@ -77,6 +76,9 @@ const StackedChart: FC<IStackedChartProps> = memo(({ data = [], xAxisData, style
                 show: false,
             },
             axisTick: {
+                show: false,
+            },
+            splitLine: {
                 show: false,
             },
         },
