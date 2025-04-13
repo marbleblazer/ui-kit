@@ -32,17 +32,23 @@ export const Default: Story = {
                     </>
                 ),
                 time: '10:00',
+                isUnread: true,
             },
             {
                 id: 2,
                 image: <NotificationIcon width="20px" height="20px" color={theme.palette.text.text1} />,
                 renderDescription: (
                     <>
-                        <Typography variant="body1">Notification 2</Typography>
-                        <Typography variant="caption12">This is the second notification.</Typography>
+                        <Typography variant="body1" color={theme.palette.alerts.alert}>
+                            Notification 2
+                        </Typography>
+                        <Typography variant="caption12" color={theme.palette.alerts.alert}>
+                            This is the second notification.
+                        </Typography>
                     </>
                 ),
                 time: '11:00',
+                isAlert: true,
             },
         ];
 
@@ -61,7 +67,7 @@ export const Default: Story = {
                     leftHeaderContentSx={{ gap: '4px' }}
                     renderLeftHeaderContent={
                         <>
-                            <NotificationIcon width="20px" height="20px" color={theme.palette.text.text1} />
+                            <NotificationIcon width="16px" height="16px" color={theme.palette.text.text1} />
                             <Typography variant="body1">Notifications and events</Typography>
                         </>
                     }

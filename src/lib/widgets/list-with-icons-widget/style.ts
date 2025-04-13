@@ -1,12 +1,15 @@
-import { Stack, styled } from '@mui/material';
-import { Typography } from '../../typogrpahy';
+import { Box, Stack, styled } from '@mui/material';
 
 export const Row = styled(Stack)(() => ({
+    cursor: 'pointer',
     gap: '35px',
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderRadius: '8px',
+    padding: '8px 8px 8px 12px',
+    position: 'relative',
 }));
 
 export const IconDescriptionContainer = styled(Stack)(() => ({
@@ -15,15 +18,20 @@ export const IconDescriptionContainer = styled(Stack)(() => ({
     gap: '16px',
 }));
 
-export const IconContainer = styled(Stack)(({ theme }) => ({
+export const IconContainer = styled(Stack)(() => ({
     width: '48px',
     height: '48px',
-    backgroundColor: theme.palette.background.background2,
     borderRadius: '4px',
     alignItems: 'center',
     justifyContent: 'center',
 }));
 
-export const TimeText = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.text8,
+export const Circle = styled(Box)(({ theme }) => ({
+    position: 'absolute',
+    top: '5px',
+    left: '9px',
+    width: '10px',
+    height: '10px',
+    borderRadius: '50%',
+    border: `2px solid ${theme.palette.background.background7}`,
 }));
