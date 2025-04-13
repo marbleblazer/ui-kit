@@ -1,4 +1,4 @@
-import { Box, Stack, styled } from '@mui/material';
+import { Box, Divider, Stack, styled } from '@mui/material';
 
 export const Row = styled(Stack)(() => ({
     cursor: 'pointer',
@@ -26,6 +26,13 @@ export const IconContainer = styled(Stack)(() => ({
     justifyContent: 'center',
 }));
 
+export const Image = styled('img')(() => ({
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '4px',
+}));
+
 export const Circle = styled(Box)(({ theme }) => ({
     position: 'absolute',
     top: '5px',
@@ -34,4 +41,8 @@ export const Circle = styled(Box)(({ theme }) => ({
     height: '10px',
     borderRadius: '50%',
     border: `2px solid ${theme.palette.background.background7}`,
+}));
+
+export const CustomDivider = styled(Divider)(({ theme }) => ({
+    borderColor: theme.palette.border.border3,
 }));
