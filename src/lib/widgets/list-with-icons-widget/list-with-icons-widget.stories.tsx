@@ -71,6 +71,7 @@ export const Default: Story = {
                             <Typography variant="body1">Notifications and events</Typography>
                         </>
                     }
+                    emptyFallbackMsg="No notifications available"
                 />
             </Box>
         );
