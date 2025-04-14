@@ -1,39 +1,36 @@
-import { Box, Stack, useTheme } from '@mui/material';
 import { StackedLineChartDataType } from '../../charts/stacked-chart/stacked-line-chart';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
-import { StackedChart, Typography } from '@chirp/ui/lib';
+import { StackedChart } from '@chirp/ui/lib';
+import * as S from './style';
 
 type TOptionType = {
+    id: number;
     label: string;
     color: string;
 };
 
 interface ILineChartWidgetProps extends IBaseWidgetProps {
     chartData: StackedLineChartDataType[];
-    legendItems: TOptionType[];
+    selectedItems: TOptionType[];
     colors: string[];
     chartStyles?: React.CSSProperties;
 }
 
 export const LineChartWidget: React.FC<React.PropsWithChildren<ILineChartWidgetProps>> = (props) => {
-    const { chartData, legendItems, colors, chartStyles, ...baseWidgetProps } = props;
-
-    const theme = useTheme();
+    const { chartData, selectedItems, colors, chartStyles, ...baseWidgetProps } = props;
 
     return (
         <BaseWidget
             {...baseWidgetProps}
             renderSubHeader={
-                <Stack direction="row" gap="16px" width="359px" flexWrap="wrap">
-                    {legendItems.map((item, index) => (
-                        <Box key={item.label} display="flex" alignItems="center" gap="8px" whiteSpace="nowrap">
-                            <Box width="4px" height="4px" borderRadius="50%" bgcolor={colors[index % colors.length]} />
-                            <Typography variant="caption12" color={theme.palette.text.textInput80}>
-                                {item.label}
-                            </Typography>
-                        </Box>
+                <S.LegendContainer>
+                    {selectedItems.map((item, index) => (
+                        <S.LabelAndDotWrapper key={item.label}>
+                            <S.Dot bgcolor={colors[index % colors.length]} />
+                            <S.Label variant="caption12">{item.label}</S.Label>
+                        </S.LabelAndDotWrapper>
                     ))}
-                </Stack>
+                </S.LegendContainer>
             }
             renderMainContent={
                 <StackedChart
