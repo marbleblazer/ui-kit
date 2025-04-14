@@ -68,11 +68,11 @@ export const Default: Story = {
                     chartData={preparedData}
                     headerSubheaderContainerSx={{ gap: '16px' }}
                     colors={[
-                        theme.palette.base.color12,
-                        theme.palette.base.color18,
-                        theme.palette.base.color13,
+                        theme.palette.base.color6,
+                        theme.palette.base.colorNewRed,
                         theme.palette.base.color16,
-                        theme.palette.base.color17,
+                        theme.palette.base.colorNewYellow01,
+                        theme.palette.base.colorNewYellow02,
                     ]}
                     renderRightHeaderContent={
                         <Select
