@@ -149,3 +149,9 @@ export { default as YellowInYellowRepairIcon } from './yellow_repair.svg?react';
 export { default as CameraUploadIcon } from './camera.svg?react';
 
 export { default as FilterIcon } from './filter.svg?react';
+
+export { default as EditWidgetsIcon } from './edit-widgets-icon.svg?react';
+
+export { default as ResetIcon } from './reset-icon.svg?react';
+
+export { default as MenuIcon } from './menu.svg?react';
