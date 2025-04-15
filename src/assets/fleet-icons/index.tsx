@@ -153,3 +153,5 @@ export { default as FilterIcon } from './filter.svg?react';
 export { default as EditWidgetsIcon } from './edit-widgets-icon.svg?react';
 
 export { default as ResetIcon } from './reset-icon.svg?react';
+
+export { default as MenuIcon } from './menu.svg?react';
