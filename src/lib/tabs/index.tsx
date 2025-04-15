@@ -6,7 +6,7 @@ type Props<T> = {
     items: T[];
     activeTab?: string | false;
     setActiveTab(tab: string): void;
-    resolvedTitle?(tab: T): string;
+    resolvedTitle?(tab: T): string | React.ReactNode;
     resolvedValue?(tab: T): string;
     sx?: SxProps<Theme>;
     variant?: 'fullWidth' | 'standard' | 'scrollable';
@@ -18,7 +18,7 @@ export const Tabs = <T,>({
     setActiveTab,
     sx,
     variant,
-    resolvedTitle = (tab) => tab as string,
+    resolvedTitle = (tab) => tab as string | React.ReactNode,
     resolvedValue = (tab) => tab as string,
 }: Props<T>) => {
     return (
