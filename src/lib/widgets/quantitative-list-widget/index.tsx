@@ -3,21 +3,21 @@ import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import * as S from './style';
 import { Typography } from '../../typogrpahy';
 
-interface ListItem {
+interface IListItem {
     value: number;
     status: string;
     color: string;
     label: string;
 }
 
-interface ListWidgetProps extends IBaseWidgetProps {
-    data: ListItem[];
+interface IQuantitativeListWidgetProps extends IBaseWidgetProps {
+    data: IListItem[];
     listContainerSx?: SxProps;
     listItemSx?: SxProps;
     onItemClick?: (item: string) => void;
 }
 
-export const QuantitativeListWidget: React.FC<ListWidgetProps> = (props: React.PropsWithChildren<ListWidgetProps>) => {
+export const QuantitativeListWidget: React.FC<React.PropsWithChildren<IQuantitativeListWidgetProps>> = (props) => {
     const { data, onItemClick, listContainerSx, listItemSx, ...baseWidgetProps } = props;
 
     const { palette } = useTheme();

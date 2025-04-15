@@ -1,4 +1,4 @@
-import { SxProps } from '@mui/material';
+import { Stack, SxProps } from '@mui/material';
 import * as S from './style';
 
 export interface IBaseWidgetProps {
@@ -6,9 +6,11 @@ export interface IBaseWidgetProps {
     headerSx?: SxProps;
     leftHeaderContentSx?: SxProps;
     rightHeaderContentSx?: SxProps;
+    headerSubheaderContainerSx?: SxProps;
     renderLeftHeaderContent?: React.ReactNode;
     renderRightHeaderContent?: React.ReactNode;
     renderMainContent?: React.ReactNode;
+    renderSubHeader?: React.ReactNode;
     onContainerClick?: () => void;
 }
 
@@ -17,20 +19,35 @@ export const BaseWidget: React.FC<IBaseWidgetProps> = ({
     headerSx,
     leftHeaderContentSx,
     rightHeaderContentSx,
+    headerSubheaderContainerSx,
     renderLeftHeaderContent,
     renderRightHeaderContent,
     renderMainContent,
+    renderSubHeader,
     onContainerClick,
 }) => {
+    const containerStyles = {
+        ...mainContainerSx,
+        cursor: onContainerClick ? 'pointer' : 'default',
+    };
+
+    const headerContent = (
+        <S.Header sx={headerSx}>
+            <S.HeaderContent sx={leftHeaderContentSx}>{renderLeftHeaderContent}</S.HeaderContent>
+            <S.HeaderContent sx={rightHeaderContentSx}>{renderRightHeaderContent}</S.HeaderContent>
+        </S.Header>
+    );
+
     return (
-        <S.Container
-            sx={{ ...mainContainerSx, cursor: onContainerClick ? 'pointer' : 'default' }}
-            onClick={onContainerClick}
-        >
-            <S.Header sx={{ ...headerSx }}>
-                <S.HeaderContent sx={{ ...leftHeaderContentSx }}>{renderLeftHeaderContent}</S.HeaderContent>
-                <S.HeaderContent sx={{ ...rightHeaderContentSx }}>{renderRightHeaderContent}</S.HeaderContent>
-            </S.Header>
+        <S.Container sx={containerStyles} onClick={onContainerClick}>
+            {renderSubHeader ? (
+                <Stack sx={{ gap: '12px', ...headerSubheaderContainerSx }}>
+                    {headerContent}
+                    {renderSubHeader}
+                </Stack>
+            ) : (
+                headerContent
+            )}
             {renderMainContent}
         </S.Container>
     );

@@ -94,7 +94,7 @@ export {
     ListWidgetWithFilters,
 } from './old-widgets';
 
-export { QuantitativeListWidget } from './widgets';
+export { QuantitativeListWidget, ProgressWidget } from './widgets';
 
 export { VerticalBarChart } from './charts/vertical-bar-chart';
 
