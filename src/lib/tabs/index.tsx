@@ -10,6 +10,7 @@ type Props<T> = {
     resolvedValue?(tab: T): string;
     sx?: SxProps<Theme>;
     variant?: 'fullWidth' | 'standard' | 'scrollable';
+    extraContent?: React.ReactNode;
 };
 
 export const Tabs = <T,>({
@@ -17,6 +18,7 @@ export const Tabs = <T,>({
     activeTab,
     setActiveTab,
     sx,
+    extraContent,
     variant,
     resolvedTitle = (tab) => tab as string | React.ReactNode,
     resolvedValue = (tab) => tab as string,
@@ -32,6 +34,7 @@ export const Tabs = <T,>({
             {items.map((tab, index) => (
                 <S.Tab key={`${resolvedTitle(tab)}-${index}}`} label={resolvedTitle(tab)} value={resolvedValue(tab)} />
             ))}
+            {extraContent}
         </S.Tabs>
     );
 };
