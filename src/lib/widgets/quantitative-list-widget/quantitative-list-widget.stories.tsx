@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Box, useTheme } from '@mui/material';
-import { BaseWidget } from '.';
+import { QuantitativeListWidget } from '.';
 import { Typography } from '../../typogrpahy';
 import { QuestionIcon } from '@chirp/ui/assets/icons';
 
-const meta: Meta<typeof BaseWidget> = {
-    title: 'UI/Widgets/BaseWidget',
-    component: BaseWidget,
+const meta: Meta<typeof QuantitativeListWidget> = {
+    title: 'UI/Widgets/QuantitativeListWidget',
+    component: QuantitativeListWidget,
     parameters: {
         layout: 'centered',
     },
@@ -15,7 +15,15 @@ const meta: Meta<typeof BaseWidget> = {
 
 export default meta;
 
-type Story = StoryObj<typeof BaseWidget>;
+type Story = StoryObj<typeof QuantitativeListWidget>;
+
+const data = [
+    { label: 'Active', value: 144, status: 'Active', color: '#55E050' },
+    { label: 'Available', value: 18, status: 'Available', color: '#85EDFF' },
+    { label: 'In transit', value: 6, status: 'In transit', color: '#CCA6FF' },
+    { label: 'Require maintenance', value: 3, status: 'Require maintenance', color: '#FFD262' },
+    { label: 'Under maintenance', value: 1, status: 'Under maintenance', color: '#678AFB' },
+];
 
 export const Default: Story = {
     render: () => {
@@ -30,7 +38,8 @@ export const Default: Story = {
                     background: 'gray',
                 }}
             >
-                <BaseWidget
+                <QuantitativeListWidget
+                    data={data}
                     leftHeaderContentSx={{ gap: '4px' }}
                     renderLeftHeaderContent={
                         <>
@@ -41,11 +50,6 @@ export const Default: Story = {
                         </>
                     }
                     renderRightHeaderContent={<QuestionIcon />}
-                    renderMainContent={
-                        <Typography variant="body1">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </Typography>
-                    }
                 />
             </Box>
         );

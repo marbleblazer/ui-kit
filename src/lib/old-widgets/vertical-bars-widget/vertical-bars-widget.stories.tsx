@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { mockBarsData } from '../../charts/vertical-bar-chart/mock-data';
 
 const meta: Meta<typeof VerticalBarsChartWidget> = {
-    title: 'UI/Widgets/VerticalBarsChartWidget',
+    title: 'UI/OldWidgets/VerticalBarsChartWidget',
     component: VerticalBarsChartWidget,
     parameters: {
         layout: 'centered',

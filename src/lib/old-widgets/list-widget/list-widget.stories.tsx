@@ -4,7 +4,7 @@ import { Box, Stack } from '@mui/material';
 import { useState } from 'react';
 
 const meta: Meta<typeof ListWidget> = {
-    title: 'UI/Widgets/ListWidget',
+    title: 'UI/OldWidgets/ListWidget',
     component: ListWidget,
     parameters: {
         layout: 'centered',
