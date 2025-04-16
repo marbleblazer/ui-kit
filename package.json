@@ -1,6 +1,6 @@
 {
     "name": "@chirpwireless/ui-kit",
-    "version": "0.355.0",
+    "version": "0.359.0",
     "type": "module",
     "declaration": true,
     "main": "dist/index.cjs.js",
@@ -22,7 +22,8 @@
         "lint": "eslint . --ext ts,tsx --max-warnings 0 && stylelint \"**/*.scss\"",
         "lint:fix": "eslint . --ext ts,tsx --fix --max-warnings 0 --no-ignore",
         "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
-        "publish-ui": "npm publish"
+        "publish-ui": "npm publish",
+        "build-and-pack": "yarn build && yarn pack"
     },
     "peerDependencies": {
         "@emotion/cache": "^11.14.0",

@@ -4,7 +4,7 @@ import { Box, Stack, useTheme } from '@mui/material';
 import { useState } from 'react';
 
 const meta: Meta<typeof DonutWidget> = {
-    title: 'UI/Widgets/DonutWidget',
+    title: 'UI/OldWidgets/DonutWidget',
     component: DonutWidget,
     parameters: {
         layout: 'centered',
