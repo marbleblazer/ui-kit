@@ -161,3 +161,9 @@ export { default as AttentionIcon } from './attention-icon.svg?react';
 export { default as SpeechIcon } from './speech-icon.svg?react';
 
 export { default as CarEngineIcon } from './car-engine-icon.svg?react';
+
+export { default as EditWidgetsIcon } from './edit-widgets-icon.svg?react';
+
+export { default as ResetIcon } from './reset-icon.svg?react';
+
+export { default as MenuIcon } from './menu.svg?react';
