@@ -12,8 +12,8 @@ export const referenceDarkThemePalette: ReferencePaletteType = {
         contrastText: '#000000',
     },
     primaryColors: {
-        accent: '#ff4d14',
-        accentHover: '#e7440f',
+        accent: '#678AFB',
+        accentHover: '#3262FF',
     },
     text: {
         primary: '#ebebeb',
@@ -103,8 +103,8 @@ export const referenceLightThemePalette: ReferencePaletteType = {
         contrastText: '#000000',
     },
     primaryColors: {
-        accent: '#ff4d14',
-        accentHover: '#e7440f',
+        accent: '#678AFB',
+        accentHover: '#3262FF',
     },
     text: {
         primary: '#141414',

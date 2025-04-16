@@ -4,6 +4,7 @@ import * as S from './style';
 import { Button } from '../button';
 import { ModalTitle } from '../modal/modal-title';
 import { useTranslation } from 'react-i18next';
+import { SxProps } from '@mui/material';
 
 type Props = {
     isOpen: boolean;
@@ -16,6 +17,7 @@ type Props = {
     cancelButtonText?: string;
     onConfirm(): void;
     onCancel(): void;
+    contentSx?: SxProps;
 } & PropsWithChildren;
 
 export const ConfirmationDialog: React.FC<Props> = ({
@@ -28,6 +30,7 @@ export const ConfirmationDialog: React.FC<Props> = ({
     confirmButtonText,
     cancelButtonText,
     children,
+    contentSx,
     onConfirm,
     onCancel,
 }) => {
@@ -36,8 +39,8 @@ export const ConfirmationDialog: React.FC<Props> = ({
     return (
         <S.Dialog open={isOpen}>
             {icon && <S.IconWrapper>{icon}</S.IconWrapper>}
-            <S.Content>
-                <ModalTitle title={title} subTitle={subTitle} />
+            <S.Content sx={{ ...contentSx }}>
+                <ModalTitle title={title} subTitle={subTitle} margin="0px" />
 
                 {children}
             </S.Content>

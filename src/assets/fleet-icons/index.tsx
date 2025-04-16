@@ -116,6 +116,8 @@ export { default as ConnectWalletIcon } from './connect-wallet.svg?react';
 
 export { default as FleetSuccessIcon } from './fleet-success.svg?react';
 
+export { default as SmallFleetSuccessIcon } from './small-fleet-success.svg?react';
+
 export { default as PauseIcon } from './pause.svg?react';
 
 export { default as QuestionIcon } from './question.svg?react';
@@ -149,6 +151,16 @@ export { default as YellowInYellowRepairIcon } from './yellow_repair.svg?react';
 export { default as CameraUploadIcon } from './camera.svg?react';
 
 export { default as FilterIcon } from './filter.svg?react';
+
+export { default as RouteIcon } from './route-icon.svg?react';
+
+export { default as GasStationIcon } from './gas-station-icon.svg?react';
+
+export { default as AttentionIcon } from './attention-icon.svg?react';
+
+export { default as SpeechIcon } from './speech-icon.svg?react';
+
+export { default as CarEngineIcon } from './car-engine-icon.svg?react';
 
 export { default as EditWidgetsIcon } from './edit-widgets-icon.svg?react';
 
