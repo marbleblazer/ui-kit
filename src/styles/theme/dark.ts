@@ -105,6 +105,9 @@ export const darkTheme = (
                 colorNewYellow_20: alpha(refDarkTheme.additionalColors.yellow, 0.2), // '#FFD26233'
                 colorNewGrey: refDarkTheme.lightShades.ternary, //'#BABABA',
                 colorNewGrey_20: alpha(refDarkTheme.lightShades.ternary, 0.2), //'#BABABA33',
+                colorNewRed: '#F74C14',
+                colorNewYellow01: '#F9FB82',
+                colorNewYellow02: '#FDD061',
             },
         },
     };
