@@ -18,6 +18,7 @@ type Props = {
     onConfirm(): void;
     onCancel(): void;
     contentSx?: SxProps;
+    dialogSx?: SxProps;
 } & PropsWithChildren;
 
 export const ConfirmationDialog: React.FC<Props> = ({
@@ -31,13 +32,14 @@ export const ConfirmationDialog: React.FC<Props> = ({
     cancelButtonText,
     children,
     contentSx,
+    dialogSx,
     onConfirm,
     onCancel,
 }) => {
     const { t } = useTranslation('uiKit', { keyPrefix: 'modal' });
 
     return (
-        <S.Dialog open={isOpen}>
+        <S.Dialog open={isOpen} sx={{ ...dialogSx }}>
             {icon && <S.IconWrapper>{icon}</S.IconWrapper>}
             <S.Content sx={{ ...contentSx }}>
                 <ModalTitle title={title} subTitle={subTitle} margin="0px" />
