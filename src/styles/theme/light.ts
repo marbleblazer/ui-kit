@@ -77,9 +77,9 @@ export const lightTheme = (
                 color5: refDarkTheme.darkShades.secondary, //'#171717',
                 color6: refLightTheme.primaryColors.accent, //'#678AFB',
                 hover: refLightTheme.primaryColors.accentHover, //'#3262FF',
-                color61: refLightTheme.additionalColors.buttonSecondary, // #FF4D141A
-                color62: alpha(refDarkTheme.primaryColors.accent, 0.1), //'#FF4D141A',
-                color63: refLightTheme.additionalColors.buttonSecondary, //'#FF4D1433',
+                color61: alpha(refLightTheme.primaryColors.accent, 0.1), //'#678AFB1A',
+                color62: alpha(refLightTheme.primaryColors.accent, 0.1), //'#678AFB1A',
+                color63: alpha(refLightTheme.primaryColors.accent, 0.2), //'#678AFB33',
                 color7: refLightTheme.alerts.alert, //'#FF4949',
                 color7_20: alpha(refLightTheme.alerts.alert, 0.2), //'#FF494933',
                 color8: refLightTheme.grey?.[50] || '#000000', //'#000000',
