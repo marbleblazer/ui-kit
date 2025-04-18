@@ -75,6 +75,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
 
         drawRef.current = draw;
         map.current.addControl(draw, 'top-left');
+
         // Слушаем события создания, обновления и удаления
         map.current.on('draw.create' as MapEventType, (e: AnyObject) => {
             const features = e.features as GeoJSON.Feature[];
@@ -91,15 +92,35 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
             handleChange(features[0]);
         });
 
+        /**
+         * При drawMode и двойном клике карта зависает, и добавление линий становится невозможным
+         * При двойном нажатии меняется drawRef.mode и слушатель отслеживает сколько в этот момент features на карте
+         * Если больше двух, то feature сохраняется
+         */
+        map.current.on('draw.modechange' as MapEventType, () => {
+            console.log(defaultDrawMode);
+
+            if (defaultDrawMode && drawRef.current) {
+                const currentFeatures = drawRef.current.getAll();
+
+                if (currentFeatures.features.length < 2) {
+                    markersRef.current.forEach((marker) => marker.remove());
+                    drawRef.current?.deleteAll();
+                    drawRef.current.changeMode(defaultDrawMode);
+                }
+            }
+        });
+
         if (defaultDrawMode) {
             drawRef.current.changeMode(defaultDrawMode);
         }
+
         addDataToMap();
     };
 
     const addDataToMap = useCallback(() => {
         if (!map.current || !drawRef.current) return;
-        console.log(drawMode);
+
         drawRef.current.deleteAll();
 
         if (drawMode) {
