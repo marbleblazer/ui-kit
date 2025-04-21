@@ -94,9 +94,17 @@ export {
     ListWidgetWithFilters,
 } from './old-widgets';
 
-export { QuantitativeListWidget, ProgressWidget, ListWithIconsWidget, LineChartWidget } from './widgets';
+export {
+    QuantitativeListWidget,
+    ProgressWidget,
+    ListWithIconsWidget,
+    LineChartWidget,
+    BarChartWidget,
+} from './widgets';
 
 export { VerticalBarChart } from './charts/vertical-bar-chart';
+
+export { ZoomBarChart } from './charts/zoom-bar-chart';
 
 export { StackedChart } from './charts/stacked-chart';
 
