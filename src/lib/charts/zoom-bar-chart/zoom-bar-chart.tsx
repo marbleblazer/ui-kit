@@ -83,11 +83,11 @@ const ZoomBarChart: FC<IZoomBarChartProps> = ({ categories, seriesData, legendIt
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                         offset: 0,
-                        color: item.color, // Оригинальный цвет
+                        color: item.color,
                     },
                     {
                         offset: 1,
-                        color: `${item.color}00`, // То же, но с прозрачностью (00 = 0%)
+                        color: `${item.color}00`,
                     },
                 ]),
                 borderRadius: [4, 4, 0, 0],
@@ -108,7 +108,7 @@ const ZoomBarChart: FC<IZoomBarChartProps> = ({ categories, seriesData, legendIt
                         },
                         {
                             offset: 1,
-                            color: `${item.color}00`, // прозрачный конец
+                            color: `${item.color}00`,
                         },
                     ]),
                     borderRadius: [4, 4, 0, 0],
