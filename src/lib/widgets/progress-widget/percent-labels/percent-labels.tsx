@@ -12,24 +12,28 @@ export const PercentLabels: React.FC<IPercentLabels> = ({ data, total }) => {
 
     let acc = 0;
 
-    return data.map((item) => {
-        const percent = (item.value / total) * 100;
-        const leftPosition = acc;
-        acc += percent;
+    return data
+        .map((item) => {
+            if (item.value === 0) return null;
 
-        return (
-            <Typography
-                key={item.label}
-                variant="caption"
-                color={theme.palette.base.colorNewGrey}
-                sx={{
-                    position: 'absolute',
-                    left: `${leftPosition + percent / 2}%`,
-                    transform: 'translateX(-50%)',
-                }}
-            >
-                {Math.round(percent)}%
-            </Typography>
-        );
-    });
+            const percent = (item.value / total) * 100;
+            const leftPosition = acc;
+            acc += percent;
+
+            return (
+                <Typography
+                    key={item.label}
+                    variant="caption"
+                    color={theme.palette.base.colorNewGrey}
+                    sx={{
+                        position: 'absolute',
+                        left: `${leftPosition + percent / 2}%`,
+                        transform: 'translateX(-50%)',
+                    }}
+                >
+                    {Math.round(percent)}%
+                </Typography>
+            );
+        })
+        .filter(Boolean);
 };
