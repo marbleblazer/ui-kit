@@ -13,12 +13,15 @@ export const Row = styled(Stack)(() => ({
 }));
 
 export const IconDescriptionContainer = styled(Stack)(() => ({
+    width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
     gap: '16px',
 }));
 
 export const IconContainer = styled(Stack)(() => ({
+    minWidth: '48px',
+    minHeight: '48px',
     width: '48px',
     height: '48px',
     borderRadius: '4px',

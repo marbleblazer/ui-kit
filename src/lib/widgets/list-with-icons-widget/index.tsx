@@ -11,20 +11,31 @@ interface IListWithIconsWidgetProps extends IBaseWidgetProps {
         id: number;
         image: string | React.ReactNode;
         renderDescription: React.ReactNode;
-        time: string;
+        time?: string;
         isAlert?: boolean;
         isUnread?: boolean;
     }[];
     iconSx?: SxProps;
     rowSx?: SxProps;
     dividerSx?: SxProps;
+    descriptionContainerSx?: SxProps;
     onRowClick?: (id: number) => void;
     emptyFallbackMsg: string;
     isDivider?: boolean;
 }
 
 export const ListWithIconsWidget: React.FC<React.PropsWithChildren<IListWithIconsWidgetProps>> = (props) => {
-    const { rowsData, iconSx, rowSx, dividerSx, onRowClick, emptyFallbackMsg, isDivider, ...baseWidgetProps } = props;
+    const {
+        rowsData,
+        iconSx,
+        rowSx,
+        dividerSx,
+        descriptionContainerSx,
+        onRowClick,
+        emptyFallbackMsg,
+        isDivider,
+        ...baseWidgetProps
+    } = props;
 
     const theme = useTheme();
 
@@ -74,7 +85,9 @@ export const ListWithIconsWidget: React.FC<React.PropsWithChildren<IListWithIcon
                                                 />
                                             )}
                                         </S.IconContainer>
-                                        <Stack gap="4px">{item.renderDescription}</Stack>
+                                        <Stack gap="4px" sx={{ ...descriptionContainerSx }}>
+                                            {item.renderDescription}
+                                        </Stack>
                                     </S.IconDescriptionContainer>
                                     <Typography
                                         variant="caption12"
