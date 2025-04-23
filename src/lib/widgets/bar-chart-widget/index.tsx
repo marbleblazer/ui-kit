@@ -33,7 +33,7 @@ export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
 
     const theme = useTheme();
 
-    const { t } = useTranslation('uiKit', { keyPrefix: 'widgets' });
+    const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'widgets' });
 
     const customTooltipFormatter = useCallback(
         (params: TopLevelFormatterParams | TopLevelFormatterParams[]) => {
@@ -52,14 +52,20 @@ export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
                         <span style="${titleStyle}">${seriesName}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 8px; ${descriptionTextStyle}">
-                        <span>Fuel:</span>
-                        <span>${value} ${t('L')}</span>
+                        <span>${t('Fuel')}:</span>
+                        <span>${Number(value).toLocaleString('en-US', { maximumFractionDigits: 2 })} ${t('L')}</span>
                     </div>
-                    <div style="${descriptionTextStyle}">${name}</div>
+                    <div style="${descriptionTextStyle}">
+                        ${(() => {
+                            const dateObj = new Date(name);
+
+                            return `${dateObj.getDate()} ${dateObj.toLocaleString(i18n.language, { month: 'long' })} ${dateObj.getFullYear()}`;
+                        })()}
+                    </div>
                 </div>
             `;
         },
-        [t, theme],
+        [i18n.language, t, theme],
     );
 
     return (

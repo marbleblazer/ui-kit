@@ -28,9 +28,9 @@ export const Default: Story = {
         ];
 
         const data = {
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+            categories: ['2025-03-18', '2025-05-18', '2025-01-18', '2025-07-18', '2025-09-18'],
             series: [
-                [120, 132, 101, 134, 90], // Volvo
+                [120.1521251, 132, 101, 134, 90], // Volvo
                 [220, 182, 191, 234, 290], // Mercedes
                 [150, 232, 201, 154, 190], // Renault
                 [98, 77, 101, 99, 40], // Ford

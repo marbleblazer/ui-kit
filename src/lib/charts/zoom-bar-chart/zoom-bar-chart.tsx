@@ -69,8 +69,8 @@ const ZoomBarChart: FC<IZoomBarChartProps> = ({ categories, seriesData, legendIt
             { type: 'inside', start: 0, end: 100 },
         ],
         grid: {
-            left: 10,
-            right: 10,
+            left: 0,
+            right: 0,
             top: 16,
             bottom: 60,
             containLabel: true,
