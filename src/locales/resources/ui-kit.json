@@ -28,7 +28,9 @@
             "Save": "Save",
             "max": "max",
             "min": "min",
-            "avg": "avg"
+            "avg": "avg",
+            "L": "L",
+            "Fuel": "Fuel"
         },
         "colorPicker": {
             "Color": "Color"
@@ -128,7 +130,9 @@
             "Save": "Enregistrer",
             "max": "max",
             "min": "min",
-            "avg": "moy"
+            "avg": "moy",
+            "L": "L",
+            "Fuel": "Carburant"
         },
         "colorPicker": {
             "Color": "Couleur"
@@ -228,7 +232,9 @@
             "Save": "Speichern",
             "max": "max",
             "min": "min",
-            "avg": "durchschn."
+            "avg": "durchschn.",
+            "L": "L",
+            "Fuel": "Kraftstoff"
         },
         "colorPicker": {
             "Color": "Farbe"
@@ -342,7 +348,9 @@
             "Save": "Guardar",
             "max": "máx",
             "min": "mín",
-            "avg": "prom"
+            "avg": "prom",
+            "L": "L",
+            "Fuel": "Combustible"
         },
         "colorPicker": {
             "Color": "Color"
@@ -429,7 +437,9 @@
             "Save": "Сохранить",
             "max": "макс",
             "min": "мин",
-            "avg": "средн"
+            "avg": "средн",
+            "L": "Л",
+            "Fuel": "Топливо"
         },
         "colorPicker": {
             "Color": "Цвет"

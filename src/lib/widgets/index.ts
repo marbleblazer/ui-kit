@@ -7,3 +7,5 @@ export { ProgressWidget } from './progress-widget';
 export { ListWithIconsWidget } from './list-with-icons-widget';
 
 export { LineChartWidget } from './line-chart-widget';
+
+export { BarChartWidget } from './bar-chart-widget';
