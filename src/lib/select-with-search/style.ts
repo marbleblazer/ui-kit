@@ -87,7 +87,7 @@ export const Select = styled(MuiSelect)<SelectProps>(({ placeholder, theme }) =>
 
 export const ListSubheader = styled(MUIListSubheader)(({ theme }) => ({
     padding: '16px',
-    background: theme.palette.background.background1,
+    backgroundColor: theme.palette.background.background2,
 
     '.MuiFormControl-root': {
         marginTop: 0,
