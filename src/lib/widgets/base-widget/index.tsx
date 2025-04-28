@@ -1,7 +1,9 @@
 import { Stack, SxProps } from '@mui/material';
 import * as S from './style';
+import { Loader } from '@chirp/ui/lib';
 
 export interface IBaseWidgetProps {
+    isLoading: boolean;
     mainContainerSx?: SxProps;
     headerSx?: SxProps;
     leftHeaderContentSx?: SxProps;
@@ -15,6 +17,7 @@ export interface IBaseWidgetProps {
 }
 
 export const BaseWidget: React.FC<IBaseWidgetProps> = ({
+    isLoading,
     mainContainerSx,
     headerSx,
     leftHeaderContentSx,
@@ -40,15 +43,21 @@ export const BaseWidget: React.FC<IBaseWidgetProps> = ({
 
     return (
         <S.Container sx={containerStyles} onClick={onContainerClick}>
-            {renderSubHeader ? (
-                <Stack sx={{ gap: '12px', ...headerSubheaderContainerSx }}>
-                    {headerContent}
-                    {renderSubHeader}
-                </Stack>
+            {isLoading ? (
+                <Loader size="large" />
             ) : (
-                headerContent
+                <>
+                    {renderSubHeader ? (
+                        <Stack sx={{ gap: '12px', ...headerSubheaderContainerSx }}>
+                            {headerContent}
+                            {renderSubHeader}
+                        </Stack>
+                    ) : (
+                        headerContent
+                    )}
+                    {renderMainContent}
+                </>
             )}
-            {renderMainContent}
         </S.Container>
     );
 };
