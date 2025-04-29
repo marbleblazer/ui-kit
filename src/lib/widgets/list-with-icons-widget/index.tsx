@@ -8,7 +8,7 @@ import { Typography } from '../../typogrpahy';
 
 interface IListWithIconsWidgetProps extends IBaseWidgetProps {
     rowsData: {
-        id: number;
+        id: number | string;
         image: string | React.ReactNode;
         renderDescription: React.ReactNode;
         time?: string;
@@ -19,7 +19,7 @@ interface IListWithIconsWidgetProps extends IBaseWidgetProps {
     rowSx?: SxProps;
     dividerSx?: SxProps;
     descriptionContainerSx?: SxProps;
-    onRowClick?: (id: number) => void;
+    onRowClick?: (id: number | string) => void;
     emptyFallbackMsg: string;
     isDivider?: boolean;
 }
@@ -41,7 +41,7 @@ export const ListWithIconsWidget: React.FC<React.PropsWithChildren<IListWithIcon
 
     const { t } = useTranslation('uiKit');
 
-    const handleRowCLick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number) => {
+    const handleRowCLick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | string) => {
         event.stopPropagation();
 
         if (onRowClick) onRowClick(id);
