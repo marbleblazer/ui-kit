@@ -103,3 +103,19 @@ export const Disabled: Story = {
         </Box>
     ),
 };
+
+export const IsLoading: Story = {
+    render: () => (
+        <Box sx={{ width: '400px' }}>
+            <SelectWithSearch
+                fullWidth
+                isLoading
+                sx={{ maxHeight: '200px' }}
+                label="Select sub-location (optional)"
+                error={false}
+                collection={options}
+                placeholder="Select sub-location (optional)"
+            />
+        </Box>
+    ),
+};
