@@ -7,6 +7,7 @@ import { CloseIcon } from '@chirp/ui/assets/icons';
 import { IconButton } from '../icon-button';
 import { TextField } from '../text-field';
 import { SearchIcon } from '@chirp/ui/assets/fleet-icons';
+import { Loader } from '../loader';
 
 export type SelectWithSearchOptionType = {
     value: string | number;
@@ -15,6 +16,7 @@ export type SelectWithSearchOptionType = {
 };
 
 export type SelectWithSearchPropsType = Omit<SelectProps, 'onClose' | 'variant' | 'collection'> & {
+    isLoading?: boolean;
     onClear?: () => void;
     searchPlaceholder?: string;
     collection: SelectWithSearchOptionType[];
@@ -25,6 +27,7 @@ export const SelectWithSearch: FC<SelectWithSearchPropsType> = ({
     labelId,
     disabled,
     value,
+    isLoading,
     onClear,
     collection = [],
     searchPlaceholder,
@@ -102,6 +105,11 @@ export const SelectWithSearch: FC<SelectWithSearchPropsType> = ({
                                     <SearchIcon />
                                 </InputAdornment>
                             ),
+                            endAdornment: isLoading ? (
+                                <InputAdornment position="end">
+                                    <Loader />
+                                </InputAdornment>
+                            ) : null,
                         }}
                         onChange={(e) => setSearchText(e.target.value)}
                         onKeyDown={(e) => {
