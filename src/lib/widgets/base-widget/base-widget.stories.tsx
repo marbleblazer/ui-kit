@@ -31,6 +31,7 @@ export const Default: Story = {
                 }}
             >
                 <BaseWidget
+                    isLoading={false}
                     leftHeaderContentSx={{ gap: '4px' }}
                     renderLeftHeaderContent={
                         <>

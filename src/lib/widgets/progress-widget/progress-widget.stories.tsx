@@ -31,6 +31,7 @@ export const Default: Story = {
                 }}
             >
                 <ProgressWidget
+                    isLoading={false}
                     mainContainerSx={{ height: '144px !important' }}
                     data={[
                         { label: 'Done', value: 59, color: palette.base.colorNewGreen },

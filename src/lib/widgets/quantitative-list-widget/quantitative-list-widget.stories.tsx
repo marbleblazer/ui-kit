@@ -40,6 +40,7 @@ export const Default: Story = {
             >
                 <QuantitativeListWidget
                     data={data}
+                    isLoading={false}
                     leftHeaderContentSx={{ gap: '4px' }}
                     renderLeftHeaderContent={
                         <>

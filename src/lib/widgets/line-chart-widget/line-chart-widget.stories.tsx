@@ -62,6 +62,7 @@ export const Default: Story = {
                 }}
             >
                 <LineChartWidget
+                    isLoading={false}
                     mainContainerSx={{ width: '540px', height: '356px' }}
                     renderLeftHeaderContent={<Typography variant="body1">Top 5 vehicles by Total distance</Typography>}
                     selectedItems={selectedItems}
