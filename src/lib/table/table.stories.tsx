@@ -107,10 +107,10 @@ export const Default: Story = {
 
 export const Virtualized: Story = {
     render: () => (
-        <Box height="500px">
+        <Box height="300px">
             <TableVirtualized
                 hasNextPage={false}
-                estimateSize={106}
+                estimateSize={117}
                 data={mockedData}
                 onRowDoubleClick={(data) => alert(data.id)}
                 columns={[

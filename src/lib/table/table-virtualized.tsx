@@ -81,6 +81,10 @@ export const TableVirtualized = <TData,>({
         fetchMoreOnBottomReached(virtualizedRef.current);
     }, [fetchMoreOnBottomReached]);
 
+    const tableSx = (() => {
+        return { height: rows.length ? `${tableSize}px` : '100%', display: 'block' };
+    })();
+
     return (
         <TableComponent
             isVirtualized
@@ -93,6 +97,7 @@ export const TableVirtualized = <TData,>({
                 overflowY: 'initial',
             }}
             isLoading={isLoading}
+            tableSx={tableSx}
             enableSorting={enableSorting}
             expandedRowIndex={expandedRowIndex}
             onRowClick={onRowClick}
