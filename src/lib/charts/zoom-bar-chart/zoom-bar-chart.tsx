@@ -65,12 +65,18 @@ const ZoomBarChart: FC<IZoomBarChartProps> = ({ categories, seriesData, legendIt
             splitLine: { show: false },
         },
         dataZoom: [
-            { type: 'slider', start: 0, end: 100 },
+            {
+                type: 'slider',
+                start: 0,
+                end: 100,
+                left: '15%',
+                right: '15%',
+            },
             { type: 'inside', start: 0, end: 100 },
         ],
         grid: {
             left: 0,
-            right: 0,
+            right: 6,
             top: 16,
             bottom: 60,
             containLabel: true,
