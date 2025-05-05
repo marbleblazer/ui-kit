@@ -98,8 +98,6 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
          * Если больше двух, то feature сохраняется
          */
         map.current.on('draw.modechange' as MapEventType, () => {
-            console.log(defaultDrawMode);
-
             if (defaultDrawMode && drawRef.current) {
                 const currentFeatures = drawRef.current.getAll();
 

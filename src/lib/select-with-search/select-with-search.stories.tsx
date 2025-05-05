@@ -18,9 +18,59 @@ export default meta;
 type Story = StoryObj<typeof SelectWithSearch>;
 
 const options = [
-    { name: 'Option 1', value: 1, badge: 'Admin' },
-    { name: 'Option 2', value: 2, badge: 'Manager' },
-    { name: 'Option 3', value: 3 },
+    {
+        name: 'Test manager71 Test manager last name7',
+        value: 105,
+    },
+    {
+        name: '3123123 312312',
+        value: 267,
+    },
+    {
+        name: 'stringZXC stringQWE',
+        value: 129,
+    },
+    {
+        name: 'Admin Dealer',
+        value: 261,
+        badge: 'Admin',
+    },
+    {
+        name: 'Fleet_test3 Fleet_test3',
+        value: 179,
+    },
+    {
+        name: 'INSAF GARAEV',
+        value: 273,
+        badge: 'Admin',
+    },
+    {
+        name: 'First name Last name',
+        value: 260,
+    },
+    {
+        name: 'test test',
+        value: 246,
+    },
+    {
+        name: 'INSAF GARAEV',
+        value: 276,
+        badge: 'Admin',
+    },
+    {
+        name: 'тест удаления тест удаления',
+        value: 266,
+        badge: 'Admin',
+    },
+    {
+        name: 'test test',
+        value: 242,
+    },
+    {
+        name: 'Dealer admin 12',
+        value: 264,
+        badge: 'Admin',
+    },
 ];
 
 export const Default: Story = {
