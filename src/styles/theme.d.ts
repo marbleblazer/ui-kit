@@ -147,7 +147,8 @@ type BaseColorNameType =
     | 'colorNewGrey_20'
     | 'colorNewRed'
     | 'colorNewYellow01'
-    | 'colorNewYellow02';
+    | 'colorNewYellow02'
+    | 'colorNewYellow03';
 
 export interface ReferencePalette extends PaletteOptions {
     background: Partial<TypeBackground> | undefined;
