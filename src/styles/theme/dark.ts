@@ -108,7 +108,7 @@ export const darkTheme = (
                 colorNewRed: '#F74C14',
                 colorNewYellow01: '#F9FB82',
                 colorNewYellow02: '#FDD061',
-                colorNewYellow03: '##CFBA46',
+                colorNewYellow03: '#CFBA46',
             },
         },
     };
