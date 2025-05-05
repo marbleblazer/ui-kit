@@ -24,6 +24,8 @@ type Props<TData> = {
     enableSorting?: boolean;
     expandedRowIndex?: number;
     isVirtualized?: boolean;
+    tableSx?: SxProps;
+
     onRowClick?(row: TData): void;
     onRowDoubleClick?(row: TData): void;
     renderExpandableBlock?(row: TData): ReactElement;
@@ -42,6 +44,7 @@ export const TableComponent = <TData,>({
     expandedRowIndex: defaultExpandedRowIndex,
     onRowClick,
     onRowDoubleClick,
+    tableSx,
     renderExpandableBlock,
     renderEmptyBlock = () => <EmptyFallback />,
     onScroll,
@@ -93,7 +96,7 @@ export const TableComponent = <TData,>({
             {rows.length === 0 && isLoading === false && renderEmptyBlock ? (
                 renderEmptyBlock()
             ) : (
-                <MuiTable stickyHeader sx={{ paddingRight: '12px' }}>
+                <MuiTable stickyHeader sx={{ paddingRight: '12px', ...tableSx }}>
                     {isLoading ? (
                         <SkeletonRows columns={columns} />
                     ) : (
