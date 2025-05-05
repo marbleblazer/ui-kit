@@ -121,7 +121,7 @@ export const SelectWithSearch: FC<SelectWithSearchPropsType> = ({
                 </S.ListSubheader>
                 {filteredCollection.length
                     ? filteredCollection.map(({ badge, ...rest }) => (
-                          <MenuItem key={rest.name} value={String(rest.value)}>
+                          <MenuItem key={`${rest.name}-${rest.value}`} value={String(rest.value)}>
                               <S.MenuItemWrapper
                                   width="100%"
                                   direction="row"
