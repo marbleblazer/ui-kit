@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box, MenuItem, SelectChangeEvent, useTheme } from '@mui/material';
+import { MenuItem, SelectChangeEvent, Stack, useTheme } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { mockChartData } from './mock';
 import { Typography, LineChartWidget, Select } from '@chirp/ui/lib';
@@ -53,20 +53,23 @@ export const Default: Story = {
         };
 
         return (
-            <Box
-                p={5}
+            <Stack
                 sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 5,
                     width: '700px',
                     height: '487px',
                     background: 'gray',
                 }}
             >
                 <LineChartWidget
+                    emptyFallbackMsg="No data"
                     isLoading={false}
                     mainContainerSx={{ width: '540px', height: '356px' }}
                     renderLeftHeaderContent={<Typography variant="body1">Top 5 vehicles by Total distance</Typography>}
                     selectedItems={selectedItems}
-                    chartData={preparedData}
+                    chartData={[]}
                     headerSubheaderContainerSx={{ gap: '16px' }}
                     colors={[
                         theme.palette.base.color6,
@@ -103,7 +106,7 @@ export const Default: Story = {
                         </Select>
                     }
                 />
-            </Box>
+            </Stack>
         );
     },
 };

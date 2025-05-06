@@ -48,6 +48,7 @@ export const Default: Story = {
                 }}
             >
                 <BarChartWidget
+                    emptyFallbackMsg="No data"
                     isLoading={false}
                     renderLeftHeaderContent={<Typography>Top 5 vehicles by Fuel consumption</Typography>}
                     legendItems={legendItems}
