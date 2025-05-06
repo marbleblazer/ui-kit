@@ -52,11 +52,11 @@ export const TableVirtualized = <TData,>({
 
     const rows = useMemo(
         () =>
-            virtualRows.map((virtualRow, index) => {
+            virtualRows.map((virtualRow) => {
                 const row = allRows[virtualRow.index] as Row<TData>;
                 const sxProps = {
                     height: `${virtualRow.size}px`,
-                    transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`,
+                    // transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`,
                 };
 
                 return { ...row, sx: sxProps };
@@ -82,8 +82,23 @@ export const TableVirtualized = <TData,>({
     }, [fetchMoreOnBottomReached]);
 
     const tableSx = (() => {
-        return { height: rows.length ? `${tableSize}px` : '100%', display: 'block' };
+        // return { transform: `translateY(${virtualRows?.[0]?.start}px)` };
+        return { marginTop: `${virtualRows?.[0]?.start}px` };
     })();
+
+    // const headerSx = (() => {
+    //     const totalContentHeight = virtualRows?.length * virtualRows?.[0]?.size;
+    //     const curretItemTop = (virtualRows?.[0]?.index + 6) * virtualRows?.[0]?.size;
+
+    //     if (totalContentHeight >= curretItemTop) {
+    //         return { transform: `translateY(-${virtualRows?.[0]?.start}px)` };
+    //     } else {
+
+    //         return {
+    //             transform: `translateY(${Math.ceil(curretItemTop - totalContentHeight - 117) - virtualRows?.[0]?.start}px)`,
+    //         };
+    //     }
+    // })();
 
     return (
         <TableComponent
@@ -97,8 +112,9 @@ export const TableVirtualized = <TData,>({
                 overflowY: 'initial',
             }}
             isLoading={isLoading}
-            tableSx={tableSx}
             enableSorting={enableSorting}
+            tableSx={tableSx}
+            // headerSx={headerSx}
             expandedRowIndex={expandedRowIndex}
             onRowClick={onRowClick}
             onRowDoubleClick={onRowDoubleClick}

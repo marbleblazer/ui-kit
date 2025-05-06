@@ -1,9 +1,9 @@
-import { styled } from '@mui/material';
-import { Box, TableRow } from '@mui/material';
+import { styled, TableContainer } from '@mui/material';
+import { TableRow } from '@mui/material';
 
 export { Cell } from '../../style';
 
-export const TableWrapper = styled(Box)(({ theme }) => ({
+export const TableWrapper = styled(TableContainer)(({ theme }) => ({
     width: '100%',
     // overflowX: 'hidden',
     backgroundColor: 'transparent',

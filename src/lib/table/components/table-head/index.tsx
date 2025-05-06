@@ -1,4 +1,4 @@
-import { TableHead as MuiTableHead, TableSortLabel } from '@mui/material';
+import { TableHead as MuiTableHead, SxProps, TableSortLabel } from '@mui/material';
 import { SortingState } from '@tanstack/react-table';
 
 import { TableColumn } from '../../types';
@@ -9,9 +9,10 @@ type Props<TData> = {
     columns: TableColumn<TData>[];
     enableSorting: boolean;
     sortingState: SortingState;
+    headerSx?: SxProps;
 };
 
-export const TableHead = <TData,>({ columns, enableSorting, sortingState }: Props<TData>) => {
+export const TableHead = <TData,>({ columns, enableSorting, sortingState, headerSx }: Props<TData>) => {
     return (
         <MuiTableHead>
             <S.Row>
@@ -26,7 +27,7 @@ export const TableHead = <TData,>({ columns, enableSorting, sortingState }: Prop
                     }
 
                     return (
-                        <S.HeadCell key={id} sx={{ width: getSize(), maxWidth }}>
+                        <S.HeadCell key={id} sx={{ width: getSize(), maxWidth, ...headerSx }}>
                             {needSorting ? (
                                 <TableSortLabel IconComponent={IconComponent} onClick={getToggleSortingHandler()}>
                                     {header}
