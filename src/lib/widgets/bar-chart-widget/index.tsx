@@ -36,6 +36,8 @@ export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
 
     const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'widgets' });
 
+    const hasData = data.categories.length && data.series.length;
+
     const customTooltipFormatter = useCallback(
         (params: TopLevelFormatterParams | TopLevelFormatterParams[]) => {
             const { seriesName, value, name, color } = params as CallbackDataParams;
@@ -73,8 +75,7 @@ export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
         <BaseWidget
             {...baseWidgetProps}
             renderSubHeader={
-                data.categories.length &&
-                data.series.length && (
+                hasData && (
                     <S.LegendContainer sx={{ ...legendContainerSx }}>
                         {legendItems.map((item) => (
                             <S.LabelAndDotWrapper key={item.id}>
@@ -86,7 +87,7 @@ export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
                 )
             }
             renderMainContent={
-                data.categories.length && data.series.length ? (
+                hasData ? (
                     <ZoomBarChart
                         categories={data.categories}
                         seriesData={data.series}
