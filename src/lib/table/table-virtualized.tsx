@@ -52,11 +52,10 @@ export const TableVirtualized = <TData,>({
 
     const rows = useMemo(
         () =>
-            virtualRows.map((virtualRow, index) => {
+            virtualRows.map((virtualRow) => {
                 const row = allRows[virtualRow.index] as Row<TData>;
                 const sxProps = {
                     height: `${virtualRow.size}px`,
-                    transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`,
                 };
 
                 return { ...row, sx: sxProps };
@@ -82,7 +81,7 @@ export const TableVirtualized = <TData,>({
     }, [fetchMoreOnBottomReached]);
 
     const tableSx = (() => {
-        return { height: rows.length ? `${tableSize}px` : '100%', display: 'block' };
+        return { marginTop: `${virtualRows?.[0]?.start}px` };
     })();
 
     return (
@@ -97,8 +96,8 @@ export const TableVirtualized = <TData,>({
                 overflowY: 'initial',
             }}
             isLoading={isLoading}
-            tableSx={tableSx}
             enableSorting={enableSorting}
+            tableSx={tableSx}
             expandedRowIndex={expandedRowIndex}
             onRowClick={onRowClick}
             onRowDoubleClick={onRowDoubleClick}

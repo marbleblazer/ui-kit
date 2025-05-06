@@ -107,7 +107,7 @@ export const Default: Story = {
 
 export const Virtualized: Story = {
     render: () => (
-        <Box height="300px">
+        <Box height="300px" width={1000}>
             <TableVirtualized
                 hasNextPage={false}
                 estimateSize={117}

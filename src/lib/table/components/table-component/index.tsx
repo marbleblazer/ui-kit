@@ -25,6 +25,7 @@ type Props<TData> = {
     expandedRowIndex?: number;
     isVirtualized?: boolean;
     tableSx?: SxProps;
+    headerSx?: SxProps;
 
     onRowClick?(row: TData): void;
     onRowDoubleClick?(row: TData): void;
@@ -40,6 +41,7 @@ export const TableComponent = <TData,>({
     sx = {},
     page,
     isLoading,
+    headerSx,
     enableSorting = false,
     expandedRowIndex: defaultExpandedRowIndex,
     onRowClick,
@@ -105,6 +107,7 @@ export const TableComponent = <TData,>({
                                 columns={columns}
                                 enableSorting={enableSorting}
                                 sortingState={table.getState().sorting}
+                                headerSx={headerSx}
                             />
                             <TableBody>
                                 {rows.map((row) =>
