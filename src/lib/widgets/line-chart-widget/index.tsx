@@ -4,6 +4,7 @@ import { StackedChart, Typography } from '@chirp/ui/lib';
 import * as S from './style';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material';
+import { useMemo } from 'react';
 
 type TOptionType = {
     id: number;
@@ -24,23 +25,23 @@ export const LineChartWidget: React.FC<React.PropsWithChildren<ILineChartWidgetP
 
     const { chartData, selectedItems, colors, chartStyles, emptyFallbackMsg, ...baseWidgetProps } = props;
 
+    const hasData = chartData.length > 0;
+
+    const legendItems = useMemo(() => {
+        return selectedItems.map((item, index) => (
+            <S.LabelAndDotWrapper key={item.label}>
+                <S.Dot bgcolor={colors[index % colors.length]} />
+                <S.Label variant="caption12">{item.label}</S.Label>
+            </S.LabelAndDotWrapper>
+        ));
+    }, [selectedItems, colors]);
+
     return (
         <BaseWidget
             {...baseWidgetProps}
-            renderSubHeader={
-                chartData.length && (
-                    <S.LegendContainer>
-                        {selectedItems.map((item, index) => (
-                            <S.LabelAndDotWrapper key={item.label}>
-                                <S.Dot bgcolor={colors[index % colors.length]} />
-                                <S.Label variant="caption12">{item.label}</S.Label>
-                            </S.LabelAndDotWrapper>
-                        ))}
-                    </S.LegendContainer>
-                )
-            }
+            renderSubHeader={hasData ? <S.LegendContainer>{legendItems}</S.LegendContainer> : null}
             renderMainContent={
-                chartData.length ? (
+                hasData ? (
                     <StackedChart
                         colors={colors}
                         style={{ width: '100%', height: '100%', ...chartStyles }}
