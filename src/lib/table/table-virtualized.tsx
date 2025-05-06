@@ -56,7 +56,6 @@ export const TableVirtualized = <TData,>({
                 const row = allRows[virtualRow.index] as Row<TData>;
                 const sxProps = {
                     height: `${virtualRow.size}px`,
-                    // transform: `translateY(${virtualRow.start - index * virtualRow.size}px)`,
                 };
 
                 return { ...row, sx: sxProps };
@@ -82,23 +81,8 @@ export const TableVirtualized = <TData,>({
     }, [fetchMoreOnBottomReached]);
 
     const tableSx = (() => {
-        // return { transform: `translateY(${virtualRows?.[0]?.start}px)` };
         return { marginTop: `${virtualRows?.[0]?.start}px` };
     })();
-
-    // const headerSx = (() => {
-    //     const totalContentHeight = virtualRows?.length * virtualRows?.[0]?.size;
-    //     const curretItemTop = (virtualRows?.[0]?.index + 6) * virtualRows?.[0]?.size;
-
-    //     if (totalContentHeight >= curretItemTop) {
-    //         return { transform: `translateY(-${virtualRows?.[0]?.start}px)` };
-    //     } else {
-
-    //         return {
-    //             transform: `translateY(${Math.ceil(curretItemTop - totalContentHeight - 117) - virtualRows?.[0]?.start}px)`,
-    //         };
-    //     }
-    // })();
 
     return (
         <TableComponent
@@ -114,7 +98,6 @@ export const TableVirtualized = <TData,>({
             isLoading={isLoading}
             enableSorting={enableSorting}
             tableSx={tableSx}
-            // headerSx={headerSx}
             expandedRowIndex={expandedRowIndex}
             onRowClick={onRowClick}
             onRowDoubleClick={onRowDoubleClick}
