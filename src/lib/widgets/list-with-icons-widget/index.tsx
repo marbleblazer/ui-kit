@@ -51,7 +51,7 @@ export const ListWithIconsWidget: React.FC<React.PropsWithChildren<IListWithIcon
         <BaseWidget
             {...baseWidgetProps}
             renderMainContent={
-                rowsData.length > 0 ? (
+                rowsData.length ? (
                     <Stack sx={{ overflow: 'auto', gap: '12px' }}>
                         {rowsData.map((item, index) => (
                             <Fragment key={item.id}>

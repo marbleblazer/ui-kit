@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { BaseWidget, IBaseWidgetProps } from '../base-widget';
 import * as S from './style';
-import { ZoomBarChart } from '@chirp/ui/lib';
-import { SxProps, useTheme } from '@mui/material';
+import { Typography, ZoomBarChart } from '@chirp/ui/lib';
+import { Stack, SxProps, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { CallbackDataParams, TopLevelFormatterParams } from 'echarts/types/dist/shared';
 
@@ -19,6 +19,7 @@ interface IBarChartWidgetProps extends IBaseWidgetProps {
         series: number[][];
     };
     legendContainerSx?: SxProps;
+    emptyFallbackMsg: string;
 }
 
 export interface ITooltipParams {
@@ -29,11 +30,13 @@ export interface ITooltipParams {
 }
 
 export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
-    const { legendItems, data, legendContainerSx, ...baseWidgetProps } = props;
+    const { legendItems, data, legendContainerSx, emptyFallbackMsg, ...baseWidgetProps } = props;
 
     const theme = useTheme();
 
     const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'widgets' });
+
+    const hasData = data.categories.length && data.series.length;
 
     const customTooltipFormatter = useCallback(
         (params: TopLevelFormatterParams | TopLevelFormatterParams[]) => {
@@ -72,22 +75,32 @@ export const BarChartWidget: React.FC<IBarChartWidgetProps> = (props) => {
         <BaseWidget
             {...baseWidgetProps}
             renderSubHeader={
-                <S.LegendContainer sx={{ ...legendContainerSx }}>
-                    {legendItems.map((item) => (
-                        <S.LabelAndDotWrapper key={item.id}>
-                            <S.Dot bgcolor={item.color} />
-                            <S.Label variant="caption12">{item.label}</S.Label>
-                        </S.LabelAndDotWrapper>
-                    ))}
-                </S.LegendContainer>
+                hasData && (
+                    <S.LegendContainer sx={{ ...legendContainerSx }}>
+                        {legendItems.map((item) => (
+                            <S.LabelAndDotWrapper key={item.id}>
+                                <S.Dot bgcolor={item.color} />
+                                <S.Label variant="caption12">{item.label}</S.Label>
+                            </S.LabelAndDotWrapper>
+                        ))}
+                    </S.LegendContainer>
+                )
             }
             renderMainContent={
-                <ZoomBarChart
-                    categories={data.categories}
-                    seriesData={data.series}
-                    legendItems={legendItems}
-                    tooltipFormatter={customTooltipFormatter}
-                />
+                hasData ? (
+                    <ZoomBarChart
+                        categories={data.categories}
+                        seriesData={data.series}
+                        legendItems={legendItems}
+                        tooltipFormatter={customTooltipFormatter}
+                    />
+                ) : (
+                    <Stack width="100%" height="100%" justifyContent="center" alignItems="center">
+                        <Typography variant="subtitle1" color={theme.palette.text.text8}>
+                            {emptyFallbackMsg}
+                        </Typography>
+                    </Stack>
+                )
             }
         />
     );
