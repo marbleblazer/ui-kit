@@ -69,7 +69,7 @@ export const Default: Story = {
                     mainContainerSx={{ width: '540px', height: '356px' }}
                     renderLeftHeaderContent={<Typography variant="body1">Top 5 vehicles by Total distance</Typography>}
                     selectedItems={selectedItems}
-                    chartData={[]}
+                    chartData={preparedData}
                     headerSubheaderContainerSx={{ gap: '16px' }}
                     colors={[
                         theme.palette.base.color6,
