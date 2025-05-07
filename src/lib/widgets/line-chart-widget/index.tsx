@@ -18,12 +18,13 @@ interface ILineChartWidgetProps extends IBaseWidgetProps {
     colors: string[];
     chartStyles?: React.CSSProperties;
     emptyFallbackMsg: string;
+    xAxisData?: string[];
 }
 
 export const LineChartWidget: React.FC<React.PropsWithChildren<ILineChartWidgetProps>> = (props) => {
     const theme = useTheme();
 
-    const { chartData, selectedItems, colors, chartStyles, emptyFallbackMsg, ...baseWidgetProps } = props;
+    const { chartData, selectedItems, colors, chartStyles, emptyFallbackMsg, xAxisData, ...baseWidgetProps } = props;
 
     const hasData = chartData.length > 0;
 
@@ -46,6 +47,7 @@ export const LineChartWidget: React.FC<React.PropsWithChildren<ILineChartWidgetP
                         colors={colors}
                         style={{ width: '100%', height: '100%', ...chartStyles }}
                         data={chartData}
+                        xAxisData={xAxisData}
                     />
                 ) : (
                     <Stack width="100%" height="100%" justifyContent="center" alignItems="center">
