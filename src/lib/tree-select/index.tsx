@@ -13,12 +13,13 @@ export type TreeNodeType = {
 
 interface TreeSelectProps {
     options: TreeNodeType[];
+    disabled?: boolean;
     label?: string;
-    onChange?: (selectedValue: TreeNodeType) => void;
     selectedNode?: TreeNodeType;
     width?: number | string;
     selectProps: SelectPropsType;
     treeViewMaxHeight?: number;
+    onChange?: (selectedValue: TreeNodeType) => void;
 }
 
 // FYI: если необходимо, можно воспроизвести работу с дженериком, но нужно будет вынести метод resolveTitle, resolveId
@@ -27,6 +28,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
     onChange,
     width = '100%',
     selectProps,
+    disabled,
     treeViewMaxHeight,
     selectedNode,
 }) => {
@@ -61,6 +63,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
                     value={selectedNode?.id || ''}
                     displayEmpty
                     open={false}
+                    disabled={disabled}
                     onOpen={() => setOpen(true)}
                 >
                     <MenuItem value={selectedNode?.id}>{selectedNode?.label}</MenuItem>
