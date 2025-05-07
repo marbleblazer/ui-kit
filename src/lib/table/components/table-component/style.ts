@@ -10,6 +10,8 @@ export const TableWrapper = styled(TableContainer)(({ theme }) => ({
     td: {
         color: theme.palette.text.text4,
         padding: '18px 12px',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
         '&:first-of-type': {
             paddingLeft: '0',
         },

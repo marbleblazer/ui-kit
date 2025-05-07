@@ -30,7 +30,7 @@ export const Default: Story = {
                         last_name: 'Doe',
                         age: 25,
                         occupation: 'Software Engineer',
-                        someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
+                        someKey: 'lorem lorem lorem',
                     },
                     {
                         id: 2,
@@ -38,7 +38,7 @@ export const Default: Story = {
                         last_name: 'Doe',
                         age: 30,
                         occupation: 'Doctor',
-                        someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
+                        someKey: 'lorem lorem lorem',
                     },
                     {
                         id: 3,
@@ -46,7 +46,7 @@ export const Default: Story = {
                         last_name: 'Smith',
                         age: 35,
                         occupation: 'Lawyer',
-                        someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
+                        someKey: 'lorem lorem lorem',
                     },
                     {
                         id: 4,
@@ -54,7 +54,7 @@ export const Default: Story = {
                         last_name: 'Johnson',
                         age: 20,
                         occupation: 'Student',
-                        someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
+                        someKey: 'lorem lorem lorem',
                     },
                     {
                         id: 5,
@@ -70,7 +70,7 @@ export const Default: Story = {
                         last_name: 'Davis',
                         age: 28,
                         occupation: 'Nurse',
-                        someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
+                        someKey: 'lorem lorem lorem',
                     },
                     {
                         id: 7,
@@ -78,7 +78,7 @@ export const Default: Story = {
                         last_name: 'Wilson',
                         age: 32,
                         occupation: 'Engineer',
-                        someKey: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
+                        someKey: 'lorem lorem lorem',
                     },
                 ]}
                 onRowDoubleClick={(data) => alert(data.id)}
@@ -107,17 +107,18 @@ export const Default: Story = {
 
 export const Virtualized: Story = {
     render: () => (
-        <Box height="300px" width={1000}>
+        <Box height="300px" width={1400}>
             <TableVirtualized
                 hasNextPage={false}
                 estimateSize={117}
                 data={mockedData}
                 onRowDoubleClick={(data) => alert(data.id)}
                 columns={[
-                    { header: 'ID', accessorKey: 'id' },
+                    { header: 'ID', accessorKey: 'id', size: 50 },
                     {
                         header: 'Name',
                         accessorKey: 'name',
+                        size: 50,
 
                         cell: (props) => (
                             <Stack direction={'row'} alignItems="center" gap={1}>
@@ -126,9 +127,9 @@ export const Virtualized: Story = {
                             </Stack>
                         ),
                     },
-                    { header: 'Age', accessorKey: 'age' },
-                    { header: 'Occupation', accessorKey: 'occupation' },
-                    { header: 'someKey', accessorKey: 'someKey' },
+                    { header: 'Age', accessorKey: 'age', size: 50 },
+                    { header: 'Occupation', accessorKey: 'occupation', size: 20 },
+                    { header: 'someKey', accessorKey: 'someKey', size: 50 },
                 ]}
             />
         </Box>
