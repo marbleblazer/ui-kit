@@ -134,6 +134,7 @@ export const TableComponent = <TData,>({
                                             sx={row.sx}
                                             row={row}
                                             table={table}
+                                            columns={columns}
                                             isExpanded={row.isExpanded}
                                             onDoubleClick={handleDoubleClick}
                                             onClick={handleRowClick}
