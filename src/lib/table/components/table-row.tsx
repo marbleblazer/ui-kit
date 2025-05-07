@@ -3,10 +3,12 @@ import { Row, Table, flexRender } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 
 import * as S from '../style';
+import { TableColumn } from '../types';
 
 type Props<TData> = {
     row: Row<TData>;
     table: Table<TData>;
+    columns?: TableColumn<TData>[];
     sx?: SxProps;
     isExpanded?: boolean;
     onClick?(row: Row<TData>): void;
@@ -18,6 +20,8 @@ export const TableRow = <TData,>({
     row,
     table,
     sx,
+    columns,
+
     isExpanded = false,
     onClick,
     onDoubleClick,
@@ -31,8 +35,15 @@ export const TableRow = <TData,>({
                 onClick={() => onClick?.(row)}
                 onDoubleClick={() => onDoubleClick?.(row)}
             >
-                {row.getVisibleCells().map((cell) => (
-                    <S.Cell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</S.Cell>
+                {row.getVisibleCells().map((cell, index) => (
+                    <S.Cell
+                        sx={{
+                            maxWidth: columns?.[index]?.getSize(),
+                        }}
+                        key={cell.id}
+                    >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </S.Cell>
                 ))}
             </S.Row>
             {isExpanded && renderExpandableBlock ? (
