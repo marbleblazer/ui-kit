@@ -50,11 +50,26 @@ export const SelectWithSearch: FC<SelectWithSearchPropsType> = ({
     };
 
     const filteredCollection = useMemo(() => {
-        if (searchText?.length) {
-            return collection.filter((item) => String(item.name).toLowerCase().includes(searchText.toLowerCase()));
-        }
+        const { fullMatch, prefixMatch, partialMatch }: Record<string, SelectWithSearchOptionType[]> = {
+            fullMatch: [],
+            prefixMatch: [],
+            partialMatch: [],
+        };
 
-        return collection;
+        collection.forEach((item) => {
+            const normalizedSearchText = searchText.toLocaleLowerCase();
+            const normalizedItemName = String(item.name).toLocaleLowerCase();
+
+            if (normalizedSearchText === normalizedItemName) {
+                fullMatch.push(item);
+            } else if (normalizedItemName.startsWith(normalizedSearchText)) {
+                prefixMatch.push(item);
+            } else if (normalizedItemName.includes(normalizedSearchText)) {
+                partialMatch.push(item);
+            }
+        });
+
+        return [...fullMatch, ...prefixMatch, ...partialMatch];
     }, [searchText, collection]);
 
     return (
