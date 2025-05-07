@@ -1,49 +1,55 @@
-# Select Component
+# SelectWithSearch Component
 
-A custom select dropdown component with additional features like clear functionality and customizable styles, built using Material UI.
+A searchable select dropdown component with enhanced filtering, loading indicator, and clear functionality, built on top of Material UI.
 
 ## Usage
 
 ```tsx
-import { Select } from '@chirpwireless/ui-kit';
+import { SelectWithSearch } from '@chirpwireless/ui-kit';
 
-<Select
-    label="Select Option"
+<SelectWithSearch
+    label="Choose an option"
     value={selectedValue}
     onChange={(e) => setSelectedValue(e.target.value)}
     onClear={() => setSelectedValue('')}
-    options={options}
+    collection={options}
 />;
 ```
 
-### Example with Clear Button
+### Example with Loading and Search
 
 ```tsx
-<Select label="Choose a color" value={selectedColor} onClear={() => setSelectedColor('')} options={colorOptions} />
+<SelectWithSearch
+    label="Search Users"
+    value={selectedUser}
+    onChange={(e) => setSelectedUser(e.target.value)}
+    onClear={() => setSelectedUser('')}
+    isLoading={isFetching}
+    collection={userOptions}
+    searchPlaceholder="Search by name..."
+/>
 ```
 
 ## Properties
 
-| Name           | Description                                                                    | Type         | Default Value |
-| -------------- | ------------------------------------------------------------------------------ | ------------ | ------------- |
-| `label`        | The label for the select input.                                                | `string`     | -             |
-| `value`        | The value of the selected option.                                              | `any`        | -             |
-| `onClear`      | Function to clear the current selection (optional).                            | `() => void` | -             |
-| `MenuProps`    | Props passed to the Menu component.                                            | `object`     | -             |
-| `endAdornment` | Optional adornment to add at the end of the select input (e.g., clear button). | `ReactNode`  | -             |
-| `labelId`      | The ID for the label of the select component.                                  | `string`     | -             |
-| `disabled`     | Whether the select is disabled.                                                | `boolean`    | `false`       |
-| `placeholder`  | Placeholder text to be displayed when no option is selected.                   | `string`     | -             |
+| Name                | Description                                              | Type                                      | Default Value |
+| ------------------- | -------------------------------------------------------- | ----------------------------------------- | ------------- |
+| `label`             | The label for the select input.                          | `string`                                  | -             |
+| `value`             | The value of the selected option.                        | `any`                                     | -             |
+| `onChange`          | Callback fired when the selected value changes.          | `(event: SelectChangeEvent<any>) => void` | -             |
+| `onClear`           | Function to clear the current selection (optional).      | `() => void`                              | -             |
+| `collection`        | Array of selectable options.                             | `SelectWithSearchOptionType[]`            | -             |
+| `isLoading`         | Whether to show a loading indicator in the search field. | `boolean`                                 | `false`       |
+| `searchPlaceholder` | Placeholder text shown in the search input.              | `string`                                  | -             |
+| `labelId`           | The ID for the label of the select component.            | `string`                                  | -             |
+| `disabled`          | Whether the select is disabled.                          | `boolean`                                 | `false`       |
+| `endAdornment`      | Optional adornment at the end of the select input.       | `ReactNode`                               | -             |
+| `MenuProps`         | Props passed to the underlying Menu component.           | `object`                                  | -             |
 
 ## Features
 
+- **Search Input**: Allows filtering options via text input with full, prefix, and partial match prioritization.
 - **Clear Button**: Optionally adds a clear button to reset the selected value.
-- **Customizable Styles**: The select input supports customizable styling and themes.
-- **Responsive**: Fully responsive and adapts to different screen sizes.
-- **Material UI Integration**: Uses Material UI components, styled with the theme.
-
-## Example
-
-```tsx
-<Select label="Select a Fruit" value={selectedFruit} onClear={() => setSelectedFruit('')} options={fruitOptions} />
-```
+- **Loading Indicator**: Shows a loader while async data is being fetched.
+- **Customizable Styles**: Supports full theming and styling via MUI.
+- **Material UI Integration**: Built using MUI components for consistency and accessibility.
