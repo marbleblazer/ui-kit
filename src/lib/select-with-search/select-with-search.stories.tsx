@@ -19,7 +19,7 @@ type Story = StoryObj<typeof SelectWithSearch>;
 
 const options = [
     {
-        name: 'Test manager71 Test manager last name7',
+        name: 'Trest manager71 Test manager last name7',
         value: 105,
     },
     {
@@ -49,7 +49,7 @@ const options = [
         value: 260,
     },
     {
-        name: 'test test',
+        name: 'test Trest',
         value: 246,
     },
     {
@@ -63,7 +63,7 @@ const options = [
         badge: 'Admin',
     },
     {
-        name: 'test test',
+        name: 'test Trest',
         value: 242,
     },
     {
