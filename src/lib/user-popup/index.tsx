@@ -45,6 +45,11 @@ export const UserPopup: FC<UserPopupProps> = ({
 
     const isOpen = Boolean(anchorEl);
 
+    const handleLogout = () => {
+        onLogout && onLogout();
+        handleClose();
+    };
+
     return (
         <>
             <Stack
@@ -100,7 +105,7 @@ export const UserPopup: FC<UserPopupProps> = ({
                             </Stack>
                         )}
                         <LanguageSelector {...languageSelectorProps} />
-                        <Logout onLogout={onLogout} />
+                        <Logout onLogout={handleLogout} />
                         <Divider sx={{ background: alpha(theme.palette.text.text1, 0.08), width: '197px' }} />
                         <S.ListItem>
                             <Stack>

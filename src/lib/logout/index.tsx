@@ -22,6 +22,11 @@ export const Logout: FC<LogoutProps> = ({ onLogout }) => {
         setIsLogoutConfirmationOpen(false);
     };
 
+    const confirmLogoutClick = () => {
+        onLogout && onLogout();
+        setIsLogoutConfirmationOpen(false);
+    };
+
     return (
         <>
             <ListItem onClick={handleLogout}>
@@ -36,7 +41,7 @@ export const Logout: FC<LogoutProps> = ({ onLogout }) => {
                 isOpen={isLogoutConfirmationOpen}
                 title={t('modal.Are you sure that you want to logout?')}
                 icon={<LogoutIcon />}
-                onConfirm={onLogout || (() => {})}
+                onConfirm={confirmLogoutClick || (() => {})}
                 onCancel={handleCancel}
             />
         </>
