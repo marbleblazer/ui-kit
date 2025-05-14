@@ -26,6 +26,7 @@ type Props<TData> = {
     isVirtualized?: boolean;
     tableSx?: SxProps;
     headerSx?: SxProps;
+    columnWidths?: string[];
 
     onRowClick?(row: TData): void;
     onRowDoubleClick?(row: TData): void;
@@ -45,6 +46,7 @@ export const TableComponent = <TData,>({
     enableSorting = false,
     expandedRowIndex: defaultExpandedRowIndex,
     onRowClick,
+    columnWidths,
     onRowDoubleClick,
     tableSx,
     renderExpandableBlock,
@@ -98,11 +100,18 @@ export const TableComponent = <TData,>({
             {rows.length === 0 && isLoading === false && renderEmptyBlock ? (
                 renderEmptyBlock()
             ) : (
-                <MuiTable stickyHeader sx={{ paddingRight: '12px', ...tableSx }}>
+                <MuiTable stickyHeader sx={{ paddingRight: '12px', tableLayout: 'fixed', width: '100%', ...tableSx }}>
                     {isLoading ? (
                         <SkeletonRows columns={columns} />
                     ) : (
                         <>
+                            {columnWidths?.length ? (
+                                <colgroup>
+                                    {columnWidths.map((width) => (
+                                        <col style={{ width }} />
+                                    ))}
+                                </colgroup>
+                            ) : null}
                             <TableHead
                                 columns={columns}
                                 enableSorting={enableSorting}

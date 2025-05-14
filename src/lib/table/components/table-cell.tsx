@@ -27,7 +27,6 @@ export const TableCell: FC<PropsWithChildren<ITableCellProps>> = ({ sx, children
                 ref={ref}
                 onMouseEnter={handleMouseEnter}
                 sx={{
-                    maxWidth: '100%',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
