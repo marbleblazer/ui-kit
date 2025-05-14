@@ -4,6 +4,7 @@ import { ReactElement } from 'react';
 
 import * as S from '../style';
 import { TableColumn } from '../types';
+import { TableCell } from './table-cell';
 
 type Props<TData> = {
     row: Row<TData>;
@@ -36,14 +37,14 @@ export const TableRow = <TData,>({
                 onDoubleClick={() => onDoubleClick?.(row)}
             >
                 {row.getVisibleCells().map((cell, index) => (
-                    <S.Cell
+                    <TableCell
                         sx={{
                             maxWidth: columns?.[index]?.getSize(),
                         }}
                         key={cell.id}
                     >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </S.Cell>
+                    </TableCell>
                 ))}
             </S.Row>
             {isExpanded && renderExpandableBlock ? (
