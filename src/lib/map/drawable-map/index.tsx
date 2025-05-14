@@ -30,6 +30,8 @@ interface IDrawableMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> 
     onChange?: (value: GeoJSON.GeoJSON) => void;
     withStartEndLineIndicators?: boolean; // for display custom start and end marker indicators
     getMapStyleId?: (themeMode: string) => string;
+    shouldFinishDrawing?: boolean;
+    onDrawingFinished?: () => void;
 }
 
 export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
@@ -39,6 +41,8 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         onChange = () => {},
         withStartEndLineIndicators,
         drawMode,
+        shouldFinishDrawing,
+        onDrawingFinished,
         ...baseProps
     } = props;
 
@@ -96,23 +100,6 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
             const features = e.features as GeoJSON.Feature[];
             handleChange(features[0]);
-        });
-
-        /**
-         * При drawMode и двойном клике карта зависает, и добавление линий становится невозможным
-         * При двойном нажатии меняется drawRef.mode и слушатель отслеживает сколько в этот момент features на карте
-         * Если больше двух, то feature сохраняется
-         */
-        map.current.on('draw.modechange' as MapEventType, () => {
-            if (defaultDrawMode && drawRef.current) {
-                const currentFeatures = drawRef.current.getAll();
-
-                if (currentFeatures.features.length < 2) {
-                    markersRef.current.forEach((marker) => marker.remove());
-                    drawRef.current?.deleteAll();
-                    drawRef.current.changeMode(defaultDrawMode);
-                }
-            }
         });
 
         if (defaultDrawMode) {
@@ -180,6 +167,28 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         map.current.fitBounds([west, south, east, north], { padding: 50 });
     }, [drawMode, theme.palette, withStartEndLineIndicators, data]);
 
+    // Функция для завершения рисования
+    const finishDrawing = useCallback(() => {
+        if (!drawRef.current || !map.current) return;
+
+        const currentMode = drawRef.current.getMode();
+
+        if (currentMode === 'draw_line_string' || currentMode === 'draw_polygon') {
+            if (drawMode) {
+                drawRef.current.changeMode(drawMode);
+            } else {
+                drawRef.current.changeMode('simple_select');
+            }
+
+            const features = drawRef.current.getAll().features;
+
+            if (features.length > 0) {
+                onChange(features[0]);
+                drawMode && addDataToMap();
+            }
+        }
+    }, [addDataToMap, drawMode, onChange]);
+
     useEffect(() => {
         if (!map.current || !drawRef.current) return;
 
@@ -191,6 +200,13 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
             });
         }
     }, [addDataToMap]);
+
+    useEffect(() => {
+        if (shouldFinishDrawing) {
+            finishDrawing();
+            onDrawingFinished?.();
+        }
+    }, [finishDrawing, shouldFinishDrawing, onDrawingFinished]);
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
