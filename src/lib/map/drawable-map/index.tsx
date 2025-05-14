@@ -14,6 +14,8 @@ import { customDrawStyles, typedGeodesicDraw } from '../constance';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
 import { useTheme } from '@mui/material';
+import { customDrawLineStringMode } from './custom-modes/custom-draw-line-string-mode';
+import { customDrawPolygonMode } from './custom-modes/custom-draw-polygon-mode';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -64,7 +66,11 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
 
         // Инициализация контролов рисования
         let modes = MapboxDraw.modes;
-        modes = typedGeodesicDraw.enable(modes);
+        modes = {
+            ...typedGeodesicDraw.enable(modes),
+            draw_line_string: customDrawLineStringMode,
+            draw_polygon: customDrawPolygonMode,
+        };
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {
