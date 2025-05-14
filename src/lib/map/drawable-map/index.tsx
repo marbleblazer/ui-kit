@@ -182,9 +182,13 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
 
             const features = drawRef.current.getAll().features;
 
-            if (features.length > 0) {
+            if (features.length > 1) {
                 onChange(features[0]);
                 drawMode && addDataToMap();
+            } else {
+                markersRef.current.forEach((marker) => marker.remove());
+                drawRef.current?.deleteAll();
+                drawMode && drawRef.current.changeMode(drawMode);
             }
         }
     }, [addDataToMap, drawMode, onChange]);
