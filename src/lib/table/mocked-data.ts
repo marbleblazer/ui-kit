@@ -1,7 +1,7 @@
 export const mockedData = [
     {
         id: 1,
-        name: 'John Doe Mike Brown lorem lorem lorem',
+        name: 'JohnDoeMikeBrownloremoremlorem',
         age: 25,
         occupation: 'Software Engineer Mike Brown lorem lorem lorem',
         someKey: 'lorem lorem lorem',

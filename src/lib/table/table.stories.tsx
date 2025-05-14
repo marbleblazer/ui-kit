@@ -29,8 +29,8 @@ export const Default: Story = {
                         first_name: 'John',
                         last_name: 'Doe',
                         age: 25,
-                        occupation: 'Software Engineer',
-                        someKey: 'lorem lorem lorem',
+                        occupation: 'SoftwareEngineer',
+                        someKey: 'loremloremloremloremloremlorem',
                     },
                     {
                         id: 2,
@@ -38,7 +38,7 @@ export const Default: Story = {
                         last_name: 'Doe',
                         age: 30,
                         occupation: 'Doctor',
-                        someKey: 'lorem lorem lorem',
+                        someKey: 'loremloremloremloremlorem',
                     },
                     {
                         id: 3,
