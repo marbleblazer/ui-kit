@@ -107,29 +107,61 @@ export const Default: Story = {
 
 export const Virtualized: Story = {
     render: () => (
-        <Box height="300px" width={1400}>
+        <Box height="800px">
             <TableVirtualized
                 hasNextPage={false}
                 estimateSize={117}
                 data={mockedData}
                 onRowDoubleClick={(data) => alert(data.id)}
+                columnWidths={['40px', '168%', '168%', '168%', '168%', '168%', '168%', '168%', '108%']}
                 columns={[
-                    { header: 'ID', accessorKey: 'id', size: 50 },
                     {
-                        header: 'Name',
-                        accessorKey: 'name',
-                        size: 50,
-
-                        cell: (props) => (
-                            <Stack direction={'row'} alignItems="center" gap={1}>
-                                <EyeIcon />
-                                <Box fontWeight="bold">{props.renderValue?.() as string}</Box>
-                            </Stack>
-                        ),
+                        header: 'table.ID',
+                        accessorKey: 'id',
+                        size: 40,
                     },
-                    { header: 'Age', accessorKey: 'age', size: 50 },
-                    { header: 'Occupation', accessorKey: 'occupation', size: 20 },
-                    { header: 'someKey', accessorKey: 'someKey', size: 50 },
+                    {
+                        header: 'table.Last name',
+                        accessorKey: 'last_name',
+                        size: 168,
+                    },
+                    {
+                        header: 'table.First name',
+                        accessorKey: 'first_name',
+                        size: 168,
+                    },
+                    {
+                        header: 'table.Status',
+                        accessorKey: 'state',
+                        size: 168,
+                    },
+                    {
+                        header: 'table.Phone',
+                        accessorKey: 'phone_number',
+                        size: 168,
+                    },
+                    {
+                        header: 'table.Email',
+                        accessorKey: 'email',
+                        size: 168,
+                    },
+                    {
+                        header: 'table.Role',
+                        accessorKey: 'role',
+                        size: 168,
+                    },
+                    {
+                        header: 'Created',
+                        accessorKey: 'created_at',
+                        size: 168,
+                    },
+                    {
+                        id: 'actions',
+                        header: '',
+                        accessorKey: '',
+                        enableSorting: false,
+                        size: 108,
+                    },
                 ]}
             />
         </Box>
