@@ -1,4 +1,4 @@
-import { AccordionDetails, ListItemProps as MUIListItemProps, Stack } from '@mui/material';
+import { AccordionDetails, AccordionProps, ListItemProps as MUIListItemProps, Stack } from '@mui/material';
 import { FC } from 'react';
 import * as S from '../style';
 import { SelectIndicator } from '../../select-indicator';
@@ -8,10 +8,18 @@ import { Typography } from '../../typogrpahy';
 interface IAccordionProps extends MUIListItemProps {
     title: string;
     key: string | number;
+    accordionProps?: Omit<AccordionProps, 'children'>;
     checkboxProps?: Omit<ICheckboxProps, 'label'>; // if undefined - no checkbox
 }
 
-export const AccordionItem: FC<IAccordionProps> = ({ title, children, secondaryAction, checkboxProps, ...props }) => {
+export const AccordionItem: FC<IAccordionProps> = ({
+    title,
+    children,
+    secondaryAction,
+    checkboxProps,
+    accordionProps,
+    ...props
+}) => {
     return (
         <S.AccordionListItem
             {...props}
@@ -20,7 +28,7 @@ export const AccordionItem: FC<IAccordionProps> = ({ title, children, secondaryA
                 margin: '6px 0',
             }}
         >
-            <S.Accordion>
+            <S.Accordion {...accordionProps}>
                 <Stack direction="row" className="accordion-summary-wrapper" alignItems="center">
                     <S.AccordionSummary expandIcon={<SelectIndicator />}>
                         <div className="content-container">
