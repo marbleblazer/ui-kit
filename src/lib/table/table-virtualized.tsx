@@ -13,6 +13,7 @@ type Props<TData> = Omit<TableProps<TData>, 'page'> & {
     hasNextPage: boolean;
     estimateSize?: number;
     onBottomReached?(): void;
+    columnWidths?: string[];
 };
 
 export const TableVirtualized = <TData,>({
@@ -30,6 +31,7 @@ export const TableVirtualized = <TData,>({
     renderEmptyBlock,
     renderExpandableBlock,
     onRowDoubleClick,
+    columnWidths,
 }: Props<TData>) => {
     const virtualizedRef = useRef<HTMLDivElement | null>(null);
 
@@ -88,6 +90,7 @@ export const TableVirtualized = <TData,>({
         <TableComponent
             isVirtualized
             table={table}
+            columnWidths={columnWidths}
             rows={rows}
             sx={{
                 ...sx,

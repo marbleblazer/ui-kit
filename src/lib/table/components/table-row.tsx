@@ -21,8 +21,6 @@ export const TableRow = <TData,>({
     row,
     table,
     sx,
-    columns,
-
     isExpanded = false,
     onClick,
     onDoubleClick,
@@ -36,15 +34,8 @@ export const TableRow = <TData,>({
                 onClick={() => onClick?.(row)}
                 onDoubleClick={() => onDoubleClick?.(row)}
             >
-                {row.getVisibleCells().map((cell, index) => (
-                    <TableCell
-                        sx={{
-                            maxWidth: columns?.[index]?.getSize(),
-                        }}
-                        key={cell.id}
-                    >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}
             </S.Row>
             {isExpanded && renderExpandableBlock ? (

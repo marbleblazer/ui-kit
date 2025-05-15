@@ -57,6 +57,7 @@ export const Row = styled(TableRow)(({ theme }) => ({
 export const Cell = styled(TableCell)(({ theme }) => ({
     height: theme.spacing(5),
     padding: '12px',
+    whiteSpace: 'nowrap',
     borderBottom: `1px solid ${alpha(theme.palette.border.border3, 0.1)}`,
     opacity: 1,
     color: `${theme.palette.text.text4} !important`,
