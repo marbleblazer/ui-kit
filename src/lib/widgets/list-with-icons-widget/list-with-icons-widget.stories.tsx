@@ -62,6 +62,7 @@ export const Default: Story = {
                 }}
             >
                 <ListWithIconsWidget
+                    isLoading={false}
                     mainContainerSx={{ height: '300px', padding: '20px 8px' }}
                     headerSx={{ height: '28px', padding: '0px 12px' }}
                     rowsData={items}
