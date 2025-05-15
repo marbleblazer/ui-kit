@@ -17,7 +17,7 @@ export const TableHead = <TData,>({ columns, enableSorting, sortingState, header
         <MuiTableHead>
             <S.Row>
                 {columns.map(({ id, columnDef, getCanSort, getToggleSortingHandler, getSize }) => {
-                    const { maxSize: maxWidth, header } = columnDef;
+                    const { size: maxWidth, header } = columnDef;
                     const needSorting = enableSorting && getCanSort();
                     const containedSort = sortingState.find((item) => item.id?.toLowerCase() === id?.toLowerCase());
                     let IconComponent = SortIcon;
