@@ -98,7 +98,7 @@ export const SelectWithSearch: FC<SelectWithSearchPropsType> = ({
                     endAdornment ? (
                         endAdornment
                     ) : onClear && value ? (
-                        <InputAdornment sx={{ marginRight: '16px' }} position="end">
+                        <InputAdornment sx={{ marginRight: '12px' }} position="end">
                             <IconButton variant="gray" onClick={onClear}>
                                 <CloseIcon />
                             </IconButton>

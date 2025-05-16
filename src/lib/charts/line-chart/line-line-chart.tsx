@@ -44,7 +44,7 @@ const LineChart: FC<ILineChartProps> = memo(
                     align: 'right',
                     padding: [-20, 15],
                     verticalAlign: 'bottom',
-                    color: theme.palette.text.text8,
+                    color: theme.palette.text.text4,
                 },
                 axisLine: {
                     show: true,
@@ -70,9 +70,9 @@ const LineChart: FC<ILineChartProps> = memo(
                     show: true,
                 },
                 nameTextStyle: {
-                    color: theme.palette.text.text8,
                     align: 'right',
                     padding: [-5, 12],
+                    color: theme.palette.text.text4,
                 },
                 axisLine: {
                     show: true,
