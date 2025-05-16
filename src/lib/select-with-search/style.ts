@@ -33,7 +33,7 @@ export const Select = styled(MuiSelect)<SelectProps>(({ placeholder, theme }) =>
         '&.MuiInputBase-input': {
             paddingTop: '10px',
             paddingLeft: '16px',
-            paddingRight: '36px',
+            paddingRight: '36px !important',
             paddingBottom: '10px',
             fontSize: '13px',
             lineHeight: '20px',
@@ -55,7 +55,7 @@ export const Select = styled(MuiSelect)<SelectProps>(({ placeholder, theme }) =>
 
     '.MuiSelect-icon': {
         color: alpha(theme.palette.text.textInput60, 0.6),
-        right: '16px',
+        right: '12px',
 
         '&:not(:empty)': {
             color: theme.palette.text.text1,
