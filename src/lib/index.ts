@@ -124,7 +124,7 @@ export { BaseCard, ColumnCard, CardWithImage } from './cards';
 
 export { Widget as ChirpWidget } from './chirp-widgets';
 
-export { Toggle } from './toggle';
+export { WidgetToggle } from './widget-toggle';
 
 export { FilterItem } from './filter-item';
 

@@ -1,14 +1,14 @@
 import { alpha, styled } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 
-export const Toggle = styled('label')`
+export const WidgetToggle = styled('label')`
     display: flex;
     width: max-content;
     cursor: pointer;
     align-items: center;
 `;
 
-export const MobileToggle = styled('label')`
+export const WidgetMobileToggle = styled('label')`
     display: flex;
     width: max-content;
     cursor: pointer;

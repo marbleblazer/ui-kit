@@ -10,8 +10,8 @@ type Props = {
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Toggle = ({ name, label, checked, isLoading, onChange }: Props) => (
-    <S.Toggle>
+const WidgetToggle = ({ name, label, checked, isLoading, onChange }: Props) => (
+    <S.WidgetToggle>
         <S.HiddenInput type="checkbox" checked={checked} onChange={onChange} name={name} disabled={isLoading} />
         {label && (
             <S.Label component="span" checked={checked}>
@@ -21,11 +21,11 @@ const Toggle = ({ name, label, checked, isLoading, onChange }: Props) => (
         <S.Checkmark checked={checked} isLoading={isLoading}>
             <S.CheckmarkPin checked={checked} isLoading={isLoading} />
         </S.Checkmark>
-    </S.Toggle>
+    </S.WidgetToggle>
 );
 
-const MobileToggle = ({ name, label, checked, isLoading, onChange }: Props) => (
-    <S.MobileToggle>
+const WidgetMobileToggle = ({ name, label, checked, isLoading, onChange }: Props) => (
+    <S.WidgetMobileToggle>
         <S.HiddenInput type="checkbox" checked={checked} onChange={onChange} name={name} disabled={isLoading} />
         {label && (
             <S.Label component="span" checked={checked} mr="0 !important">
@@ -35,7 +35,7 @@ const MobileToggle = ({ name, label, checked, isLoading, onChange }: Props) => (
         <S.Checkmark checked={checked} isLoading={isLoading}>
             <S.CheckmarkPin checked={checked} isLoading={isLoading} />
         </S.Checkmark>
-    </S.MobileToggle>
+    </S.WidgetMobileToggle>
 );
 
-export { Toggle, MobileToggle };
+export { WidgetToggle, WidgetMobileToggle };

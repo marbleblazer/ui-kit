@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Toggle } from '@chirp/ui/lib';
+import { WidgetToggle } from '@chirp/ui/lib';
 import { useState } from 'react';
 
-const meta: Meta<typeof Toggle> = {
-    title: 'UI/Toggle',
-    component: Toggle,
+const meta: Meta<typeof WidgetToggle> = {
+    title: 'UI/WidgetToggle',
+    component: WidgetToggle,
     parameters: {
         layout: 'centered',
     },
@@ -13,7 +13,7 @@ const meta: Meta<typeof Toggle> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Toggle>;
+type Story = StoryObj<typeof WidgetToggle>;
 
 export const Default: Story = {
     render: () => {
@@ -21,7 +21,7 @@ export const Default: Story = {
 
         return (
             <>
-                <Toggle
+                <WidgetToggle
                     isLoading={false}
                     name="toggle"
                     label="Toggle"

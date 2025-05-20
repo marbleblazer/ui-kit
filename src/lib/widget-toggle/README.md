@@ -1,15 +1,15 @@
-# Toggle Component
+# Widget Toggle Component
 
 A customizable toggle switch component that provides an on/off state with a loading indicator and label support. This component is available in both desktop and mobile versions.
 
 ## Usage
 
-### Toggle (Desktop)
+### Widget Toggle (Desktop)
 
 ```tsx
 import { Toggle } from '@chirpwireless/ui-kit';
 
-<Toggle
+<WidgetToggle
     name="acceptTerms"
     label="Accept Terms and Conditions"
     checked={acceptTerms}
@@ -18,12 +18,12 @@ import { Toggle } from '@chirpwireless/ui-kit';
 />;
 ```
 
-### Mobile Toggle
+### Widget Mobile Toggle
 
 ```tsx
 import { MobileToggle } from '@chirpwireless/ui-kit';
 
-<MobileToggle
+<WidgetMobileToggle
     name="receiveNotifications"
     label="Receive Notifications"
     checked={receiveNotifications}
@@ -34,7 +34,7 @@ import { MobileToggle } from '@chirpwireless/ui-kit';
 
 ## Properties
 
-Both the `Toggle` and `MobileToggle` components accept the following props:
+Both the `WidgetToggle` and `WidgetMobileToggle` components accept the following props:
 
 | Name        | Description                                             | Type                                         | Default Value |
 | ----------- | ------------------------------------------------------- | -------------------------------------------- | ------------- |
@@ -52,10 +52,10 @@ Both the `Toggle` and `MobileToggle` components accept the following props:
 
 ## Example
 
-### Desktop Toggle
+### Desktop Widget Toggle
 
 ```tsx
-<Toggle
+<WidgetToggle
     name="enableDarkMode"
     label="Enable Dark Mode"
     checked={darkModeEnabled}
@@ -64,10 +64,10 @@ Both the `Toggle` and `MobileToggle` components accept the following props:
 />
 ```
 
-### Mobile Toggle
+### Mobile Widget Toggle
 
 ```tsx
-<MobileToggle
+<WidgetMobileToggle
     name="muteNotifications"
     label="Mute Notifications"
     checked={notificationsMuted}
