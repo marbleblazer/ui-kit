@@ -167,3 +167,5 @@ export { default as EditWidgetsIcon } from './edit-widgets-icon.svg?react';
 export { default as ResetIcon } from './reset-icon.svg?react';
 
 export { default as MenuIcon } from './menu.svg?react';
+
+export { default as UnitsDriversIcon } from './units-drivers-icon.svg?react';
