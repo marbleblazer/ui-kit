@@ -1,0 +1,17 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.7617 18.5254L16.1804 16.1015" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.5781 16.0234H16.2578V17.7031" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<mask id="mask0_16241_294141" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="2" width="20" height="20">
+<path d="M21.5 21.5V2.5H2.5V21.5H21.5Z" fill="white" stroke="white"/>
+</mask>
+<g mask="url(#mask0_16241_294141)">
+<path d="M11.4704 2.58594L9.03125 5.00781" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.99219 3.40625V5.08594H10.6328" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.59383 18.7207L5.90051 21.4141L2.58594 18.0995L5.27926 15.4062" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.0816 17.8925L10.2526 18.7212C9.79492 19.1789 9.05293 19.1789 8.59531 18.7212L5.28074 15.4067C4.82309 14.949 4.82309 14.207 5.28074 13.7494L6.10938 12.9207L11.0816 17.8925Z" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.7312 10.2387L16.2453 12.7246L11.2734 7.75273L13.7594 5.26683C14.217 4.80918 14.959 4.80918 15.4166 5.26683L18.7312 8.58141C19.1889 9.03902 19.1889 9.78102 18.7312 10.2387Z" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.418 5.26746L18.0992 2.58621L21.4138 5.90078L18.7325 8.58203" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.5898 7.75289L16.2471 9.41016" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.2521 17.0645L12.1046 15.2119C11.647 14.7542 11.647 14.0122 12.1046 13.5546L12.9333 12.7259L11.276 11.0687L10.4474 11.8973C9.98973 12.355 9.24773 12.3549 8.79008 11.8973L6.9375 13.7499" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
