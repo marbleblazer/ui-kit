@@ -1,6 +1,7 @@
 import * as S from '../style';
 import { Tabs } from '../../tabs';
 import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
 interface IMapDrawModeTabsProps {
     activeMode?: string;
@@ -13,14 +14,18 @@ type DrawModesType = {
 };
 
 const drawModes: DrawModesType[] = [
-    { key: 'draw_line_string', title: 'Line' },
-    { key: 'draw_circle', title: 'Circle' },
     { key: 'draw_polygon', title: 'Polygon' },
+    { key: 'draw_circle', title: 'Circle' },
+    { key: 'draw_line_string', title: 'Line' },
 ];
 
 export const MapDrawModeTabs: React.FC<IMapDrawModeTabsProps> = ({ activeMode, onChangeMode }) => {
     const { t } = useTranslation('uiKit', { keyPrefix: 'map' });
-    const resolvedKey = drawModes.find((node) => node.key === activeMode)?.key;
+    const resolvedKey = useMemo(() => {
+        return drawModes.find((node) => node.key === activeMode)?.key;
+    }, [activeMode]);
+
+    console.log(activeMode, resolvedKey);
 
     return (
         <S.MapDrawModeTabsWrapper>
