@@ -27,10 +27,11 @@ interface IDrawableMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> 
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
     isSingleDraw?: boolean; // draw only one feature, after draw mode change - delete all features
     drawMode?: 'draw_line_string'; // if you want change default draw mode, tab modes will not show
-    onChange?: (value: GeoJSON.GeoJSON) => void;
     withStartEndLineIndicators?: boolean; // for display custom start and end marker indicators
-    getMapStyleId?: (themeMode: string) => string;
     shouldFinishDrawing?: boolean;
+    defaultSelectedTab?: 'draw_line_string' | 'draw_polygon' | 'draw_circle';
+    getMapStyleId?: (themeMode: string) => string;
+    onChange?: (value: GeoJSON.GeoJSON) => void;
     onDrawingFinished?: () => void;
 }
 
@@ -42,6 +43,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         withStartEndLineIndicators,
         drawMode,
         shouldFinishDrawing,
+        defaultSelectedTab,
         onDrawingFinished,
         ...baseProps
     } = props;
@@ -63,6 +65,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         } else {
             onChange(feature);
         }
+        setActiveDrawMode('');
     };
 
     const onMapLoad = (defaultDrawMode?: string) => {
@@ -75,6 +78,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
             draw_line_string: customDrawLineStringMode,
             draw_polygon: customDrawPolygonMode,
         };
+
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             modes: {
@@ -107,6 +111,10 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         }
 
         addDataToMap();
+
+        if (defaultSelectedTab) {
+            handleChangeMode(defaultSelectedTab);
+        }
     };
 
     const addDataToMap = useCallback(() => {
