@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { EmptyFallback } from '@chirp/ui/lib';
+import { Button, EmptyFallback } from '@chirp/ui/lib';
 import { Box } from '@mui/material';
 
 const meta: Meta<typeof EmptyFallback> = {
@@ -33,6 +33,19 @@ export const WithoutBackground: Story = {
                 title="You don’t have favourite widgets"
                 subTitle="texttexttexttexttexttexttexttexttexttext"
                 withBackground={false}
+            />
+        </Box>
+    ),
+};
+
+export const WithAction: Story = {
+    render: () => (
+        <Box width="1200px" height="1200px">
+            <EmptyFallback
+                title="You don’t have favourite widgets"
+                subTitle="texttexttexttexttexttexttexttexttexttext"
+                action={<Button variant="primary">Add something</Button>}
+                containerSx={{ gap: '12px' }}
             />
         </Box>
     ),
