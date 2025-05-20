@@ -126,6 +126,8 @@ export { Widget as ChirpWidget } from './chirp-widgets';
 
 export { WidgetToggle } from './widget-toggle';
 
+export { Toggle } from './toggle';
+
 export { FilterItem } from './filter-item';
 
 export { SystemWidget } from './system-widget';
