@@ -183,3 +183,21 @@ export { default as OverweightIcon } from './overweight-icon.svg?react';
 export { default as DrivingLicenseIcon } from './driving-license-icon.svg?react';
 
 export { default as ChecklistIcon } from './checklist-icon.svg?react';
+
+export { default as HarshBrakingIcon } from './harsh-braking-icon.svg?react';
+
+export { default as EngineIdlingIcon } from './engine-idling-icon.svg?react';
+
+export { default as AfterHoursVehicleUseIcon } from './after-hours-vehicle-use-icon.svg?react';
+
+export { default as GeofenceExitIcon } from './geofence-exit.svg?react';
+
+export { default as IgnitionOnOffIcon } from './ignition-on-off.svg?react';
+
+export { default as FuelDropIcon } from './fuel-drop.svg?react';
+
+export { default as MaintenanceIcon } from './maintenance.svg?react';
+
+export { default as UnassignedIcon } from './unassigned.svg?react';
+
+export { default as DisconnectionIcon } from './disconnection.svg?react';
