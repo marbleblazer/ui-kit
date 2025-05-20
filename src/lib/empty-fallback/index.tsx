@@ -1,5 +1,5 @@
-import { Stack } from '@mui/material';
-import { FC } from 'react';
+import { Stack, SxProps } from '@mui/material';
+import React, { FC } from 'react';
 import { Typography } from '../typogrpahy';
 import emptyFallbackCoverIcon from '@chirp/ui/assets/fleet-icons/empty-fallback-cover.svg';
 
@@ -7,9 +7,17 @@ interface IEmptyFallbackProps {
     title?: string;
     subTitle?: string;
     withBackground?: boolean;
+    action?: React.ReactNode;
+    containerSx?: SxProps;
 }
 
-export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle, withBackground = true }) => {
+export const EmptyFallback: FC<IEmptyFallbackProps> = ({
+    title,
+    subTitle,
+    action,
+    containerSx,
+    withBackground = true,
+}) => {
     return (
         <Stack
             gap="8px"
@@ -18,6 +26,7 @@ export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle, withBa
             width="100%"
             justifyContent="center"
             sx={{
+                ...containerSx,
                 backgroundImage: withBackground ? `url("${emptyFallbackCoverIcon}")` : 'none',
                 backgroundRepeat: 'repeat',
             }}
@@ -32,6 +41,7 @@ export const EmptyFallback: FC<IEmptyFallbackProps> = ({ title, subTitle, withBa
                     {subTitle}
                 </Typography>
             )}
+            {action}
         </Stack>
     );
 };
