@@ -84,8 +84,8 @@ export const EmptyDrawable: Story = {
             <Box sx={{ width: '1200px', height: '1200px' }}>
                 <DrawableMap
                     onChange={setDrawState}
+                    defaultSelectedTab="draw_polygon"
                     data={drawState}
-                    isSingleDraw
                     coordinates={{ lon: 49.108891, lat: 55.796391 }}
                 />
             </Box>
