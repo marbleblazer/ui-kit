@@ -6,7 +6,7 @@ import { AttributeConfig, ValueBoundaries } from '@chirp/ui/lib/chirp-widgets/ty
 import * as S from '../../style';
 import { ValueBoundariesForm } from './value-boundaries-form';
 import { ManageIcon } from '@chirp/ui/assets/icons';
-import { Toggle } from '@chirp/ui/lib/toggle';
+import { WidgetToggle } from '@chirp/ui/lib/widget-toggle';
 import { FilterItem } from '@chirp/ui/lib/filter-item';
 import { IconButton } from '@chirp/ui/lib/icon-button';
 import { Tooltip } from '@chirp/ui/lib/tooltip';
@@ -101,7 +101,7 @@ export const Settings: FC<SettingsProps> = ({
                                 <Typography color="text.text3" variant="caption12">
                                     {t('Show graph')}
                                 </Typography>
-                                <Toggle
+                                <WidgetToggle
                                     name="show-graph"
                                     label={showGraph ? t('On') : t('Off')}
                                     checked={showGraph}
@@ -126,7 +126,7 @@ export const Settings: FC<SettingsProps> = ({
                                 <Typography color="text.text3" variant="caption12">
                                     Show alert
                                 </Typography>
-                                <Toggle
+                                <WidgetToggle
                                     name="show-alert"
                                     label={showAlert ? t('On') : t('Off')}
                                     checked={showAlert}
