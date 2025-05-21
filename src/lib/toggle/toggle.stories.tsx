@@ -20,15 +20,12 @@ export const Default: Story = {
         const [checkedState, setCheckedState] = useState(false);
 
         return (
-            <>
-                <Toggle
-                    isLoading={false}
-                    name="toggle"
-                    label="Toggle"
-                    checked={checkedState}
-                    onChange={() => setCheckedState(!checkedState)}
-                />
-            </>
+            <Toggle
+                name="toggle"
+                label="Toggle"
+                checked={checkedState}
+                onChange={() => setCheckedState(!checkedState)}
+            />
         );
     },
 };

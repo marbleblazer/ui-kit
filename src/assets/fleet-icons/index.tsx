@@ -183,3 +183,5 @@ export { default as OverweightIcon } from './overweight-icon.svg?react';
 export { default as DrivingLicenseIcon } from './driving-license-icon.svg?react';
 
 export { default as ChecklistIcon } from './checklist-icon.svg?react';
+
+export { default as UnitsDriversIcon } from './units-drivers-icon.svg?react';
