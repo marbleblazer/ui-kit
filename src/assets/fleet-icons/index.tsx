@@ -184,6 +184,8 @@ export { default as DrivingLicenseIcon } from './driving-license-icon.svg?react'
 
 export { default as ChecklistIcon } from './checklist-icon.svg?react';
 
+export { default as UnitsDriversIcon } from './units-drivers-icon.svg?react';
+
 export { default as HarshBrakingIcon } from './harsh-braking-icon.svg?react';
 
 export { default as EngineIdlingIcon } from './engine-idling-icon.svg?react';
