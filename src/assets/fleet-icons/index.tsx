@@ -203,3 +203,5 @@ export { default as MaintenanceIcon } from './maintenance.svg?react';
 export { default as UnassignedIcon } from './unassigned.svg?react';
 
 export { default as DisconnectionIcon } from './disconnection.svg?react';
+
+export { default as ChevronDownIcon } from './chevron-down.svg?react';
