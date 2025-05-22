@@ -164,7 +164,11 @@ export const renderPoints = ({ geometry, popupNode, map, markersRef, theme, spec
     );
 
     if (popupNode) {
-        const popup = new mapboxgl.Popup({ anchor: 'top-left', closeButton: false }).setDOMContent(popupNode);
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+        })
+            .setDOMContent(popupNode)
+            .trackPointer();
         markerInstance.setPopup(popup);
 
         let isHovered = false;
