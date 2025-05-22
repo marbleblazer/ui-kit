@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_16195_203113" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="3" y="3" width="18" height="18">
+<path d="M20.5 20.5V3.5H3.5V20.5H20.5Z" fill="white" stroke="white"/>
+</mask>
+<g mask="url(#mask0_16195_203113)">
+<path d="M7.5 8.20312C7.5 5.71786 9.51473 3.70312 12 3.70312C14.4853 3.70312 16.5 5.71786 16.5 8.20312C16.5 10.6884 14.4853 12.7031 12 12.7031C9.51473 12.7031 7.5 10.6884 7.5 8.20312Z" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.9551 20.5C12.7745 20.1543 12.4132 19.918 11.9961 19.918C11.579 19.918 11.2177 20.1543 11.0371 20.5H12.9551Z" fill="currentColor" stroke="currentColor"/>
+<path d="M7.5 21C7.5 18.5147 9.51473 16.5 12 16.5C14.4853 16.5 16.5 18.5147 16.5 21" stroke="currentColor" stroke-miterlimit="10"/>
+<path d="M3.70312 21C3.70312 16.4178 7.41777 12.7031 12 12.7031C16.5822 12.7031 20.2969 16.4178 20.2969 21" stroke="currentColor" stroke-miterlimit="10" stroke-linejoin="round"/>
+<path d="M11.25 20.25L9 18" stroke="currentColor" stroke-miterlimit="10"/>
+<path d="M15 18L12.75 20.25" stroke="currentColor" stroke-miterlimit="10"/>
+</g>
+</svg>

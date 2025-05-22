@@ -168,6 +168,40 @@ export { default as ResetIcon } from './reset-icon.svg?react';
 
 export { default as MenuIcon } from './menu.svg?react';
 
+export { default as SpeedingIcon } from './speeding-icon.svg?react';
+
+export { default as IllegalParkingIcon } from './illegal-parking-icon.svg?react';
+
+export { default as TrafficLightIcon } from './traffic-light-icon.svg?react';
+
+export { default as SeatbeltIcon } from './seatbelt-icon.svg?react';
+
+export { default as TollViolationAlertIcon } from './toll-violation-alert-icon.svg?react';
+
+export { default as OverweightIcon } from './overweight-icon.svg?react';
+
+export { default as DrivingLicenseIcon } from './driving-license-icon.svg?react';
+
+export { default as ChecklistIcon } from './checklist-icon.svg?react';
+
 export { default as UnitsDriversIcon } from './units-drivers-icon.svg?react';
+
+export { default as HarshBrakingIcon } from './harsh-braking-icon.svg?react';
+
+export { default as EngineIdlingIcon } from './engine-idling-icon.svg?react';
+
+export { default as AfterHoursVehicleUseIcon } from './after-hours-vehicle-use-icon.svg?react';
+
+export { default as GeofenceExitIcon } from './geofence-exit.svg?react';
+
+export { default as IgnitionOnOffIcon } from './ignition-on-off.svg?react';
+
+export { default as FuelDropIcon } from './fuel-drop.svg?react';
+
+export { default as MaintenanceIcon } from './maintenance.svg?react';
+
+export { default as UnassignedIcon } from './unassigned.svg?react';
+
+export { default as DisconnectionIcon } from './disconnection.svg?react';
 
 export { default as ChevronDownIcon } from './chevron-down.svg?react';
