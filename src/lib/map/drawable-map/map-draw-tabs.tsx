@@ -25,8 +25,6 @@ export const MapDrawModeTabs: React.FC<IMapDrawModeTabsProps> = ({ activeMode, o
         return drawModes.find((node) => node.key === activeMode)?.key;
     }, [activeMode]);
 
-    console.log(activeMode, resolvedKey);
-
     return (
         <S.MapDrawModeTabsWrapper>
             <Tabs

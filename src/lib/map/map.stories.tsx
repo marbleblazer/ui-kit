@@ -473,3 +473,32 @@ export const DynamicWidthTest: Story = {
         );
     },
 };
+
+export const SingleVariant: Story = {
+    render: () => {
+        return (
+            <Box sx={{ width: '500px', height: '500px' }}>
+                <FeatureMap
+                    controls="reduced"
+                    data={{
+                        type: 'FeatureCollection',
+                        features: [
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [49.687, 55.4745],
+                                },
+                                properties: {
+                                    title: 'Mapbox',
+                                    description: 'Washington, D.C.',
+                                },
+                            },
+                        ],
+                    }}
+                    coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
+                />
+            </Box>
+        );
+    },
+};

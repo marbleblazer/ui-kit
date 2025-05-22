@@ -26,3 +26,5 @@ type VertexClickHandler<StateType> = (this: IDrawCustomModeContext, state: State
 export interface ICustomDrawMode<StateType> extends MapboxDraw.DrawCustomMode {
     clickOnVertex?: VertexClickHandler<StateType>;
 }
+
+export type IFeatureMapVariants = 'base' | 'single-point';

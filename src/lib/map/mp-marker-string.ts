@@ -68,3 +68,19 @@ export const mapMarkerSecondEndLayerSvgString = (theme: Palette) =>
         <circle opacity="0.05" cx="14" cy="13.9941" r="14" fill="${theme.base.color7}"/>
     </svg>
 `;
+
+export const mapMarkerDiffusion = (theme: Palette) =>
+    `<svg width="154" height="154" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle opacity="0.08" cx="76.9788" cy="76.9788" r="76.9788" fill="${theme.base.color6}"/>
+        <g filter="url(#filter0_f_16195_206183)">
+            <circle cx="77" cy="77" r="24" fill="${theme.base.color6}"/>
+        </g>
+        <defs>
+            <filter id="filter0_f_16195_206183" x="27" y="27" width="100" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feGaussianBlur stdDeviation="13" result="effect1_foregroundBlur_16195_206183"/>
+            </filter>
+        </defs>
+    </svg>
+    `;
