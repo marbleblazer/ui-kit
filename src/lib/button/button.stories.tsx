@@ -107,6 +107,32 @@ export const SecondaryVariant: Story = {
     ),
 };
 
+export const AlertSecondaryVariant: Story = {
+    render: () => (
+        <Stack gap={1}>
+            <Button size="medium" variant="alertSecondary">
+                test
+            </Button>
+            <Button isLoading size="medium" variant="alertSecondary">
+                test
+            </Button>
+        </Stack>
+    ),
+};
+
+export const AlertTextVariant: Story = {
+    render: () => (
+        <Stack gap={1}>
+            <Button size="medium" variant="alertText">
+                test
+            </Button>
+            <Button isLoading size="medium" variant="alertText">
+                test
+            </Button>
+        </Stack>
+    ),
+};
+
 export const TertiaryVariant: Story = {
     render: () => (
         <Stack gap={1}>

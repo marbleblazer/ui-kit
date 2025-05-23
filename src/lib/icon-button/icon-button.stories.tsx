@@ -94,6 +94,19 @@ export const Outlined: Story = {
     ),
 };
 
+export const AlertSecondary: Story = {
+    render: () => (
+        <Stack gap={1}>
+            <IconButton variant="alertSecondary">
+                <DcIcon />
+            </IconButton>
+            <IconButton isLoading variant="alertSecondary">
+                <DcIcon />
+            </IconButton>
+        </Stack>
+    ),
+};
+
 export const Tertiary: Story = {
     render: () => (
         <Stack gap={1}>
