@@ -60,7 +60,7 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
 
         '&:active': {
             background: theme.palette.base.color63,
-            border: 'none',
+            border: `1px solid transparent`,
         },
 
         '&:disabled': {
