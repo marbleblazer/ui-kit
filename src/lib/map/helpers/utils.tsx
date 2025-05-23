@@ -2,9 +2,14 @@ import mapboxgl from 'mapbox-gl';
 import moment from 'moment';
 import { LineString, Point } from 'geojson';
 import { RefObject } from 'react';
-import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
+import {
+    mapMarkerEndSvgContainer,
+    mapMarkerStartSvgContainer,
+    specificMarkerIconWithDiffusion,
+} from '../svg-containers';
 import { Palette, Theme } from '@mui/material';
 import { mapMarkerSvgString } from '../mp-marker-string';
+import { IFeatureMapVariants } from '../map.types';
 
 interface IPixelCoordType {
     x: number;
@@ -18,6 +23,7 @@ interface IRenderPoints {
     markersRef: RefObject<mapboxgl.Marker[]>;
     theme: Theme;
     specificMarkerIcon?: (theme: Palette) => string;
+    variant: IFeatureMapVariants;
 }
 
 interface IRenderLineStringPoints {
@@ -153,11 +159,26 @@ export const createPopupsForLineString = (
 };
 
 /** Рендеринг элементов типа "Point" */
-export const renderPoints = ({ geometry, popupNode, map, markersRef, theme, specificMarkerIcon }: IRenderPoints) => {
+export const renderPoints = ({
+    geometry,
+    popupNode,
+    map,
+    markersRef,
+    theme,
+    specificMarkerIcon,
+    variant,
+}: IRenderPoints) => {
     const markerElement = document.createElement('div');
-    markerElement.innerHTML = specificMarkerIcon
-        ? specificMarkerIcon(theme.palette)
-        : mapMarkerSvgString(theme.palette);
+
+    if (variant === 'base') {
+        markerElement.innerHTML = specificMarkerIcon
+            ? specificMarkerIcon(theme.palette)
+            : mapMarkerSvgString(theme.palette);
+    } else if (variant === 'single-point' && specificMarkerIcon) {
+        markerElement.innerHTML = specificMarkerIcon
+            ? specificMarkerIconWithDiffusion(theme.palette, specificMarkerIcon)
+            : mapMarkerSvgString(theme.palette);
+    }
 
     const markerInstance = new mapboxgl.Marker({ element: markerElement }).setLngLat(
         geometry.coordinates as [number, number],

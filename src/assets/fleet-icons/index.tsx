@@ -207,3 +207,5 @@ export { default as DisconnectionIcon } from './disconnection.svg?react';
 export { default as DownloadIcon } from './download.svg?react';
 
 export { default as ReceiptIcon } from './receipt.svg?react';
+
+export { default as ChevronDownIcon } from './chevron-down.svg?react';
