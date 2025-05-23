@@ -120,7 +120,7 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
 
         '&:active': {
             background: theme.palette.base.color63,
-            border: 'none',
+            border: `1px solid transparent`,
         },
 
         '&:disabled': {
