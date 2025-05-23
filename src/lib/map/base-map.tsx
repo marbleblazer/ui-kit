@@ -23,6 +23,7 @@ export interface IBaseMapProps {
     getMapStyleId?: (themeMode: PaletteMode) => string;
     onMapLoad: () => void;
     sx?: SxProps;
+    controls?: 'full' | 'reduced';
 }
 
 export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
@@ -33,13 +34,22 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
     onMapLoad,
     sx,
     children,
+    controls = 'full',
 }) => {
     const { i18n } = useTranslation('uiKit', { keyPrefix: 'map' });
     const mapContainer = useRef<HTMLDivElement | null>(null);
     const wrapper = useRef<HTMLDivElement | null>(null);
+    const geolocateRef = useRef<mapboxgl.GeolocateControl | null>(null);
+
     const { isMobile } = useBreakpoints();
 
     const { palette } = useTheme();
+
+    const handleGeolocate = (e: GeolocationPosition) => {
+        if (!mapRef.current) return;
+        const latlng = new mapboxgl.LngLat(e.coords.longitude, e.coords.latitude);
+        mapRef.current.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
+    };
 
     useEffect(() => {
         if (!mapRef || !mapRef.current) return;
@@ -80,32 +90,41 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
         });
         mapRef.current.on('load', onMapLoad);
 
-        mapRef.current.addControl(
-            new mapboxgl.FullscreenControl({ container: wrapper.current ?? undefined }),
-            'bottom-right',
-        );
-        mapRef.current.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
-        const geolocate = new mapboxgl.GeolocateControl({
-            positionOptions: { enableHighAccuracy: true },
-            showUserHeading: false,
-            fitBoundsOptions: { animate: false },
-        });
+        const navControl = new mapboxgl.NavigationControl({ showCompass: false });
+        mapRef.current.addControl(navControl, 'bottom-right');
+
+        const helpControl = new HelpControl(palette);
+        mapRef.current.addControl(helpControl, 'bottom-left');
 
         mapRef.current.setLanguage(i18n.language);
 
-        mapRef.current.addControl(geolocate, 'bottom-right');
-        mapRef.current.addControl(
-            new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken || '',
-                marker: false,
-                placeholder: i18n.t('uiKit:map.Search location'),
-                collapsed: true,
-                render: (item) => {
-                    // Кастомная структура HTML для предложений
-                    const title = item.text || '';
-                    const address = item.place_name || '';
+        mapRef.current.getCanvas().style.cursor = 'pointer';
 
-                    return `
+        if (controls === 'full') {
+            mapRef.current.addControl(
+                new mapboxgl.FullscreenControl({ container: wrapper.current ?? undefined }),
+                'bottom-right',
+            );
+
+            geolocateRef.current = new mapboxgl.GeolocateControl({
+                positionOptions: { enableHighAccuracy: true },
+                showUserHeading: false,
+                fitBoundsOptions: { animate: false },
+            });
+
+            mapRef.current.addControl(geolocateRef.current, 'bottom-right');
+            mapRef.current.addControl(
+                new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken || '',
+                    marker: false,
+                    placeholder: i18n.t('uiKit:map.Search location'),
+                    collapsed: true,
+                    render: (item) => {
+                        // Кастомная структура HTML для предложений
+                        const title = item.text || '';
+                        const address = item.place_name || '';
+
+                        return `
                       <div class="mapboxgl-ctrl-geocoder--suggestion">
                         <div class="custom-suggestion">
                           <div class="address">${title}&nbsp;${address}</div>
@@ -113,38 +132,25 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
                         </div>
                       </div>
                     `;
-                },
-            }),
-            'bottom-right',
-        );
+                    },
+                }),
+                'bottom-right',
+            );
 
-        const mapControls = mapRef.current._controls;
-        const geocoderControl = mapControls.find((control) => control instanceof MapboxGeocoder);
+            const geocoderControl = mapRef.current._controls.find((control) => control instanceof MapboxGeocoder);
 
-        if (geocoderControl) {
-            geocoderControl.setPlaceholder(i18n.t('uiKit:map.Search'));
+            if (geocoderControl) {
+                geocoderControl.setPlaceholder(i18n.t('uiKit:map.Search'));
+            }
+
+            geolocateRef.current.on('geolocate', handleGeolocate);
         }
-
-        mapRef.current.getCanvas().style.cursor = 'pointer';
-
-        const handleGeolocate = (e: GeolocationPosition) => {
-            if (!mapRef.current) return;
-            const latlng = new mapboxgl.LngLat(e.coords.longitude as number, e.coords.latitude as number);
-            mapRef.current?.flyTo({ center: [latlng.lng, latlng.lat], essential: true });
-        };
-        geolocate.on('geolocate', handleGeolocate);
-
-        const helpControl = new HelpControl(palette);
-        mapRef.current.addControl(helpControl, 'bottom-left');
 
         return () => {
             mapRef.current?.off('load', onMapLoad);
-            geolocate.off('geolocate', handleGeolocate);
-
-            if (mapRef.current) {
-                mapRef.current.remove();
-                mapRef.current = null;
-            }
+            geolocateRef.current?.off('geolocate', handleGeolocate);
+            mapRef.current?.remove();
+            mapRef.current = null;
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

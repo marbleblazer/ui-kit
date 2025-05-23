@@ -5,7 +5,7 @@ import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { Coordinates } from './map.types';
+import { Coordinates, IFeatureMapVariants } from './map.types';
 import { BaseMap, IBaseMapProps } from './base-map';
 import { debounce, Palette, useTheme } from '@mui/material';
 import { renderLineStringPoints, renderPoints } from './helpers/utils';
@@ -20,6 +20,7 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     accessToken?: string;
     centeringCoordinates?: Coordinates;
     isFirstFocusOnly?: boolean;
+    variant?: IFeatureMapVariants;
 }
 
 export const FeatureMap: React.FC<IFeatureMapProps> = ({
@@ -27,6 +28,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     isFirstFocusOnly,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
+    variant = 'base',
     ...baseProps
 }) => {
     const theme = useTheme();
@@ -82,6 +84,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                             markersRef,
                             theme,
                             specificMarkerIcon,
+                            variant,
                         });
                     } else if (geometry.type === 'LineString') {
                         renderLineStringPoints({
@@ -111,7 +114,7 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
                 map.current.fitBounds([west, south, east, north], { padding: 50, duration: 100, essential: true });
             }
         },
-        [isLineMarkersNeeded, isMapFittedBounds, theme],
+        [isLineMarkersNeeded, isMapFittedBounds, theme, variant],
     );
 
     const onMapLoad = useCallback(() => {
