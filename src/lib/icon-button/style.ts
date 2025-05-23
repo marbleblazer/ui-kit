@@ -77,6 +77,34 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
         }),
     }),
 
+    ...(variant === 'alertSecondary' && {
+        background: theme.palette.base.color7_20,
+        color: theme.palette.base.color7,
+        border: `1px solid transparent`,
+
+        '&:hover, &:checked': {
+            borderColor: theme.palette.base.color7,
+        },
+
+        '&:active': {
+            background: theme.palette.base.color7_20,
+            borderColor: 'transparent',
+        },
+
+        '&:disabled': {
+            color: theme.palette.base.color7,
+            opacity: '0.3',
+        },
+
+        '&:focus-visible': {
+            borderColor: 'transparent',
+        },
+
+        ...(size === 'small' && {
+            padding: '8px',
+        }),
+    }),
+
     ...(variant === 'tertiary' && {
         background: theme.palette.background.background10,
         color: theme.palette.text.text2,

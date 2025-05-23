@@ -42,6 +42,8 @@ declare module '@mui/material/Button' {
         primary: true;
         secondary: true;
         tertiary: true;
+        alertText: true;
+        alertSecondary: true;
     }
 }
 

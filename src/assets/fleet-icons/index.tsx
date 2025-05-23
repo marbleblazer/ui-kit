@@ -203,3 +203,7 @@ export { default as MaintenanceIcon } from './maintenance.svg?react';
 export { default as UnassignedIcon } from './unassigned.svg?react';
 
 export { default as DisconnectionIcon } from './disconnection.svg?react';
+
+export { default as DownloadIcon } from './download.svg?react';
+
+export { default as ReceiptIcon } from './receipt.svg?react';
