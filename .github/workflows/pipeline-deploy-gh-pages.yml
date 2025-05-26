@@ -35,10 +35,6 @@ jobs:
               with:
                   node-version-file: ".nvmrc"
                   cache: "yarn"
-            - name: Install yarn dependencies
-              run: yarn install --frozen-lockfile
-            - name: Run build
-              run: yarn build
             - name: Build and Publish Storybook
               uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
               with:
