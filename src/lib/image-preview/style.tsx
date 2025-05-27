@@ -12,6 +12,7 @@ export const Image = styled('img')({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
+    zIndex: 2,
 });
 
 export const DeleteBtn = styled(Button)(({ theme }) => ({
@@ -25,6 +26,7 @@ export const DeleteBtn = styled(Button)(({ theme }) => ({
     minWidth: 'auto',
     height: 'auto',
     padding: '5.5px',
+    zIndex: 3,
     color: theme.palette.base.color6,
     backgroundColor: theme.palette.mode === 'dark' ? '#4F2B20' : '#F0D3CA',
     '&:hover': {

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ImagePreview } from '@chirp/ui/lib';
-import { useState } from 'react';
+import { Button, ImagePreview } from '@chirp/ui/lib';
+import { useRef, useState } from 'react';
+import Stack from '@mui/material/Stack';
 
 const meta: Meta<typeof ImagePreview> = {
     title: 'UI/ImagePreview',
@@ -38,4 +39,22 @@ export const WithPreview: Story = {
 
 export const WithDeleteIcon: Story = {
     render: () => <ImagePreview onRemove={() => null} previewUrl="https://chirpwireless.io/images/footer/tim-lg.png" />,
+};
+
+export const TriggerByButton: Story = {
+    render: () => {
+        const inputRef = useRef<HTMLInputElement>(null);
+
+        return (
+            <Stack>
+                <ImagePreview
+                    onRemove={() => null}
+                    inputRef={inputRef}
+                    onLoad={console.log}
+                    previewUrl="https://chirpwireless.io/images/footer/tim-lg.png"
+                />
+                <Button onClick={() => (console.log(inputRef.current), inputRef.current?.click())}>on upload</Button>
+            </Stack>
+        );
+    },
 };

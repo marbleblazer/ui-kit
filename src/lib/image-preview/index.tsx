@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, Ref } from 'react';
 import * as S from './style';
 import { TrashIcon } from '@chirp/ui/assets/icons';
 import { Typography } from '../typogrpahy';
@@ -12,6 +12,7 @@ export interface IImagePreviewProps {
     subTitle?: string;
     width?: string;
     height?: string;
+    inputRef?: Ref<HTMLInputElement | null>;
 
     onRemove?: () => void;
     onLoad?: (file: File) => void;
@@ -21,6 +22,7 @@ const VALID_FILE_FORMATS = ['image/png', 'image/jpeg'];
 
 export const ImagePreview: FC<IImagePreviewProps> = ({
     previewUrl,
+    inputRef,
     onRemove,
     onLoad,
     title = 'title',
@@ -62,6 +64,7 @@ export const ImagePreview: FC<IImagePreviewProps> = ({
 
     return (
         <S.ImageWrapper borderRadius={borderRadius} width={width} height={height} onDrop={onDropHandler}>
+            <S.UploadInput ref={inputRef} type="file" onChange={handleUploadImage} accept="image/png, image/jpeg" />
             {previewUrl && previewUrl?.length > 0 ? (
                 <>
                     <S.Image src={previewUrl} />
@@ -74,7 +77,6 @@ export const ImagePreview: FC<IImagePreviewProps> = ({
             ) : (
                 onLoad && (
                     <S.EmptyFallbackWrapper>
-                        <S.UploadInput type="file" onChange={handleUploadImage} accept="image/png, image/jpeg" />
                         <Stack gap="8px" alignItems="center">
                             <PhotoUploadIcon />
                             <Stack gap="4px" alignItems="center">
