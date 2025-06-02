@@ -82,7 +82,11 @@
             "Clear data range": "Clear data range",
             "Apply changes": "Apply changes",
             "Previous Month": "Previous Month",
-            "Next Month": "Next Month"
+            "Next Month": "Next Month",
+            "today": "Today",
+            "last week": "Last week",
+            "last month": "Last month",
+            "last 2 months": "Last 2 months"
         },
         "UserPopup": {
             "Connect your wallet": "Connect your wallet",
@@ -184,7 +188,11 @@
             "Clear data range": "Effacer la plage de données",
             "Apply changes": "Appliquer les modifications",
             "Previous Month": "Mois précédent",
-            "Next Month": "Mois suivant"
+            "Next Month": "Mois suivant",
+            "today": "Aujourd'hui",
+            "last week": "La semaine dernière",
+            "last month": "Le mois dernier",
+            "last 2 months": "Les 2 derniers mois"
         },
         "UserPopup": {
             "Connect your wallet": "Connectez votre portefeuille",
@@ -286,7 +294,11 @@
             "Clear data range": "Datenbereich löschen",
             "Apply changes": "Änderungen übernehmen",
             "Previous Month": "Vorheriger Monat",
-            "Next Month": "Nächster Monat"
+            "Next Month": "Nächster Monat",
+            "today": "Heute",
+            "last week": "Letzte Woche",
+            "last month": "Letzter Monat",
+            "last 2 months": "Letzte 2 Monate"
         },
         "UserPopup": {
             "Connect your wallet": "Verbinden Sie Ihre Wallet",
@@ -389,7 +401,11 @@
             "Clear data range": "Borrar rango de datos",
             "Apply changes": "Aplicar cambios",
             "Previous Month": "Mes anterior",
-            "Next Month": "Próximo mes"
+            "Next Month": "Próximo mes",
+            "today": "Hoy",
+            "last week": "La semana pasada",
+            "last month": "El mes pasado",
+            "last 2 months": "Los últimos 2 meses"
         },
         "UserPopup": {
             "Connect your wallet": "Conectar tu billetera",
@@ -491,7 +507,11 @@
             "Clear data range": "Очистить диапазон данных",
             "Apply changes": "Применить изменения",
             "Previous Month": "Предыдущий месяц",
-            "Next Month": "Следующий месяц"
+            "Next Month": "Следующий месяц",
+            "today": "Сегодня",
+            "last week": "Прошлая неделя",
+            "last month": "Прошлый месяц",
+            "last 2 months": "Последние 2 месяца"
         },
         "UserPopup": {
             "Connect your wallet": "Подключите ваш кошелек",

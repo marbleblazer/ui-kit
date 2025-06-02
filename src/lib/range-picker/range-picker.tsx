@@ -12,10 +12,18 @@ import { Button } from '../button';
 import { Typography } from '../typogrpahy';
 import { useTranslation } from 'react-i18next';
 import { getLocaleObj } from './helpers/get-locale';
+import { QUICK_SELECT_OPTIONS } from './constants';
+
+import * as S from './styles';
+import { Checkmark } from '@chirp/ui/assets/icons';
 
 export interface RangePickerProps {
     initialStartDate?: Date;
     initialEndDate?: Date;
+    withQuickSelect?: boolean;
+
+    activeQuickSelectState?: keyof typeof QUICK_SELECT_OPTIONS | null;
+    setActiveQuickSelectState?: (state: keyof typeof QUICK_SELECT_OPTIONS | null) => void;
     onClearDate: () => void;
     onDateChange: (after: string, before: string) => void;
     handleCloseCalendar: () => void;
@@ -27,6 +35,9 @@ export const RangePicker: FC<RangePickerProps> = ({
     handleCloseCalendar,
     onDateChange,
     onClearDate,
+    withQuickSelect,
+    activeQuickSelectState,
+    setActiveQuickSelectState,
     initialStartDate = new Date(),
     initialEndDate = new Date(),
 }) => {
@@ -89,6 +100,7 @@ export const RangePicker: FC<RangePickerProps> = ({
 
     const handleClearDateRange = () => {
         onClearDate();
+        setActiveQuickSelectState && setActiveQuickSelectState(null);
         handleCloseCalendar();
     };
 
@@ -97,6 +109,17 @@ export const RangePicker: FC<RangePickerProps> = ({
 
     registerLocale(i18n.language.split('-')[0], getLocaleObj(i18n.language));
 
+    const handleQuickSelect = (option: keyof typeof QUICK_SELECT_OPTIONS) => {
+        setActiveQuickSelectState && setActiveQuickSelectState(option);
+        const startDate = moment(QUICK_SELECT_OPTIONS[option][0]);
+        const endDate = moment(QUICK_SELECT_OPTIONS[option][1]);
+        setStartDate(startDate);
+        setStartInputDate(startDate.format(DATE_FORMAT));
+
+        setEndDate(endDate);
+        setEndInputDate(endDate.format(DATE_FORMAT));
+    };
+
     return (
         <Stack direction="column" gap="8px">
             <Stack direction="column" gap="14px">
@@ -104,8 +127,8 @@ export const RangePicker: FC<RangePickerProps> = ({
                     {t('Choose date range')}
                 </Typography>
             </Stack>
-            <Stack direction="row">
-                <Stack direction="row" gap="8px" alignItems="center">
+            <Stack direction="row" alignItems="flex-start" gap={4}>
+                <Stack direction="row" gap="8px" alignItems="center" width="100%">
                     <TextField
                         label={t('Input')}
                         error={!isStartDateValid}
@@ -142,6 +165,31 @@ export const RangePicker: FC<RangePickerProps> = ({
                         }}
                     />
                 </Stack>
+                {activeQuickSelectState || withQuickSelect ? (
+                    <S.CalendarQuickSelect>
+                        {(Object.keys(QUICK_SELECT_OPTIONS) as Array<keyof typeof QUICK_SELECT_OPTIONS>).map(
+                            (option) => {
+                                const isActive = activeQuickSelectState === option;
+
+                                return (
+                                    <S.CalendarQuickSelectItem key={option}>
+                                        <S.CalendarQuickSelectButton
+                                            onClick={() => handleQuickSelect(option)}
+                                            sx={{
+                                                color: isActive
+                                                    ? theme.palette.primaryColors.accent
+                                                    : theme.palette.lightShades.ternary,
+                                            }}
+                                        >
+                                            {t(option)}
+                                            {isActive ? <Checkmark /> : null}
+                                        </S.CalendarQuickSelectButton>
+                                    </S.CalendarQuickSelectItem>
+                                );
+                            },
+                        )}
+                    </S.CalendarQuickSelect>
+                ) : null}
             </Stack>
 
             <Stack direction="row" gap="16px">
@@ -176,6 +224,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                 </DatePickerWrapper>
                 <Divider />
             </Stack>
+
             <Stack justifyContent="flex-end" direction="row" gap="8px">
                 <Button size="medium" variant="secondary" onClick={handleClearDateRange}>
                     {t('Clear data range')}

@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { List, ListItem, ListItemButton, styled } from '@mui/material';
 
 export const DatePickerWrapper = styled('div')(({ theme }) => ({
     '.react-datepicker': {
@@ -70,5 +70,53 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             backgroundColor: theme.palette.base.color6,
             color: theme.palette.base.color1,
         },
+    },
+}));
+
+export const CalendarQuickSelect = styled(List)(({ theme }) => ({
+    width: '100%',
+    borderLeft: `1px solid ${theme.palette.borders.primary}`,
+    padding: 0,
+
+    [theme.breakpoints.down('md')]: {
+        border: 'none',
+    },
+    [theme.breakpoints.between('md', 'lg')]: {
+        border: 'none',
+    },
+}));
+
+export const CalendarQuickSelectItem = styled(ListItem)(({ theme }) => ({
+    padding: '0',
+    margin: '0',
+    textTransform: 'capitalize',
+    borderBottom: `1px solid ${theme.palette.borders.primary}`,
+
+    '.MuiButtonBase-root.MuiListItemButton-root:hover': {
+        color: theme.palette.text.text4,
+    },
+    '&:last-of-type': {
+        borderBottom: 'none',
+    },
+}));
+
+export const CalendarQuickSelectButton = styled(ListItemButton)(({ theme }) => ({
+    padding: '16px 8px 16px 27px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    fontFamily: theme.typography.fontFamily,
+    fontSize: '12px',
+    lineHeight: '16px',
+
+    '&:hover': {
+        backgroundColor: 'transparent',
+        color: theme.palette.lightShades.primary,
+    },
+
+    [theme.breakpoints.down('md')]: {
+        padding: '16px 0',
+    },
+    [theme.breakpoints.between('md', 'lg')]: {
+        padding: '16px 0',
     },
 }));
