@@ -70,6 +70,10 @@ export const RangePicker: FC<RangePickerProps> = ({
     const handleInputDateChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: 'start' | 'end') => {
         const { value } = e.target;
 
+        if (setActiveQuickSelectState) {
+            setActiveQuickSelectState(null);
+        }
+
         if (key === 'start') {
             setStartInputDate(value);
 
@@ -88,6 +92,10 @@ export const RangePicker: FC<RangePickerProps> = ({
     const handleCalendarDateChange = (date: Date | null, key: 'start' | 'end') => {
         if (!date) return;
         const formattedDate = moment(date);
+
+        if (setActiveQuickSelectState) {
+            setActiveQuickSelectState(null);
+        }
 
         if (key === 'start') {
             setStartDate(moment(date));
