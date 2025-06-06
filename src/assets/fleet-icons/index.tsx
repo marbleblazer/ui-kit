@@ -211,3 +211,5 @@ export { default as ReceiptIcon } from './receipt.svg?react';
 export { default as ChevronDownIcon } from './chevron-down.svg?react';
 
 export { default as HarshCorneringIcon } from './harsh-cornering-icon.svg?react';
+
+export { default as PdfIcon } from './pdf.svg?react';
