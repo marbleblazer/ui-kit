@@ -145,3 +145,5 @@ export { LanguageSelector } from './language-selector';
 export { geocodingClient } from './map/helpers/geocoding-client';
 
 export { SelectWithSearch, type SelectWithSearchOptionType } from './select-with-search';
+
+export { Pagination } from './pagination';
