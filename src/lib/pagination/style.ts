@@ -1,5 +1,5 @@
 import MuiPagination from '@mui/material/Pagination';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 
 export const StyledPagination = styled(MuiPagination)(({ theme }) => ({
     ul: {
@@ -25,6 +25,12 @@ export const StyledPagination = styled(MuiPagination)(({ theme }) => ({
         backgroundColor: theme.palette.base.color61,
         color: theme.palette.base.color6,
         border: `none`,
+        '&:hover': {
+            backgroundColor: 'transparent !important',
+            border: `1px solid`,
+            borderColor: theme.palette.border.border5,
+            color: theme.palette.mode === 'light' ? theme.palette.text.text1 : theme.palette.text.text4,
+        },
     },
     '& .MuiPaginationItem-previousNext': {
         borderRadius: '6px',
