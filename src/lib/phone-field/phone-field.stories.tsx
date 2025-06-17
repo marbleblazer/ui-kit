@@ -71,10 +71,10 @@ export const Error: Story = {
                 onChange={setValue}
                 label="Phone number"
                 placeholder="Phone number"
-                PaperPropsSx={{ sx: { width: '257px' } }}
-                sx={{
-                    width: '257px',
-                }}
+                // PaperPropsSx={{ sx: { width: '' } }}
+                // sx={{
+                // width: 'auto',
+                // }}
             />
         );
     },
