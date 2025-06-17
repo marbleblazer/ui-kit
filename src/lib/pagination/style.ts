@@ -14,8 +14,9 @@ export const StyledPagination = styled(MuiPagination)(({ theme }) => ({
         color: theme.palette.text.text4,
         '&:hover': {
             backgroundColor: 'transparent !important',
-            border: `1px solid ${theme.palette.border.border5}`,
-            color: theme.palette.text.text1,
+            border: `1px solid`,
+            borderColor: theme.palette.border.border5,
+            color: theme.palette.mode === 'light' ? theme.palette.text.text1 : theme.palette.text.text4,
         },
     },
 
@@ -27,15 +28,16 @@ export const StyledPagination = styled(MuiPagination)(({ theme }) => ({
     },
     '& .MuiPaginationItem-previousNext': {
         borderRadius: '6px',
+        minWidth: '28px',
         width: '28px',
         height: '28px',
         padding: '4px',
-        backgroundColor: theme.palette.background.background8,
+        backgroundColor: theme.palette.background.background10,
         color: theme.palette.text.text1,
         '&:hover': {
-            backgroundColor: theme.palette.background.background8 + ' !important',
+            backgroundColor: theme.palette.background.background10 + ' !important',
         },
-        '.MuiSvgIcon-root': {
+        svg: {
             width: '20px',
             height: '20px',
         },

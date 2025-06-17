@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Pagination } from '.';
+import Stack from '@mui/material/Stack';
 
 const meta: Meta<typeof Pagination> = {
     title: 'UI/Pagination',
@@ -21,6 +22,10 @@ export const Default: Story = {
 
         const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => setPage(newPage);
 
-        return <Pagination count={50} page={page} onChange={handlePageChange} />;
+        return (
+            <Stack width="500px" height="100px" bgcolor="white" alignItems="center" justifyContent="center">
+                <Pagination count={50} page={page} onChange={handlePageChange} />
+            </Stack>
+        );
     },
 };
