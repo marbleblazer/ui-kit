@@ -213,3 +213,7 @@ export { default as ChevronDownIcon } from './chevron-down.svg?react';
 export { default as HarshCorneringIcon } from './harsh-cornering-icon.svg?react';
 
 export { default as PdfIcon } from './pdf.svg?react';
+
+export { default as TableRowsIcon } from './table-rows.svg?react';
+
+export { default as MapIcon } from './map.svg?react';
