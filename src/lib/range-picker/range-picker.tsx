@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { capitalize, Divider, Stack, alpha, useTheme } from '@mui/material';
+import { capitalize, Divider, Stack, alpha, useTheme, Box } from '@mui/material';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import moment from 'moment';
 
@@ -29,7 +29,7 @@ export interface RangePickerProps {
     handleCloseCalendar: () => void;
 }
 
-const DATE_FORMAT = 'YYYY-MM-DD';
+const DATE_FORMAT = 'DD/MM/YYYY';
 
 export const RangePicker: FC<RangePickerProps> = ({
     handleCloseCalendar,
@@ -45,6 +45,7 @@ export const RangePicker: FC<RangePickerProps> = ({
 
     const { t, i18n } = useTranslation('uiKit', { keyPrefix: 'RangePicker' });
 
+    const [isSelectingStart, setIsSelectingStart] = useState(true);
     const [startDate, setStartDate] = useState(() => moment(initialStartDate));
     const [endDate, setEndDate] = useState(() => moment(initialEndDate));
     const [startInputDate, setStartInputDate] = useState<string | Date>(moment(initialStartDate).format(DATE_FORMAT));
@@ -77,19 +78,19 @@ export const RangePicker: FC<RangePickerProps> = ({
         if (key === 'start') {
             setStartInputDate(value);
 
-            if (moment(value).isValid()) {
+            if (moment(value, DATE_FORMAT).isValid()) {
                 setStartDate(moment(value));
             }
         } else {
             setEndInputDate(value);
 
-            if (moment(value).isValid()) {
+            if (moment(value, DATE_FORMAT).isValid()) {
                 setEndDate(moment(value));
             }
         }
     };
 
-    const handleCalendarDateChange = (date: Date | null, key: 'start' | 'end') => {
+    const handleCalendarDateChange = (date: Date | null) => {
         if (!date) return;
         const formattedDate = moment(date);
 
@@ -97,13 +98,33 @@ export const RangePicker: FC<RangePickerProps> = ({
             setActiveQuickSelectState(null);
         }
 
-        if (key === 'start') {
-            setStartDate(moment(date));
+        if (isSelectingStart) {
+            setStartDate(formattedDate);
             setStartInputDate(formattedDate.format(DATE_FORMAT));
+            setIsSelectingStart(false); // следующий выбор будет end
         } else {
-            setEndDate(moment(date));
-            setEndInputDate(formattedDate.format(DATE_FORMAT));
+            const start = moment(startDate);
+
+            if (formattedDate.isBefore(start)) {
+                // Выбрали дату раньше start — переставляем местами
+                setStartDate(formattedDate);
+                setStartInputDate(formattedDate.format(DATE_FORMAT));
+                setEndDate(start);
+                setEndInputDate(start.format(DATE_FORMAT));
+            } else {
+                setEndDate(formattedDate);
+                setEndInputDate(formattedDate.format(DATE_FORMAT));
+            }
+            setIsSelectingStart(true); // следующий выбор — снова start
         }
+
+        // if (key === 'start') {
+        //     setStartDate(moment(date));
+        //     setStartInputDate(formattedDate.format(DATE_FORMAT));
+        // } else {
+        //     setEndDate(moment(date));
+        //     setEndInputDate(formattedDate.format(DATE_FORMAT));
+        // }
     };
 
     const handleClearDateRange = () => {
@@ -112,8 +133,10 @@ export const RangePicker: FC<RangePickerProps> = ({
         handleCloseCalendar();
     };
 
-    const isStartDateValid = moment(startInputDate).isValid();
-    const isEndDateValid = moment(endInputDate).isValid() && moment(startInputDate) <= moment(endInputDate);
+    const isStartDateValid = moment(startInputDate, DATE_FORMAT).isValid();
+    const isEndDateValid =
+        moment(endInputDate, DATE_FORMAT).isValid() &&
+        moment(startInputDate, DATE_FORMAT) <= moment(endInputDate, DATE_FORMAT);
 
     registerLocale(i18n.language.split('-')[0], getLocaleObj(i18n.language));
 
@@ -129,50 +152,85 @@ export const RangePicker: FC<RangePickerProps> = ({
     };
 
     return (
-        <Stack direction="column" gap="8px">
-            <Stack direction="column" gap="14px">
-                <Typography variant="caption12" color={theme.palette.text.text8}>
-                    {t('Choose date range')}
-                </Typography>
-            </Stack>
-            <Stack direction="row" alignItems="flex-start" gap={4}>
-                <Stack direction="row" gap="8px" alignItems="center" width="100%">
-                    <TextField
-                        label={t('Input')}
-                        error={!isStartDateValid}
-                        value={startInputDate}
-                        placeholder={t('Start date')}
-                        onChange={(e) => handleInputDateChange(e, 'start')}
-                        sx={{
-                            label: { color: `${theme.palette.text.text8} !important` },
-                            borderColor: alpha(theme.palette.border?.input, 0.14),
-                            input: {
-                                backgroundColor: theme.palette.background.background2,
-                            },
-                        }}
-                    />
-                    <div>
-                        <Divider
-                            orientation="horizontal"
-                            flexItem
-                            sx={{ width: '12px', borderColor: theme.palette.text.text8 }}
-                        />
-                    </div>
-                    <TextField
-                        label={t('Label')}
-                        error={!isEndDateValid}
-                        value={endInputDate}
-                        placeholder={t('End date')}
-                        onChange={(e) => handleInputDateChange(e, 'end')}
-                        sx={{
-                            label: { color: `${theme.palette.text.text8} !important` },
-                            borderColor: alpha(theme.palette.border?.input, 0.14),
-                            input: {
-                                backgroundColor: theme.palette.background.background2,
-                            },
-                        }}
-                    />
+        <Stack direction="column" gap={4}>
+            <Stack direction="row" gap={6}>
+                <Stack gap={2}>
+                    <Stack direction="column" gap="14px">
+                        <Typography variant="caption12" color={theme.palette.text.text8}>
+                            {t('Choose date range')}
+                        </Typography>
+                    </Stack>
+                    <Stack gap={7}>
+                        <Stack direction="row" alignItems="flex-start" gap={4}>
+                            <Stack direction="row" gap="16px" alignItems="center" width="50%">
+                                <Box>
+                                    <TextField
+                                        error={!isStartDateValid}
+                                        value={startInputDate}
+                                        size="small"
+                                        placeholder={t('Start date')}
+                                        onChange={(e) => handleInputDateChange(e, 'start')}
+                                        sx={{
+                                            borderColor: alpha(theme.palette.border?.input, 0.14),
+                                            flexGrow: 'unset',
+                                            flex: '1 1',
+                                            margin: 0,
+                                            minWidth: '100px',
+                                            input: {
+                                                height: '36px',
+                                                textAlign: 'center',
+                                                padding: 0,
+                                                fontSize: '13px',
+                                                backgroundColor: theme.palette.background.background2,
+                                            },
+                                        }}
+                                    />
+                                </Box>
+                                <Box>
+                                    <TextField
+                                        error={!isEndDateValid}
+                                        value={endInputDate}
+                                        size="small"
+                                        placeholder={t('End date')}
+                                        onChange={(e) => handleInputDateChange(e, 'end')}
+                                        sx={{
+                                            flex: '1 1',
+                                            margin: 0,
+                                            borderColor: alpha(theme.palette.border?.input, 0.14),
+                                            flexGrow: 'unset',
+                                            minWidth: '100px',
+                                            input: {
+                                                height: '36px',
+                                                textAlign: 'center',
+                                                padding: 0,
+                                                fontSize: '13px',
+                                                backgroundColor: theme.palette.background.background2,
+                                            },
+                                        }}
+                                    />
+                                </Box>
+                            </Stack>
+                        </Stack>
+
+                        <Stack direction="row" gap="16px">
+                            <DatePickerWrapper>
+                                <DatePicker
+                                    selected={startDate.toDate()}
+                                    onChange={(date) => handleCalendarDateChange(date)}
+                                    startDate={startDate.toDate()}
+                                    endDate={endDate.toDate()}
+                                    selectsStart
+                                    locale={i18n.language}
+                                    showFullMonthYearPicker
+                                    inline
+                                    renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
+                                    formatWeekDay={(nameOfDay) => capitalize(nameOfDay.substr(0, 3))}
+                                />
+                            </DatePickerWrapper>
+                        </Stack>
+                    </Stack>
                 </Stack>
+
                 {activeQuickSelectState || withQuickSelect ? (
                     <S.CalendarQuickSelect>
                         {(Object.keys(QUICK_SELECT_OPTIONS) as Array<keyof typeof QUICK_SELECT_OPTIONS>).map(
@@ -199,39 +257,7 @@ export const RangePicker: FC<RangePickerProps> = ({
                     </S.CalendarQuickSelect>
                 ) : null}
             </Stack>
-
-            <Stack direction="row" gap="16px">
-                <DatePickerWrapper>
-                    <DatePicker
-                        selected={startDate.toDate()}
-                        onChange={(date) => handleCalendarDateChange(date, 'start')}
-                        startDate={startDate.toDate()}
-                        endDate={endDate.toDate()}
-                        selectsStart
-                        locale={i18n.language}
-                        showFullMonthYearPicker
-                        inline
-                        renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
-                        formatWeekDay={(nameOfDay) => capitalize(nameOfDay.substr(0, 3))}
-                    />
-                </DatePickerWrapper>
-                <DatePickerWrapper>
-                    <DatePicker
-                        selected={endDate.toDate()}
-                        onChange={(date) => handleCalendarDateChange(date, 'end')}
-                        startDate={startDate.toDate()}
-                        endDate={endDate.toDate()}
-                        selectsEnd
-                        locale={i18n.language}
-                        minDate={startDate.toDate()}
-                        showFullMonthYearPicker
-                        inline
-                        renderCustomHeader={(props) => <CustomDatepickerHeader {...props} />}
-                        formatWeekDay={(nameOfDay) => capitalize(nameOfDay.substr(0, 3))}
-                    />
-                </DatePickerWrapper>
-                <Divider />
-            </Stack>
+            <Divider />
 
             <Stack justifyContent="flex-end" direction="row" gap="8px">
                 <Button size="medium" variant="secondary" onClick={handleClearDateRange}>

@@ -86,7 +86,10 @@
             "today": "Today",
             "last week": "Last week",
             "last month": "Last month",
-            "last 2 months": "Last 2 months"
+            "last 2 months": "Last 2 months",
+            "last 2 week": "Last 2 weeks",
+            "last 3 months": "Last 3 months",
+            "last 6 months": "Last 6 months"
         },
         "UserPopup": {
             "Connect your wallet": "Connect your wallet",
@@ -192,7 +195,10 @@
             "today": "Aujourd'hui",
             "last week": "La semaine dernière",
             "last month": "Le mois dernier",
-            "last 2 months": "Les 2 derniers mois"
+            "last 2 months": "Les 2 derniers mois",
+            "last 2 week": "2 dernières semaines",
+            "last 3 months": "3 derniers mois",
+            "last 6 months": "6 derniers mois"
         },
         "UserPopup": {
             "Connect your wallet": "Connectez votre portefeuille",
@@ -298,7 +304,10 @@
             "today": "Heute",
             "last week": "Letzte Woche",
             "last month": "Letzter Monat",
-            "last 2 months": "Letzte 2 Monate"
+            "last 2 months": "Letzte 2 Monate",
+            "last 2 week": "Letzte 2 Wochen",
+            "last 3 months": "Letzte 3 Monate",
+            "last 6 months": "Letzte 6 Monate"
         },
         "UserPopup": {
             "Connect your wallet": "Verbinden Sie Ihre Wallet",
@@ -405,7 +414,10 @@
             "today": "Hoy",
             "last week": "La semana pasada",
             "last month": "El mes pasado",
-            "last 2 months": "Los últimos 2 meses"
+            "last 2 months": "Los últimos 2 meses",
+            "last 2 week": "Últimas 2 semanas",
+            "last 3 months": "Últimos 3 meses",
+            "last 6 months": "Últimos 6 meses"
         },
         "UserPopup": {
             "Connect your wallet": "Conectar tu billetera",
@@ -509,9 +521,12 @@
             "Previous Month": "Предыдущий месяц",
             "Next Month": "Следующий месяц",
             "today": "Сегодня",
-            "last week": "Прошлая неделя",
-            "last month": "Прошлый месяц",
-            "last 2 months": "Последние 2 месяца"
+            "last week": "Последняя неделя",
+            "last month": "Последний месяц",
+            "last 2 months": "Последние 2 месяца",
+            "last 2 week": "Последние 2 недели",
+            "last 3 months": "Последние 3 месяца",
+            "last 6 months": "Последние 6 месяцев"
         },
         "UserPopup": {
             "Connect your wallet": "Подключите ваш кошелек",
