@@ -7,6 +7,38 @@ export const ToastContainer = styled(RTToastContainer)`
     .Toastify__toast--stacked[data-collapsed='true']:not(:last-child) > * {
         opacity: 0.1;
     }
+    .Toastify__toast--stacked[data-collapsed='true']:not(:last-child) {
+        &:nth-last-child(2) {
+            > * {
+                opacity: 0.9;
+            }
+        }
+        &:nth-last-child(3) {
+            > * {
+                opacity: 0.8;
+            }
+        }
+        &:nth-last-child(4) {
+            > * {
+                opacity: 0.7;
+            }
+        }
+        &:nth-last-child(5) {
+            > * {
+                opacity: 0.6;
+            }
+        }
+        &:nth-last-child(6) {
+            > * {
+                opacity: 0.5;
+            }
+        }
+        &:nth-last-child(7) {
+            > * {
+                opacity: 0.4;
+            }
+        }
+    }
     .Toastify__toast--stacked {
         &::after {
             display: none !important;
