@@ -56,9 +56,22 @@ export const Select = styled(MuiSelect)<SelectPropsType>(({ placeholder, theme }
     '.MuiSelect-icon': {
         color: alpha(theme.palette.text.textInput60, 0.6),
         right: '16px',
+        cursor: 'pointer',
+        zIndex: 1,
 
         '&:not(:empty)': {
             color: theme.palette.text.text1,
+        },
+    },
+
+    '.MuiInputAdornment-root.MuiInputAdornment-positionEnd': {
+        position: 'absolute',
+        right: '20px',
+    },
+
+    '.MuiSelect-iconOpen': {
+        svg: {
+            transform: 'rotateX(180deg)',
         },
     },
 
