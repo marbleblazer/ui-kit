@@ -1,7 +1,7 @@
 import { CloseIcon } from '@chirp/ui/assets/icons';
 import { styled } from '@mui/material';
 import { ToastContainer as RTToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const ToastContainer = styled(RTToastContainer)`
     .Toastify__toast--stacked[data-collapsed='true']:not(:last-child) > * {
@@ -45,7 +45,7 @@ export const ToastContainer = styled(RTToastContainer)`
         }
     }
     .Toastify__progress-bar--wrp {
-        display: none !important;
+        visibility: hidden !important;
     }
 
     &&&.Toastify__toast-container {
