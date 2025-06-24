@@ -66,7 +66,7 @@ export const DatePickerWrapper = styled('div')(({ theme }) => ({
             },
         },
 
-        '.react-datepicker__day--selected': {
+        '.react-datepicker__day--selected, .react-datepicker__day--range-end': {
             backgroundColor: theme.palette.base.color6,
             color: theme.palette.base.color1,
         },

@@ -3,12 +3,11 @@ import * as S from './style';
 export const ToastContainer = () => {
     return (
         <S.ToastContainer
-            autoClose={2000}
-            closeButton={false}
+            autoClose={20000}
             closeOnClick={false}
             icon={false}
             hideProgressBar
-            limit={5}
+            stacked
             position="bottom-right"
         />
     );
