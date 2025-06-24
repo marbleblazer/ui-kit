@@ -88,9 +88,11 @@ export const WithQuickSelect: Story = {
                     <RangePicker
                         withQuickSelect
                         activeQuickSelectState={activeQuickSelectState}
+                        initialStartDate={dateState?.start ? new Date(dateState.start) : undefined}
+                        initialEndDate={dateState?.end ? new Date(dateState.end) : undefined}
                         setActiveQuickSelectState={setActiveQuickSelectState}
                         handleCloseCalendar={() => setOpenedState(false)}
-                        onClearDate={() => setOpenedState(false)}
+                        onClearDate={() => setDateState(null)}
                         onDateChange={(after, before) => setDateState({ start: after, end: before })}
                     />
                 </RangePickerMenu>

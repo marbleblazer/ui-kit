@@ -79,13 +79,13 @@ export const RangePicker: FC<RangePickerProps> = ({
             setStartInputDate(value);
 
             if (moment(value, DATE_FORMAT).isValid()) {
-                setStartDate(moment(value));
+                setStartDate(moment(value, DATE_FORMAT));
             }
         } else {
             setEndInputDate(value);
 
             if (moment(value, DATE_FORMAT).isValid()) {
-                setEndDate(moment(value));
+                setEndDate(moment(value, DATE_FORMAT));
             }
         }
     };
