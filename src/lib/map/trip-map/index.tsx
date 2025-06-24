@@ -52,33 +52,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
-
-    const onMapLoad = (localData?: DataType) => {
-        if (!map.current) return;
-
-        arrowRef.current = document.createElement('div');
-        arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
-        arrowRef.current.style.width = '20px';
-        arrowRef.current.style.height = '16px';
-        arrowRef.current.style.transformOrigin = 'center'; // Устанавливаем центр как точку вращения
-
-        // Для работы с источником mapbox-gl-draw-cold
-        let modes = MapboxDraw.modes;
-        modes = typedGeodesicDraw.enable(modes);
-        const draw = new MapboxDraw({
-            displayControlsDefault: false,
-            modes: {
-                ...modes,
-            },
-            styles: customDrawStyles(theme.palette),
-        });
-
-        drawRef.current = draw;
-        // https://github.com/mapbox/mapbox-gl-draw/issues/1257
-        map.current.addControl(draw);
-
-        addDataToMap(localData);
-    };
+    const pendingData = useRef<DataType | undefined>(undefined); // Нужно, так как в некоторых случаях данные приходят слишком быстро, карта не успевает загрузиться
 
     const clearObjects = useCallback(() => {
         setIsAnimating(null);
@@ -143,6 +117,46 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         },
         [clearMap, isLineMarkersNeeded, theme],
     );
+
+    const onMapLoad = (localData?: DataType) => {
+        if (!map.current) return;
+
+        const finalData = pendingData.current || localData;
+        pendingData.current = null;
+
+        arrowRef.current = document.createElement('div');
+        arrowRef.current.innerHTML = mapMarkerArrowSvgString(theme.palette);
+        arrowRef.current.style.width = '20px';
+        arrowRef.current.style.height = '16px';
+        arrowRef.current.style.transformOrigin = 'center'; // Устанавливаем центр как точку вращения
+
+        // Для работы с источником mapbox-gl-draw-cold
+        let modes = MapboxDraw.modes;
+        modes = typedGeodesicDraw.enable(modes);
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+            modes: {
+                ...modes,
+            },
+            styles: customDrawStyles(theme.palette),
+        });
+
+        drawRef.current = draw;
+        // https://github.com/mapbox/mapbox-gl-draw/issues/1257
+        map.current.addControl(draw);
+
+        addDataToMap(finalData);
+    };
+
+    useEffect(() => {
+        if (!map.current) return;
+
+        if (map.current.isStyleLoaded()) {
+            addDataToMap(data || null);
+        } else {
+            pendingData.current = data || null;
+        }
+    }, [addDataToMap, data]);
 
     const animate = useCallback(
         (coordinates: [number, number][], startTime: number) => {
