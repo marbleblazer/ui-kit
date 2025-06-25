@@ -7,6 +7,7 @@ export const Root = styled(Stack)<Partial<ToastProps>>(({ theme }) => ({
     padding: '10px 16px',
     borderRadius: '8px',
     width: '400px',
-    minHeight: '50px',
+    minHeight: '62px',
     position: 'relative',
+    paddingRight: '40px',
 }));
