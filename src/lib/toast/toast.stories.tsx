@@ -44,6 +44,28 @@ export const Default: Story = {
                     >
                         Show
                     </Button>
+                    <Button
+                        onClick={() =>
+                            toast(<Toast message="Toast message so lonk lorem test message africa wow swap" />, {
+                                closeButton: ({ closeToast }) => (
+                                    <IconButton
+                                        variant="gray"
+                                        onClick={closeToast}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: 0,
+                                            right: 0,
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        <CrossIcon />
+                                    </IconButton>
+                                ),
+                            })
+                        }
+                    >
+                        Show long
+                    </Button>
 
                     <ToastContainer />
                 </Box>

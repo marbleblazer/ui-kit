@@ -149,3 +149,5 @@ export { SelectWithSearch, type SelectWithSearchOptionType } from './select-with
 export { Pagination } from './pagination';
 
 export { DateInput } from './date-input';
+
+export { GeolocateSearch } from './geolocate-search';
