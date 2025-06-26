@@ -458,16 +458,16 @@ export const MapContainer = styled(Box, {
             flexDirection: 'column',
             gap: '4px',
             padding: '8px !important',
-            borderRadius: '4px !important',
+            borderRadius: '12px !important',
             color: theme.palette.text.text4,
             background: theme.palette.background.background15,
-            border: `1px solid ${alpha(theme.palette.border.border3, 0.1)} !important`,
+            border: `1px solid ${theme.palette.border.border3} !important`,
             backdropFilter: 'blur(20px)',
             boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
-            ...theme.typography.paragraphSecondary,
+            ...theme.typography.caption12,
 
             '& .speed': {
-                ...theme.typography.mono10,
+                ...theme.typography.body1,
                 color: theme.palette.text.text1,
             },
         },
@@ -598,7 +598,18 @@ export const MapContainer = styled(Box, {
         backgroundColor: theme.palette.base.color6,
         borderRadius: '50%',
     },
+    '.common-trip-line-marker': {
+        width: '10px',
+        height: '10px',
+        backgroundColor: theme.palette.text.titleInput,
+        border: '1px solid',
+        borderColor: theme.palette.base.color1,
+        borderRadius: '50%',
+    },
 
+    '.start-trip-end-line-marker': {
+        zIndex: 3,
+    },
     '.start-end-line-marker': {
         width: '6px',
         height: '6px',

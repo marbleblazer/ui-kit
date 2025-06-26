@@ -429,7 +429,7 @@ export const TripMapExample: Story = {
                     animateLineId={shouldAnimate}
                     setAnimateLineId={setShouldAnimate}
                     animationDuration={30000}
-                    isLineMarkersNeeded={false}
+                    isLineMarkersNeeded={true}
                     isPaused={isPaused}
                 />
             </Box>

@@ -78,3 +78,40 @@ export const customDrawStyles = (theme: Palette) => [
 ];
 
 export const typedGeodesicDraw = GeodesicDraw as unknown as GeodesicDrawType;
+
+export const customTripDrawStyles = (theme: Palette) => {
+    return [
+        {
+            id: 'gl-draw-line-inactive-border',
+            type: 'line',
+            filter: ['all', ['==', '$type', 'LineString'], ['!=', 'active', 'true']],
+            paint: {
+                'line-color': '#BABABA',
+                'line-width': 6,
+            },
+        },
+        {
+            id: 'gl-draw-line-inactive',
+            type: 'line',
+            filter: ['all', ['==', '$type', 'LineString'], ['!=', 'active', 'true']],
+            paint: {
+                'line-color': theme.text.titleInput,
+                'line-width': 2,
+            },
+        },
+
+        {
+            id: 'gl-draw-point-active',
+            type: 'circle',
+            filter: ['==', '$type', 'Point'],
+            paint: {
+                'circle-radius': 12,
+                'circle-color': theme.base.color6,
+                'circle-stroke-color': theme.background.default,
+                'circle-stroke-width': 2,
+                // 'circle-radius': 10,
+                // 'circle-color': `${theme.base.color6}`,
+            },
+        },
+    ];
+};
