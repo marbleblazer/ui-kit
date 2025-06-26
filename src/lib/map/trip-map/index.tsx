@@ -65,6 +65,14 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const clearMap = useCallback(() => {
         if (!map.current) return;
 
+        if (map.current.getLayer('line-points-layer')) {
+            map.current.removeLayer('line-points-layer');
+        }
+
+        if (map.current!.getSource('line-points')) {
+            map.current!.removeSource('line-points');
+        }
+
         // Удаление всех маркеров
         markersRef.current.forEach((marker) => marker.remove());
         markersRef.current = []; // Очистка массива маркеров после их удаления
@@ -197,6 +205,8 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             });
 
             // bbox logic
+            if (localData.type === 'FeatureCollection' && localData.features.length === 0) return;
+
             const bbox = bboxTurf(localData, { recompute: true });
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
