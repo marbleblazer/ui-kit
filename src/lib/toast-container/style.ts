@@ -4,6 +4,8 @@ import { ToastContainer as RTToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const ToastContainer = styled(RTToastContainer)`
+    --toastify-toast-min-height: 62px;
+
     .Toastify__toast--stacked[data-collapsed='true']:not(:last-child) > * {
         opacity: 0.1;
     }
@@ -38,6 +40,11 @@ export const ToastContainer = styled(RTToastContainer)`
                 opacity: 0.4;
             }
         }
+        &:nth-last-child(8) {
+            > * {
+                opacity: 0.3;
+            }
+        }
     }
     .Toastify__toast--stacked {
         &::after {
@@ -59,7 +66,6 @@ export const ToastContainer = styled(RTToastContainer)`
         background: transparent;
         padding: 0;
         border-radius: 8px;
-        min-height: 50px;
     }
     .Toastify__toast-body {
         padding: 0;
