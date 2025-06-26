@@ -27,10 +27,10 @@ export const mapMarkerArrowSvgString = (theme: Palette) =>
     </svg>
 `;
 
-export const mapMarkerFirstStartLayerSvgString = (theme: Palette) =>
+export const mapMarkerFirstStartLayerSvgString = (palette: Palette) =>
     `<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_f_6_3771)">
-        <circle cx="18.0389" cy="18.0331" r="6.74204" fill="${theme.base.color9}"/>
+        <circle cx="18.0389" cy="18.0331" r="6.74204" fill="${palette.base.color9}"/>
     </g>
     <defs>
         <filter id="filter0_f_6_3771" x="0.216312" y="0.210453" width="35.6452" height="35.645" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -42,16 +42,16 @@ export const mapMarkerFirstStartLayerSvgString = (theme: Palette) =>
     </svg>
 `;
 
-export const mapMarkerSecondStartLayerSvgString = (theme: Palette) =>
+export const mapMarkerSecondStartLayerSvgString = (palette: Palette) =>
     `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle opacity="0.05" cx="14" cy="13.9941" r="14" fill="${theme.base.color9}"/>
+        <circle opacity="0.05" cx="14" cy="13.9941" r="14" fill="${palette.base.color9}"/>
     </svg>
 `;
 
-export const mapMarkerFirstEndLayerSvgString = (theme: Palette) =>
+export const mapMarkerFirstEndLayerSvgString = (palette: Palette) =>
     `<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_f_6_3767)">
-            <circle cx="18.0389" cy="18.0331" r="6.74204" fill="${theme.base.color7}"/>
+            <circle cx="18.0389" cy="18.0331" r="6.74204" fill="${palette.base.color7}"/>
         </g>
         <defs>
             <filter id="filter0_f_6_3767" x="0.216312" y="0.210453" width="35.6452" height="35.645" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -63,17 +63,17 @@ export const mapMarkerFirstEndLayerSvgString = (theme: Palette) =>
     </svg>
 `;
 
-export const mapMarkerSecondEndLayerSvgString = (theme: Palette) =>
+export const mapMarkerSecondEndLayerSvgString = (palette: Palette) =>
     `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle opacity="0.05" cx="14" cy="13.9941" r="14" fill="${theme.base.color7}"/>
+        <circle opacity="0.05" cx="14" cy="13.9941" r="14" fill="${palette.base.color7}"/>
     </svg>
 `;
 
-export const mapMarkerDiffusion = (theme: Palette) =>
+export const mapMarkerDiffusion = (palette: Palette) =>
     `<svg width="154" height="154" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle opacity="0.08" cx="76.9788" cy="76.9788" r="76.9788" fill="${theme.base.color6}"/>
+        <circle opacity="0.08" cx="76.9788" cy="76.9788" r="76.9788" fill="${palette.base.color6}"/>
         <g filter="url(#filter0_f_16195_206183)">
-            <circle cx="77" cy="77" r="24" fill="${theme.base.color6}"/>
+            <circle cx="77" cy="77" r="24" fill="${palette.base.color6}"/>
         </g>
         <defs>
             <filter id="filter0_f_16195_206183" x="27" y="27" width="100" height="100" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

@@ -32,6 +32,7 @@ interface IRenderLineStringPoints {
     markersRef: RefObject<mapboxgl.Marker[]>;
     isLineMarkersNeeded: boolean;
     theme: Theme;
+    isTrip?: boolean;
 }
 
 const isTooCloseOnScreen = (
@@ -253,6 +254,7 @@ export const renderLineStringPoints = ({
     markersRef,
     isLineMarkersNeeded,
     theme,
+    isTrip = false,
 }: IRenderLineStringPoints) => {
     if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
         geometry.coordinates.forEach((coordinate, index) => {
@@ -261,15 +263,15 @@ export const renderLineStringPoints = ({
 
                 if (index === 0) {
                     markerElement = document.createElement('div');
-                    markerElement.classList.add('start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette);
+                    markerElement.classList.add(isTrip ? 'start-trip-end-line-marker' : 'start-end-line-marker');
+                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette, isTrip);
                 } else if (index === geometry.coordinates.length - 1) {
                     markerElement = document.createElement('div');
-                    markerElement.classList.add('start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette);
+                    markerElement.classList.add(isTrip ? 'start-trip-end-line-marker' : 'start-end-line-marker');
+                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette, isTrip);
                 } else if (isLineMarkersNeeded) {
                     markerElement = document.createElement('div');
-                    markerElement.classList.add('common-line-marker');
+                    markerElement.classList.add(isTrip ? 'common-trip-line-marker' : 'common-line-marker');
                 }
 
                 if (markerElement) {

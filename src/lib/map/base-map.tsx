@@ -88,13 +88,13 @@ export const BaseMap: FC<PropsWithChildren<IBaseMapProps>> = ({
             crossSourceCollisions: false,
             cooperativeGestures: isMobile,
         });
-        mapRef.current.on('load', onMapLoad);
+        mapRef.current?.on('load', onMapLoad);
 
         const navControl = new mapboxgl.NavigationControl({ showCompass: false });
-        mapRef.current.addControl(navControl, 'bottom-right');
+        mapRef.current?.addControl(navControl, 'bottom-right');
 
         const helpControl = new HelpControl(palette);
-        mapRef.current.addControl(helpControl, 'bottom-left');
+        mapRef.current?.addControl(helpControl, 'bottom-left');
 
         mapRef.current.setLanguage(i18n.language);
 

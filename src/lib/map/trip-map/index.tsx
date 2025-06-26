@@ -12,9 +12,10 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { Coordinates } from '../map.types';
 import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { BaseMap, IBaseMapProps } from '../base-map';
-import { customDrawStyles, typedGeodesicDraw } from '../constance';
+import { customTripDrawStyles, typedGeodesicDraw } from '../constance';
 import { debounce, useTheme } from '@mui/material';
-import { createPopupsForLineString, renderLineStringPoints, ZOOM_BREAKPOINTS } from '../helpers/utils';
+import { ZOOM_BREAKPOINTS } from '../helpers/utils';
+import moment from 'moment';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -64,6 +65,14 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const clearMap = useCallback(() => {
         if (!map.current) return;
 
+        if (map.current.getLayer('line-points-layer')) {
+            map.current.removeLayer('line-points-layer');
+        }
+
+        if (map.current!.getSource('line-points')) {
+            map.current!.removeSource('line-points');
+        }
+
         // Удаление всех маркеров
         markersRef.current.forEach((marker) => marker.remove());
         markersRef.current = []; // Очистка массива маркеров после их удаления
@@ -93,15 +102,70 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                     const geometry = feature.geometry;
 
                     if (geometry.type === 'LineString') {
-                        renderLineStringPoints({
-                            geometry,
-                            map,
-                            markersRef,
-                            isLineMarkersNeeded,
-                            theme,
+                        // renderLineStringPoints({
+                        //     geometry,
+                        //     map,
+                        //     markersRef,
+                        //     isLineMarkersNeeded,
+                        //     theme,
+                        //     isTrip: true,
+                        // });
+
+                        const lineCoordinates = geometry.coordinates;
+
+                        console.log(feature);
+                        const pointFeatures = lineCoordinates.map((coord, index) => {
+                            const properties = feature?.properties as {
+                                speeds: (number | null)[];
+                                time: (string | null)[];
+                            };
+
+                            return {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: coord,
+                                },
+                                properties: {
+                                    index,
+                                    speeds: properties?.speeds?.[index],
+                                    time: properties?.time?.[index],
+                                },
+                            };
+                        });
+
+                        const pointSource: GeoJSON.FeatureCollection = {
+                            type: 'FeatureCollection',
+                            features: pointFeatures as GeoJSON.Feature[],
+                        };
+
+                        if (map.current.getLayer('line-points-layer')) {
+                            map.current.removeLayer('line-points-layer');
+                        }
+
+                        if (map.current!.getSource('line-points')) {
+                            map.current!.removeSource('line-points');
+                        }
+
+                        map.current!.addSource('line-points', {
+                            type: 'geojson',
+                            data: pointSource,
+                        });
+
+                        map.current!.addLayer({
+                            id: 'line-points-layer',
+                            type: 'circle',
+                            source: 'line-points',
+                            paint: {
+                                'circle-radius': 5,
+                                'circle-color': theme.palette.text.titleInput,
+                                'circle-stroke-color': theme.palette.base.color1,
+                                'circle-stroke-width': 2,
+                            },
                         });
                     }
                 }
+
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
                     type: 'FeatureCollection',
                     features: localData.features,
@@ -110,7 +174,39 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(localData);
             }
 
+            const popup = new mapboxgl.Popup({ closeButton: false, className: 'speed-popup' });
+
+            map.current.on('mouseenter', 'line-points-layer', (e) => {
+                if (!map.current) return;
+
+                map.current.getCanvas().style.cursor = 'pointer';
+
+                const { speeds, time } = e.features?.[0].properties as {
+                    speeds: number | null;
+                    time: string | null;
+                };
+
+                const speed = speeds ?? null;
+                const serverTime = time ?? null;
+
+                const popupContent = `
+                                <div>${serverTime ? moment(new Date(serverTime)).format('YYYY.MM.DD HH:mm') : 'N/A'}</div>
+                                <div class="speed">${speed !== null ? `${speed.toFixed(2)} km/h` : 'Speed N/A'}</div>
+                                `;
+
+                popup.setLngLat(e.lngLat).setHTML(popupContent);
+
+                popup.addTo(map.current);
+            });
+
+            map.current.on('mouseleave', 'line-points-layer', () => {
+                map.current.getCanvas().style.cursor = '';
+                popup.remove();
+            });
+
             // bbox logic
+            if (localData.type === 'FeatureCollection' && localData.features.length === 0) return;
+
             const bbox = bboxTurf(localData, { recompute: true });
             const [west, south, east, north] = bbox;
             map.current.fitBounds([west, south, east, north], { padding: 50 });
@@ -138,7 +234,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             modes: {
                 ...modes,
             },
-            styles: customDrawStyles(theme.palette),
+            styles: customTripDrawStyles(theme.palette),
         });
 
         drawRef.current = draw;
@@ -275,28 +371,28 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         [data, animating, animate],
     );
 
-    const updatePopups = useCallback(() => {
-        if (!data) {
-            createPopupsForLineString();
-        }
-        const zoom = map.current?.getZoom();
+    // const updatePopups = useCallback(() => {
+    //     if (!data) {
+    //         createPopupsForLineString();
+    //     }
+    //     const zoom = map.current?.getZoom();
 
-        if (data && data.type === 'FeatureCollection') {
-            data.features.forEach((feature) => {
-                if (feature.geometry.type === 'LineString') {
-                    const { coordinates } = feature.geometry;
-                    const { speeds, time } = feature.properties as {
-                        speeds: (number | null)[];
-                        time: (string | null)[];
-                    };
+    //     if (data && data.type === 'FeatureCollection') {
+    //         data.features.forEach((feature) => {
+    //             if (feature.geometry.type === 'LineString') {
+    //                 const { coordinates } = feature.geometry;
+    //                 const { speeds, time } = feature.properties as {
+    //                     speeds: (number | null)[];
+    //                     time: (string | null)[];
+    //                 };
 
-                    if (speeds && time) {
-                        createPopupsForLineString(map.current!, coordinates as [number, number][], speeds, time, zoom);
-                    }
-                }
-            });
-        }
-    }, [data]);
+    //                 if (speeds && time) {
+    //                     createPopupsForLineString(map.current!, coordinates as [number, number][], speeds, time, zoom);
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }, [data]);
 
     const handleZoomChange = () => {
         const zoom = map.current?.getZoom();
@@ -338,8 +434,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         }
     }, [animateLineId, startAnimation]);
 
-    useEffect(() => updatePopups(), [zoomState, data, updatePopups]);
-
     useEffect(() => {
         if (isPaused) {
             animationPauseRef.current = true;
@@ -361,13 +455,11 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         if (!mapCurrent) return;
 
         mapCurrent.on('zoom', handleZoomChange);
-        mapCurrent.on('move', updatePopups);
 
         return () => {
             mapCurrent?.off('zoom', handleZoomChange);
-            mapCurrent?.off('move', updatePopups);
         };
-    }, [data, updatePopups]);
+    }, [data]);
 
     return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
 };
