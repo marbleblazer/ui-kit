@@ -114,5 +114,7 @@
     "sideEffects": [
         "**/*.css"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "@types/mapbox-gl": "^3.4.1"
+    }
 }

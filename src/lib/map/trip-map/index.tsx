@@ -14,14 +14,16 @@ import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { customTripDrawStyles, typedGeodesicDraw } from '../constance';
 import { debounce, useTheme } from '@mui/material';
-import { ZOOM_BREAKPOINTS } from '../helpers/utils';
-import moment from 'moment';
+import { LINE_POINTS_SOURCE_KEY } from './constance';
+import { TripMapWorker } from './trip-map-worker';
+import { addTripMapLayers } from './utils/add-trip-map-layers';
+import { clearMapLayersSources } from './utils/clear-map-layers-sources';
+import { renderTripLineStringPoints } from '../helpers/utils';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
-    isLineMarkersNeeded?: boolean;
     accessToken?: string;
     centeringCoordinates?: Coordinates;
     animateLineId?: number; // id по которому запускается анимация
@@ -36,7 +38,6 @@ type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | n
 export const TripMap: React.FC<IFeatureMapProps> = ({
     data,
     centeringCoordinates, // Координаты, по которым происходит центрирование
-    isLineMarkersNeeded = true, // Флаг на отображение точек между стартовой и конечной на LineString
     animateLineId,
     isPaused,
     animationDuration = 3000,
@@ -45,7 +46,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 }) => {
     const theme = useTheme();
     const [animating, setIsAnimating] = useState<number | null>(null);
-    const [zoomState, setZoomState] = useState(ZOOM_BREAKPOINTS.MEDIUM);
+    const [mapUpdatedState, setMapUpdatedState] = useState(false);
 
     const animationPauseRef = useRef<{ coordinates: [number, number][]; elapsedTime: number } | boolean | null>(null);
     const arrowRef = useRef<HTMLDivElement>(undefined);
@@ -65,13 +66,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const clearMap = useCallback(() => {
         if (!map.current) return;
 
-        if (map.current.getLayer('line-points-layer')) {
-            map.current.removeLayer('line-points-layer');
-        }
-
-        if (map.current!.getSource('line-points')) {
-            map.current!.removeSource('line-points');
-        }
+        clearMapLayersSources(map.current);
 
         // Удаление всех маркеров
         markersRef.current.forEach((marker) => marker.remove());
@@ -84,9 +79,12 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
     const addDataToMap = useCallback(
         (localData?: DataType) => {
-            if (!map.current) return;
+            const mapCurrent = map.current;
+
+            if (!mapCurrent) return;
 
             clearMap();
+            setMapUpdatedState((prev) => !prev);
 
             if (!localData) {
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
@@ -98,23 +96,25 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
             }
 
             if (localData.type === 'FeatureCollection') {
+                let pointSource: GeoJSON.FeatureCollection = {
+                    type: 'FeatureCollection',
+                    features: [],
+                };
+
                 for (const feature of localData.features) {
                     const geometry = feature.geometry;
 
                     if (geometry.type === 'LineString') {
-                        // renderLineStringPoints({
-                        //     geometry,
-                        //     map,
-                        //     markersRef,
-                        //     isLineMarkersNeeded,
-                        //     theme,
-                        //     isTrip: true,
-                        // });
-
                         const lineCoordinates = geometry.coordinates;
 
-                        console.log(feature);
-                        const pointFeatures = lineCoordinates.map((coord, index) => {
+                        renderTripLineStringPoints({
+                            geometry,
+                            map,
+                            markersRef,
+                            theme,
+                        });
+
+                        const pointFeatures: GeoJSON.Feature[] = lineCoordinates.map((coord, index) => {
                             const properties = feature?.properties as {
                                 speeds: (number | null)[];
                                 time: (string | null)[];
@@ -134,38 +134,27 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                             };
                         });
 
-                        const pointSource: GeoJSON.FeatureCollection = {
-                            type: 'FeatureCollection',
-                            features: pointFeatures as GeoJSON.Feature[],
+                        pointSource = {
+                            ...pointSource,
+                            features: [...pointSource.features, ...pointFeatures],
                         };
-
-                        if (map.current.getLayer('line-points-layer')) {
-                            map.current.removeLayer('line-points-layer');
-                        }
-
-                        if (map.current!.getSource('line-points')) {
-                            map.current!.removeSource('line-points');
-                        }
-
-                        map.current!.addSource('line-points', {
-                            type: 'geojson',
-                            data: pointSource,
-                        });
-
-                        map.current!.addLayer({
-                            id: 'line-points-layer',
-                            type: 'circle',
-                            source: 'line-points',
-                            paint: {
-                                'circle-radius': 5,
-                                'circle-color': theme.palette.text.titleInput,
-                                'circle-stroke-color': theme.palette.base.color1,
-                                'circle-stroke-width': 2,
-                            },
-                        });
                     }
                 }
+                const mainSource = map.current!.getSource(LINE_POINTS_SOURCE_KEY) as mapboxgl.GeoJSONSource;
 
+                if (mainSource) {
+                    mainSource.setData(pointSource);
+                } else {
+                    map.current!.addSource(LINE_POINTS_SOURCE_KEY, {
+                        type: 'geojson',
+                        data: pointSource,
+                        cluster: true,
+                        clusterMaxZoom: 14,
+                        clusterRadius: 50,
+                    });
+                }
+
+                console.log(localData.features, '1', pointSource.features);
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
                     type: 'FeatureCollection',
                     features: localData.features,
@@ -174,44 +163,16 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData(localData);
             }
 
-            const popup = new mapboxgl.Popup({ closeButton: false, className: 'speed-popup' });
-
-            map.current.on('mouseenter', 'line-points-layer', (e) => {
-                if (!map.current) return;
-
-                map.current.getCanvas().style.cursor = 'pointer';
-
-                const { speeds, time } = e.features?.[0].properties as {
-                    speeds: number | null;
-                    time: string | null;
-                };
-
-                const speed = speeds ?? null;
-                const serverTime = time ?? null;
-
-                const popupContent = `
-                                <div>${serverTime ? moment(new Date(serverTime)).format('YYYY.MM.DD HH:mm') : 'N/A'}</div>
-                                <div class="speed">${speed !== null ? `${speed.toFixed(2)} km/h` : 'Speed N/A'}</div>
-                                `;
-
-                popup.setLngLat(e.lngLat).setHTML(popupContent);
-
-                popup.addTo(map.current);
-            });
-
-            map.current.on('mouseleave', 'line-points-layer', () => {
-                map.current.getCanvas().style.cursor = '';
-                popup.remove();
-            });
+            addTripMapLayers(mapCurrent, theme);
 
             // bbox logic
             if (localData.type === 'FeatureCollection' && localData.features.length === 0) return;
 
             const bbox = bboxTurf(localData, { recompute: true });
             const [west, south, east, north] = bbox;
-            map.current.fitBounds([west, south, east, north], { padding: 50 });
+            mapCurrent.fitBounds([west, south, east, north], { padding: 50 });
         },
-        [clearMap, isLineMarkersNeeded, theme],
+        [clearMap, theme],
     );
 
     const onMapLoad = (localData?: DataType) => {
@@ -238,7 +199,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         });
 
         drawRef.current = draw;
-        // https://github.com/mapbox/mapbox-gl-draw/issues/1257
         map.current.addControl(draw);
 
         addDataToMap(finalData);
@@ -354,12 +314,14 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                     animationMarkerRef.current.remove();
                 }
 
+                // @ts-expect-error разобраться в чем проблема
                 // Создаём маркер с кастомной иконкой
                 animationMarkerRef.current = new mapboxgl.Marker({
                     element: arrowRef.current,
                     anchor: 'center',
                 })
                     .setLngLat(coordinates[0])
+                    // @ts-expect-error разобраться в чем проблема
                     .addTo(map.current);
 
                 animationPauseRef.current = null;
@@ -370,39 +332,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         },
         [data, animating, animate],
     );
-
-    // const updatePopups = useCallback(() => {
-    //     if (!data) {
-    //         createPopupsForLineString();
-    //     }
-    //     const zoom = map.current?.getZoom();
-
-    //     if (data && data.type === 'FeatureCollection') {
-    //         data.features.forEach((feature) => {
-    //             if (feature.geometry.type === 'LineString') {
-    //                 const { coordinates } = feature.geometry;
-    //                 const { speeds, time } = feature.properties as {
-    //                     speeds: (number | null)[];
-    //                     time: (string | null)[];
-    //                 };
-
-    //                 if (speeds && time) {
-    //                     createPopupsForLineString(map.current!, coordinates as [number, number][], speeds, time, zoom);
-    //                 }
-    //             }
-    //         });
-    //     }
-    // }, [data]);
-
-    const handleZoomChange = () => {
-        const zoom = map.current?.getZoom();
-
-        if (zoom)
-            if (zoom < ZOOM_BREAKPOINTS.NONE) setZoomState(ZOOM_BREAKPOINTS.NONE);
-            else if (zoom < ZOOM_BREAKPOINTS.LOW) setZoomState(ZOOM_BREAKPOINTS.LOW);
-            else if (zoom < ZOOM_BREAKPOINTS.MEDIUM) setZoomState(ZOOM_BREAKPOINTS.MEDIUM);
-            else if (zoom < ZOOM_BREAKPOINTS.HIGH) setZoomState(ZOOM_BREAKPOINTS.HIGH);
-    };
 
     useEffect(() => {
         const mapCurrent = map.current;
@@ -449,17 +378,10 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
         }
     }, [centeringCoordinates]);
 
-    useEffect(() => {
-        const mapCurrent = map.current;
-
-        if (!mapCurrent) return;
-
-        mapCurrent.on('zoom', handleZoomChange);
-
-        return () => {
-            mapCurrent?.off('zoom', handleZoomChange);
-        };
-    }, [data]);
-
-    return <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
+    return (
+        <>
+            <TripMapWorker mapCurrent={map.current!} mapUpdatedState={mapUpdatedState} />
+            <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
+        </>
+    );
 };
