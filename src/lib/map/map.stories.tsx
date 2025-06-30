@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DrawableMap, FeatureMap, TripMap } from '@chirp/ui/lib';
 import { Box, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { mockSecondTripData, mockTripData } from './mock';
+import { mockMultiTripData, mockTripData } from './mock';
 
 const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
@@ -425,11 +425,10 @@ export const TripMapExample: Story = {
                 </Stack>
 
                 <TripMap
-                    data={checkedState ? mockTripData : mockSecondTripData}
+                    data={checkedState ? mockTripData : mockMultiTripData}
                     animateLineId={shouldAnimate}
                     setAnimateLineId={setShouldAnimate}
                     animationDuration={30000}
-                    isLineMarkersNeeded={true}
                     isPaused={isPaused}
                 />
             </Box>

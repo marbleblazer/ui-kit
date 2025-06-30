@@ -1,5 +1,4 @@
 import mapboxgl from 'mapbox-gl';
-import moment from 'moment';
 import { LineString, Point } from 'geojson';
 import { RefObject } from 'react';
 import {
@@ -26,13 +25,19 @@ interface IRenderPoints {
     variant: IFeatureMapVariants;
 }
 
+interface IRenderTripLineStringPoints {
+    geometry: LineString;
+    map: RefObject<mapboxgl.Map | null>;
+    markersRef: RefObject<mapboxgl.Marker[]>;
+    theme: Theme;
+}
+
 interface IRenderLineStringPoints {
     geometry: LineString;
     map: RefObject<mapboxgl.Map | null>;
     markersRef: RefObject<mapboxgl.Marker[]>;
     isLineMarkersNeeded: boolean;
     theme: Theme;
-    isTrip?: boolean;
 }
 
 const isTooCloseOnScreen = (
@@ -86,77 +91,6 @@ const clear = () => {
     activePopups.forEach((popup) => popup.remove());
     activePixelPopups = [];
     activePopups = []; // Очищаем массив
-};
-
-/**
- * Создает попапы с данными о скорости и времени для каждой точки маршрута в зависимости от уровня зума.
- * @param map - объект карты Mapbox.
- * @param coordinates - массив координат [долгота, широта] для LineString.
- * @param speeds - массив скоростей для каждой точки.
- * @param time - массив времени сервера для каждой точки.
- * @param zoom - текущий уровень зума.
- */
-export const createPopupsForLineString = (
-    map?: mapboxgl.Map,
-    coordinates?: [number, number][],
-    speeds?: (number | null)[],
-    time?: (string | null)[],
-    zoom?: number,
-) => {
-    clear();
-
-    if (!zoom || !map || !coordinates) return;
-
-    // если зум ниже порога ZOOM_BREAKPOINTS.NONE, удаляем все активные попапы и return
-    if (zoom < ZOOM_BREAKPOINTS.NONE) {
-        return;
-    }
-
-    // интервал для отбражения попапов на основе уровня зума
-    let popupInterval = 15; // Показывать 10 папов
-
-    if (zoom >= ZOOM_BREAKPOINTS.HIGH) {
-        popupInterval = 20; // Показывать 10 папов
-    } else if (zoom >= ZOOM_BREAKPOINTS.MEDIUM) {
-        popupInterval = 30; // Показывать 15 папов
-    } else if (zoom >= ZOOM_BREAKPOINTS.LOW) {
-        popupInterval = 40; // Показывать 20 папов
-    }
-
-    // очищаем все предыдущие попапы перед созданием новых
-    const bounds = getMapBounds(map);
-
-    const filteredCoordinates = coordinates.filter((coord) => {
-        return isPointInBounds(coord, bounds);
-    });
-
-    const coollectionLength = filteredCoordinates.length;
-    // создаем новые попапы
-    filteredCoordinates.forEach((coordinate, index) => {
-        if (Math.round(index % Math.round(coollectionLength / popupInterval)) === 0) {
-            const pixelCoordinates = map.project(coordinate);
-
-            if (!isTooCloseOnScreen(pixelCoordinates, activePixelPopups, 50)) {
-                // Добавляем попап только если он не слишком близко к другим
-
-                const speed = speeds ? speeds[index] : null;
-                const serverTime = time ? time[index] : null;
-
-                const popupContent = `
-                <div>${serverTime ? moment(serverTime).format('YYYY.MM.DD HH:mm') : 'N/A'}</div>
-                <div class="speed">${speed !== null ? `${speed.toFixed(2)} km/h` : 'Speed N/A'}</div>
-                `;
-
-                const popup = new mapboxgl.Popup({ closeButton: false, className: 'speed-popup' })
-                    .setLngLat(coordinate)
-                    .setHTML(popupContent);
-
-                popup.addTo(map);
-                activePopups.push(popup); // добавляем попап в массив активных попапов
-                activePixelPopups.push(pixelCoordinates); // Добавляем точку в список
-            }
-        }
-    });
 };
 
 /** Рендеринг элементов типа "Point" */
@@ -278,6 +212,36 @@ export const renderLineStringPoints = ({
                     const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(coordinate as [number, number]);
 
                     map.current && markerInstance.addTo(map.current);
+                    markersRef.current.push(markerInstance);
+                }
+            }
+        });
+    }
+};
+
+/** Рендеринг маркеров поезжки при типе "LineString" */
+export const renderTripLineStringPoints = ({ geometry, map, markersRef, theme }: IRenderTripLineStringPoints) => {
+    if (geometry.coordinates && Array.isArray(geometry.coordinates)) {
+        geometry.coordinates.forEach((coordinate, index) => {
+            if (Array.isArray(coordinate) && coordinate.length === 2) {
+                let markerElement = null;
+
+                if (index === 0) {
+                    markerElement = document.createElement('div');
+                    markerElement.classList.add('start-trip-end-line-marker');
+                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette, true);
+                } else if (index === geometry.coordinates.length - 1) {
+                    markerElement = document.createElement('div');
+                    markerElement.classList.add('start-trip-end-line-marker');
+                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette, true);
+                }
+
+                if (markerElement) {
+                    const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(coordinate as [number, number]);
+
+                    // @ts-expect-error разобраться в чем проблема
+                    map.current && markerInstance.addTo(map.current);
+                    // @ts-expect-error разобраться в чем проблема
                     markersRef.current.push(markerInstance);
                 }
             }
