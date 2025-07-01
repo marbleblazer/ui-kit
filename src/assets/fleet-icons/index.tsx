@@ -217,3 +217,5 @@ export { default as PdfIcon } from './pdf.svg?react';
 export { default as TableRowsIcon } from './table-rows.svg?react';
 
 export { default as MapIcon } from './map.svg?react';
+
+export { default as WhiteCloseIcon } from './white_close.svg?react';

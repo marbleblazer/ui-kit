@@ -25,6 +25,7 @@ type VertexClickHandler<StateType> = (this: IDrawCustomModeContext, state: State
 
 export interface ICustomDrawMode<StateType> extends MapboxDraw.DrawCustomMode {
     clickOnVertex?: VertexClickHandler<StateType>;
+    onDeleteLastPoint?(this: IDrawCustomModeContext, state: StateType): void;
 }
 
 export type IFeatureMapVariants = 'base' | 'single-point';

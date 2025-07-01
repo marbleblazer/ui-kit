@@ -52,6 +52,7 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
     const markersRef = useRef<HTMLDivElement[]>([]);
     const map = useRef<mapboxgl.Map>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
+    const deleteLastPointMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const [_, setActiveDrawMode] = useState('');
 
     const handleChange = (feature: GeoJSON.Feature) => {
@@ -175,11 +176,90 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         map.current.fitBounds([west, south, east, north], { padding: 50 });
     }, [drawMode, theme.palette, withStartEndLineIndicators, data]);
 
+    const showDeleteLastPointMarker = useCallback((feature: GeoJSON.Feature) => {
+        if (
+            !map.current ||
+            !drawRef.current ||
+            (feature.geometry.type !== 'LineString' && feature.geometry.type !== 'Polygon')
+        )
+            return;
+
+        const isPolygon = feature.geometry.type === 'Polygon';
+        const isCircle =
+            feature.geometry.type === 'Polygon' && feature.properties && 'circleRadius' in feature.properties;
+
+        const coords = isPolygon
+            ? ([...feature.geometry.coordinates[0]] as [number, number][])
+            : [...(feature.geometry.coordinates as [number, number][])];
+
+        if (coords.length < 3) return;
+
+        if (coords.length <= 3) {
+            if (coords[0][0] === coords[1][0] && coords[0][1] === coords[1][1]) return;
+        }
+
+        const lastPoint = isPolygon ? coords[coords.length - 3] : coords[coords.length - 2];
+
+        // Удалить предыдущий маркер, если есть
+        deleteLastPointMarkerRef.current?.remove();
+
+        const markerEl = document.createElement('div');
+        markerEl.className = 'delete-marker';
+
+        markerEl.style.pointerEvents = 'auto'; // 🔹 по умолчанию у mapboxgl.Marker — none
+
+        const marker = new mapboxgl.Marker(markerEl).setLngLat(lastPoint).addTo(map.current) as mapboxgl.Marker;
+        deleteLastPointMarkerRef.current = marker;
+
+        if (isCircle) {
+            markerEl.onclick = () => {
+                drawRef.current?.deleteAll();
+                deleteLastPointMarkerRef.current = null;
+                markerEl.remove();
+            };
+        }
+    }, []);
+
+    useEffect(() => {
+        const mapCurrent = map?.current;
+
+        if (!mapCurrent) return;
+
+        const onMouseMove = () => {
+            if (!drawRef.current || !map.current) return;
+            const mode = drawRef.current.getMode();
+            const features = drawRef.current.getAll().features;
+
+            if (!features.length) return;
+            const feature = features[0];
+
+            if (
+                !feature ||
+                (mode !== 'draw_line_string' &&
+                    mode !== 'draw_polygon' &&
+                    features[0]?.properties &&
+                    (!feature.properties || !('circleRadius' in feature.properties)))
+            )
+                return;
+
+            if (feature.geometry.type !== 'LineString' && feature.geometry.type !== 'Polygon') return;
+
+            showDeleteLastPointMarker(feature); // обновляем позицию крестика
+        };
+
+        mapCurrent?.on('mousemove', onMouseMove);
+
+        return () => {
+            mapCurrent?.off('mousemove', onMouseMove);
+        };
+    }, [showDeleteLastPointMarker]);
+
     // Функция для завершения рисования
     const finishDrawing = useCallback(() => {
         if (!drawRef.current || !map.current) return;
 
         const currentMode = drawRef.current.getMode();
+        deleteLastPointMarkerRef.current?.remove();
 
         if (currentMode === 'draw_line_string' || currentMode === 'draw_polygon') {
             if (drawMode) {
@@ -222,6 +302,8 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
 
     const handleChangeMode = (key: string) => {
         if (!map.current || !drawRef.current) return;
+
+        deleteLastPointMarkerRef.current?.remove();
 
         if (isSingleDraw) {
             drawRef.current?.deleteAll();
