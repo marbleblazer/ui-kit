@@ -217,3 +217,5 @@ export { default as PdfIcon } from './pdf.svg?react';
 export { default as TableRowsIcon } from './table-rows.svg?react';
 
 export { default as MapIcon } from './map.svg?react';
+
+export { default as DocumentWithLinesIcon } from './document-with-lines-icon.svg?react';
