@@ -19,6 +19,7 @@ import { TripMapWorker } from './trip-map-worker';
 import { addTripMapLayers } from './utils/add-trip-map-layers';
 import { clearMapLayersSources } from './utils/clear-map-layers-sources';
 import { renderTripLineStringPoints } from '../helpers/utils';
+import { useMapScreenshot } from './hooks/use-map-screenshot';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -30,6 +31,7 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     animationDuration?: number;
     isPaused: boolean;
 
+    onFullMapImageReady?: (callback: () => Promise<string>) => void;
     setAnimateLineId: (id?: number) => void;
 }
 
@@ -42,6 +44,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     isPaused,
     animationDuration = 3000,
     setAnimateLineId,
+    onFullMapImageReady,
     ...baseProps
 }) => {
     const theme = useTheme();
@@ -55,6 +58,8 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
     const pendingData = useRef<DataType | undefined>(undefined); // Нужно, так как в некоторых случаях данные приходят слишком быстро, карта не успевает загрузиться
+
+    useMapScreenshot({ map, onFullMapImageReady });
 
     const clearObjects = useCallback(() => {
         setIsAnimating(null);
@@ -154,7 +159,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                     });
                 }
 
-                console.log(localData.features, '1', pointSource.features);
                 (map.current?.getSource('mapbox-gl-draw-cold') as mapboxgl.GeoJSONSource)?.setData({
                     type: 'FeatureCollection',
                     features: localData.features,

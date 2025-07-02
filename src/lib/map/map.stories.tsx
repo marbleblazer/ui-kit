@@ -436,6 +436,58 @@ export const TripMapExample: Story = {
     },
 };
 
+export const TripMapWithImageDownload = () => {
+    const [shouldAnimate, setShouldAnimate] = useState<number>();
+    const [checkedState, setCheckedState] = useState(true);
+    const [isPaused, setIsPaused] = useState(false);
+    const [fullScreenshotFunc, setFullScreenshotFunc] = useState<(() => Promise<string>) | null>(null);
+
+    const handleStartAnimation = () => {
+        setShouldAnimate(checkedState ? 1176 : 1978);
+        setIsPaused(false);
+    };
+
+    const handlePauseAnimation = () => {
+        setIsPaused(!isPaused);
+    };
+
+    const handleDownloadFullImage = async () => {
+        if (!fullScreenshotFunc) return;
+        const dataUrl = await fullScreenshotFunc();
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'map-full-screenshot.png';
+        link.click();
+    };
+
+    return (
+        <Box sx={{ width: '600px', height: '600px' }}>
+            <Stack>
+                <Stack direction="row" spacing={1}>
+                    <button onClick={handleStartAnimation}>Start Animation</button>
+                    <button onClick={handlePauseAnimation}>{isPaused ? 'Play' : 'Pause'} Animation</button>
+                    <button onClick={handleDownloadFullImage}>Download Full Map Screenshot (html2canvas)</button>
+                </Stack>
+                <Stack>
+                    <label>
+                        <input type="checkbox" checked={checkedState} onChange={() => setCheckedState(!checkedState)} />
+                        firstData
+                    </label>
+                </Stack>
+            </Stack>
+
+            <TripMap
+                data={checkedState ? mockTripData : mockMultiTripData}
+                animateLineId={shouldAnimate}
+                setAnimateLineId={setShouldAnimate}
+                animationDuration={30000}
+                isPaused={isPaused}
+                onFullMapImageReady={(fn) => setFullScreenshotFunc(() => fn)}
+            />
+        </Box>
+    );
+};
+
 export const DynamicWidthTest: Story = {
     render: () => {
         const [widthState, setWidthState] = useState('300px');
