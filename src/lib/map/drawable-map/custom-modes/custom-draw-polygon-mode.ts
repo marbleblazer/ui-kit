@@ -7,6 +7,8 @@ interface IDrawPolygonModeState extends IDrawModeState {
         coordinates: [number, number][][];
         type: 'Polygon';
     };
+    fakeDuplicateAdded?: boolean;
+    isContinued: boolean;
 }
 
 export type ICustomDrawPolygonMode = ICustomDrawMode<IDrawPolygonModeState>;
@@ -20,7 +22,39 @@ export const customDrawPolygonMode: ICustomDrawPolygonMode = {
             Array.isArray(state.polygon?.coordinates[0]) &&
             state.currentVertexPosition === state.polygon.coordinates[0].length - 1;
 
-        if (isLastPoint) return;
+        if (isLastPoint) {
+            const newCoords = [...state.polygon.coordinates[0]];
+
+            if (newCoords?.length > 2) {
+                newCoords.pop();
+            }
+
+            newCoords.pop();
+
+            if (state.fakeDuplicateAdded) {
+                newCoords.shift();
+                state.fakeDuplicateAdded = false;
+            }
+
+            if (newCoords.length === 1) {
+                const [x, y] = newCoords[0];
+                newCoords.push([x, y]);
+                state.fakeDuplicateAdded = true;
+            }
+
+            const feature = this.getFeature(state.polygon.id);
+            // @ts-expect-error bug
+            feature?.setCoordinates([newCoords]);
+
+            state.polygon.coordinates[0] = newCoords;
+
+            if (state.currentVertexPosition) state.currentVertexPosition = state.currentVertexPosition - 1;
+
+            // Принудительный рендер
+            this.doRender(state.polygon.id);
+
+            return;
+        }
 
         return this.changeMode(MapboxDraw.constants.modes.DIRECT_SELECT, {
             featureId: state.polygon.id,
