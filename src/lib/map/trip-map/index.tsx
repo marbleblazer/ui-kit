@@ -30,12 +30,14 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     animateLineId?: number; // id по которому запускается анимация
     animationDuration?: number;
     isPaused: boolean;
+    isDataOnMap?: boolean;
 
     onFullMapImageReady?: (callback: () => Promise<string>) => void;
+    onMapData?: () => void;
     setAnimateLineId: (id?: number) => void;
 }
 
-type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
+export type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 export const TripMap: React.FC<IFeatureMapProps> = ({
     data,
@@ -45,6 +47,8 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     animationDuration = 3000,
     setAnimateLineId,
     onFullMapImageReady,
+    onMapData,
+    isDataOnMap,
     ...baseProps
 }) => {
     const theme = useTheme();
@@ -59,7 +63,16 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const drawRef = useRef<MapboxDraw | null>(null);
     const pendingData = useRef<DataType | undefined>(undefined); // Нужно, так как в некоторых случаях данные приходят слишком быстро, карта не успевает загрузиться
 
-    useMapScreenshot({ map, onFullMapImageReady });
+    const stylesWhileScreenshot = onFullMapImageReady
+        ? {
+              position: 'fixed',
+              top: '-9999px',
+              opacity: 0,
+              pointerEvents: 'none',
+          }
+        : {};
+
+    useMapScreenshot({ map, onFullMapImageReady, onMapData, isDataOnMap });
 
     const clearObjects = useCallback(() => {
         setIsAnimating(null);
@@ -174,9 +187,13 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
             const bbox = bboxTurf(localData, { recompute: true });
             const [west, south, east, north] = bbox;
-            mapCurrent.fitBounds([west, south, east, north], { padding: 50 });
+
+            mapCurrent.fitBounds([west, south, east, north], {
+                padding: 50,
+                animate: !onFullMapImageReady, // При скриншоте карты анимация должна быть отключена
+            });
         },
-        [clearMap, theme],
+        [clearMap, onFullMapImageReady, theme],
     );
 
     const onMapLoad = (localData?: DataType) => {
@@ -207,16 +224,6 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
 
         addDataToMap(finalData);
     };
-
-    useEffect(() => {
-        if (!map.current) return;
-
-        if (map.current.isStyleLoaded()) {
-            addDataToMap(data || null);
-        } else {
-            pendingData.current = data || null;
-        }
-    }, [addDataToMap, data]);
 
     const animate = useCallback(
         (coordinates: [number, number][], startTime: number) => {
@@ -338,6 +345,16 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     );
 
     useEffect(() => {
+        if (!map.current) return;
+
+        if (map.current.isStyleLoaded()) {
+            addDataToMap(data || null);
+        } else {
+            pendingData.current = data || null;
+        }
+    }, [addDataToMap, data]);
+
+    useEffect(() => {
         const mapCurrent = map.current;
 
         if (!mapCurrent) return;
@@ -385,7 +402,7 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     return (
         <>
             <TripMapWorker mapCurrent={map.current!} mapUpdatedState={mapUpdatedState} />
-            <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} />;
+            <BaseMap {...baseProps} mapRef={map} onMapLoad={() => onMapLoad(data)} sx={{ ...stylesWhileScreenshot }} />;
         </>
     );
 };

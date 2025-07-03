@@ -437,92 +437,77 @@ export const TripMapExample: Story = {
 };
 
 export const TripMapWithImageDownload = () => {
-    const [shouldAnimate, setShouldAnimate] = useState<number>();
     const [checkedState, setCheckedState] = useState(true);
-    const [isPaused, setIsPaused] = useState(false);
+    const [mapVisible, setMapVisible] = useState(false);
     const [fullScreenshotFunc, setFullScreenshotFunc] = useState<(() => Promise<string>) | null>(null);
+    const [isDataOnMap, setIsDataOnMap] = useState(false);
+    const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
-    const handleStartAnimation = () => {
-        setShouldAnimate(checkedState ? 1176 : 1978);
-        setIsPaused(false);
-    };
+    const canTakeScreenshot = isDataOnMap && fullScreenshotFunc;
 
-    const handlePauseAnimation = () => {
-        setIsPaused(!isPaused);
-    };
+    useEffect(() => {
+        if (!canTakeScreenshot) return;
 
-    const handleDownloadFullImage = async () => {
-        if (!fullScreenshotFunc) return;
-        const dataUrl = await fullScreenshotFunc();
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = 'map-full-screenshot.png';
-        link.click();
-    };
+        (async () => {
+            const dataUrl = await fullScreenshotFunc();
+
+            if (dataUrl) {
+                setImageDataUrl(dataUrl);
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = 'map-full-screenshot.png';
+                link.click();
+            }
+
+            setMapVisible(false);
+            setIsDataOnMap(false);
+            setFullScreenshotFunc(null);
+        })();
+    }, [canTakeScreenshot, fullScreenshotFunc]);
+
+    const handleDownloadFullImage = () => setMapVisible(true);
 
     return (
         <Box sx={{ width: '600px', height: '600px' }}>
             <Stack>
                 <Stack direction="row" spacing={1}>
-                    <button onClick={handleStartAnimation}>Start Animation</button>
-                    <button onClick={handlePauseAnimation}>{isPaused ? 'Play' : 'Pause'} Animation</button>
-                    <button onClick={handleDownloadFullImage}>Download Full Map Screenshot (html2canvas)</button>
+                    <button onClick={handleDownloadFullImage}>Download Full Map Screenshot</button>
                 </Stack>
                 <Stack>
                     <label>
-                        <input type="checkbox" checked={checkedState} onChange={() => setCheckedState(!checkedState)} />
+                        <input
+                            type="checkbox"
+                            checked={checkedState}
+                            onChange={() => setCheckedState(!checkedState)}
+                            disabled={mapVisible}
+                        />
                         firstData
                     </label>
                 </Stack>
             </Stack>
 
-            <TripMap
-                data={checkedState ? mockTripData : mockMultiTripData}
-                animateLineId={shouldAnimate}
-                setAnimateLineId={setShouldAnimate}
-                animationDuration={30000}
-                isPaused={isPaused}
-                onFullMapImageReady={(fn) => setFullScreenshotFunc(() => fn)}
-            />
+            {imageDataUrl && (
+                <img
+                    src={imageDataUrl}
+                    alt="Map screenshot preview"
+                    style={{ marginTop: 10, maxWidth: '100%', maxHeight: 300, border: '1px solid #ccc' }}
+                />
+            )}
+
+            {mapVisible && (
+                <TripMap
+                    data={checkedState ? mockTripData : mockMultiTripData}
+                    animateLineId={undefined}
+                    setAnimateLineId={() => {}}
+                    animationDuration={30000}
+                    isPaused={false}
+                    onFullMapImageReady={(fn) => setFullScreenshotFunc(() => fn)}
+                    onMapData={() => setIsDataOnMap(true)}
+                    isDataOnMap={isDataOnMap}
+                />
+            )}
         </Box>
     );
-};
-
-export const DynamicWidthTest: Story = {
-    render: () => {
-        const [widthState, setWidthState] = useState('300px');
-
-        return (
-            <Box sx={{ width: widthState, height: '500px' }}>
-                <Stack>
-                    <Stack direction="row">
-                        <button onClick={() => setWidthState('300px')}>300px</button>
-                        <button onClick={() => setWidthState('500px')}>500px</button>
-                    </Stack>
-                </Stack>
-
-                <FeatureMap
-                    data={{
-                        type: 'FeatureCollection',
-                        features: [
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [49.687, 55.4745],
-                                },
-                                properties: {
-                                    title: 'Mapbox',
-                                    description: 'Washington, D.C.',
-                                },
-                            },
-                        ],
-                    }}
-                    coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
-                />
-            </Box>
-        );
-    },
 };
 
 export const SingleVariant: Story = {
