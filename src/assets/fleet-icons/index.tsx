@@ -218,4 +218,10 @@ export { default as TableRowsIcon } from './table-rows.svg?react';
 
 export { default as MapIcon } from './map.svg?react';
 
+export { default as WhiteCloseIcon } from './white_close.svg?react';
+
 export { default as DocumentWithLinesIcon } from './document-with-lines-icon.svg?react';
+
+export { default as CheckmarkIcon } from './checkmark.svg?react';
+
+export { default as MinusIcon } from './minus.svg?react';

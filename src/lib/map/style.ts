@@ -10,6 +10,7 @@ import searchIcon from '@chirp/ui/assets/fleet-icons/map-search-icon.svg';
 import questionIcon from '@chirp/ui/assets/fleet-icons/map-question-icon.svg';
 import closeIcon from '@chirp/ui/assets/fleet-icons/cross.svg';
 import checkmarkIcon from '@chirp/ui/assets/fleet-icons/checkmark.svg';
+import whiteCloseIcon from '@chirp/ui/assets/fleet-icons/white_close.svg';
 
 interface Props {
     isFullScreenMap?: boolean;
@@ -57,6 +58,25 @@ export const MapContainer = styled(Box, {
         marginRight: 0,
     },
 
+    '.delete-marker': {
+        cursor: 'pointer',
+        width: '20px',
+        height: '20px',
+        position: 'relative',
+        borderRadius: '50%',
+        '&:hover': {
+            backgroundColor: theme.palette.base.color7,
+            backgroundImage: `url("${whiteCloseIcon}")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            position: 'absolute',
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+            left: 0,
+            top: 0,
+        },
+    },
     '.spider-leg-container .spider-leg-line': {
         backgroundColor: '#f4f4f4',
         position: 'absolute',

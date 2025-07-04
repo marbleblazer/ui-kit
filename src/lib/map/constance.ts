@@ -9,7 +9,7 @@ export const customDrawStyles = (theme: Palette) => [
         filter: ['all', ['==', '$type', 'LineString'], ['!=', 'active', 'true']],
         paint: {
             'line-color': `${theme.base.color6}`,
-            'line-width': 1,
+            'line-width': 2,
         },
     },
     {
@@ -27,7 +27,7 @@ export const customDrawStyles = (theme: Palette) => [
         filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
         paint: {
             'line-color': `${theme.base.color6}`,
-            'line-width': 1,
+            'line-width': 2,
         },
     },
     {
@@ -45,7 +45,7 @@ export const customDrawStyles = (theme: Palette) => [
         filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
         paint: {
             'line-color': `${theme.base.color6}`,
-            'line-width': 1,
+            'line-width': 2,
         },
     },
     {
@@ -63,7 +63,7 @@ export const customDrawStyles = (theme: Palette) => [
         filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
         paint: {
             'line-color': `${theme.base.color6}`,
-            'line-width': 1,
+            'line-width': 2,
         },
     },
     {
