@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Autocomplete } from '../autocomplete';
 import { TextField } from '../text-field';
 import { useDebounce } from '@chirp/ui/hooks';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { GeocodeFeature } from '@mapbox/mapbox-sdk/services/geocoding';
 import { SxProps } from '@mui/material/styles';
 import { StandardTextFieldProps } from '@mui/material/TextField';
+import { Tooltip } from '../tooltip';
 
 interface IGeolocateSearchProps {
     selectedValue: null | GeocodeFeature['geometry']['coordinates'];
@@ -17,6 +18,9 @@ interface IGeolocateSearchProps {
 
 export const GeolocateSearch: FC<IGeolocateSearchProps> = ({ sx, selectedValue, textFieldProps, onSelect }) => {
     const { i18n } = useTranslation();
+
+    const ref = useRef<HTMLTableCellElement>(null);
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const [localSelectedValue, setLocalSelectedValue] = useState<GeocodeFeature | null>(null);
     const [inputValue, setInputValue] = useState('');
@@ -52,12 +56,16 @@ export const GeolocateSearch: FC<IGeolocateSearchProps> = ({ sx, selectedValue, 
                             elem.geometry.coordinates[0] === selectedValue[0] &&
                             elem.geometry.coordinates[1] === selectedValue[1],
                     );
-                    console.log(foundFeature);
-
                     setLocalSelectedValue(foundFeature ?? response.body.features[0]);
                 });
         }
     }, [i18n.language, selectedValue]);
+
+    const handleMouseEnter = () => {
+        if (inputValue?.length > 40) {
+            setShowTooltip(true);
+        }
+    };
 
     return (
         <Autocomplete
@@ -66,7 +74,7 @@ export const GeolocateSearch: FC<IGeolocateSearchProps> = ({ sx, selectedValue, 
             filterOptions={(x) => x}
             disabled={false}
             value={localSelectedValue}
-            sx={sx}
+            sx={{ ...sx, '.MuiInputBase-root input.MuiInputBase-input': { pr: '48px' } }}
             options={locationsState}
             getOptionKey={(option) => (typeof option === 'string' ? '' : (option?.id ?? ''))}
             getOptionLabel={(option) => (typeof option === 'string' ? '' : (option?.place_name ?? ''))}
@@ -76,7 +84,19 @@ export const GeolocateSearch: FC<IGeolocateSearchProps> = ({ sx, selectedValue, 
             onInputChange={(_, newInputValue) => {
                 setInputValue(newInputValue);
             }}
-            renderInput={(params) => <TextField {...params} {...textFieldProps} />}
+            renderInput={({ ...params }) => (
+                <Tooltip
+                    onMouseEnter={handleMouseEnter}
+                    sx={{
+                        width: '100%',
+                    }}
+                    placement="top"
+                    title={showTooltip ? localSelectedValue?.place_name : ''}
+                    disableInteractive
+                >
+                    <TextField ref={ref} {...params} {...textFieldProps} />
+                </Tooltip>
+            )}
         />
     );
 };
