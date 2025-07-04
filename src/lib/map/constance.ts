@@ -99,7 +99,6 @@ export const customTripDrawStyles = (theme: Palette) => {
                 'line-width': 2,
             },
         },
-
         {
             id: 'gl-draw-point-active',
             type: 'circle',

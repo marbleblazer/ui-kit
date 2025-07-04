@@ -50,6 +50,7 @@
         "@turf/distance": "^7.1.0",
         "echarts": "^5.5.1",
         "echarts-for-react": "^3.0.2",
+        "html2canvas": "^1.4.1",
         "i18next": "^24.2.2",
         "mapbox-gl": "^3.9.3",
         "mapbox-gl-draw-geodesic": "^2.3.1",
