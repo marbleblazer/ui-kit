@@ -10,37 +10,37 @@ export const ToastContainer = styled(RTToastContainer)`
         opacity: 0.1;
     }
     .Toastify__toast--stacked[data-collapsed='true']:not(:last-child) {
-        &:nth-last-child(2) {
+        &:nth-last-of-type() {
             > * {
                 opacity: 0.9;
             }
         }
-        &:nth-last-child(3) {
+        &:nth-last-of-type(3) {
             > * {
                 opacity: 0.8;
             }
         }
-        &:nth-last-child(4) {
+        &:nth-last-of-type(4) {
             > * {
                 opacity: 0.7;
             }
         }
-        &:nth-last-child(5) {
+        &:nth-last-of-type(5) {
             > * {
                 opacity: 0.6;
             }
         }
-        &:nth-last-child(6) {
+        &:nth-last-of-type(6) {
             > * {
                 opacity: 0.5;
             }
         }
-        &:nth-last-child(7) {
+        &:nth-last-of-type(7) {
             > * {
                 opacity: 0.4;
             }
         }
-        &:nth-last-child(8) {
+        &:nth-last-of-type(8) {
             > * {
                 opacity: 0.3;
             }
