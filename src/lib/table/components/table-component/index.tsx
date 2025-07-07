@@ -107,8 +107,8 @@ export const TableComponent = <TData,>({
                         <>
                             {columnWidths?.length ? (
                                 <colgroup>
-                                    {columnWidths.map((width) => (
-                                        <col style={{ width }} />
+                                    {columnWidths.map((width, idx) => (
+                                        <col key={idx} style={{ width }} />
                                     ))}
                                 </colgroup>
                             ) : null}
