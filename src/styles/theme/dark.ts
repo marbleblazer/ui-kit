@@ -82,7 +82,7 @@ export const darkTheme = (
                 color7: refDarkTheme.alerts.alert, //'#FF4949',
                 color7_20: alpha(refLightTheme.alerts.alert, 0.2), //'#FF494933',
                 color8: refDarkTheme.lightShades.primary, //'#FFFFFF',
-                color21: '#FFA824',
+                color21: refDarkTheme.alerts.warning, // #FFF614
                 color9: '#01BE11',
                 color10: '#D9D9D9',
                 color11: '#7AD9E9',
