@@ -24,30 +24,15 @@ export const customDrawLineStringMode: ICustomDrawLineStringMode = {
         if (isLastPoint) {
             const newCoords = [...state.line.coordinates];
 
-            if (newCoords?.length > 2) {
-                newCoords.pop();
-            }
-
             newCoords.pop();
 
-            if (state.fakeDuplicateAdded) {
-                newCoords.shift();
-                state.fakeDuplicateAdded = false;
-            }
-
-            if (newCoords.length === 1) {
-                const [x, y] = newCoords[0];
-                newCoords.push([x, y]);
-                state.fakeDuplicateAdded = true;
-            }
-
             const feature = this.getFeature(state.line.id);
+
             // @ts-expect-error bug
             feature?.setCoordinates(newCoords);
             state.line.coordinates = newCoords;
 
             if (state.currentVertexPosition !== null) state.currentVertexPosition = state.currentVertexPosition - 1;
-
             // Принудительный рендер
             this.doRender(state.line.id);
 

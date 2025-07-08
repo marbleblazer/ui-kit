@@ -100,11 +100,13 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         map.current.on('draw.update' as MapEventType, (e: AnyObject) => {
             const features = e.features as GeoJSON.Feature[];
             handleChange(features[0]);
+            deleteLastPointMarkerRef.current?.remove();
         });
 
         map.current.on('draw.delete' as MapEventType, (e: AnyObject) => {
             const features = e.features as GeoJSON.Feature[];
             handleChange(features[0]);
+            deleteLastPointMarkerRef.current?.remove();
         });
 
         if (defaultDrawMode) {
@@ -192,16 +194,19 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
             ? ([...feature.geometry.coordinates[0]] as [number, number][])
             : [...(feature.geometry.coordinates as [number, number][])];
 
-        if (coords.length < 3) return;
-
         if (coords.length <= 3) {
-            if (coords[0][0] === coords[1][0] && coords[0][1] === coords[1][1]) return;
+            if (coords?.[0]?.[0] === coords?.[1]?.[0] && coords?.[0]?.[1] === coords?.[1]?.[1]) return;
         }
 
         const lastPoint = isPolygon ? coords[coords.length - 3] : coords[coords.length - 2];
 
-        // Удалить предыдущий маркер, если есть
-        deleteLastPointMarkerRef.current?.remove();
+        if (
+            !lastPoint?.length ||
+            (lastPoint[0] === deleteLastPointMarkerRef.current?.getLngLat().lng &&
+                lastPoint[1] === deleteLastPointMarkerRef.current?.getLngLat().lat)
+        )
+            return; // Удалить предыдущий маркер, если есть
+        else deleteLastPointMarkerRef.current?.remove();
 
         const markerEl = document.createElement('div');
         markerEl.className = 'delete-marker';
@@ -211,13 +216,13 @@ export const DrawableMap: React.FC<IDrawableMapProps> = memo((props) => {
         const marker = new mapboxgl.Marker(markerEl).setLngLat(lastPoint).addTo(map.current) as mapboxgl.Marker;
         deleteLastPointMarkerRef.current = marker;
 
-        if (isCircle) {
-            markerEl.onclick = () => {
+        markerEl.onclick = () => {
+            if (isCircle) {
                 drawRef.current?.deleteAll();
-                deleteLastPointMarkerRef.current = null;
-                markerEl.remove();
-            };
-        }
+            }
+            deleteLastPointMarkerRef.current = null;
+            markerEl.remove();
+        };
     }, []);
 
     useEffect(() => {
