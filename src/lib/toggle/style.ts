@@ -28,7 +28,10 @@ export const Checkmark = styled('span')(({ theme }) => ({
     position: 'relative',
     borderRadius: '20px',
     border: `1px solid`,
-    borderColor: theme.palette.base.color6,
+    borderColor: theme.palette.border.border5,
+    '&.checked': {
+        borderColor: theme.palette.base.color6,
+    },
 }));
 
 export const CheckmarkPin = styled(Box)<{ checked: boolean }>(({ checked, theme }) => ({
@@ -41,8 +44,9 @@ export const CheckmarkPin = styled(Box)<{ checked: boolean }>(({ checked, theme 
     left: checked ? '15px' : '3px',
     top: '50%',
     transform: 'translateY(-50%)',
-    backgroundColor: theme.palette.base.color6,
-    borderColor: theme.palette.base.color6,
+    backgroundColor: checked ? theme.palette.base.color6 : theme.palette.text.search,
+    borderColor: checked ? theme.palette.base.color6 : theme.palette.text.search,
+
     borderRadius: '17px',
     transition: '0.4s',
 }));
@@ -51,5 +55,9 @@ export const Label = styled(Typography)<{ component: string }>(({ theme }) => ({
     marginRight: '12px',
     userSelect: 'none',
     fontSize: '12px',
-    color: theme.palette.text.text7,
+    color: theme.palette.text.text8,
+    transition: '0.4s',
+    '&.checked': {
+        color: theme.palette.text.text4,
+    },
 }));
