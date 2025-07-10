@@ -9,16 +9,19 @@ import { SxProps } from '@mui/material';
 type Props = {
     isOpen: boolean;
     title: string;
+
     subTitle?: string;
     icon?: ReactNode;
     isConfirmBtnDisabled?: boolean;
     isCancelBtnDisabled?: boolean;
     confirmButtonText?: string;
     cancelButtonText?: string;
-    onConfirm(): void;
-    onCancel(): void;
     contentSx?: SxProps;
     dialogSx?: SxProps;
+    isDelete?: boolean;
+
+    onCancel(): void;
+    onConfirm(): void;
 } & PropsWithChildren;
 
 export const ConfirmationDialog: React.FC<Props> = ({
@@ -30,6 +33,7 @@ export const ConfirmationDialog: React.FC<Props> = ({
     isCancelBtnDisabled = false,
     confirmButtonText,
     cancelButtonText,
+    isDelete = false,
     children,
     contentSx,
     dialogSx,
@@ -50,7 +54,13 @@ export const ConfirmationDialog: React.FC<Props> = ({
                 <Button variant="secondary" size="medium" fullWidth disabled={isCancelBtnDisabled} onClick={onCancel}>
                     {cancelButtonText || t('Cancel')}
                 </Button>
-                <Button variant="primary" size="medium" fullWidth disabled={isConfirmBtnDisabled} onClick={onConfirm}>
+                <Button
+                    variant={isDelete ? 'alert' : 'primary'}
+                    size="medium"
+                    fullWidth
+                    disabled={isConfirmBtnDisabled}
+                    onClick={onConfirm}
+                >
                     {confirmButtonText || t('Confirm')}
                 </Button>
             </S.ButtonGroup>

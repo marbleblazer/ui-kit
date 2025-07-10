@@ -109,6 +109,35 @@ export const ButtonWrapper = styled(Button)<IButtonProps>(({ fullWidth, theme, s
         }),
     }),
 
+    ...(variant === 'alert' && {
+        background: theme.palette.base.color7,
+        color: theme.palette.base.color1,
+        border: `1px solid transparent`,
+
+        '&:hover, &:checked': {
+            background: theme.palette.base.color7,
+            borderColor: theme.palette.base.color7,
+        },
+
+        '&:active': {
+            background: theme.palette.base.color7,
+            borderColor: 'transparent',
+        },
+
+        '&:disabled': {
+            color: theme.palette.base.color7,
+            opacity: '0.3',
+        },
+
+        '&:focus-visible': {
+            borderColor: 'transparent',
+        },
+
+        ...(size === 'small' && {
+            padding: '8px',
+        }),
+    }),
+
     ...(variant === 'secondary' && {
         background: theme.palette.base.color61,
         color: theme.palette.base.color6,

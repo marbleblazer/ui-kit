@@ -159,6 +159,19 @@ export const TextVariant: Story = {
     ),
 };
 
+export const AlertVariant: Story = {
+    render: () => (
+        <Stack gap={1}>
+            <Button size="medium" variant="alert">
+                test
+            </Button>
+            <Button isLoading size="medium" variant="alert">
+                test
+            </Button>
+        </Stack>
+    ),
+};
+
 export const FullWidth: Story = {
     render: () => (
         <Box width="400px" bgcolor="gray" p={2}>
