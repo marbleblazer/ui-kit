@@ -13,11 +13,11 @@ export const Toggle = ({ name, label, checked, onChange }: Props) => (
     <S.Toggle>
         <S.HiddenInput type="checkbox" checked={checked} onChange={onChange} name={name} />
         {label && (
-            <S.Label component="span" variant="caption12">
+            <S.Label component="span" variant="caption12" className={checked ? 'checked' : ''}>
                 {label}
             </S.Label>
         )}
-        <S.Checkmark>
+        <S.Checkmark className={checked ? 'checked' : ''}>
             <S.CheckmarkPin checked={checked} />
         </S.Checkmark>
     </S.Toggle>
