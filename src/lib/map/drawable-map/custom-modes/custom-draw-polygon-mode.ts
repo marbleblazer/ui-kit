@@ -25,27 +25,11 @@ export const customDrawPolygonMode: ICustomDrawPolygonMode = {
         if (isLastPoint) {
             const newCoords = [...state.polygon.coordinates[0]];
 
-            if (newCoords?.length > 2) {
-                newCoords.pop();
-            }
-
             newCoords.pop();
-
-            if (state.fakeDuplicateAdded) {
-                newCoords.shift();
-                state.fakeDuplicateAdded = false;
-            }
-
-            if (newCoords.length === 1) {
-                const [x, y] = newCoords[0];
-                newCoords.push([x, y]);
-                state.fakeDuplicateAdded = true;
-            }
 
             const feature = this.getFeature(state.polygon.id);
             // @ts-expect-error bug
             feature?.setCoordinates([newCoords]);
-
             state.polygon.coordinates[0] = newCoords;
 
             if (state.currentVertexPosition) state.currentVertexPosition = state.currentVertexPosition - 1;
