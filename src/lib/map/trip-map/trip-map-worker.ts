@@ -58,7 +58,6 @@ export const TripMapWorker: FC<ITripMapWorkerProps> = ({ mapCurrent, mapUpdatedS
 
             popup.setLngLat(e.lngLat).setHTML(popupContent);
 
-            // @ts-expect-error разобраться в чем проблема
             popup.addTo(mapCurrent);
         };
 

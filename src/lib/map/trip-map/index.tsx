@@ -61,7 +61,8 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     const map = useRef<mapboxgl.Map>(null);
     const animationMarkerRef = useRef<mapboxgl.Marker | null>(null);
     const drawRef = useRef<MapboxDraw | null>(null);
-    const pendingData = useRef<DataType | undefined>(undefined); // Нужно, так как в некоторых случаях данные приходят слишком быстро, карта не успевает загрузиться
+    /** В некоторых случаях данные устанавливаются быстрее, чем карта успевает загрузиться */
+    const pendingData = useRef<DataType | undefined>(undefined);
 
     const stylesWhileScreenshot = onFullMapImageReady
         ? {
@@ -325,14 +326,12 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
                     animationMarkerRef.current.remove();
                 }
 
-                // @ts-expect-error разобраться в чем проблема
                 // Создаём маркер с кастомной иконкой
                 animationMarkerRef.current = new mapboxgl.Marker({
                     element: arrowRef.current,
                     anchor: 'center',
                 })
                     .setLngLat(coordinates[0])
-                    // @ts-expect-error разобраться в чем проблема
                     .addTo(map.current);
 
                 animationPauseRef.current = null;
@@ -345,22 +344,14 @@ export const TripMap: React.FC<IFeatureMapProps> = ({
     );
 
     useEffect(() => {
-        if (!map.current) return;
-
-        if (map.current.isStyleLoaded()) {
-            addDataToMap(data || null);
-        } else {
-            pendingData.current = data || null;
-        }
-    }, [addDataToMap, data]);
-
-    useEffect(() => {
         const mapCurrent = map.current;
 
         if (!mapCurrent) return;
 
         if (mapCurrent?.isStyleLoaded()) {
             addDataToMap(data);
+        } else {
+            pendingData.current = data || null;
         }
 
         const debouncedUpdate = debounce(() => {

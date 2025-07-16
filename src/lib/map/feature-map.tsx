@@ -34,9 +34,11 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
     const theme = useTheme();
 
     const map = useRef<mapboxgl.Map>(null);
-
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const drawRef = useRef<MapboxDraw | null>(null);
+
+    /** В некоторых случаях данные устанавливаются быстрее, чем карта успевает загрузиться */
+    const pendingData = useRef<DataType | undefined>(undefined);
 
     const [isMapFittedBounds, setIsMapFittedBounds] = useState(false);
 
@@ -133,7 +135,10 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
         drawRef.current = draw;
         map.current.addControl(draw);
 
-        addDataToMap(data);
+        const finalData = pendingData.current || data;
+        pendingData.current = null;
+
+        addDataToMap(finalData);
     }, [addDataToMap, data, theme.palette]);
 
     useEffect(() => {
@@ -143,6 +148,8 @@ export const FeatureMap: React.FC<IFeatureMapProps> = ({
 
         if (mapCurrent?.isStyleLoaded()) {
             addDataToMap(data);
+        } else {
+            pendingData.current = data || null;
         }
 
         const debouncedUpdate = debounce(() => {
