@@ -38,6 +38,7 @@ interface IRenderLineStringPoints {
     markersRef: RefObject<mapboxgl.Marker[]>;
     isLineMarkersNeeded: boolean;
     theme: Theme;
+    isTrip?: boolean;
 }
 
 const isTooCloseOnScreen = (
@@ -239,9 +240,7 @@ export const renderTripLineStringPoints = ({ geometry, map, markersRef, theme }:
                 if (markerElement) {
                     const markerInstance = new mapboxgl.Marker(markerElement).setLngLat(coordinate as [number, number]);
 
-                    // @ts-expect-error разобраться в чем проблема
                     map.current && markerInstance.addTo(map.current);
-                    // @ts-expect-error разобраться в чем проблема
                     markersRef.current.push(markerInstance);
                 }
             }
