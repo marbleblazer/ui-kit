@@ -225,3 +225,7 @@ export { default as DocumentWithLinesIcon } from './document-with-lines-icon.svg
 export { default as CheckmarkIcon } from './checkmark.svg?react';
 
 export { default as MinusIcon } from './minus.svg?react';
+
+export { default as RadioCheckedIcon } from './radio-checked.svg?react';
+
+export { default as RadioUncheckedIcon } from './radio-unchecked.svg?react';
