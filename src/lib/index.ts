@@ -151,3 +151,5 @@ export { Pagination } from './pagination';
 export { DateInput } from './date-input';
 
 export { GeolocateSearch } from './geolocate-search';
+
+export { BooleanRadioGroup } from './boolean-radio-group';

@@ -3,6 +3,7 @@ import { FormControlLabel, FormControlLabelProps, RadioProps } from '@mui/materi
 
 import * as S from './style';
 import { CustomTypographyVariant } from '@chirp/ui/styles/theme/template';
+import { RadioCheckedIcon, RadioUncheckedIcon } from '@chirp/ui/assets/fleet-icons';
 
 export type RadioVariantType = 'check' | 'visible';
 
@@ -32,6 +33,8 @@ export const Radio: FC<IRadioProps> = ({
                     sx={{
                         '&:hover': { bgcolor: 'transparent' },
                     }}
+                    checkedIcon={<RadioCheckedIcon />}
+                    icon={<RadioUncheckedIcon />}
                     disableRipple
                     color="default"
                     {...props}
