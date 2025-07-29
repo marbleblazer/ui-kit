@@ -28,6 +28,11 @@ export const Radio: FC<IRadioProps> = ({
                     variant: labelTypographyVariant,
                 },
             }}
+            sx={{
+                gap: 2,
+                alignItems: 'center',
+                height: '20px',
+            }}
             control={
                 <S.StyledRadio
                     sx={{

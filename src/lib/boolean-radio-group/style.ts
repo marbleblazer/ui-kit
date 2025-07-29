@@ -5,6 +5,12 @@ export const StyledRadio = styled(MuiRadio)(({ theme }) => ({
     '.MuiTypography-root': {
         color: theme.palette.text.text1,
     },
+
+    '.PrivateSwitchBase-input': {
+        width: '24px',
+        height: '24px',
+    },
+
     svg: {
         width: '18px',
         height: '18px',
