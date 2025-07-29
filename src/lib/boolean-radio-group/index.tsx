@@ -41,7 +41,7 @@ export const BooleanRadioGroup: FC<IPropsBooleanRadioGroupProps> = ({
                     value={value}
                     onChange={handleChangeClick}
                 >
-                    <Stack direction="row" gap={13}>
+                    <Stack direction="row" gap={13} sx={{ whiteSpace: 'nowrap' }}>
                         <Radio value={true} label={positiveLabel} />
                         <Radio value={false} label={negativeLabel} />
                     </Stack>

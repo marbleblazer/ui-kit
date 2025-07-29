@@ -5,6 +5,7 @@ export const StyledRadio = styled(MuiRadio)(({ theme }) => ({
     '.MuiTypography-root': {
         color: theme.palette.text.text1,
     },
+    padding: '0px',
     svg: {
         width: '18px',
         height: '18px',

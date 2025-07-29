@@ -153,3 +153,5 @@ export { DateInput } from './date-input';
 export { GeolocateSearch } from './geolocate-search';
 
 export { BooleanRadioGroup } from './boolean-radio-group';
+
+export { AccordionRadioGroup } from './accordion-radio-group';
