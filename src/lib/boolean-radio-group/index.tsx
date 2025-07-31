@@ -32,7 +32,15 @@ export const BooleanRadioGroup: FC<IPropsBooleanRadioGroupProps> = ({
     return (
         <FormControl>
             <Stack direction="row" justifyContent="space-between" alignItems="center" gap={13}>
-                <Typography color="text.text1" variant={labelTypographyVariant}>
+                <Typography
+                    color="text.text1"
+                    variant={labelTypographyVariant}
+                    sx={{
+                        wordBreak: 'break-word',
+                        wordWrap: 'break-word',
+                        width: '100%',
+                    }}
+                >
                     {label}
                 </Typography>
                 <MUIRadioGroup
