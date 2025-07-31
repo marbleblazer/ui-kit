@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { AccordionDetails, Box, Stack } from '@mui/material';
 
 import * as S from './style';
@@ -41,10 +41,13 @@ export const AccordionRadioGroup = <T extends Record<string, boolean>>({
         }
     };
 
+    useEffect(() => {
+        const allChecked = Object.keys(childrens).every((key) => childrens[key]);
+        setAllCheckedState(allChecked);
+    }, [childrens]);
+
     const handleChangeChildren = (data: T) => {
         onChange(data);
-        const allChecked = Object.keys(data).every((key) => data[key]);
-        setAllCheckedState(allChecked);
     };
 
     return (
