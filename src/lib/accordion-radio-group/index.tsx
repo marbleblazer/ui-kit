@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { AccordionDetails, Box, Stack } from '@mui/material';
 
 import * as S from './style';
@@ -8,41 +8,46 @@ import { BooleanRadioGroup } from '../boolean-radio-group';
 
 export type RadioVariantType = 'check' | 'visible';
 
-export interface IAccordionRadioGroupProps {
+export interface IAccordionRadioGroupProps<T extends Record<string, boolean>> {
     label: ReactNode;
     positiveLabel: string;
     negativeLabel: string;
-    childrens: Record<string, boolean>;
+    childrens: T;
 
-    onChange: (data: Record<string, boolean>) => void;
+    resolveChildrenLabel?: (key: keyof T) => ReactNode | string;
+    onChange: (data: T) => void;
 }
 
-export const AccordionRadioGroup: FC<IAccordionRadioGroupProps> = ({
+export const AccordionRadioGroup = <T extends Record<string, boolean>>({
     label,
     positiveLabel,
     negativeLabel,
-
     childrens,
+
+    resolveChildrenLabel,
     onChange,
-}) => {
+}: IAccordionRadioGroupProps<T>) => {
     const [allCheckedState, setAllCheckedState] = useState(false);
 
     const handleChangeAll = () => {
         if (!allCheckedState) {
             setAllCheckedState(true);
-            const newData = Object.keys(childrens).reduce((acc, key) => ({ ...acc, [key]: true }), {});
+            const newData = Object.keys(childrens).reduce((acc, key) => ({ ...acc, [key]: true }), {} as T);
             onChange(newData);
         } else {
             setAllCheckedState(false);
-            const newData = Object.keys(childrens).reduce((acc, key) => ({ ...acc, [key]: false }), {});
+            const newData = Object.keys(childrens).reduce((acc, key) => ({ ...acc, [key]: false }), {} as T);
             onChange(newData);
         }
     };
 
-    const handleChangeChildren = (data: Record<string, boolean>) => {
-        onChange(data);
-        const allChecked = Object.keys(data).every((key) => data[key]);
+    useEffect(() => {
+        const allChecked = Object.keys(childrens).every((key) => childrens[key]);
         setAllCheckedState(allChecked);
+    }, [childrens]);
+
+    const handleChangeChildren = (data: T) => {
+        onChange(data);
     };
 
     return (
@@ -75,7 +80,7 @@ export const AccordionRadioGroup: FC<IAccordionRadioGroupProps> = ({
                         <Stack gap={6}>
                             {Object.keys(childrens).map((key) => (
                                 <BooleanRadioGroup
-                                    label={key}
+                                    label={resolveChildrenLabel?.(key) || key}
                                     positiveLabel={positiveLabel}
                                     negativeLabel={negativeLabel}
                                     value={childrens[key]}
