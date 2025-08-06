@@ -23,11 +23,13 @@ export const ButtonWrapper = styled(IconButton)<IIconButtonProps>(({ theme, size
     ...(size === 'medium' && {
         padding: '8px',
         maxHeight: '36px',
+        maxWidth: '36px',
     }),
 
     ...(size === 'small' && {
         padding: '4px',
         maxHeight: '28px',
+        maxWidth: '28px',
     }),
 
     ...(variant === 'primary' && {
