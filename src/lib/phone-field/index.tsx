@@ -13,7 +13,7 @@ import {
     useTheme,
 } from '@mui/material';
 import * as S from './styles';
-import { applyMask, getMaxLength, stripDialCode } from './helpers';
+import { applyPhoneNumberMask, getMaxLength, stripDialCode } from './helpers';
 import { COUNTRIES } from './constants';
 import { SelectIndicator } from '../select-indicator';
 import { useTranslation } from 'react-i18next';
@@ -69,7 +69,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     const { initialCountry, initialLocalValue } = extractInitialValues(value);
 
     const [selectedCountry, setSelectedCountry] = useState<string>(initialCountry);
-    const [localValue, setLocalValue] = useState<string>(applyMask(initialLocalValue, initialCountry));
+    const [localValue, setLocalValue] = useState<string>(applyPhoneNumberMask(initialLocalValue, initialCountry));
 
     const handleCountryChange = (event: SelectChangeEvent<unknown>) => {
         const newCountry = event.target.value as string;
@@ -82,13 +82,13 @@ export const PhoneField: FC<PhoneFieldProps> = ({
         const maxLength = getMaxLength(selectedCountry);
 
         if (newValue.length <= maxLength) {
-            setLocalValue(applyMask(newValue, selectedCountry));
+            setLocalValue(applyPhoneNumberMask(newValue, selectedCountry));
         }
     };
 
     useEffect(() => {
-        const dialCode = translatedCountries[selectedCountry].dialCode.replace('+', '');
-        const fullValue = `${dialCode}${localValue}`;
+        const dialCode = translatedCountries[selectedCountry]?.dialCode;
+        const fullValue = `${dialCode}${localValue?.replace(/[()\s-]/g, '') || ''}`;
 
         if (fullValue !== value) {
             onChange(fullValue);

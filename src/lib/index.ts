@@ -63,6 +63,8 @@ export { TreeSelect } from './tree-select';
 
 export { PhoneField } from './phone-field';
 
+export { applyInternationalPhoneMask } from './phone-field/helpers';
+
 export { Tabs } from './tabs';
 
 export { FeatureMap } from './map/feature-map';
