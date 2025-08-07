@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PhoneField, TextField } from '@chirp/ui/lib';
 import { useState } from 'react';
+import Stack from '@mui/material/Stack';
+import { applyInternationalPhoneMask } from './helpers';
 
 const meta: Meta<typeof PhoneField> = {
     title: 'UI/PhoneField',
@@ -17,21 +19,26 @@ type Story = StoryObj<typeof PhoneField>;
 
 export const Default: Story = {
     render: () => {
-        const [value, setValue] = useState<string>('491512125694');
+        const [value, setValue] = useState<string>('79083350556');
+
+        console.log(value);
 
         return (
-            <PhoneField
-                countries={['us', 'de', 'pt', 'es', 'ru', 'fr']}
-                defaultCountry="us"
-                value={value}
-                onChange={setValue}
-                label="Phone number"
-                placeholder="Phone number"
-                PaperPropsSx={{ sx: { width: '257px' } }}
-                sx={{
-                    width: '257px',
-                }}
-            />
+            <Stack>
+                {applyInternationalPhoneMask(value)}
+                <PhoneField
+                    countries={['us', 'de', 'pt', 'es', 'ru', 'fr']}
+                    defaultCountry="us"
+                    value={value}
+                    onChange={setValue}
+                    label="Phone number"
+                    placeholder="Phone number"
+                    PaperPropsSx={{ sx: { width: '257px' } }}
+                    sx={{
+                        width: '257px',
+                    }}
+                />
+            </Stack>
         );
     },
 };
