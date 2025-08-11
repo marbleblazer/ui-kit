@@ -1,4 +1,4 @@
-import { Palette } from '@mui/material';
+import { alpha, Palette } from '@mui/material';
 import { GeodesicDrawType } from './map.types';
 import * as GeodesicDraw from 'mapbox-gl-draw-geodesic';
 
@@ -73,6 +73,73 @@ export const customDrawStyles = (theme: Palette) => [
         paint: {
             'circle-radius': 4,
             'circle-color': `${theme.base.color6}`,
+        },
+    },
+];
+
+export const customRouteDrawStyles = (theme: Palette) => [
+    {
+        id: 'gl-draw-line-active-border',
+        type: 'line',
+        filter: ['all', ['==', '$type', 'LineString'], ['!=', 'active', 'true']],
+        paint: {
+            'line-color': alpha(theme.base.color6, 0.8),
+            'line-width': 4,
+        },
+    },
+    {
+        id: 'gl-draw-line-inactive',
+        type: 'line',
+        filter: ['all', ['==', '$type', 'LineString'], ['!=', 'active', 'true']],
+        paint: {
+            'line-color': `${theme.base.color6}`,
+            'line-width': 2,
+        },
+    },
+    {
+        id: 'gl-draw-polygon-fill-inactive',
+        type: 'fill',
+        filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
+        paint: {
+            'fill-color': `${theme.base.color6}`,
+            'fill-opacity': 0.1,
+        },
+    },
+    {
+        id: 'gl-draw-polygon-outline-inactive',
+        type: 'line',
+        filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
+        paint: {
+            'line-color': `${theme.base.color6}`,
+            'line-width': 2,
+        },
+    },
+
+    {
+        id: 'gl-draw-line-active',
+        type: 'line',
+        filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
+        paint: {
+            'line-color': `${theme.base.color6}`,
+            'line-width': 2,
+        },
+    },
+    {
+        id: 'gl-draw-polygon-fill-active',
+        type: 'fill',
+        filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
+        paint: {
+            'fill-color': `${theme.base.color6}`,
+            'fill-opacity': 0.1,
+        },
+    },
+    {
+        id: 'gl-draw-polygon-outline-active',
+        type: 'line',
+        filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
+        paint: {
+            'line-color': `${theme.base.color6}`,
+            'line-width': 2,
         },
     },
 ];
