@@ -48,14 +48,17 @@ export const PhoneField: FC<PhoneFieldProps> = ({
     );
 
     const extractInitialValues = (inputValue: string) => {
+        // Удаляем все нецифровые символы для сравнения
+        const cleanedValue = inputValue.replace(/\D/g, '');
+
         for (const country of countryList) {
             const { dialCode, code } = country;
-            const normalizedDialCode = dialCode.replace('+', '');
+            const normalizedDialCode = dialCode.replace(/\D/g, '');
 
-            if (inputValue.startsWith(normalizedDialCode)) {
+            if (cleanedValue.startsWith(normalizedDialCode)) {
                 return {
                     initialCountry: code,
-                    initialLocalValue: stripDialCode(inputValue, normalizedDialCode),
+                    initialLocalValue: stripDialCode(inputValue, dialCode),
                 };
             }
         }
@@ -90,7 +93,7 @@ export const PhoneField: FC<PhoneFieldProps> = ({
         const dialCode = translatedCountries[selectedCountry]?.dialCode;
         const fullValue = `${dialCode}${localValue?.replace(/[()\s-]/g, '') || ''}`;
 
-        if (fullValue !== value) {
+        if (fullValue !== value && !localValue.startsWith('+')) {
             onChange(fullValue);
         }
     }, [selectedCountry, localValue, onChange, translatedCountries, value]);
