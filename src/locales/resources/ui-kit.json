@@ -1,6 +1,7 @@
 {
     "en": {
         "Photo": "Photo",
+        "Drag to reorder": "Drag to reorder",
 
         "widgets": {
             "No data": "No data",
@@ -111,6 +112,7 @@
     },
     "fr": {
         "Photo": "Photo",
+        "Drag to reorder": "Drag to reorder",
         "widgets": {
             "No data": "Pas de données",
             "Current value": "Valeur actuelle {{value}}",
@@ -220,6 +222,7 @@
     },
     "de": {
         "Photo": "Foto",
+        "Drag to reorder": "Zur Reihenfolge ziehen",
         "widgets": {
             "No data": "Keine Daten",
             "Current value": "Aktueller Wert {{value}}",
@@ -330,6 +333,7 @@
 
     "es": {
         "Photo": "Foto",
+        "Drag to reorder": "Arrastre para reordenar",
         "widgets": {
             "No data": "No hay datos",
             "Current value": "Valor actual {{value}}",
@@ -439,6 +443,7 @@
     },
     "ru": {
         "Photo": "Фото",
+        "Drag to reorder": "Перетащите для сортировки",
         "widgets": {
             "No data": "Нет данных",
             "Current value": "Текущее {{value}}",

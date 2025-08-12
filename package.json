@@ -48,6 +48,7 @@
         "@turf/centroid": "^7.1.0",
         "@turf/circle": "^7.1.0",
         "@turf/distance": "^7.1.0",
+        "buffer": "^6.0.3",
         "echarts": "^5.5.1",
         "echarts-for-react": "^3.0.2",
         "html2canvas": "^1.4.1",
@@ -66,6 +67,9 @@
         "sass-embedded": "^1.77.8"
     },
     "devDependencies": {
+        "@dnd-kit/core": "^6.3.1",
+        "@dnd-kit/sortable": "^10.0.0",
+        "@dnd-kit/utilities": "^3.2.2",
         "@eslint/compat": "^1.2.7",
         "@eslint/eslintrc": "^3.3.0",
         "@eslint/js": "^9.21.0",
@@ -79,12 +83,14 @@
         "@stylistic/eslint-plugin": "^2.13.0",
         "@types/d3-shape": "^3.1.0",
         "@types/lodash": "^4.17.15",
+        "@types/mapbox-gl": "^3.4.1",
         "@types/mapbox__mapbox-gl-draw": "^1.4.8",
         "@types/mapbox__mapbox-gl-geocoder": "^5.0.0",
         "@types/mapbox__mapbox-sdk": "^0.16.0",
         "@types/node": "^22.13.5",
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
+        "@types/uuid": "^10.0.0",
         "@typescript-eslint/eslint-plugin": "^8.25.0",
         "@typescript-eslint/parser": "^8.25.0",
         "@vitejs/plugin-react": "^4.3.4",
@@ -108,6 +114,7 @@
         "stylelint-config-prettier-scss": "^1.0.0",
         "stylelint-config-standard-scss": "^12.0.0",
         "typescript": "^5.7.3",
+        "uuid": "^11.1.0",
         "vite": "^5.0.10",
         "vite-plugin-dts": "^4.2.1",
         "vite-plugin-svgr": "^4.2.0"
@@ -115,9 +122,5 @@
     "sideEffects": [
         "**/*.css"
     ],
-    "dependencies": {
-        "@types/mapbox-gl": "^3.4.1",
-        "@types/uuid": "^10.0.0",
-        "uuid": "^11.1.0"
-    }
+    "dependencies": {}
 }
