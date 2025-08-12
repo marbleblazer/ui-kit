@@ -229,3 +229,5 @@ export { default as MinusIcon } from './minus.svg?react';
 export { default as RadioCheckedIcon } from './radio-checked.svg?react';
 
 export { default as RadioUncheckedIcon } from './radio-unchecked.svg?react';
+
+export { default as DragIcon } from './drag-icon.svg?react';
