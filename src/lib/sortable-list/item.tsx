@@ -18,9 +18,6 @@ export const SortableItem: FC<PropsWithChildren<ISortableItemProps>> = ({ id, ch
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
-        display: 'flex',
-        alignItems: 'center',
-        padding: '8px 0',
     };
 
     return (
@@ -35,7 +32,7 @@ export const SortableItem: FC<PropsWithChildren<ISortableItemProps>> = ({ id, ch
                 }}
                 {...attributes}
                 {...listeners}
-                style={{ cursor: 'grab' }}
+                style={{ cursor: 'grab', height: '40px' }}
             >
                 <Tooltip title={t('Drag to reorder')}>
                     <DragIcon color={theme.palette.text.text8} />
