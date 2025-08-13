@@ -18,7 +18,7 @@ import { SortableItem } from './item';
 
 interface ISortableListProps<T extends { id: string }> {
     items: T[];
-    renderItem: (item: T) => JSX.Element;
+    renderItem: (item: T, index: number) => JSX.Element;
     onItemsChange: (items: T[]) => void;
 }
 
@@ -43,8 +43,10 @@ export const SortableList = <T extends { id: string }>({ items, onItemsChange, r
     return (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                {items.map((item) => (
-                    <SortableItem id={item.id}>{renderItem(item)}</SortableItem>
+                {items.map((item, idx) => (
+                    <SortableItem id={item.id} key={item.id}>
+                        {renderItem(item, idx)}
+                    </SortableItem>
                 ))}
             </SortableContext>
         </DndContext>
