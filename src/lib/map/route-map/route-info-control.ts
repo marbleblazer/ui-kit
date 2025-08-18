@@ -11,7 +11,6 @@ export class RouteInfoControl implements mapboxgl.IControl {
         this.t = t;
         this.container = document.createElement('div');
         this.container.className = 'route-info-control';
-        this.container.style.cssText = ``;
     }
 
     onAdd() {
