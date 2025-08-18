@@ -1,8 +1,8 @@
 import { Theme } from '@mui/material/styles';
-import { mockRouteData } from '../mock';
 import { Feature, FeatureCollection, Point } from 'geojson';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
 import { mapMarkerNumberedSvgString, mapMarkerTruckSvgString } from '../mp-marker-string';
+import { mockRouteData } from '../mock';
 
 export type TPointType = 'start' | 'end' | 'waypoint_passed' | 'waypoint_next' | 'waypoint_future' | 'driver';
 
@@ -13,23 +13,27 @@ interface ICreateMarkerElementProps {
     isRouteCompleted?: boolean;
 }
 
+// TODO добавить тип RouteDetail из types.ts
 export const processRouteData = (data: typeof mockRouteData): FeatureCollection => {
     const features: Feature[] = [];
 
     // Текущее положение водителя
     const driverPosition =
-        data.completed_route.geometry.coordinates[data.completed_route.geometry.coordinates.length - 1];
-    features.push({
-        type: 'Feature',
-        geometry: {
-            type: 'Point',
-            coordinates: driverPosition,
-        },
-        properties: {
-            featureType: 'point',
-            pointType: 'driver',
-        },
-    });
+        data.completed_route?.geometry.coordinates[data.completed_route.geometry.coordinates.length - 1];
+
+    if (driverPosition) {
+        features.push({
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: driverPosition,
+            },
+            properties: {
+                featureType: 'point',
+                pointType: 'driver',
+            },
+        });
+    }
 
     // Пройденный маршрут
     features.push({
