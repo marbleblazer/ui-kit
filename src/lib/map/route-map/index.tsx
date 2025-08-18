@@ -6,20 +6,25 @@ import { useCallback, useEffect, useRef } from 'react';
 import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { addRouteLayers, createRouteMarkerElement, TPointType } from './helpers';
+import { addRouteLayers, createRouteMarkerElement } from './helpers';
+import { TPointType, TProcessedRoute } from './types';
+import { RouteInfoControl } from './route-info-control';
+import { useTranslation } from 'react-i18next';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
 interface IRouteMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
-    data?: GeoJSON.GeoJSON | null;
+    data?: TProcessedRoute | null;
 }
 
 export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     const theme = useTheme();
+    const { t } = useTranslation('uiKit');
 
     const map = useRef<mapboxgl.Map>(null);
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const pendingData = useRef<DataType | null>(null);
+    const controlRef = useRef<RouteInfoControl | null>(null);
 
     const clearMap = useCallback(() => {
         if (!map.current) return;
@@ -103,10 +108,21 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     const onMapLoad = useCallback(() => {
         if (!map.current) return;
 
-        const finalData = pendingData.current || data;
+        const finalData = pendingData.current || data?.features;
         pendingData.current = null;
         addDataToMap(finalData);
     }, [addDataToMap, data]);
+
+    useEffect(() => {
+        if (!map.current || !data?.meta) return;
+
+        if (!controlRef.current) {
+            controlRef.current = new RouteInfoControl(data.meta, t);
+            map.current.addControl(controlRef.current, 'bottom-left');
+        } else {
+            controlRef.current.update(data.meta);
+        }
+    }, [data, t, theme]);
 
     useEffect(() => {
         const mapCurrent = map.current;
@@ -114,13 +130,13 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
         if (!mapCurrent) return;
 
         if (mapCurrent?.isStyleLoaded()) {
-            addDataToMap(data);
+            addDataToMap(data?.features);
         } else {
-            pendingData.current = data || null;
+            pendingData.current = data?.features || null;
         }
 
         const debouncedUpdate = debounce(() => {
-            addDataToMap(data);
+            addDataToMap(data?.features);
         }, 100);
 
         mapCurrent.on('style.load', debouncedUpdate);

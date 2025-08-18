@@ -1,56 +1,46 @@
 import { Theme } from '@mui/material/styles';
-import { Feature, FeatureCollection, Point } from 'geojson';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
 import { mapMarkerNumberedSvgString, mapMarkerTruckSvgString } from '../mp-marker-string';
+import { ICreateMarkerElementProps, RouteMeta, TPointType, TProcessedRoute } from './types';
 import { mockRouteData } from '../mock';
-
-export type TPointType = 'start' | 'end' | 'waypoint_passed' | 'waypoint_next' | 'waypoint_future' | 'driver';
-
-interface ICreateMarkerElementProps {
-    theme: Theme;
-    pointType: TPointType;
-    label: string;
-    isRouteCompleted?: boolean;
-}
+import moment from 'moment';
 
 // TODO добавить тип RouteDetail из types.ts
-export const processRouteData = (data: typeof mockRouteData): FeatureCollection => {
-    const features: Feature[] = [];
+export const processRouteData = (data: typeof mockRouteData): TProcessedRoute => {
+    const features: GeoJSON.Feature[] = [];
 
-    // Текущее положение водителя
+    if (!data) {
+        return {
+            features: { type: 'FeatureCollection', features: [] },
+            meta: { type: 'planned', estimatedDuration: 0 },
+        };
+    }
+
     const driverPosition =
         data.completed_route?.geometry.coordinates[data.completed_route.geometry.coordinates.length - 1];
 
     if (driverPosition) {
         features.push({
             type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: driverPosition,
-            },
-            properties: {
-                featureType: 'point',
-                pointType: 'driver',
-            },
+            geometry: { type: 'Point', coordinates: driverPosition },
+            properties: { featureType: 'point', pointType: 'driver' },
         });
     }
 
-    // Пройденный маршрут
     features.push({
         type: 'Feature',
         geometry: data.completed_route.geometry as GeoJSON.LineString,
-        properties: {
-            featureType: 'line',
-            user_lineType: 'completed',
-        },
+        properties: { featureType: 'line', user_lineType: 'completed' },
     });
 
-    // Точки маршрута
-    const waypoints = data.area.features as Feature<Point>[];
+    const waypoints = data.area.features as GeoJSON.Feature<GeoJSON.Point>[];
     const completedCoordsString = data.completed_route.geometry.coordinates.map((c) => c.join(','));
+
     let nextWaypointIndex = -1;
+    let nextWaypointLabel = '';
+
     const lastWaypoint = waypoints[waypoints.length - 1];
-    const isRouteCompleted = lastWaypoint.geometry.coordinates.join(',') === driverPosition.join(',');
+    const isRouteCompleted = lastWaypoint.geometry.coordinates.join(',') === driverPosition?.join(',');
 
     waypoints.forEach((waypoint, index) => {
         const coordString = waypoint.geometry.coordinates.join(',');
@@ -71,6 +61,7 @@ export const processRouteData = (data: typeof mockRouteData): FeatureCollection 
             } else if (nextWaypointIndex === -1) {
                 pointType = 'waypoint_next';
                 nextWaypointIndex = index;
+                nextWaypointLabel = label;
             } else {
                 pointType = 'waypoint_future';
             }
@@ -82,50 +73,72 @@ export const processRouteData = (data: typeof mockRouteData): FeatureCollection 
                 featureType: 'point',
                 pointType,
                 label,
-                isRouteCompleted: pointType === 'end' ? isRouteCompleted : undefined, // Добавляем флаг для end
+                isRouteCompleted: pointType === 'end' ? isRouteCompleted : undefined,
             },
         });
     });
 
-    // Следующий и будущий отрезок
     if (nextWaypointIndex !== -1 && !isRouteCompleted) {
         const plannedCoordinates = data.planned_route.geometry.coordinates;
-
-        // Зелёный отрезок
         features.push({
             type: 'Feature',
-            geometry: {
-                type: 'LineString',
-                coordinates: [plannedCoordinates[0], plannedCoordinates[1]],
-            },
-            properties: {
-                featureType: 'line',
-                user_lineType: 'next_leg',
-            },
+            geometry: { type: 'LineString', coordinates: [plannedCoordinates[0], plannedCoordinates[1]] },
+            properties: { featureType: 'line', user_lineType: 'next_leg' },
         });
 
-        // Синий отрезок
         if (plannedCoordinates.length > 2) {
             features.push({
                 type: 'Feature',
-                geometry: {
-                    type: 'LineString',
-                    coordinates: plannedCoordinates.slice(1),
-                },
-                properties: {
-                    featureType: 'line',
-                    user_lineType: 'future_leg',
-                },
+                geometry: { type: 'LineString', coordinates: plannedCoordinates.slice(1) },
+                properties: { featureType: 'line', user_lineType: 'future_leg' },
             });
         }
     }
 
+    let meta: RouteMeta;
+    const currentTime = moment('2025-08-18T14:25:00+03:00');
+
+    if (data.completed_route.geometry.coordinates.length <= 1 || !data.is_active) {
+        const totalDuration = data.planned_route.duration;
+        const totalDistance = data.planned_route.distance;
+
+        const arrivalTime = currentTime.clone().add(totalDuration, 'seconds');
+
+        meta = {
+            type: 'planned',
+            estimatedDuration: totalDuration,
+            distance: totalDistance,
+            isRouteActive: data.is_active,
+            arrivalTime: arrivalTime.format('HH:mm'),
+        };
+    } else if (isRouteCompleted) {
+        meta = { type: 'done' };
+    } else {
+        const nextStopLabel = nextWaypointLabel;
+        const durationToNext = data.planned_route.legs[nextWaypointIndex - 1]?.duration ?? 0;
+        const distanceToNext = data.planned_route.legs[nextWaypointIndex - 1]?.distance ?? 0;
+
+        const eta = currentTime.clone().add(durationToNext, 'seconds');
+
+        meta = {
+            type: 'active',
+            eta: eta.toDate(),
+            estimatedDuration: durationToNext,
+            nextStopIndex: nextWaypointIndex,
+            isRouteActive: data.is_active,
+            nextStopLabel,
+            distance: distanceToNext,
+            arrivalTime: eta.format('HH:mm'),
+        };
+    }
+
     return {
-        type: 'FeatureCollection',
-        features,
+        features: { type: 'FeatureCollection', features },
+        meta,
     };
 };
 
+/** Создание маркера: начальная/конечная точки, промежуточные точки, иконка водителя */
 export const createRouteMarkerElement = ({
     theme,
     pointType,
@@ -169,6 +182,7 @@ export const createRouteMarkerElement = ({
     return el;
 };
 
+/** Слои с линиями */
 export const addRouteLayers = (mapCurrent: mapboxgl.Map, theme: Theme) => {
     if (!mapCurrent.getLayer('route-lines-border-layer')) {
         mapCurrent.addLayer({

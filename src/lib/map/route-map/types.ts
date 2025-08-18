@@ -1,6 +1,32 @@
 import { Feature } from '@mapbox/mapbox-sdk/services/geocoding-v6';
+import { Theme } from '@mui/material/styles';
 
 export type Position = [number, number];
+
+export type TPointType = 'start' | 'end' | 'waypoint_passed' | 'waypoint_next' | 'waypoint_future' | 'driver';
+
+export interface TProcessedRoute {
+    features: GeoJSON.FeatureCollection;
+    meta: RouteMeta;
+}
+
+export interface RouteMeta {
+    type: 'planned' | 'active' | 'done';
+    estimatedDuration?: number;
+    eta?: Date;
+    nextStopIndex?: number;
+    distance?: number;
+    arrivalTime?: string;
+    isRouteActive?: boolean;
+    nextStopLabel?: string;
+}
+
+export interface ICreateMarkerElementProps {
+    theme: Theme;
+    pointType: TPointType;
+    label: string;
+    isRouteCompleted?: boolean;
+}
 
 export interface OSRMManeuver {
     location: Position;
