@@ -161,3 +161,7 @@ export { AccordionRadioGroup } from './accordion-radio-group';
 export { DrawRouteMap } from './map/draw-route-map';
 
 export { SortableList } from './sortable-list';
+
+export { RouteMap } from './map/route-map';
+
+export { processRouteData } from './map/route-map/helpers';

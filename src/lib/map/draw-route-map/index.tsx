@@ -125,11 +125,14 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 // Создаем стартовый и конечный маркеры
                 const startMarker = document.createElement('div');
                 startMarker.classList.add('start-end-line-marker');
-                startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette, true);
+                startMarker.innerHTML = mapMarkerStartSvgContainer(
+                    theme.palette,
+                    theme.palette.mode === 'light' ? '#FFA824' : '#FFD262',
+                );
 
                 const endMarker = document.createElement('div');
                 endMarker.classList.add('start-end-line-marker');
-                endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette, true);
+                endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette, theme.palette.base.color9);
 
                 const currentMap = map.current;
 

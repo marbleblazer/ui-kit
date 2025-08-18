@@ -199,11 +199,18 @@ export const renderLineStringPoints = ({
                 if (index === 0) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add(isTrip ? 'start-trip-end-line-marker' : 'start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette, isTrip);
+                    isTrip
+                        ? (markerElement.innerHTML = mapMarkerStartSvgContainer(
+                              theme.palette,
+                              theme.palette.mode === 'light' ? '#FFA824' : '#FFD262',
+                          ))
+                        : (markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette));
                 } else if (index === geometry.coordinates.length - 1) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add(isTrip ? 'start-trip-end-line-marker' : 'start-end-line-marker');
-                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette, isTrip);
+                    isTrip
+                        ? (markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette, theme.palette.base.color9))
+                        : (markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette));
                 } else if (isLineMarkersNeeded) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add(isTrip ? 'common-trip-line-marker' : 'common-line-marker');
@@ -230,11 +237,14 @@ export const renderTripLineStringPoints = ({ geometry, map, markersRef, theme }:
                 if (index === 0) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-trip-end-line-marker');
-                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette, true);
+                    markerElement.innerHTML = mapMarkerStartSvgContainer(
+                        theme.palette,
+                        theme.palette.mode === 'light' ? '#FFA824' : '#FFD262',
+                    );
                 } else if (index === geometry.coordinates.length - 1) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-trip-end-line-marker');
-                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette, true);
+                    markerElement.innerHTML = mapMarkerEndSvgContainer(theme.palette, theme.palette.base.color9);
                 }
 
                 if (markerElement) {

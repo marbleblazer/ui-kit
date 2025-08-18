@@ -5,13 +5,11 @@ import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { Coordinates, IFeatureMapVariants } from './map.types';
+import { Coordinates, DataType, IFeatureMapVariants } from './map.types';
 import { BaseMap, IBaseMapProps } from './base-map';
 import { debounce, Palette, useTheme } from '@mui/material';
 import { renderLineStringPoints, renderPoints } from './helpers/utils';
 import { customDrawStyles, typedGeodesicDraw } from './constance';
-
-type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
 
 interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DrawableMap, FeatureMap, TripMap } from '@chirp/ui/lib';
+import { DrawableMap, FeatureMap, RouteMap, TripMap } from '@chirp/ui/lib';
 import { Box, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { mockMultiTripData, mockTripData } from './mock';
+import { mockMultiTripData, mockRouteData, mockTripData } from './mock';
+import { processRouteData } from './route-map/helpers';
 
 const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
@@ -534,6 +535,18 @@ export const SingleVariant: Story = {
                     }}
                     coordinates={{ lon: 9.56413004748697, lat: 51.65120378622913 }}
                 />
+            </Box>
+        );
+    },
+};
+
+export const RouteMapExample: Story = {
+    render: () => {
+        const processedData = processRouteData(mockRouteData);
+
+        return (
+            <Box sx={{ width: '800px', height: '800px' }}>
+                <RouteMap data={processedData} />
             </Box>
         );
     },

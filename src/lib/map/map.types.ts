@@ -29,3 +29,5 @@ export interface ICustomDrawMode<StateType> extends MapboxDraw.DrawCustomMode {
 }
 
 export type IFeatureMapVariants = 'base' | 'single-point';
+
+export type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;

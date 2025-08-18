@@ -9,7 +9,7 @@ import bearing from '@turf/bearing';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { Coordinates } from '../map.types';
+import { Coordinates, DataType } from '../map.types';
 import { mapMarkerArrowSvgString } from '../mp-marker-string';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { customTripDrawStyles, typedGeodesicDraw } from '../constance';
@@ -23,7 +23,7 @@ import { useMapScreenshot } from './hooks/use-map-screenshot';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
-interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
+interface ITripMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
     accessToken?: string;
     centeringCoordinates?: Coordinates;
@@ -37,9 +37,7 @@ interface IFeatureMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'> {
     setAnimateLineId: (id?: number) => void;
 }
 
-export type DataType = GeoJSON.GeoJSON<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> | null;
-
-export const TripMap: React.FC<IFeatureMapProps> = ({
+export const TripMap: React.FC<ITripMapProps> = ({
     data,
     centeringCoordinates, // Координаты, по которым происходит центрирование
     animateLineId,
