@@ -30,7 +30,7 @@ interface IDrawRouteMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'>
 }
 
 export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
-    const { data, onChange = () => {}, shouldFinishDrawing, onDrawingFinished, ...baseProps } = props;
+    const { data, onChange = () => { }, shouldFinishDrawing, onDrawingFinished, ...baseProps } = props;
 
     const theme = useTheme();
     const markersRef = useRef<HTMLDivElement[]>([]);
@@ -116,20 +116,17 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 data.properties.points = data.geometry.coordinates.map((_, index) => ({
                     number: index + 1,
                 }));
+                const coordsLen = data.geometry.coordinates.length;
 
                 const [startPoint, endPoint] = [
                     data.geometry.coordinates[0],
                     data.geometry.coordinates[data.geometry.coordinates.length - 1],
                 ];
                 markersRef.current.forEach((marker) => marker.remove());
-                // Создаем стартовый и конечный маркеры
+                // Создаем стартовый маркер
                 const startMarker = document.createElement('div');
                 startMarker.classList.add('start-end-line-marker');
                 startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette, true);
-
-                const endMarker = document.createElement('div');
-                endMarker.classList.add('start-end-line-marker');
-                endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette, true);
 
                 const currentMap = map.current;
 
@@ -159,9 +156,14 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                     allMarkers.push(marker);
                 });
 
-                // Добавляем конечный маркер
-                new mapboxgl.Marker(endMarker).setLngLat(endPoint as [number, number]).addTo(currentMap);
-                allMarkers.push(endMarker);
+                // Создаем и добавляем конечный маркер при условии, что более 1 точки
+                if (coordsLen > 1) {
+                    const endMarker = document.createElement('div');
+                    endMarker.classList.add('start-end-line-marker');
+                    endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette, true);
+                    new mapboxgl.Marker(endMarker).setLngLat(endPoint as [number, number]).addTo(currentMap);
+                    allMarkers.push(endMarker);
+                }
 
                 markersRef.current = allMarkers;
             }
