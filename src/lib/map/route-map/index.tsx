@@ -6,10 +6,12 @@ import { useCallback, useEffect, useRef } from 'react';
 import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { addRouteLayers, createRouteMarkerElement } from './helpers';
 import { TPointType, TProcessedRoute } from './types';
 import { RouteInfoControl } from './route-info-control';
 import { useTranslation } from 'react-i18next';
+import { addRouteLayers } from './helpers/add-route-layers';
+import { createRouteMarkerElement } from './helpers/create-route-marker-element';
+import { addTimeLabelsLayer } from './helpers/create-time-label-element';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -72,11 +74,16 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
             }
 
             const lineFeatures: GeoJSON.Feature[] = [];
+            const timeLabelFeatures: GeoJSON.Feature[] = [];
 
             for (const feature of localData.features) {
                 const props = feature.properties;
 
                 if (props?.featureType === 'point' && feature.geometry.type === 'Point') {
+                    if (props.pointType === 'time_label') {
+                        timeLabelFeatures.push(feature);
+                    }
+
                     const markerElement = createRouteMarkerElement({
                         theme,
                         pointType: props.pointType as TPointType,
@@ -96,6 +103,8 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 type: 'FeatureCollection',
                 features: lineFeatures,
             });
+
+            if (timeLabelFeatures.length > 0) addTimeLabelsLayer(map.current, timeLabelFeatures, theme);
 
             if (localData.features.length > 0) {
                 const bbox = bboxTurf(localData, { recompute: true });

@@ -3,14 +3,30 @@ import { Theme } from '@mui/material/styles';
 
 export type Position = [number, number];
 
-export type TPointType = 'start' | 'end' | 'waypoint_passed' | 'waypoint_next' | 'waypoint_future' | 'driver';
+export type TPointType =
+    | 'start'
+    | 'end'
+    | 'waypoint_passed'
+    | 'waypoint_next'
+    | 'waypoint_future'
+    | 'driver'
+    | 'time_label';
 
-export interface TProcessedRoute {
-    features: GeoJSON.FeatureCollection;
-    meta: RouteMeta;
+export type TTimeLabelColor = 'green' | 'blue';
+
+export type TTimeLabelDirection = 'left' | 'right';
+
+export type TTimeLabelOrientation = 'left' | 'right';
+
+export interface TTimeLabel {
+    color: TTimeLabelColor;
+    text: string;
+    direction: TTimeLabelDirection;
+    orientation: TTimeLabelOrientation;
+    offset: Position;
 }
 
-export interface RouteMeta {
+export interface IRouteMeta {
     type: 'planned' | 'active' | 'done';
     estimatedDuration?: number;
     eta?: Date;
@@ -19,6 +35,12 @@ export interface RouteMeta {
     arrivalTime?: string;
     isRouteActive?: boolean;
     nextStopLabel?: string;
+    timeLabels?: TTimeLabel[];
+}
+
+export interface TProcessedRoute {
+    features: GeoJSON.FeatureCollection;
+    meta: IRouteMeta;
 }
 
 export interface ICreateMarkerElementProps {
@@ -27,6 +49,8 @@ export interface ICreateMarkerElementProps {
     label: string;
     isRouteCompleted?: boolean;
 }
+
+// data schemes
 
 export interface OSRMManeuver {
     location: Position;

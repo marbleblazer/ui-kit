@@ -3,7 +3,7 @@ import { DrawableMap, FeatureMap, RouteMap, TripMap } from '@chirp/ui/lib';
 import { Box, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { mockMultiTripData, mockRouteData, mockTripData } from './mock';
-import { processRouteData } from './route-map/helpers';
+import { processRouteData } from './route-map/helpers/process-route-data';
 
 const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
