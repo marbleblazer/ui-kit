@@ -1,6 +1,11 @@
 import i18n from '@chirp/ui/locales/i18n';
 
-export const formatDuration = (totalSeconds: number, withSpace = false): string => {
+interface IFormatRoutesDuration {
+    totalSeconds: number;
+    withSpace?: boolean;
+}
+
+export const formatDuration = ({ totalSeconds, withSpace = false }: IFormatRoutesDuration): string => {
     if (totalSeconds < 0) totalSeconds = 0;
 
     const days = Math.floor(totalSeconds / (3600 * 24));

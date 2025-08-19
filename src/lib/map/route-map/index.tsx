@@ -55,7 +55,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 });
             }
 
-            addRouteLayers(map.current, theme);
+            addRouteLayers({ mapCurrent: map.current, theme });
 
             clearMap();
 
@@ -104,7 +104,9 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 features: lineFeatures,
             });
 
-            if (timeLabelFeatures.length > 0) addTimeLabelsLayer(map.current, timeLabelFeatures, theme);
+            if (timeLabelFeatures.length > 0) {
+                addTimeLabelsLayer({ map: map.current, features: timeLabelFeatures, theme });
+            }
 
             if (localData.features.length > 0) {
                 const bbox = bboxTurf(localData, { recompute: true });

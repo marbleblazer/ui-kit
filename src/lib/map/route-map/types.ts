@@ -1,5 +1,4 @@
 import { Feature } from '@mapbox/mapbox-sdk/services/geocoding-v6';
-import { Theme } from '@mui/material/styles';
 
 export type Position = [number, number];
 
@@ -41,13 +40,6 @@ export interface IRouteMeta {
 export interface TProcessedRoute {
     features: GeoJSON.FeatureCollection;
     meta: IRouteMeta;
-}
-
-export interface ICreateMarkerElementProps {
-    theme: Theme;
-    pointType: TPointType;
-    label: string;
-    isRouteCompleted?: boolean;
 }
 
 // data schemes

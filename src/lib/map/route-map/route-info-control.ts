@@ -31,7 +31,7 @@ export class RouteInfoControl implements mapboxgl.IControl {
         if (meta.type === 'planned' || !meta.isRouteActive) {
             html = `
                 <div class="route-info-label">${this.t('Estimated time')}</div>
-                <div class="route-info-time">${formatDuration(meta.estimatedDuration!)}</div>
+                <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration! })}</div>
                 <div class="route-info-details">
                     ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
                 </div>
@@ -39,7 +39,7 @@ export class RouteInfoControl implements mapboxgl.IControl {
         } else if (meta.type === 'active') {
             html = `
                 <div class="route-info-label">${this.t('Estimated time to stop')} ${meta.nextStopLabel}</div>
-                <div class="route-info-time">${formatDuration(meta.estimatedDuration!)}</div>
+                <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration! })}</div>
                 <div class="route-info-details">
                     ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
                 </div>

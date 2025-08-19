@@ -542,7 +542,7 @@ export const SingleVariant: Story = {
 
 export const RouteMapExample: Story = {
     render: () => {
-        const processedData = processRouteData(mockRouteData);
+        const processedData = processRouteData({ data: mockRouteData });
 
         return (
             <Box sx={{ width: '800px', height: '800px' }}>

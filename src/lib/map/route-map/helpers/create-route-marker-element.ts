@@ -1,6 +1,14 @@
+import { Theme } from '@mui/material/styles';
 import { mapMarkerNumberedSvgString, mapMarkerTruckSvgString } from '../../mp-marker-string';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../../svg-containers';
-import { ICreateMarkerElementProps } from '../types';
+import { TPointType } from '../types';
+
+interface ICreateMarkerElementProps {
+    theme: Theme;
+    pointType: TPointType;
+    label: string;
+    isRouteCompleted?: boolean;
+}
 
 /** Создание маркера: начальная/конечная точки, промежуточные точки, иконка водителя */
 export const createRouteMarkerElement = ({

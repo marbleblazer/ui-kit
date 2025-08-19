@@ -1,7 +1,12 @@
 import { Theme } from '@mui/material/styles';
 
+interface IAddRouteLayers {
+    mapCurrent: mapboxgl.Map;
+    theme: Theme;
+}
+
 /** Слои с линиями */
-export const addRouteLayers = (mapCurrent: mapboxgl.Map, theme: Theme) => {
+export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
     if (!mapCurrent.getLayer('route-lines-border-layer')) {
         mapCurrent.addLayer({
             id: 'route-lines-border-layer',

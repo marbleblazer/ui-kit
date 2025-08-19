@@ -3,8 +3,11 @@ import { mockRouteData } from '../../mock';
 import moment from 'moment';
 import { formatDuration } from './format-duration';
 
-// TODO добавить тип RouteDetail из types.ts
-export const processRouteData = (data: typeof mockRouteData): TProcessedRoute => {
+interface IProcessRouteData {
+    data: typeof mockRouteData; // TODO добавить тип RouteDetail из types.ts
+}
+
+export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute => {
     const features: GeoJSON.Feature[] = [];
 
     if (!data) {
@@ -146,33 +149,32 @@ export const processRouteData = (data: typeof mockRouteData): TProcessedRoute =>
 
     // Добавление меток времени для разветвления маршрута
     if (data.alt_route && !isRouteCompleted && driverPosition) {
-        const plannedFirstLegStart = driverPosition;
-        const plannedFirstLegEnd = data.planned_route.geometry.coordinates[1];
-        const plannedMidpoint: [number, number] = [
-            (plannedFirstLegStart[0] + plannedFirstLegEnd[0]) / 2,
-            (plannedFirstLegStart[1] + plannedFirstLegEnd[1]) / 2,
-        ];
-        const plannedDuration = data.planned_route.legs[0]?.duration ?? data.planned_route.duration;
+        // Середина сегмента от текущей позиции до следующего waypoint
+        const nextWaypoint = waypoints[nextWaypointIndex];
 
-        features.push({
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: plannedMidpoint },
-            properties: {
-                featureType: 'point',
-                pointType: 'time_label',
-                text: formatDuration(plannedDuration, true),
-                color: 'green',
-                orientation: 'left',
-                offset: [40, 0],
-            },
-        });
+        if (nextWaypoint) {
+            const plannedMidpoint: [number, number] = [
+                (driverPosition[0] + nextWaypoint.geometry.coordinates[0]) / 2,
+                (driverPosition[1] + nextWaypoint.geometry.coordinates[1]) / 2,
+            ];
+            const durationToNext =
+                data.planned_route.legs[nextWaypointIndex - 1]?.duration ?? data.planned_route.duration;
 
-        const altFirstLegStart = data.alt_route.geometry.coordinates[0];
-        const altFirstLegEnd = data.alt_route.geometry.coordinates[1];
-        const altMidpoint: [number, number] = [
-            (altFirstLegStart[0] + altFirstLegEnd[0]) / 2,
-            (altFirstLegStart[1] + altFirstLegEnd[1]) / 2,
-        ];
+            features.push({
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: plannedMidpoint },
+                properties: {
+                    featureType: 'point',
+                    pointType: 'time_label',
+                    text: formatDuration({ totalSeconds: durationToNext, withSpace: true }),
+                    color: 'green',
+                    orientation: 'left',
+                    offset: [40, 0],
+                },
+            });
+        }
+
+        const altMidpoint = getLineMidpoint(data.alt_route.geometry.coordinates as [number, number][]);
         const altDuration = data.alt_route.legs[0]?.duration ?? data.alt_route.duration;
 
         features.push({
@@ -181,7 +183,7 @@ export const processRouteData = (data: typeof mockRouteData): TProcessedRoute =>
             properties: {
                 featureType: 'point',
                 pointType: 'time_label',
-                text: formatDuration(altDuration, true),
+                text: formatDuration({ totalSeconds: altDuration, withSpace: true }),
                 color: 'blue',
                 orientation: 'right',
                 offset: [-40, 0],
@@ -194,3 +196,6 @@ export const processRouteData = (data: typeof mockRouteData): TProcessedRoute =>
         meta,
     };
 };
+
+/** Средняя точка массива координат */
+const getLineMidpoint = (coords: [number, number][]): [number, number] => coords[Math.floor(coords.length / 2)];

@@ -1,7 +1,13 @@
 import { Theme } from '@mui/material/styles';
 import { mapTimeLabelSvgString } from '../../mp-marker-string';
 
-export const addTimeLabelsLayer = async (map: mapboxgl.Map, features: GeoJSON.Feature[], theme: Theme) => {
+interface IAddTimeLabelsLayer {
+    map: mapboxgl.Map;
+    features: GeoJSON.Feature[];
+    theme: Theme;
+}
+
+export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabelsLayer) => {
     if (map.getLayer('route-labels-layer')) {
         map.removeLayer('route-labels-layer');
     }
