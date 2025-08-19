@@ -1,5 +1,5 @@
 import { Theme } from '@mui/material/styles';
-import { mapTimeLabelSvgString } from '../../mp-marker-string';
+import { dynamicTimeLabelSvg, estimateLabelWidth } from './dynamic-time-label-svg';
 
 interface IAddTimeLabelsLayer {
     map: mapboxgl.Map;
@@ -20,12 +20,17 @@ export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabel
 
     features.forEach((feature) => {
         const props = feature.properties ?? {};
-        const color = props.color === 'green' ? theme.palette.base.colorNewGreen : theme.palette.base.color6; // TODO
+        const color = props.color === 'green' ? theme.palette.base.colorNewGreen : theme.palette.base.color6;
         const text = (props.text || '') as string;
         const flip = props.orientation === 'left';
-        const iconId = `time-label-${color.replace('#', '')}-${text}-${flip ? 'left' : 'right'}`;
+        const fontSize = theme.typography.body1.fontSize ?? 14;
 
+        const width = estimateLabelWidth(text, Number(fontSize));
+
+        const iconId = `time-label-${color.replace('#', '')}-${text}-${flip ? 'left' : 'right'}`;
         props.iconId = iconId;
+
+        props.offset = flip ? [width / 2 + 10, 0] : [-(width / 2) - 8, 0]; // Значения подобраны эмпирически
 
         if (!uniqueIcons.has(iconId) && !map.hasImage(iconId)) {
             uniqueIcons.set(iconId, { color, text, flip });
@@ -44,7 +49,7 @@ export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabel
                     resolve();
                 };
                 img.onerror = () => resolve();
-                img.src = svgToBase64(mapTimeLabelSvgString(color, text, flip, theme));
+                img.src = svgToBase64(dynamicTimeLabelSvg(color, text, flip, theme));
             });
         }),
     );
@@ -72,7 +77,7 @@ export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabel
 
 const svgToBase64 = (svg: string) => {
     const encoder = new TextEncoder();
-    const svgBuffer = encoder.encode(svg); // Uint8Array
+    const svgBuffer = encoder.encode(svg);
     let binary = '';
     svgBuffer.forEach((b) => (binary += String.fromCharCode(b)));
 

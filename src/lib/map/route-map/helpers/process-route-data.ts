@@ -169,13 +169,11 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                     text: formatDuration({ totalSeconds: durationToNext, withSpace: true }),
                     color: 'green',
                     orientation: 'left',
-                    offset: [40, 0],
                 },
             });
         }
 
         const altMidpoint = getLineMidpoint(data.alt_route.geometry.coordinates as [number, number][]);
-        const altDuration = data.alt_route.legs[0]?.duration ?? data.alt_route.duration;
 
         features.push({
             type: 'Feature',
@@ -183,10 +181,9 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
             properties: {
                 featureType: 'point',
                 pointType: 'time_label',
-                text: formatDuration({ totalSeconds: altDuration, withSpace: true }),
+                text: formatDuration({ totalSeconds: data.alt_route.duration, withSpace: true }),
                 color: 'blue',
                 orientation: 'right',
-                offset: [-40, 0],
             },
         });
     }

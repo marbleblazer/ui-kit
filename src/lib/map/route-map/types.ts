@@ -22,7 +22,6 @@ export interface TTimeLabel {
     text: string;
     direction: TTimeLabelDirection;
     orientation: TTimeLabelOrientation;
-    offset: Position;
 }
 
 export interface IRouteMeta {

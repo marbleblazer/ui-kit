@@ -1,4 +1,4 @@
-import { Palette, Theme } from '@mui/material';
+import { Palette } from '@mui/material';
 
 export const mapMarkerSvgString = (theme: Palette) =>
     `<svg width="154" height="154" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -150,30 +150,3 @@ export const mapMarkerTruckSvgString = (palette: Palette) =>
         </defs>
     </svg>
     `;
-
-export const mapTimeLabelSvgString = (color: string, text: string, flip: boolean, theme: Theme) => {
-    const { fontFamily, fontSize, fontWeight, letterSpacing } = theme.typography.body1;
-
-    const safeFontFamily = fontFamily?.replace(/"/g, '');
-
-    return `<svg width="67" height="30" viewBox="0 0 67 30" xmlns="http://www.w3.org/2000/svg">
-        <g transform="${flip ? 'scale(-1,1) translate(-67,0)' : ''}">
-            <path d="M58.1005 4C58.1005 1.79086 56.3096 0 54.1005 0H4C1.79086 0 0 1.79086 0 4V26C0 28.2091 1.79086 30 4 30H58.1005H67L59.4123 23.1136C58.5769 22.3554 58.1005 21.2797 58.1005 20.1516V4Z" fill="${color}"/>
-        </g>
-            <text 
-                x="50%" y="50%"
-                text-anchor="middle"
-                dominant-baseline="middle"
-                alignment-baseline="middle"
-                fill="#ffffff" 
-                font-family="${safeFontFamily}" 
-                font-size="${typeof fontSize === 'number' ? `${fontSize}px` : fontSize}" 
-                font-weight="${fontWeight}" 
-                letter-spacing="${letterSpacing}"
-                pointer-events="none"
-            >
-                ${text}
-            </text>
-        </svg>
-    `;
-};
