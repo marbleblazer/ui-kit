@@ -1,13 +1,13 @@
 import { Theme } from '@mui/material/styles';
 import { dynamicTimeLabelSvg, estimateLabelWidth } from './dynamic-time-label-svg';
 
-interface IAddTimeLabelsLayer {
+interface ICreateTimeLabelElement {
     map: mapboxgl.Map;
     features: GeoJSON.Feature[];
     theme: Theme;
 }
 
-export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabelsLayer) => {
+export const createTimeLabelElement = async ({ map, features, theme }: ICreateTimeLabelElement) => {
     if (map.getLayer('route-labels-layer')) {
         map.removeLayer('route-labels-layer');
     }
@@ -30,7 +30,7 @@ export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabel
         const iconId = `time-label-${color.replace('#', '')}-${text}-${flip ? 'left' : 'right'}`;
         props.iconId = iconId;
 
-        props.offset = flip ? [width / 2 + 10, 0] : [-(width / 2) - 8, 0]; // Значения подобраны эмпирически
+        props.offset = flip ? [width / 2, 0] : [-(width / 2), 0];
 
         if (!uniqueIcons.has(iconId) && !map.hasImage(iconId)) {
             uniqueIcons.set(iconId, { color, text, flip });
@@ -67,10 +67,11 @@ export const addTimeLabelsLayer = async ({ map, features, theme }: IAddTimeLabel
         source: 'route-labels',
         layout: {
             'icon-image': ['get', 'iconId'],
-            'icon-rotation-alignment': 'map',
+            'icon-rotation-alignment': 'viewport',
             'icon-allow-overlap': true,
             'icon-ignore-placement': true,
             'icon-offset': ['get', 'offset'],
+            'icon-anchor': 'bottom',
         },
     });
 };

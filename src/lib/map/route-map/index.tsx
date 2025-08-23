@@ -11,7 +11,7 @@ import { RouteInfoControl } from './route-info-control';
 import { useTranslation } from 'react-i18next';
 import { addRouteLayers } from './helpers/add-route-layers';
 import { createRouteMarkerElement } from './helpers/create-route-marker-element';
-import { addTimeLabelsLayer } from './helpers/create-time-label-element';
+import { createTimeLabelElement } from './helpers/create-time-label-element';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -105,7 +105,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
             });
 
             if (timeLabelFeatures.length > 0) {
-                addTimeLabelsLayer({ map: map.current, features: timeLabelFeatures, theme });
+                createTimeLabelElement({ map: map.current, features: timeLabelFeatures, theme });
             }
 
             if (localData.features.length > 0) {
