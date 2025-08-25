@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material';
 import { mapMarkerNumberedSvgString, mapMarkerTruckSvgString } from '../../mp-marker-string';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../../svg-containers';
 import { TPointType } from '../types';

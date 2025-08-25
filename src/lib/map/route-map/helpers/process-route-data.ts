@@ -188,6 +188,17 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
         });
     }
 
+    // Отклонённые маршруты
+    if (data.rejected_routes && data.rejected_routes.length > 0) {
+        data.rejected_routes.forEach((rej) => {
+            features.push({
+                type: 'Feature',
+                geometry: rej.geometry as GeoJSON.LineString,
+                properties: { featureType: 'line', user_lineType: 'rejected' },
+            });
+        });
+    }
+
     return {
         features: { type: 'FeatureCollection', features },
         meta,

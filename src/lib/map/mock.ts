@@ -5623,5 +5623,18 @@ export const mockRouteData = {
         ],
     },
 
-    rejected_routes: [],
+    rejected_routes: [
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [17.0385, 51.1079],
+                    [17.5, 52.0],
+                    [18.66, 54.35],
+                    [23.179, 53.133],
+                ],
+            },
+        },
+    ],
 };
