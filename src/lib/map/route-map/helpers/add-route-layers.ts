@@ -81,7 +81,7 @@ export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
                 'line-join': 'round',
             },
             paint: {
-                'line-color': '#FFFFFF', // TODO
+                'line-color': theme.palette.base.color1,
                 'line-width': 2,
                 'line-dasharray': [1, 2],
                 'line-opacity': 1,
