@@ -26,7 +26,7 @@ export const createRouteMarkerElement = ({
         case 'start':
             svgString = mapMarkerStartSvgContainer(
                 theme.palette,
-                theme.palette.mode === 'light' ? '#FFA824' : '#FFD262',
+                theme.palette.mode === 'light' ? theme.palette.base.color21 : theme.palette.base.colorNewYellow,
             );
             break;
         case 'end':
@@ -37,7 +37,7 @@ export const createRouteMarkerElement = ({
             el.classList.add('numbered-svg-marker');
             break;
         case 'waypoint_next':
-            svgString = mapMarkerNumberedSvgString(theme.palette.base.colorNewGreen, label); // TODO green
+            svgString = mapMarkerNumberedSvgString(theme.palette.base.color9, label);
             el.classList.add('numbered-svg-marker');
             break;
         case 'waypoint_future':
