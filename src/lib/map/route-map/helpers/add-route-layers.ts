@@ -44,7 +44,7 @@ export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
                     'completed',
                     theme.palette.text.titleInput,
                     'next_leg',
-                    '#4caf50', // TODO
+                    theme.palette.base.color9,
                     'future_leg',
                     theme.palette.base.color6,
                     theme.palette.text.titleInput,
