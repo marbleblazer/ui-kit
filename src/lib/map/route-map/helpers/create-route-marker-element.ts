@@ -24,10 +24,7 @@ export const createRouteMarkerElement = ({
 
     switch (pointType) {
         case 'start':
-            svgString = mapMarkerStartSvgContainer(
-                theme.palette,
-                theme.palette.mode === 'light' ? theme.palette.base.color21 : theme.palette.base.colorNewYellow,
-            );
+            svgString = mapMarkerStartSvgContainer(theme.palette, theme.palette.base.colorPointA);
             break;
         case 'end':
             svgString = mapMarkerEndSvgContainer(theme.palette, endMarkerColor);

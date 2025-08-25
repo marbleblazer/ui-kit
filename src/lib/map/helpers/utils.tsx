@@ -202,7 +202,7 @@ export const renderLineStringPoints = ({
                     isTrip
                         ? (markerElement.innerHTML = mapMarkerStartSvgContainer(
                               theme.palette,
-                              theme.palette.mode === 'light' ? '#FFA824' : '#FFD262',
+                              theme.palette.base.colorPointA,
                           ))
                         : (markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette));
                 } else if (index === geometry.coordinates.length - 1) {
@@ -237,10 +237,7 @@ export const renderTripLineStringPoints = ({ geometry, map, markersRef, theme }:
                 if (index === 0) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-trip-end-line-marker');
-                    markerElement.innerHTML = mapMarkerStartSvgContainer(
-                        theme.palette,
-                        theme.palette.mode === 'light' ? '#FFA824' : '#FFD262',
-                    );
+                    markerElement.innerHTML = mapMarkerStartSvgContainer(theme.palette, theme.palette.base.colorPointA);
                 } else if (index === geometry.coordinates.length - 1) {
                     markerElement = document.createElement('div');
                     markerElement.classList.add('start-trip-end-line-marker');
