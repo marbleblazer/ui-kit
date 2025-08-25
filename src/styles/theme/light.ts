@@ -84,7 +84,7 @@ export const lightTheme = (
                 color7_20: alpha(refLightTheme.alerts.alert, 0.2), //'#FF494933',
                 color8: refLightTheme.grey?.[50] || '#000000', //'#000000',
                 color21: refLightTheme.alerts.warning, //'#FFF614',
-                color9: '#01BE11',
+                color9: refLightTheme.alerts.success, //'#01BE11',
                 color10: '#D9D9D9',
                 color11: '#7AD9E9',
                 color12: '#586DEC',

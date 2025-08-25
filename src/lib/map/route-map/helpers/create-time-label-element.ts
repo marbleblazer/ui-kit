@@ -20,7 +20,7 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
 
     features.forEach((feature) => {
         const props = feature.properties ?? {};
-        const color = props.color === 'green' ? theme.palette.base.colorNewGreen : theme.palette.base.color6;
+        const color = props.color === 'green' ? theme.palette.base.color9 : theme.palette.base.color6;
         const text = (props.text || '') as string;
         const flip = props.orientation === 'left';
         const fontSize = theme.typography.body1.fontSize ?? 14;
