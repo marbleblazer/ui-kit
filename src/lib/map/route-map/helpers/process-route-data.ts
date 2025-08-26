@@ -37,7 +37,12 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     });
 
     // Обработка промежуточных точек маршрута (waypoints)
-    const waypoints = data.area.features as GeoJSON.Feature<GeoJSON.Point>[];
+    const areaCoordinates = data.area.geometry.type === 'LineString' ? data.area.geometry.coordinates : [];
+    const waypoints: GeoJSON.Feature<GeoJSON.Point>[] = areaCoordinates.map((coords) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: coords },
+        properties: {},
+    }));
     const completedCoordsString = data.completed_route.geometry.coordinates.map((c) => c.join(','));
 
     let nextWaypointIndex = -1;
