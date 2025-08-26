@@ -2,6 +2,7 @@ import { IRouteMeta, TPointType, TProcessedRoute } from '../types';
 import { mockRouteData } from '../../mock';
 import moment from 'moment';
 import { formatDuration } from './format-duration';
+import { projectPointOnSegment } from './project-point-on-segment';
 
 interface IProcessRouteData {
     data: typeof mockRouteData; // TODO добавить тип RouteDetail из types.ts
@@ -57,23 +58,25 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
         let label: string;
 
         if (index === 0) {
-            pointType = 'start';
             label = 'A';
         } else if (index === waypoints.length - 1) {
-            pointType = 'end';
             label = 'B';
         } else {
             label = index.toString();
+        }
 
-            if (completedCoordsString.includes(coordString)) {
-                pointType = 'waypoint_passed';
-            } else if (nextWaypointIndex === -1) {
-                pointType = 'waypoint_next';
-                nextWaypointIndex = index;
-                nextWaypointLabel = label;
-            } else {
-                pointType = 'waypoint_future';
-            }
+        if (completedCoordsString.includes(coordString)) {
+            pointType = index === 0 ? 'start' : 'waypoint_passed';
+        } else if (nextWaypointIndex === -1) {
+            pointType = 'waypoint_next';
+            nextWaypointIndex = index;
+            nextWaypointLabel = label;
+        } else {
+            pointType = 'waypoint_future';
+        }
+
+        if (index === waypoints.length - 1) {
+            pointType = 'end';
         }
 
         features.push({
@@ -135,19 +138,42 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
         meta = { type: 'done' };
     } else {
         const nextStopLabel = nextWaypointLabel;
-        const durationToNext = data.planned_route.legs[nextWaypointIndex - 1]?.duration ?? 0;
-        const distanceToNext = data.planned_route.legs[nextWaypointIndex - 1]?.distance ?? 0;
 
-        const eta = currentTime.clone().add(durationToNext, 'seconds');
+        const legIndex = nextWaypointIndex - 2;
+        const leg = legIndex >= 0 ? data.planned_route.legs[legIndex] : undefined;
+
+        const durationToNext = leg?.duration ?? 0;
+        const distanceToNext = leg?.distance ?? 0;
+
+        let remainingDuration = durationToNext;
+        let remainingDistance = distanceToNext;
+
+        const legStart = legIndex >= 0 ? data.planned_route.geometry.coordinates[legIndex] : undefined;
+        const legEnd = legIndex >= 0 ? data.planned_route.geometry.coordinates[legIndex + 1] : undefined;
+
+        if (legStart && legEnd && driverPosition && distanceToNext > 0) {
+            const { t } = projectPointOnSegment(
+                driverPosition as [number, number],
+                legStart as [number, number],
+                legEnd as [number, number],
+            );
+
+            remainingDuration = durationToNext * (1 - t);
+            remainingDistance = distanceToNext * (1 - t);
+        }
+
+        const eta = currentTime.clone().add(remainingDuration, 'seconds');
 
         meta = {
             type: 'active',
             eta: eta.toDate(),
-            estimatedDuration: durationToNext,
+            estimatedDuration: remainingDuration,
             nextStopIndex: nextWaypointIndex,
             isRouteActive: data.is_active,
             nextStopLabel,
-            distance: distanceToNext,
+
+            distance: remainingDistance,
+
             arrivalTime: eta.format('HH:mm'),
         };
     }
@@ -162,8 +188,8 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                 (driverPosition[0] + nextWaypoint.geometry.coordinates[0]) / 2,
                 (driverPosition[1] + nextWaypoint.geometry.coordinates[1]) / 2,
             ];
-            const durationToNext =
-                data.planned_route.legs[nextWaypointIndex - 1]?.duration ?? data.planned_route.duration;
+
+            const remainingTimeToNextStop = meta.estimatedDuration;
 
             features.push({
                 type: 'Feature',
@@ -171,7 +197,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                 properties: {
                     featureType: 'point',
                     pointType: 'time_label',
-                    text: formatDuration({ totalSeconds: durationToNext, withSpace: true }),
+                    text: formatDuration({ totalSeconds: remainingTimeToNextStop || 0, withSpace: true }),
                     color: 'green',
                     orientation: 'left',
                 },

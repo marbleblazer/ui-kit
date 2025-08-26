@@ -28,25 +28,23 @@ export class RouteInfoControl implements mapboxgl.IControl {
         this.meta = meta;
         let html = '';
 
-        if (meta.type === 'planned' || !meta.isRouteActive) {
-            html = `
-                <div class="route-info-label">${this.t('Estimated time')}</div>
-                <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration! })}</div>
-                <div class="route-info-details">
-                    ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
-                </div>
-            `;
-        } else if (meta.type === 'active') {
-            html = `
-                <div class="route-info-label">${this.t('Estimated time to stop')} ${meta.nextStopLabel}</div>
-                <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration! })}</div>
-                <div class="route-info-details">
-                    ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
-                </div>
-            `;
-        } else {
+        if (meta.type === 'done') {
             html = `<div class="route-info-label">${this.t('Route completed')}</div>`;
+        } else {
+            const timeLabel =
+                meta.type === 'planned' || !meta.isRouteActive
+                    ? this.t('Estimated time')
+                    : `${this.t('Estimated time to stop')} ${meta.nextStopLabel}`;
+
+            html = `
+            <div class="route-info-label">${timeLabel}</div>
+            <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration! })}</div>
+            <div class="route-info-details">
+                ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
+            </div>
+        `;
         }
+
         this.container.innerHTML = html;
     }
 }
