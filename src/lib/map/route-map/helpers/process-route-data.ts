@@ -2,7 +2,7 @@ import { IRouteMeta, TPointType, TProcessedRoute } from '../types';
 import { mockRouteData } from '../../mock';
 import moment from 'moment';
 import { formatDuration } from './format-duration';
-import { projectPointOnSegment } from './project-point-on-segment';
+import { remainingToWaypoint } from './remaining-to-waypoint';
 
 interface IProcessRouteData {
     data: typeof mockRouteData; // TODO добавить тип RouteDetail из types.ts
@@ -139,27 +139,27 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     } else {
         const nextStopLabel = nextWaypointLabel;
 
-        const legIndex = nextWaypointIndex - 2;
-        const leg = legIndex >= 0 ? data.planned_route.legs[legIndex] : undefined;
+        const polyline = data.cumulative_values.points;
+        const cumDist = data.cumulative_values.distance;
+        const cumTime = data.cumulative_values.duration;
 
-        const durationToNext = leg?.duration ?? 0;
-        const distanceToNext = leg?.distance ?? 0;
+        let remainingDuration = 0;
+        let remainingDistance = 0;
 
-        let remainingDuration = durationToNext;
-        let remainingDistance = distanceToNext;
-
-        const legStart = legIndex >= 0 ? data.planned_route.geometry.coordinates[legIndex] : undefined;
-        const legEnd = legIndex >= 0 ? data.planned_route.geometry.coordinates[legIndex + 1] : undefined;
-
-        if (legStart && legEnd && driverPosition && distanceToNext > 0) {
-            const { t } = projectPointOnSegment(
-                driverPosition as [number, number],
-                legStart as [number, number],
-                legEnd as [number, number],
+        if (driverPosition && nextWaypointIndex >= 0) {
+            const res = remainingToWaypoint(
+                driverPosition[0],
+                driverPosition[1],
+                polyline as [number, number][],
+                cumDist,
+                cumTime,
+                nextWaypointIndex,
             );
 
-            remainingDuration = durationToNext * (1 - t);
-            remainingDistance = distanceToNext * (1 - t);
+            if (res.onRoute) {
+                remainingDuration = res.remainingTimeS ?? 0;
+                remainingDistance = res.remainingDistanceM ?? 0;
+            }
         }
 
         const eta = currentTime.clone().add(remainingDuration, 'seconds');
@@ -171,9 +171,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
             nextStopIndex: nextWaypointIndex,
             isRouteActive: data.is_active,
             nextStopLabel,
-
             distance: remainingDistance,
-
             arrivalTime: eta.format('HH:mm'),
         };
     }
