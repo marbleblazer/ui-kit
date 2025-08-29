@@ -1,3 +1,5 @@
+import { IRouteDetail, RouteStatuses } from './route-map/types';
+
 export const mockTripData: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
     features: [
@@ -5551,7 +5553,7 @@ export const mockMultiTripData: GeoJSON.FeatureCollection = {
     ],
 };
 
-export const mockRouteData = {
+export const mockRouteData: IRouteDetail = {
     name: 'Vienna → Vilnius',
     description: 'Международный маршрут с остановками',
     is_active: true,
@@ -5559,10 +5561,9 @@ export const mockRouteData = {
     calendar_id: null,
     id: 1,
     devices: [],
-    duration: 18000,
+    status: RouteStatuses.InProgress,
 
     area: {
-        type: 'Feature',
         geometry: {
             type: 'LineString',
             coordinates: [
@@ -5575,17 +5576,18 @@ export const mockRouteData = {
         },
     },
 
-    completed_route: {
-        type: 'Feature',
-        geometry: {
-            type: 'LineString',
-            coordinates: [
-                [16.3738, 48.2082],
-                [19.0402, 47.4979],
-            ],
+    completed_route: [
+        {
+            longitude: 16.3738,
+            latitude: 48.2082,
+            fixtime: '2025-08-29T08:00:00Z',
         },
-        properties: {},
-    },
+        {
+            longitude: 19.0402,
+            latitude: 47.4979,
+            fixtime: '2025-08-29T12:00:00Z',
+        },
+    ],
 
     planned_route: {
         distance: 1800.0,
@@ -5628,15 +5630,17 @@ export const mockRouteData = {
 
     rejected_routes: [
         {
-            type: 'Feature',
-            geometry: {
-                type: 'LineString',
-                coordinates: [
-                    [17.0385, 51.1079],
-                    [17.5, 52.0],
-                    [18.66, 54.35],
-                    [23.179, 53.133],
-                ],
+            route_id: 2,
+            area: {
+                geometry: {
+                    type: 'LineString',
+                    coordinates: [
+                        [17.0385, 51.1079],
+                        [17.5, 52.0],
+                        [18.66, 54.35],
+                        [23.179, 53.133],
+                    ],
+                },
             },
         },
     ],

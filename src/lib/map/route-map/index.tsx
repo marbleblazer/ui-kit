@@ -109,7 +109,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
             }
 
             if (localData.features.length > 0) {
-                const bbox = bboxTurf(localData, { recompute: true });
+                const bbox = bboxTurf(localData);
                 map.current.fitBounds(bbox as [number, number, number, number], { padding: 80, maxZoom: 15 });
             }
         },

@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next';
-import { IRouteMeta } from './types';
+import { IRouteMeta, RouteStatuses } from './types';
 import { formatDuration } from './helpers/format-duration';
 
 export class RouteInfoControl implements mapboxgl.IControl {
@@ -28,11 +28,12 @@ export class RouteInfoControl implements mapboxgl.IControl {
         this.meta = meta;
         let html = '';
 
-        if (meta.type === 'done') {
+        if (meta.type === RouteStatuses.Done) {
             html = `<div class="route-info-label">${this.t('Route completed')}</div>`;
         } else {
+            // TODO isRouteActive
             const timeLabel =
-                meta.type === 'planned' || !meta.isRouteActive
+                meta.type === RouteStatuses.Todo || !meta.isRouteActive
                     ? this.t('Estimated time')
                     : `${this.t('Estimated time to stop')} ${meta.nextStopLabel}`;
 

@@ -1,7 +1,3 @@
-import { Feature } from '@mapbox/mapbox-sdk/services/geocoding-v6';
-
-export type Position = [number, number];
-
 export type TPointType =
     | 'start'
     | 'end'
@@ -25,13 +21,12 @@ export interface TTimeLabel {
 }
 
 export interface IRouteMeta {
-    type: 'planned' | 'active' | 'done';
+    type: RouteStatuses;
     estimatedDuration?: number;
     eta?: Date;
     nextStopIndex?: number;
     distance?: number;
     arrivalTime?: string;
-    isRouteActive?: boolean;
     nextStopLabel?: string;
     timeLabels?: TTimeLabel[];
 }
@@ -43,72 +38,63 @@ export interface TProcessedRoute {
 
 // data schemes
 
-export interface OSRMManeuver {
-    location: Position;
-    bearing_before: number;
-    bearing_after: number;
-    type: string;
-    modifier?: string;
-    exit?: number;
+export enum RouteStatuses {
+    Done = 'done',
+    Todo = 'todo',
+    InProgress = 'in_progress',
 }
 
-export interface OSRMIntersection {
-    location: Position;
-    bearings: number[];
-    entry: boolean[];
-    in?: number;
-    out?: number;
+interface ICompletedRoute {
+    longitude: number;
+    latitude: number;
+    fixtime: string;
 }
 
-export interface IOSRMStep {
+interface IRejectedRoute {
+    route_id: number;
+    area: { geometry: GeoJSON.Geometry };
+}
+
+interface ICumulativeValues {
+    distance: number[];
+    duration: number[];
+    points: number[][];
+}
+
+interface IOSRMStep {
+    geometry: GeoJSON.LineString;
     distance: number;
     duration: number;
-    weight: number;
-    name: string;
-    mode: string;
-    geometry: {
-        type: 'LineString';
-        coordinates: Position[];
-    };
-    maneuver: OSRMManeuver;
-    intersections: OSRMIntersection[];
 }
 
-// Отрезок между двумя точками маршрута
-export interface IOSRMLeg {
+interface IOSRMLeg {
     distance: number;
     duration: number;
-    weight: number;
-    summary: string;
     steps: IOSRMStep[];
 }
 
-// Полный маршрут
-export interface IOSRMRoute {
+interface IOSRMRoute {
     distance: number;
     duration: number;
-    weight: number;
-    weight_name: string;
-    geometry: {
-        type: 'LineString';
-        coordinates: Position[];
-    };
+    geometry: GeoJSON.LineString;
     legs: IOSRMLeg[];
 }
 
-// RouteDetailSchema
 export interface IRouteDetail {
     name: string;
-    description?: string | null;
-    is_active?: boolean | null;
-    attributes?: Record<string, unknown> | null;
-    calendar_id?: number | null;
+    description: string | null;
+    attributes: Record<string, string | number>;
+    area: { geometry: GeoJSON.Geometry };
+    calendar_id: number | null;
     id: number;
-    devices: Record<string, unknown>[];
-    duration: number;
-    area: GeoJSON.FeatureCollection;
-    completed_route?: Feature | null;
-    planned_route?: IOSRMRoute | null;
-    alt_route?: IOSRMRoute | null;
-    rejected_routes?: Feature[];
+    devices: {
+        id: number;
+        name: string;
+    }[];
+    status: RouteStatuses;
+    planned_route: IOSRMRoute | null;
+    alt_route: IOSRMRoute | null;
+    completed_route: ICompletedRoute[] | null;
+    rejected_routes: IRejectedRoute[] | null;
+    cumulative_values: ICumulativeValues;
 }
