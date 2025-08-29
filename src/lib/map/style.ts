@@ -483,7 +483,7 @@ export const MapContainer = styled(Box, {
             background: theme.palette.background.background15,
             border: `1px solid ${theme.palette.border.border3} !important`,
             backdropFilter: 'blur(20px)',
-            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
+            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)} !important`,
             ...theme.typography.caption12,
 
             '& .speed': {
@@ -702,14 +702,15 @@ export const MapContainer = styled(Box, {
         height: '88px',
         bottom: '0px',
         zIndex: '2',
-        background: '#ffffff',
+        background: theme.palette.background.background2,
         padding: '12px',
         borderRadius: '8px',
-        boxShadow: ' 0 4px 12px rgba(0,0,0,0.15)',
+        border: `1px solid ${theme.palette.border.border3}`,
+        boxShadow: `0 4px 32px ${theme.palette.border.border4}`,
     },
 
     '.route-info-label': {
-        color: theme.palette.base.color3 + '!important',
+        color: theme.palette.text.search + '!important',
         ...theme.typography.caption12,
     },
 
@@ -718,11 +719,6 @@ export const MapContainer = styled(Box, {
         ...theme.typography.subtitle1,
         fontWeight: 600,
         margin: 0,
-    },
-
-    '.route-info-details': {
-        color: theme.palette.base.color3 + '!important',
-        ...theme.typography.caption12,
     },
 }));
 
