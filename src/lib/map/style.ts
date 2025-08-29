@@ -674,6 +674,17 @@ export const MapContainer = styled(Box, {
         },
     },
 
+    '.numbered-svg-marker': {
+        width: '44px',
+        height: '44px',
+        top: '-18px',
+    },
+
+    '.truck-marker': {
+        top: '-20px',
+        zIndex: 3,
+    },
+
     '.map-marker-arrow': {
         width: 'auto',
         height: 'auto',

@@ -30,7 +30,7 @@ interface IDrawRouteMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'>
 }
 
 export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
-    const { data, onChange = () => { }, shouldFinishDrawing, onDrawingFinished, ...baseProps } = props;
+    const { data, onChange = () => {}, shouldFinishDrawing, onDrawingFinished, ...baseProps } = props;
 
     const theme = useTheme();
     const markersRef = useRef<HTMLDivElement[]>([]);
@@ -126,7 +126,7 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 // Создаем стартовый маркер
                 const startMarker = document.createElement('div');
                 startMarker.classList.add('start-end-line-marker');
-                startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette, true);
+                startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette, theme.palette.base.colorPointA);
 
                 const currentMap = map.current;
 
@@ -160,7 +160,7 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 if (coordsLen > 1) {
                     const endMarker = document.createElement('div');
                     endMarker.classList.add('start-end-line-marker');
-                    endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette, true);
+                    endMarker.innerHTML = mapMarkerEndSvgContainer(theme.palette, theme.palette.base.color9);
                     new mapboxgl.Marker(endMarker).setLngLat(endPoint as [number, number]).addTo(currentMap);
                     allMarkers.push(endMarker);
                 }

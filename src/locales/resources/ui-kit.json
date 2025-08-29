@@ -108,7 +108,13 @@
                 "Spain": "Spain",
                 "France": "France"
             }
-        }
+        },
+        "Estimated time to stop": "Estimated time to stop",
+        "Estimated time": "Estimated time",
+        "h": "h",
+        "d": "d",
+        "km": "km",
+        "Route completed": "Route completed"
     },
     "fr": {
         "Photo": "Photo",
@@ -218,7 +224,13 @@
                 "Spain": "Espagne",
                 "France": "France"
             }
-        }
+        },
+        "Estimated time to stop": "Temps estimé avant arrêt",
+        "Estimated time": "Temps estimé",
+        "h": "h",
+        "d": "j",
+        "km": "km",
+        "Route completed": "Trajet terminé"
     },
     "de": {
         "Photo": "Foto",
@@ -328,7 +340,13 @@
                 "Spain": "Spanien",
                 "France": "Frankreich"
             }
-        }
+        },
+        "Estimated time to stop": "Geschätzte Zeit bis zum Stopp",
+        "Estimated time": "Geschätzte Zeit",
+        "h": "Std.",
+        "d": "Tg.",
+        "km": "km",
+        "Route completed": "Route abgeschlossen"
     },
 
     "es": {
@@ -439,7 +457,13 @@
                 "Spain": "España",
                 "France": "Francia"
             }
-        }
+        },
+        "Estimated time to stop": "Tiempo estimado hasta detenerse",
+        "Estimated time": "Tiempo estimado",
+        "h": "h",
+        "d": "d",
+        "km": "km",
+        "Route completed": "Ruta completada"
     },
     "ru": {
         "Photo": "Фото",
@@ -549,6 +573,12 @@
                 "Spain": "Испания",
                 "France": "Франция"
             }
-        }
+        },
+        "Estimated time to stop": "Оставшееся время до остановки",
+        "Estimated time": "Оценочное время",
+        "h": "ч",
+        "d": "д",
+        "km": "км",
+        "Route completed": "Маршрут завершён"
     }
 }

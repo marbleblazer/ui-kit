@@ -5550,3 +5550,78 @@ export const mockMultiTripData: GeoJSON.FeatureCollection = {
         },
     ],
 };
+
+export const mockRouteData = {
+    name: 'Vienna → Vilnius',
+    description: 'Международный маршрут с остановками',
+    is_active: true,
+    attributes: {},
+    calendar_id: null,
+    id: 1,
+    devices: [],
+    duration: 18000,
+
+    area: {
+        type: 'FeatureCollection',
+        features: [
+            { type: 'Feature', geometry: { type: 'Point', coordinates: [16.3738, 48.2082] } },
+            { type: 'Feature', geometry: { type: 'Point', coordinates: [19.0402, 47.4979] } },
+            { type: 'Feature', geometry: { type: 'Point', coordinates: [17.0385, 51.1079] } },
+            { type: 'Feature', geometry: { type: 'Point', coordinates: [23.179, 53.133] } },
+            { type: 'Feature', geometry: { type: 'Point', coordinates: [25.2796, 54.6872] } },
+        ],
+    },
+
+    completed_route: {
+        type: 'Feature',
+        geometry: {
+            type: 'LineString',
+            coordinates: [
+                [16.3738, 48.2082],
+                [19.0402, 47.4979],
+            ],
+        },
+        properties: {},
+    },
+
+    planned_route: {
+        distance: 1800.0,
+        duration: 10800.0,
+        geometry: {
+            type: 'LineString',
+            coordinates: [
+                [19.0402, 47.4979],
+                [17.0385, 51.1079],
+                [23.179, 53.133],
+                [25.2796, 54.6872],
+            ],
+        },
+        legs: [
+            { distance: 600.0, duration: 3600.0, steps: [] },
+            { distance: 700.0, duration: 4200.0, steps: [] },
+            { distance: 500.0, duration: 3000.0, steps: [] },
+        ],
+    },
+
+    alt_route: {
+        distance: 1900.0,
+        duration: 11200.0,
+        geometry: {
+            type: 'LineString',
+            coordinates: [
+                [19.0402, 47.4979],
+                [21.1, 50.0],
+                [22.0, 51.5],
+                [22.7, 52.3],
+                [23.179, 53.133],
+            ],
+        },
+        legs: [
+            { distance: 700.0, duration: 3800.0, steps: [] },
+            { distance: 700.0, duration: 4200.0, steps: [] },
+            { distance: 500.0, duration: 3200.0, steps: [] },
+        ],
+    },
+
+    rejected_routes: [],
+};

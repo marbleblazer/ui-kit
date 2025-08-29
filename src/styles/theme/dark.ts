@@ -83,7 +83,7 @@ export const darkTheme = (
                 color7_20: alpha(refLightTheme.alerts.alert, 0.2), //'#FF494933',
                 color8: refDarkTheme.lightShades.primary, //'#FFFFFF',
                 color21: refDarkTheme.alerts.warning, // #FFF614
-                color9: '#01BE11',
+                color9: refDarkTheme.alerts.success, // '#55E050'
                 color10: '#D9D9D9',
                 color11: '#7AD9E9',
                 color12: '#586DEC',
@@ -109,6 +109,10 @@ export const darkTheme = (
                 colorNewYellow01: '#F9FB82',
                 colorNewYellow02: '#FDD061',
                 colorNewYellow03: '#CFBA46',
+                colorPointA: '#FFD262',
+                colorGreenBorderMap: '#75F171',
+                colorBlueBorderMap: '#BECDFF',
+                colorYellowBorderMap: '#FFF1CC',
             },
         },
     };
