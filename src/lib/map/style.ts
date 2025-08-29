@@ -483,7 +483,7 @@ export const MapContainer = styled(Box, {
             background: theme.palette.background.background15,
             border: `1px solid ${theme.palette.border.border3} !important`,
             backdropFilter: 'blur(20px)',
-            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)}} !important`,
+            boxShadow: `0px 4px 20px 0px ${alpha('#5C5C5C', 0.14)} !important`,
             ...theme.typography.caption12,
 
             '& .speed': {
@@ -705,8 +705,8 @@ export const MapContainer = styled(Box, {
         background: theme.palette.background.background2,
         padding: '12px',
         borderRadius: '8px',
-        border: `1px solid ${theme.palette.border.border3}}`,
-        boxShadow: `0 4px 32px ${theme.palette.border.border4}}`,
+        border: `1px solid ${theme.palette.border.border3}`,
+        boxShadow: `0 4px 32px ${theme.palette.border.border4}`,
     },
 
     '.route-info-label': {
