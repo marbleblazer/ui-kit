@@ -1,11 +1,10 @@
-import { IRouteMeta, TPointType, TProcessedRoute } from '../types';
-import { mockRouteData } from '../../mock';
+import { IRouteDetail, IRouteMeta, RouteStatuses, TPointType, TProcessedRoute } from '../types';
 import moment from 'moment';
 import { formatDuration } from './format-duration';
 import { remainingToWaypoint } from './remaining-to-waypoint';
 
 interface IProcessRouteData {
-    data: typeof mockRouteData; // TODO добавить тип RouteDetail из types.ts
+    data: IRouteDetail;
 }
 
 export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute => {
@@ -14,13 +13,14 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     if (!data) {
         return {
             features: { type: 'FeatureCollection', features: [] },
-            meta: { type: 'planned', estimatedDuration: 0 },
+            meta: { type: RouteStatuses.Todo, estimatedDuration: 0 },
         };
     }
 
+    const completedCoords: [number, number][] = (data.completed_route ?? []).map((p) => [p.longitude, p.latitude]);
+
     // Позиция водителя (последняя точка completed_route)
-    const driverPosition =
-        data.completed_route?.geometry.coordinates[data.completed_route.geometry.coordinates.length - 1];
+    const driverPosition = completedCoords[completedCoords.length - 1];
 
     if (driverPosition) {
         features.push({
@@ -33,24 +33,20 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     //  Пройденный участок маршрута
     features.push({
         type: 'Feature',
-        geometry: data.completed_route.geometry as GeoJSON.LineString,
+        geometry: { type: 'LineString', coordinates: completedCoords },
         properties: { featureType: 'line', user_lineType: 'completed' },
     });
 
     // Обработка промежуточных точек маршрута (waypoints)
     const areaCoordinates = data.area.geometry.type === 'LineString' ? data.area.geometry.coordinates : [];
-    const waypoints: GeoJSON.Feature<GeoJSON.Point>[] = areaCoordinates.map((coords) => ({
+    const waypoints: GeoJSON.Feature<GeoJSON.Point>[] = areaCoordinates.map((coordinates) => ({
         type: 'Feature',
-        geometry: { type: 'Point', coordinates: coords },
+        geometry: { type: 'Point', coordinates },
         properties: {},
     }));
-    const completedCoordsString = data.completed_route.geometry.coordinates.map((c) => c.join(','));
 
     let nextWaypointIndex = -1;
     let nextWaypointLabel = '';
-
-    const lastWaypoint = waypoints[waypoints.length - 1];
-    const isRouteCompleted = lastWaypoint.geometry.coordinates.join(',') === driverPosition?.join(',');
 
     waypoints.forEach((waypoint, index) => {
         const coordString = waypoint.geometry.coordinates.join(',');
@@ -65,7 +61,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
             label = index.toString();
         }
 
-        if (completedCoordsString.includes(coordString)) {
+        if (completedCoords.some((c) => c.join(',') === coordString)) {
             pointType = index === 0 ? 'start' : 'waypoint_passed';
         } else if (nextWaypointIndex === -1) {
             pointType = 'waypoint_next';
@@ -85,14 +81,13 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                 featureType: 'point',
                 pointType,
                 label,
-                isRouteCompleted: pointType === 'end' ? isRouteCompleted : undefined,
             },
         });
     });
 
     // Текущий и будущий участок запланированного маршрута
-    if (nextWaypointIndex !== -1 && !isRouteCompleted) {
-        const plannedCoordinates = data.planned_route.geometry.coordinates;
+    if (nextWaypointIndex !== -1 && data.status !== RouteStatuses.Done) {
+        const plannedCoordinates = data.planned_route?.geometry.coordinates ?? [];
         features.push({
             type: 'Feature',
             geometry: { type: 'LineString', coordinates: [plannedCoordinates[0], plannedCoordinates[1]] },
@@ -112,36 +107,35 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     if (data.alt_route) {
         features.push({
             type: 'Feature',
-            geometry: data.alt_route.geometry as GeoJSON.LineString,
+            geometry: data.alt_route.geometry,
             properties: { featureType: 'line', user_lineType: 'alt_route' },
         });
     }
 
     // Расчёт метаданных (ETA, длительность, статус маршрута)
     let meta: IRouteMeta;
-    const currentTime = moment('2025-08-18T14:25:00+03:00');
+    const currentTime = moment();
 
-    if (data.completed_route.geometry.coordinates.length <= 1 || !data.is_active) {
-        const totalDuration = data.planned_route.duration;
-        const totalDistance = data.planned_route.distance;
+    if (data.status === RouteStatuses.Todo) {
+        const totalDuration = data.planned_route?.duration;
+        const totalDistance = data.planned_route?.distance;
 
         const arrivalTime = currentTime.clone().add(totalDuration, 'seconds');
 
         meta = {
-            type: 'planned',
+            type: RouteStatuses.Todo,
             estimatedDuration: totalDuration,
             distance: totalDistance,
-            isRouteActive: data.is_active,
             arrivalTime: arrivalTime.format('HH:mm'),
         };
-    } else if (isRouteCompleted) {
-        meta = { type: 'done' };
+    } else if (data.status === RouteStatuses.Done) {
+        meta = { type: RouteStatuses.Done };
     } else {
         const nextStopLabel = nextWaypointLabel;
 
-        const polyline = data.cumulative_values.points;
         const cumDist = data.cumulative_values.distance;
         const cumTime = data.cumulative_values.duration;
+        const polyline: [number, number][] = data.cumulative_values.points.map((p) => [p[0], p[1]] as [number, number]);
 
         let remainingDuration = 0;
         let remainingDistance = 0;
@@ -150,7 +144,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
             const res = remainingToWaypoint(
                 driverPosition[0],
                 driverPosition[1],
-                polyline as [number, number][],
+                polyline,
                 cumDist,
                 cumTime,
                 nextWaypointIndex,
@@ -165,11 +159,10 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
         const eta = currentTime.clone().add(remainingDuration, 'seconds');
 
         meta = {
-            type: 'active',
+            type: RouteStatuses.InProgress,
             eta: eta.toDate(),
             estimatedDuration: remainingDuration,
             nextStopIndex: nextWaypointIndex,
-            isRouteActive: data.is_active,
             nextStopLabel,
             distance: remainingDistance,
             arrivalTime: eta.format('HH:mm'),
@@ -177,7 +170,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     }
 
     // Добавление меток времени для разветвления маршрута
-    if (data.alt_route && !isRouteCompleted && driverPosition) {
+    if (data.alt_route && data.status !== RouteStatuses.Done && driverPosition) {
         // Середина сегмента от текущей позиции до следующего waypoint
         const nextWaypoint = waypoints[nextWaypointIndex];
 
@@ -196,13 +189,15 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                     featureType: 'point',
                     pointType: 'time_label',
                     text: formatDuration({ totalSeconds: remainingTimeToNextStop || 0, withSpace: true }),
-                    color: 'green',
+                    type: 'planned',
                     orientation: 'left',
                 },
             });
         }
 
-        const altMidpoint = getLineMidpoint(data.alt_route.geometry.coordinates as [number, number][]);
+        const altMidpoint = getLineMidpoint(
+            (data.alt_route.geometry.coordinates as number[][]).map((c) => [c[0], c[1]] as [number, number]),
+        );
 
         features.push({
             type: 'Feature',
@@ -211,7 +206,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                 featureType: 'point',
                 pointType: 'time_label',
                 text: formatDuration({ totalSeconds: data.alt_route.duration, withSpace: true }),
-                color: 'blue',
+                type: 'alt',
                 orientation: 'right',
             },
         });
@@ -222,7 +217,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
         data.rejected_routes.forEach((rej) => {
             features.push({
                 type: 'Feature',
-                geometry: rej.geometry as GeoJSON.LineString,
+                geometry: rej.area.geometry,
                 properties: { featureType: 'line', user_lineType: 'rejected' },
             });
         });

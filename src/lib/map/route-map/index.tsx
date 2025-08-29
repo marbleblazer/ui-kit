@@ -88,7 +88,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                         theme,
                         pointType: props.pointType as TPointType,
                         label: props.label as string,
-                        isRouteCompleted: props.isRouteCompleted as boolean,
+                        status: data?.meta.type,
                     });
                     const marker = new mapboxgl.Marker({ element: markerElement })
                         .setLngLat(feature.geometry.coordinates as [number, number])
@@ -109,11 +109,11 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
             }
 
             if (localData.features.length > 0) {
-                const bbox = bboxTurf(localData, { recompute: true });
+                const bbox = bboxTurf(localData);
                 map.current.fitBounds(bbox as [number, number, number, number], { padding: 80, maxZoom: 15 });
             }
         },
-        [clearMap, theme],
+        [clearMap, data, theme],
     );
 
     const onMapLoad = useCallback(() => {

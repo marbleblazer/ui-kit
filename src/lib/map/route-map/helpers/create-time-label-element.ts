@@ -16,29 +16,29 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
         map.removeSource('route-labels');
     }
 
-    const uniqueIcons = new Map<string, { color: string; text: string; flip: boolean }>();
+    const uniqueIcons = new Map<string, { type: string; text: string; flip: boolean }>();
 
     features.forEach((feature) => {
         const props = feature.properties ?? {};
-        const color = props.color === 'green' ? theme.palette.base.color9 : theme.palette.base.color6;
+        const type = props.type === 'planned' ? theme.palette.base.color9 : theme.palette.base.color6;
         const text = (props.text || '') as string;
         const flip = props.orientation === 'left';
         const fontSize = theme.typography.body1.fontSize ?? 14;
 
         const width = estimateLabelWidth(text, Number(fontSize));
 
-        const iconId = `time-label-${color.replace('#', '')}-${text}-${flip ? 'left' : 'right'}`;
+        const iconId = `time-label-${type.replace('#', '')}-${text}-${flip ? 'left' : 'right'}`;
         props.iconId = iconId;
 
         props.offset = flip ? [width / 2, 0] : [-(width / 2), 0];
 
         if (!uniqueIcons.has(iconId) && !map.hasImage(iconId)) {
-            uniqueIcons.set(iconId, { color, text, flip });
+            uniqueIcons.set(iconId, { type, text, flip });
         }
     });
 
     await Promise.all(
-        Array.from(uniqueIcons.entries()).map(([iconId, { color, text, flip }]) => {
+        Array.from(uniqueIcons.entries()).map(([iconId, { type, text, flip }]) => {
             return new Promise<void>((resolve) => {
                 const img = new Image();
 
@@ -49,7 +49,7 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
                     resolve();
                 };
                 img.onerror = () => resolve();
-                img.src = svgToBase64(dynamicTimeLabelSvg(color, text, flip, theme));
+                img.src = svgToBase64(dynamicTimeLabelSvg(type, text, flip, theme));
             });
         }),
     );
