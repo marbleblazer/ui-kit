@@ -110,6 +110,10 @@ export const lightTheme = (
                 colorNewYellow01: '#F9FB82',
                 colorNewYellow02: '#FDD061',
                 colorNewYellow03: '#CFBA46',
+                colorPointA: '#FFA824',
+                colorGreenBorderMap: '#75F171',
+                colorBlueBorderMap: '#BECDFF',
+                colorYellowBorderMap: '#FFF1CC',
             },
         },
     };

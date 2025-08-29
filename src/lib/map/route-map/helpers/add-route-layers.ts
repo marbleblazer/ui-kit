@@ -19,11 +19,11 @@ export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
                     'match',
                     ['get', 'user_lineType'],
                     'completed',
-                    theme.palette.base.color1,
+                    theme.palette.base.colorNewGrey,
                     'next_leg',
-                    '#388e3c', // TODO
+                    theme.palette.base.colorGreenBorderMap,
                     'future_leg',
-                    theme.palette.base.color1,
+                    theme.palette.base.colorBlueBorderMap,
                     theme.palette.base.color1,
                 ],
             },
@@ -44,7 +44,7 @@ export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
                     'completed',
                     theme.palette.text.titleInput,
                     'next_leg',
-                    '#4caf50', // TODO
+                    theme.palette.base.color9,
                     'future_leg',
                     theme.palette.base.color6,
                     theme.palette.text.titleInput,
