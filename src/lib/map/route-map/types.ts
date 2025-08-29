@@ -60,7 +60,7 @@ export interface OSRMIntersection {
     out?: number;
 }
 
-export interface OSRMStep {
+export interface IOSRMStep {
     distance: number;
     duration: number;
     weight: number;
@@ -75,16 +75,16 @@ export interface OSRMStep {
 }
 
 // Отрезок между двумя точками маршрута
-export interface OSRMLeg {
+export interface IOSRMLeg {
     distance: number;
     duration: number;
     weight: number;
     summary: string;
-    steps: OSRMStep[];
+    steps: IOSRMStep[];
 }
 
 // Полный маршрут
-export interface OSRMRoute {
+export interface IOSRMRoute {
     distance: number;
     duration: number;
     weight: number;
@@ -93,11 +93,11 @@ export interface OSRMRoute {
         type: 'LineString';
         coordinates: Position[];
     };
-    legs: OSRMLeg[];
+    legs: IOSRMLeg[];
 }
 
 // RouteDetailSchema
-export interface RouteDetail {
+export interface IRouteDetail {
     name: string;
     description?: string | null;
     is_active?: boolean | null;
@@ -108,7 +108,7 @@ export interface RouteDetail {
     duration: number;
     area: GeoJSON.FeatureCollection;
     completed_route?: Feature | null;
-    planned_route?: OSRMRoute | null;
-    alt_route?: OSRMRoute | null;
+    planned_route?: IOSRMRoute | null;
+    alt_route?: IOSRMRoute | null;
     rejected_routes?: Feature[];
 }
