@@ -17,11 +17,11 @@ export const formatDuration = ({ totalSeconds, withSpace = false }: IFormatRoute
     const parts: string[] = [];
 
     if (days > 0) {
-        parts.push(`${days}${sep}${i18n.t('d')}`);
+        parts.push(`${days}${sep}${i18n.t('uiKit:d')}`);
     }
 
     if (hours > 0 || days > 0) {
-        parts.push(`${hours}${sep}${i18n.t('h')}`);
+        parts.push(`${hours}${sep}${i18n.t('uiKit:h')}`);
     }
 
     if (minutes > 0 || (days === 0 && hours === 0)) {

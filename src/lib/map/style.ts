@@ -690,40 +690,6 @@ export const MapContainer = styled(Box, {
         height: 'auto',
         transformOrigin: 'center',
     },
-
-    '.route-info-control': {
-        display: 'flex',
-        flexDirection: 'column',
-        margin: '10px',
-        gap: '6px',
-        position: 'absolute',
-        maxWidth: '177px',
-        minWidth: '177px',
-        height: '88px',
-        bottom: '0px',
-        zIndex: '2',
-        background: '#ffffff',
-        padding: '12px',
-        borderRadius: '8px',
-        boxShadow: ' 0 4px 12px rgba(0,0,0,0.15)',
-    },
-
-    '.route-info-label': {
-        color: theme.palette.base.color3 + '!important',
-        ...theme.typography.caption12,
-    },
-
-    '.route-info-time': {
-        color: theme.palette.base.color9 + '!important',
-        ...theme.typography.subtitle1,
-        fontWeight: 600,
-        margin: 0,
-    },
-
-    '.route-info-details': {
-        color: theme.palette.base.color3 + '!important',
-        ...theme.typography.caption12,
-    },
 }));
 
 export const MapDrawModeTabsWrapper = styled(Box)(({ theme }) => ({
