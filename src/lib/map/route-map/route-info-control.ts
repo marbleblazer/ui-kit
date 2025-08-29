@@ -31,9 +31,8 @@ export class RouteInfoControl implements mapboxgl.IControl {
         if (meta.type === RouteStatuses.Done) {
             html = `<div class="route-info-label">${this.t('Route completed')}</div>`;
         } else {
-            // TODO isRouteActive
             const timeLabel =
-                meta.type === RouteStatuses.Todo || !meta.isRouteActive
+                meta.type === RouteStatuses.Todo
                     ? this.t('Estimated time')
                     : `${this.t('Estimated time to stop')} ${meta.nextStopLabel}`;
 

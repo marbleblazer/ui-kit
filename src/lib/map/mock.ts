@@ -5556,7 +5556,6 @@ export const mockMultiTripData: GeoJSON.FeatureCollection = {
 export const mockRouteData: IRouteDetail = {
     name: 'Vienna → Vilnius',
     description: 'Международный маршрут с остановками',
-    is_active: true,
     attributes: {},
     calendar_id: null,
     id: 1,
