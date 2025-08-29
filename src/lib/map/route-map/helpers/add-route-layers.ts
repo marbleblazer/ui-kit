@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material';
 
 interface IAddRouteLayers {
     mapCurrent: mapboxgl.Map;
@@ -87,6 +87,43 @@ export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
                 'line-opacity': 1,
             },
             filter: ['==', ['get', 'user_lineType'], 'alt_route'],
+        });
+    }
+
+    if (!mapCurrent.getLayer('rejected-routes-base')) {
+        mapCurrent.addLayer({
+            id: 'rejected-routes-base',
+            type: 'line',
+            source: 'route-lines-source',
+            layout: {
+                'line-cap': 'round',
+                'line-join': 'round',
+            },
+            paint: {
+                'line-color': theme.palette.base.colorNewGrey,
+                'line-width': 4,
+                'line-opacity': 1,
+            },
+            filter: ['==', ['get', 'user_lineType'], 'rejected'],
+        });
+    }
+
+    if (!mapCurrent.getLayer('rejected-routes-gap')) {
+        mapCurrent.addLayer({
+            id: 'rejected-routes-gap',
+            type: 'line',
+            source: 'route-lines-source',
+            layout: {
+                'line-cap': 'round',
+                'line-join': 'round',
+            },
+            paint: {
+                'line-color': theme.palette.text.titleInput,
+                'line-width': 2,
+                'line-dasharray': [1, 2],
+                'line-opacity': 1,
+            },
+            filter: ['==', ['get', 'user_lineType'], 'rejected'],
         });
     }
 };

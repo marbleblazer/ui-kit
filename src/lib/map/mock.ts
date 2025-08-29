@@ -5562,14 +5562,17 @@ export const mockRouteData = {
     duration: 18000,
 
     area: {
-        type: 'FeatureCollection',
-        features: [
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [16.3738, 48.2082] } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [19.0402, 47.4979] } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [17.0385, 51.1079] } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [23.179, 53.133] } },
-            { type: 'Feature', geometry: { type: 'Point', coordinates: [25.2796, 54.6872] } },
-        ],
+        type: 'Feature',
+        geometry: {
+            type: 'LineString',
+            coordinates: [
+                [16.3738, 48.2082],
+                [19.0402, 47.4979],
+                [17.0385, 51.1079],
+                [23.179, 53.133],
+                [25.2796, 54.6872],
+            ],
+        },
     },
 
     completed_route: {
@@ -5623,5 +5626,18 @@ export const mockRouteData = {
         ],
     },
 
-    rejected_routes: [],
+    rejected_routes: [
+        {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [17.0385, 51.1079],
+                    [17.5, 52.0],
+                    [18.66, 54.35],
+                    [23.179, 53.133],
+                ],
+            },
+        },
+    ],
 };
