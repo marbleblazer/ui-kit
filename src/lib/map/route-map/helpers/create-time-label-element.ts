@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material';
 import { dynamicTimeLabelSvg, estimateLabelWidth } from './dynamic-time-label-svg';
 
 interface ICreateTimeLabelElement {
