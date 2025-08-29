@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material';
 
 export const estimateLabelWidth = (text: string, fontSize = 14): number => text.length * fontSize * 0.55 + 30;
 
