@@ -113,7 +113,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 map.current.fitBounds(bbox as [number, number, number, number], { padding: 80, maxZoom: 15 });
             }
         },
-        [clearMap, theme],
+        [clearMap, data, theme],
     );
 
     const onMapLoad = useCallback(() => {
