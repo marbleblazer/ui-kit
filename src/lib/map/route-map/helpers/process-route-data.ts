@@ -81,7 +81,6 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                 featureType: 'point',
                 pointType,
                 label,
-                isRouteCompleted: pointType === 'end' ? data.status === RouteStatuses.Done : undefined,
             },
         });
     });
@@ -190,7 +189,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                     featureType: 'point',
                     pointType: 'time_label',
                     text: formatDuration({ totalSeconds: remainingTimeToNextStop || 0, withSpace: true }),
-                    color: 'green',
+                    type: 'planned',
                     orientation: 'left',
                 },
             });
@@ -207,7 +206,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
                 featureType: 'point',
                 pointType: 'time_label',
                 text: formatDuration({ totalSeconds: data.alt_route.duration, withSpace: true }),
-                color: 'blue',
+                type: 'alt',
                 orientation: 'right',
             },
         });

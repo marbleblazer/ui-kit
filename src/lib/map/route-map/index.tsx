@@ -88,7 +88,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                         theme,
                         pointType: props.pointType as TPointType,
                         label: props.label as string,
-                        isRouteCompleted: props.isRouteCompleted as boolean,
+                        status: data?.meta.type,
                     });
                     const marker = new mapboxgl.Marker({ element: markerElement })
                         .setLngLat(feature.geometry.coordinates as [number, number])

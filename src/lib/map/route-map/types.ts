@@ -7,16 +7,13 @@ export type TPointType =
     | 'driver'
     | 'time_label';
 
-export type TTimeLabelColor = 'green' | 'blue';
-
-export type TTimeLabelDirection = 'left' | 'right';
+export type TTimeLabelType = 'planned' | 'alt';
 
 export type TTimeLabelOrientation = 'left' | 'right';
 
 export interface TTimeLabel {
-    color: TTimeLabelColor;
+    type: TTimeLabelType;
     text: string;
-    direction: TTimeLabelDirection;
     orientation: TTimeLabelOrientation;
 }
 
