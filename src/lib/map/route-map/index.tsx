@@ -127,11 +127,13 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     useEffect(() => {
         if (!map.current || !data?.meta) return;
 
-        if (!controlRef.current) {
-            controlRef.current = new RouteInfoControl(data.meta, t);
-            map.current.addControl(controlRef.current, 'bottom-left');
-        } else {
-            controlRef.current.update(data.meta);
+        if (data.meta.estimatedDuration) {
+            if (!controlRef.current) {
+                controlRef.current = new RouteInfoControl(data.meta, t);
+                map.current.addControl(controlRef.current, 'bottom-left');
+            } else {
+                controlRef.current.update(data.meta);
+            }
         }
     }, [data, t, theme]);
 
