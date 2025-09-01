@@ -13,7 +13,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     if (!data) {
         return {
             features: { type: 'FeatureCollection', features: [] },
-            meta: { type: RouteStatuses.Todo, estimatedDuration: 0 },
+            meta: { type: RouteStatuses.Todo },
         };
     }
 
