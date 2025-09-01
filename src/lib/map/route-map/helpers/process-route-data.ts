@@ -122,7 +122,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
 
     if (data.status === RouteStatuses.Todo) {
         const totalDuration = data.planned_route?.duration;
-        const totalDistance = data.planned_route?.distance;
+        const totalDistance = data.planned_route?.distance ? data.planned_route?.distance / 1000 : 0;
 
         const arrivalTime = currentTime.clone().add(totalDuration, 'seconds');
 

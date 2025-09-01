@@ -40,7 +40,7 @@ export class RouteInfoControl implements mapboxgl.IControl {
             <div class="route-info-label">${timeLabel}</div>
             <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration || 0 })}</div>
             <div class="route-info-label">
-                ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
+                ${meta.distance?.toFixed(2)} ${this.t('km')} &middot; ${meta.arrivalTime}
             </div>
         `;
         }
