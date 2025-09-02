@@ -19,12 +19,13 @@ export const dynamicTimeLabelSvg = (color: string, text: string, flip: boolean, 
             x="${textX}" y="50%"
             text-anchor="middle"
             dominant-baseline="middle"
-            fill="#ffffff" 
+            fill="${theme.palette.base.color1}"
             font-family="${safeFontFamily}" 
             font-size="${size}" 
             font-weight="${fontWeight}" 
             letter-spacing="${letterSpacing}"
             pointer-events="none"
+            text-rendering="geometricPrecision" 
         >
             ${text}
         </text>
