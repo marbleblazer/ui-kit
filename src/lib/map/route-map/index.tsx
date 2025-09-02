@@ -135,9 +135,9 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     }, [addDataToMap, data]);
 
     useEffect(() => {
-        if (!map.current || !data?.meta) return;
+        if (!map.current) return;
 
-        if (data.meta) {
+        if (data) {
             if (!controlRef.current) {
                 controlRef.current = new RouteInfoControl(data.meta, t);
                 map.current.addControl(controlRef.current, 'bottom-left');
@@ -145,9 +145,12 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 controlRef.current.update(data.meta);
             }
         } else {
-            controlRef.current?.onRemove();
+            if (controlRef.current) {
+                map.current.removeControl(controlRef.current);
+                controlRef.current = null;
+            }
         }
-    }, [data, t, theme]);
+    }, [data, t]);
 
     useEffect(() => {
         const mapCurrent = map.current;
