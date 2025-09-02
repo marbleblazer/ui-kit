@@ -24,6 +24,15 @@ export class RouteInfoControl implements mapboxgl.IControl {
         this.container.remove();
     }
 
+    formatDistance(distance: number | null | undefined): string {
+        if (distance == null) return '';
+
+        return distance
+            .toFixed(2)
+            .replace(/\.00$/, '')
+            .replace(/\.(\d)0$/, '.$1');
+    }
+
     update(meta: IRouteMeta) {
         this.meta = meta;
         let html = '';
@@ -36,12 +45,16 @@ export class RouteInfoControl implements mapboxgl.IControl {
                     ? this.t('Estimated time')
                     : `${this.t('Estimated time to stop')} ${meta.nextStopLabel}`;
 
+            const distanceText = this.formatDistance(meta.distance);
+
             html = `
             <div class="route-info-label">${timeLabel}</div>
-            <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration! })}</div>
+            <div class="route-info-time">${formatDuration({ totalSeconds: meta.estimatedDuration || 0 })}</div>
             <div class="route-info-label">
-                ${meta.distance?.toFixed(0)} ${this.t('km')} &middot; ${meta.arrivalTime}
-            </div>
+                    ${distanceText ? `${distanceText} ${this.t('km')}` : ''}
+                    ${distanceText && meta.arrivalTime ? ' &middot; ' : ''}
+                    ${meta.arrivalTime || ''}
+                </div>
         `;
         }
 

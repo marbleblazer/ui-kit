@@ -4,6 +4,7 @@ import { Box, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { mockMultiTripData, mockRouteData, mockTripData } from './mock';
 import { processRouteData } from './route-map/helpers/process-route-data';
+import { processPreliminaryRoute } from './route-map/helpers/process-preliminary-route';
 
 const meta: Meta<typeof FeatureMap> = {
     title: 'UI/Map',
@@ -547,6 +548,32 @@ export const RouteMapExample: Story = {
         return (
             <Box sx={{ width: '800px', height: '800px' }}>
                 <RouteMap data={processedData} />
+            </Box>
+        );
+    },
+};
+
+export const RouteMapExampleWithPreliminaryData: Story = {
+    render: () => {
+        const drawedData: GeoJSON.Feature<GeoJSON.LineString> = {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [30.418077939701874, 50.43386979392503],
+                    [37.70281510084496, 55.69636813875195],
+                    [33.61221602084234, 44.60398970435136],
+                    [39.05228241532396, 51.66131272114603],
+                    [39.136624664395555, 48.69178768405558],
+                    [44.91406872584341, 53.1785330410969],
+                ],
+            },
+            properties: {},
+        };
+
+        return (
+            <Box sx={{ width: '800px', height: '800px' }}>
+                <RouteMap data={processPreliminaryRoute(drawedData)} />
             </Box>
         );
     },

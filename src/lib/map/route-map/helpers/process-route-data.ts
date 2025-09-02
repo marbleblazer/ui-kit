@@ -13,7 +13,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     if (!data) {
         return {
             features: { type: 'FeatureCollection', features: [] },
-            meta: { type: RouteStatuses.Todo, estimatedDuration: 0 },
+            meta: { type: RouteStatuses.Todo },
         };
     }
 
@@ -88,11 +88,15 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     // Текущий и будущий участок запланированного маршрута
     if (nextWaypointIndex !== -1 && data.status !== RouteStatuses.Done) {
         const plannedCoordinates = data.planned_route?.geometry.coordinates ?? [];
-        features.push({
-            type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [plannedCoordinates[0], plannedCoordinates[1]] },
-            properties: { featureType: 'line', user_lineType: 'next_leg' },
-        });
+        const nextWaypointCoords = waypoints[nextWaypointIndex].geometry.coordinates as [number, number];
+
+        if (driverPosition) {
+            features.push({
+                type: 'Feature',
+                geometry: { type: 'LineString', coordinates: [driverPosition, nextWaypointCoords] },
+                properties: { featureType: 'line', user_lineType: 'next_leg' },
+            });
+        }
 
         if (plannedCoordinates.length > 2) {
             features.push({
@@ -118,7 +122,7 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
 
     if (data.status === RouteStatuses.Todo) {
         const totalDuration = data.planned_route?.duration;
-        const totalDistance = data.planned_route?.distance;
+        const totalDistance = data.planned_route?.distance ? data.planned_route?.distance / 1000 : 0;
 
         const arrivalTime = currentTime.clone().add(totalDuration, 'seconds');
 
