@@ -27,6 +27,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const pendingData = useRef<DataType | null>(null);
     const controlRef = useRef<RouteInfoControl | null>(null);
+    const hasFitted = useRef(false);
 
     const clearMap = useCallback(() => {
         if (!map.current) return;
@@ -108,9 +109,10 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 createTimeLabelElement({ map: map.current, features: timeLabelFeatures, theme });
             }
 
-            if (localData.features.length > 0) {
+            if (localData.features.length > 0 && !hasFitted.current) {
                 const bbox = bboxTurf(localData);
                 map.current.fitBounds(bbox as [number, number, number, number], { padding: 80, maxZoom: 15 });
+                hasFitted.current = true;
             }
         },
         [clearMap, data, theme],
