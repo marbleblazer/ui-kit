@@ -43,6 +43,14 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 features: [],
             });
         }
+
+        if (map.current.getLayer('route-labels-layer')) {
+            map.current.removeLayer('route-labels-layer');
+        }
+
+        if (map.current.getSource('route-labels')) {
+            map.current.removeSource('route-labels');
+        }
     }, []);
 
     const addDataToMap = useCallback(
