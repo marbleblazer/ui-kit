@@ -346,15 +346,15 @@ export const TripMap: React.FC<ITripMapProps> = ({
 
         if (!mapCurrent) return;
 
-        if (mapCurrent?.isStyleLoaded()) {
-            addDataToMap(data);
-        } else {
-            pendingData.current = data || null;
-        }
-
         const debouncedUpdate = debounce(() => {
             addDataToMap(data);
         }, 100);
+
+        if (mapCurrent?.isStyleLoaded()) {
+            debouncedUpdate();
+        } else {
+            pendingData.current = data || null;
+        }
 
         mapCurrent.on('style.load', debouncedUpdate);
 

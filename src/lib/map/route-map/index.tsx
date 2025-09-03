@@ -157,15 +157,15 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
 
         if (!mapCurrent) return;
 
-        if (mapCurrent?.isStyleLoaded()) {
-            addDataToMap(data?.features);
-        } else {
-            pendingData.current = data?.features || null;
-        }
-
         const debouncedUpdate = debounce(() => {
             addDataToMap(data?.features);
         }, 100);
+
+        if (mapCurrent?.isStyleLoaded()) {
+            debouncedUpdate();
+        } else {
+            pendingData.current = data?.features || null;
+        }
 
         mapCurrent.on('style.load', debouncedUpdate);
 
