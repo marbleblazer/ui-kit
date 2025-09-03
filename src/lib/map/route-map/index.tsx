@@ -27,6 +27,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     const markersRef = useRef<mapboxgl.Marker[]>([]);
     const pendingData = useRef<DataType | null>(null);
     const controlRef = useRef<RouteInfoControl | null>(null);
+    const hasFitted = useRef(false);
 
     const clearMap = useCallback(() => {
         if (!map.current) return;
@@ -41,6 +42,14 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 type: 'FeatureCollection',
                 features: [],
             });
+        }
+
+        if (map.current.getLayer('route-labels-layer')) {
+            map.current.removeLayer('route-labels-layer');
+        }
+
+        if (map.current.getSource('route-labels')) {
+            map.current.removeSource('route-labels');
         }
     }, []);
 
@@ -108,9 +117,10 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 createTimeLabelElement({ map: map.current, features: timeLabelFeatures, theme });
             }
 
-            if (localData.features.length > 0) {
+            if (localData.features.length > 0 && !hasFitted.current) {
                 const bbox = bboxTurf(localData);
                 map.current.fitBounds(bbox as [number, number, number, number], { padding: 80, maxZoom: 15 });
+                hasFitted.current = true;
             }
         },
         [clearMap, data, theme],
@@ -125,9 +135,9 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     }, [addDataToMap, data]);
 
     useEffect(() => {
-        if (!map.current || !data?.meta) return;
+        if (!map.current) return;
 
-        if (data.meta) {
+        if (data) {
             if (!controlRef.current) {
                 controlRef.current = new RouteInfoControl(data.meta, t);
                 map.current.addControl(controlRef.current, 'bottom-left');
@@ -135,24 +145,27 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 controlRef.current.update(data.meta);
             }
         } else {
-            controlRef.current?.onRemove();
+            if (controlRef.current) {
+                map.current.removeControl(controlRef.current);
+                controlRef.current = null;
+            }
         }
-    }, [data, t, theme]);
+    }, [data, t]);
 
     useEffect(() => {
         const mapCurrent = map.current;
 
         if (!mapCurrent) return;
 
-        if (mapCurrent?.isStyleLoaded()) {
-            addDataToMap(data?.features);
-        } else {
-            pendingData.current = data?.features || null;
-        }
-
         const debouncedUpdate = debounce(() => {
             addDataToMap(data?.features);
         }, 100);
+
+        if (mapCurrent?.isStyleLoaded()) {
+            debouncedUpdate();
+        } else {
+            pendingData.current = data?.features || null;
+        }
 
         mapCurrent.on('style.load', debouncedUpdate);
 

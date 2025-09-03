@@ -17,6 +17,7 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
     }
 
     const uniqueIcons = new Map<string, { type: string; text: string; flip: boolean }>();
+    const scale = Math.max(2, window.devicePixelRatio || 2);
 
     features.forEach((feature) => {
         const props = feature.properties ?? {};
@@ -44,12 +45,12 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
 
                 img.onload = () => {
                     if (!map.hasImage(iconId)) {
-                        map.addImage(iconId, img);
+                        map.addImage(iconId, img, { pixelRatio: scale, sdf: false });
                     }
                     resolve();
                 };
                 img.onerror = () => resolve();
-                img.src = svgToBase64(dynamicTimeLabelSvg(type, text, flip, theme));
+                img.src = svgToBase64(dynamicTimeLabelSvg(type, text, flip, theme, scale));
             });
         }),
     );
@@ -72,6 +73,7 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
             'icon-ignore-placement': true,
             'icon-offset': ['get', 'offset'],
             'icon-anchor': 'bottom',
+            'icon-size': 1,
         },
     });
 };
