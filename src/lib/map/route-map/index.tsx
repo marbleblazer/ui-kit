@@ -9,9 +9,14 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { TPointType, TProcessedRoute } from './types';
 import { RouteInfoControl } from './route-info-control';
 import { useTranslation } from 'react-i18next';
-import { addRouteLayers } from './helpers/add-route-layers';
-import { createRouteMarkerElement } from './helpers/create-route-marker-element';
+import {
+    addRouteLayers,
+    addRouteMarkerLayers,
+    addRouteMarkerImages,
+    addRouteClusterLayers,
+} from './helpers/add-route-layers';
 import { createTimeLabelElement } from './helpers/create-time-label-element';
+import { createRouteMarkerElement } from './helpers/create-route-marker-element';
 
 mapboxgl.accessToken = (import.meta.env.VITE_UI_MAPBOX_TOKEN || '') as string;
 
@@ -35,10 +40,18 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
         markersRef.current.forEach((marker) => marker.remove());
         markersRef.current = [];
 
-        const source = map.current.getSource('route-lines-source') as mapboxgl.GeoJSONSource;
+        const lineSource = map.current.getSource('route-lines-source') as mapboxgl.GeoJSONSource;
+        const pointsSource = map.current.getSource('route-points-source') as mapboxgl.GeoJSONSource;
 
-        if (source) {
-            source.setData({
+        if (lineSource) {
+            lineSource.setData({
+                type: 'FeatureCollection',
+                features: [],
+            });
+        }
+
+        if (pointsSource) {
+            pointsSource.setData({
                 type: 'FeatureCollection',
                 features: [],
             });
@@ -57,6 +70,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
         (localData?: DataType) => {
             if (!map.current) return;
 
+            // Добавляем источники данных
             if (!map.current.getSource('route-lines-source')) {
                 map.current.addSource('route-lines-source', {
                     type: 'geojson',
@@ -64,25 +78,47 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 });
             }
 
-            addRouteLayers({ mapCurrent: map.current, theme });
+            if (!map.current.getSource('route-points-source')) {
+                map.current.addSource('route-points-source', {
+                    type: 'geojson',
+                    data: { type: 'FeatureCollection', features: [] },
+                    filter: [
+                        'in',
+                        ['get', 'pointType'],
+                        ['literal', ['waypoint_passed', 'waypoint_next', 'waypoint_future']],
+                    ],
+                    cluster: true,
+                    clusterMaxZoom: 18,
+                    clusterRadius: 50,
+                });
+            }
 
             clearMap();
 
-            const source = map.current.getSource('route-lines-source') as mapboxgl.GeoJSONSource;
+            // Добавляем слои и изображения после очистки
+            addRouteLayers({ mapCurrent: map.current, theme });
+            addRouteMarkerImages({ mapCurrent: map.current, theme });
+            addRouteMarkerLayers({ mapCurrent: map.current, theme });
+            addRouteClusterLayers({ mapCurrent: map.current, theme });
 
-            if (!source) {
-                console.error('Source route-lines-source not found');
+            const lineSource = map.current.getSource('route-lines-source') as mapboxgl.GeoJSONSource;
+            const pointsSource = map.current.getSource('route-points-source') as mapboxgl.GeoJSONSource;
+
+            if (!lineSource || !pointsSource) {
+                console.error('Sources not found');
 
                 return;
             }
 
             if (!localData || localData.type !== 'FeatureCollection') {
-                source.setData({ type: 'FeatureCollection', features: [] });
+                lineSource.setData({ type: 'FeatureCollection', features: [] });
+                pointsSource.setData({ type: 'FeatureCollection', features: [] });
 
                 return;
             }
 
             const lineFeatures: GeoJSON.Feature[] = [];
+            const pointFeatures: GeoJSON.Feature[] = [];
             const timeLabelFeatures: GeoJSON.Feature[] = [];
 
             for (const feature of localData.features) {
@@ -91,12 +127,21 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 if (props?.featureType === 'point' && feature.geometry.type === 'Point') {
                     if (props.pointType === 'time_label') {
                         timeLabelFeatures.push(feature);
+                    } else {
+                        // Добавляем точки маршрута в источник для стилей карты
+                        pointFeatures.push({
+                            ...feature,
+                            properties: {
+                                ...props,
+                                pointType: props.pointType,
+                                label: props.label,
+                            },
+                        });
                     }
 
                     const markerElement = createRouteMarkerElement({
                         theme,
                         pointType: props.pointType as TPointType,
-                        label: props.label as string,
                         status: data?.meta.type,
                     });
                     const marker = new mapboxgl.Marker({ element: markerElement })
@@ -108,9 +153,14 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                 }
             }
 
-            source.setData({
+            lineSource.setData({
                 type: 'FeatureCollection',
                 features: lineFeatures,
+            });
+
+            pointsSource.setData({
+                type: 'FeatureCollection',
+                features: pointFeatures,
             });
 
             if (timeLabelFeatures.length > 0) {
