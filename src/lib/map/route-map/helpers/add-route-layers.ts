@@ -13,81 +13,87 @@ interface IAddRouteMarkerImages {
 /** Слои с линиями */
 const LINE_TYPES_PRIORITY = ['rejected', 'alt_route', 'future_leg', 'completed', 'next_leg'] as const;
 
-type LineType = typeof LINE_TYPES_PRIORITY[number];
+type LineType = (typeof LINE_TYPES_PRIORITY)[number];
 
-const styleByType = (t: LineType, theme: any) => {
-  switch (t) {
-    case 'rejected':
-      return {
-        border: { color: theme.palette.base.colorNewGrey, width: 6 },
-        line: { color: theme.palette.text.titleInput, width: 2, dash: [1, 2] as [number, number] },
-      };
-    case 'alt_route':
-      return {
-        border: { color: theme.palette.base.color6, width: 6 },
-        line: { color: theme.palette.base.color1, width: 2, dash: [1, 2] as [number, number] },
-      };
-    case 'future_leg':
-      return {
-        border: { color: theme.palette.base.colorBlueBorderMap, width: 6 },
-        line: { color: theme.palette.base.color6, width: 2 },
-      };
-    case 'completed':
-      return {
-        border: { color: theme.palette.base.colorNewGrey, width: 6 },
-        line: { color: theme.palette.text.titleInput, width: 2 },
-      };
-    case 'next_leg':
-      return {
-        border: { color: theme.palette.base.colorGreenBorderMap, width: 6 },
-        line: { color: theme.palette.base.color9, width: 2 },
-      };
-  }
+const styleByType = (t: LineType, theme: Theme) => {
+    switch (t) {
+        case 'rejected':
+            return {
+                border: { color: theme.palette.base.colorNewGrey, width: 6 },
+                line: { color: theme.palette.text.titleInput, width: 2, dash: [1, 2] as [number, number] },
+            };
+        case 'alt_route':
+            return {
+                border: { color: theme.palette.base.color6, width: 6 },
+                line: { color: theme.palette.base.color1, width: 2, dash: [1, 2] as [number, number] },
+            };
+        case 'future_leg':
+            return {
+                border: { color: theme.palette.base.colorBlueBorderMap, width: 6 },
+                line: { color: theme.palette.base.color6, width: 2 },
+            };
+        case 'completed':
+            return {
+                border: { color: theme.palette.base.colorNewGrey, width: 6 },
+                line: { color: theme.palette.text.titleInput, width: 2 },
+            };
+        case 'next_leg':
+            return {
+                border: { color: theme.palette.base.colorGreenBorderMap, width: 6 },
+                line: { color: theme.palette.base.color9, width: 2 },
+            };
+    }
 };
 
 export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
-  ['route-lines-border-layer','route-lines-layer','alt-route-base','alt-route-gap','rejected-routes-base','rejected-routes-gap']
-    .forEach(id => mapCurrent.getLayer(id) && mapCurrent.removeLayer(id));
+    [
+        'route-lines-border-layer',
+        'route-lines-layer',
+        'alt-route-base',
+        'alt-route-gap',
+        'rejected-routes-base',
+        'rejected-routes-gap',
+    ].forEach((id) => mapCurrent.getLayer(id) && mapCurrent.removeLayer(id));
 
-  LINE_TYPES_PRIORITY.forEach((type) => {
-    const { border, line } = styleByType(type, theme);
-    const source = 'route-lines-source';
-    const borderId = `${type}-border`;
-    const lineId = `${type}-line`;
+    LINE_TYPES_PRIORITY.forEach((type) => {
+        const { border, line } = styleByType(type, theme);
+        const source = 'route-lines-source';
+        const borderId = `${type}-border`;
+        const lineId = `${type}-line`;
 
-    // Обводка
-    if (!mapCurrent.getLayer(borderId)) {
-      mapCurrent.addLayer({
-        id: borderId,
-        type: 'line',
-        source,
-        layout: { 'line-cap': 'round', 'line-join': 'round' },
-        paint: {
-          'line-color': border.color,
-          'line-width': border.width,
-          'line-opacity': 1,
-        },
-        filter: ['==', ['get', 'user_lineType'], type],
-      });
-    }
+        // Обводка
+        if (!mapCurrent.getLayer(borderId)) {
+            mapCurrent.addLayer({
+                id: borderId,
+                type: 'line',
+                source,
+                layout: { 'line-cap': 'round', 'line-join': 'round' },
+                paint: {
+                    'line-color': border.color,
+                    'line-width': border.width,
+                    'line-opacity': 1,
+                },
+                filter: ['==', ['get', 'user_lineType'], type],
+            });
+        }
 
-    // Линия
-    if (!mapCurrent.getLayer(lineId)) {
-      mapCurrent.addLayer({
-        id: lineId,
-        type: 'line',
-        source,
-        layout: { 'line-cap': 'round', 'line-join': 'round' },
-        paint: {
-          'line-color': line.color,
-          'line-width': line.width,
-          ...(line.dash ? { 'line-dasharray': line.dash } : {}),
-          'line-opacity': 1,
-        },
-        filter: ['==', ['get', 'user_lineType'], type],
-      });
-    }
-  });
+        // Линия
+        if (!mapCurrent.getLayer(lineId)) {
+            mapCurrent.addLayer({
+                id: lineId,
+                type: 'line',
+                source,
+                layout: { 'line-cap': 'round', 'line-join': 'round' },
+                paint: {
+                    'line-color': line.color,
+                    'line-width': line.width,
+                    ...(line.dash ? { 'line-dasharray': line.dash } : {}),
+                    'line-opacity': 1,
+                },
+                filter: ['==', ['get', 'user_lineType'], type],
+            });
+        }
+    });
 };
 
 /** Слои с маркерами точек маршрута */
