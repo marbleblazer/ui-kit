@@ -11,126 +11,89 @@ interface IAddRouteMarkerImages {
 }
 
 /** Слои с линиями */
+const LINE_TYPES_PRIORITY = ['rejected', 'alt_route', 'future_leg', 'completed', 'next_leg'] as const;
+
+type LineType = (typeof LINE_TYPES_PRIORITY)[number];
+
+const styleByType = (t: LineType, theme: Theme) => {
+    switch (t) {
+        case 'rejected':
+            return {
+                border: { color: theme.palette.base.colorNewGrey, width: 6 },
+                line: { color: theme.palette.text.titleInput, width: 2, dash: [1, 2] as [number, number] },
+            };
+        case 'alt_route':
+            return {
+                border: { color: theme.palette.base.color6, width: 6 },
+                line: { color: theme.palette.base.color1, width: 2, dash: [1, 2] as [number, number] },
+            };
+        case 'future_leg':
+            return {
+                border: { color: theme.palette.base.colorBlueBorderMap, width: 6 },
+                line: { color: theme.palette.base.color6, width: 2 },
+            };
+        case 'completed':
+            return {
+                border: { color: theme.palette.base.colorNewGrey, width: 6 },
+                line: { color: theme.palette.text.titleInput, width: 2 },
+            };
+        case 'next_leg':
+            return {
+                border: { color: theme.palette.base.colorGreenBorderMap, width: 6 },
+                line: { color: theme.palette.base.color9, width: 2 },
+            };
+    }
+};
+
 export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
-    if (!mapCurrent.getLayer('route-lines-border-layer')) {
-        mapCurrent.addLayer({
-            id: 'route-lines-border-layer',
-            type: 'line',
-            source: 'route-lines-source',
-            layout: { 'line-cap': 'round', 'line-join': 'round' },
-            paint: {
-                'line-width': 6,
-                'line-color': [
-                    'match',
-                    ['get', 'user_lineType'],
-                    'completed',
-                    theme.palette.base.colorNewGrey,
-                    'next_leg',
-                    theme.palette.base.colorGreenBorderMap,
-                    'future_leg',
-                    theme.palette.base.colorBlueBorderMap,
-                    theme.palette.base.color1,
-                ],
-            },
-        });
-    }
+    [
+        'route-lines-border-layer',
+        'route-lines-layer',
+        'alt-route-base',
+        'alt-route-gap',
+        'rejected-routes-base',
+        'rejected-routes-gap',
+    ].forEach((id) => mapCurrent.getLayer(id) && mapCurrent.removeLayer(id));
 
-    if (!mapCurrent.getLayer('route-lines-layer')) {
-        mapCurrent.addLayer({
-            id: 'route-lines-layer',
-            type: 'line',
-            source: 'route-lines-source',
-            layout: { 'line-cap': 'round', 'line-join': 'round' },
-            paint: {
-                'line-width': 2,
-                'line-color': [
-                    'match',
-                    ['get', 'user_lineType'],
-                    'completed',
-                    theme.palette.text.titleInput,
-                    'next_leg',
-                    theme.palette.base.color9,
-                    'future_leg',
-                    theme.palette.base.color6,
-                    theme.palette.text.titleInput,
-                ],
-            },
-        });
-    }
+    LINE_TYPES_PRIORITY.forEach((type) => {
+        const { border, line } = styleByType(type, theme);
+        const source = 'route-lines-source';
+        const borderId = `${type}-border`;
+        const lineId = `${type}-line`;
 
-    if (!mapCurrent.getLayer('alt-route-base')) {
-        mapCurrent.addLayer({
-            id: 'alt-route-base',
-            type: 'line',
-            source: 'route-lines-source',
-            layout: {
-                'line-cap': 'round',
-                'line-join': 'round',
-            },
-            paint: {
-                'line-color': theme.palette.base.color6,
-                'line-width': 4,
-                'line-opacity': 1,
-            },
-            filter: ['==', ['get', 'user_lineType'], 'alt_route'],
-        });
-    }
+        // Обводка
+        if (!mapCurrent.getLayer(borderId)) {
+            mapCurrent.addLayer({
+                id: borderId,
+                type: 'line',
+                source,
+                layout: { 'line-cap': 'round', 'line-join': 'round' },
+                paint: {
+                    'line-color': border.color,
+                    'line-width': border.width,
+                    'line-opacity': 1,
+                },
+                filter: ['==', ['get', 'user_lineType'], type],
+            });
+        }
 
-    if (!mapCurrent.getLayer('alt-route-gap')) {
-        mapCurrent.addLayer({
-            id: 'alt-route-gap',
-            type: 'line',
-            source: 'route-lines-source',
-            layout: {
-                'line-cap': 'round',
-                'line-join': 'round',
-            },
-            paint: {
-                'line-color': theme.palette.base.color1,
-                'line-width': 2,
-                'line-dasharray': [1, 2],
-                'line-opacity': 1,
-            },
-            filter: ['==', ['get', 'user_lineType'], 'alt_route'],
-        });
-    }
-
-    if (!mapCurrent.getLayer('rejected-routes-base')) {
-        mapCurrent.addLayer({
-            id: 'rejected-routes-base',
-            type: 'line',
-            source: 'route-lines-source',
-            layout: {
-                'line-cap': 'round',
-                'line-join': 'round',
-            },
-            paint: {
-                'line-color': theme.palette.base.colorNewGrey,
-                'line-width': 4,
-                'line-opacity': 1,
-            },
-            filter: ['==', ['get', 'user_lineType'], 'rejected'],
-        });
-    }
-
-    if (!mapCurrent.getLayer('rejected-routes-gap')) {
-        mapCurrent.addLayer({
-            id: 'rejected-routes-gap',
-            type: 'line',
-            source: 'route-lines-source',
-            layout: {
-                'line-cap': 'round',
-                'line-join': 'round',
-            },
-            paint: {
-                'line-color': theme.palette.text.titleInput,
-                'line-width': 2,
-                'line-dasharray': [1, 2],
-                'line-opacity': 1,
-            },
-            filter: ['==', ['get', 'user_lineType'], 'rejected'],
-        });
-    }
+        // Линия
+        if (!mapCurrent.getLayer(lineId)) {
+            mapCurrent.addLayer({
+                id: lineId,
+                type: 'line',
+                source,
+                layout: { 'line-cap': 'round', 'line-join': 'round' },
+                paint: {
+                    'line-color': line.color,
+                    'line-width': line.width,
+                    ...(line.dash ? { 'line-dasharray': line.dash } : {}),
+                    'line-opacity': 1,
+                },
+                filter: ['==', ['get', 'user_lineType'], type],
+            });
+        }
+    });
 };
 
 /** Слои с маркерами точек маршрута */
