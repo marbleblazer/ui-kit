@@ -16,6 +16,10 @@ export const formatDuration = ({ totalSeconds, withSpace = false }: IFormatRoute
 
     const parts: string[] = [];
 
+    if (totalSeconds < 60 && totalSeconds > 0) {
+        return `~${sep}1${sep}${i18n.t('uiKit:widgets.min')}`;
+    }
+
     if (days > 0) {
         parts.push(`${days}${sep}${i18n.t('uiKit:d')}`);
     }
