@@ -18,6 +18,7 @@ export interface TTimeLabel {
 }
 
 export interface IRouteMeta {
+    id?: number;
     type: RouteStatuses;
     estimatedDuration?: number;
     eta?: Date;

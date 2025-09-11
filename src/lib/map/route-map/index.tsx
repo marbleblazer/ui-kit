@@ -33,6 +33,7 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     const pendingData = useRef<DataType | null>(null);
     const controlRef = useRef<RouteInfoControl | null>(null);
     const hasFitted = useRef(false);
+    const currentRouteId = useRef<number | null>(null);
 
     const clearMap = useCallback(() => {
         if (!map.current) return;
@@ -183,6 +184,41 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
         pendingData.current = null;
         addDataToMap(finalData);
     }, [addDataToMap, data]);
+
+    useEffect(() => {
+        if (!data) return;
+
+        const newId = data.meta?.id;
+
+        if (!newId) {
+            hasFitted.current = false;
+
+            return;
+        }
+
+        if (newId !== currentRouteId.current) {
+            currentRouteId.current = newId;
+            hasFitted.current = false;
+        }
+    }, [data]);
+
+    useEffect(() => {
+        const mapInstance = map.current;
+
+        if (!mapInstance) return;
+
+        const stopAutoFit = () => {
+            hasFitted.current = true;
+        };
+
+        mapInstance.on('dragstart', stopAutoFit);
+        mapInstance.on('zoomstart', stopAutoFit);
+
+        return () => {
+            mapInstance.off('dragstart', stopAutoFit);
+            mapInstance.off('zoomstart', stopAutoFit);
+        };
+    }, []);
 
     useEffect(() => {
         if (!map.current) return;
