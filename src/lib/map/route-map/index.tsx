@@ -134,8 +134,8 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                             ...feature,
                             properties: {
                                 ...props,
-                                pointType: props.pointType,
-                                label: props.label,
+                                pointType: props.pointType as string,
+                                label: props.label as string,
                             },
                         });
                     }
@@ -144,6 +144,8 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                         theme,
                         pointType: props.pointType as TPointType,
                         status: data?.meta.type,
+                        specificDriverIcon:
+                            props.pointType === 'driver' ? (props.specificDriverIcon as string) : undefined,
                     });
                     const marker = new mapboxgl.Marker({ element: markerElement })
                         .setLngLat(feature.geometry.coordinates as [number, number])

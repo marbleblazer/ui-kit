@@ -8,10 +8,16 @@ interface ICreateMarkerElementProps {
     pointType: TPointType;
     label?: string;
     status?: RouteStatuses;
+    specificDriverIcon?: string;
 }
 
 /** Создание маркера: начальная/конечная точки, промежуточные точки, иконка водителя */
-export const createRouteMarkerElement = ({ theme, pointType, status }: ICreateMarkerElementProps): HTMLDivElement => {
+export const createRouteMarkerElement = ({
+    theme,
+    pointType,
+    status,
+    specificDriverIcon,
+}: ICreateMarkerElementProps): HTMLDivElement => {
     const el = document.createElement('div');
     let svgString = '';
 
@@ -38,7 +44,7 @@ export const createRouteMarkerElement = ({ theme, pointType, status }: ICreateMa
         //     break;
         case 'driver':
             if (status === RouteStatuses.InProgress) {
-                svgString = mapMarkerTruckSvgString(theme.palette);
+                svgString = specificDriverIcon ?? mapMarkerTruckSvgString(theme.palette);
                 el.classList.add('truck-marker');
             }
             break;
