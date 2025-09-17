@@ -1,7 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 import { BaseMap, IBaseMapProps } from '../base-map';
 import { DataType } from '../map.types';
-import { debounce, useTheme } from '@mui/material';
+import { debounce, Palette, useTheme } from '@mui/material';
 import { useCallback, useEffect, useRef } from 'react';
 import bboxTurf from '@turf/bbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -134,8 +134,8 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                             ...feature,
                             properties: {
                                 ...props,
-                                pointType: props.pointType,
-                                label: props.label,
+                                pointType: props.pointType as string,
+                                label: props.label as string,
                             },
                         });
                     }
@@ -144,6 +144,10 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
                         theme,
                         pointType: props.pointType as TPointType,
                         status: data?.meta.type,
+                        specificDriverIcon:
+                            props.pointType === 'driver'
+                                ? (props.specificDriverIcon as (theme: Palette) => string)
+                                : undefined,
                     });
                     const marker = new mapboxgl.Marker({ element: markerElement })
                         .setLngLat(feature.geometry.coordinates as [number, number])
