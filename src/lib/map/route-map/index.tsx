@@ -248,10 +248,16 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
         if (!mapCurrent) return;
 
         const debouncedUpdate = debounce(() => {
-            addDataToMap(data?.features);
+            const runUpdate = () => addDataToMap(data?.features);
+
+            if (mapCurrent.isMoving()) {
+                mapCurrent.once('moveend', runUpdate);
+            } else {
+                runUpdate();
+            }
         }, 100);
 
-        if (mapCurrent?.isStyleLoaded()) {
+        if (mapCurrent.isStyleLoaded()) {
             debouncedUpdate();
         } else {
             pendingData.current = data?.features || null;
@@ -262,8 +268,6 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
         return () => {
             debouncedUpdate.clear();
             mapCurrent.off('style.load', debouncedUpdate);
-
-            if (mapCurrent) mapCurrent.stop();
         };
     }, [addDataToMap, data]);
 
