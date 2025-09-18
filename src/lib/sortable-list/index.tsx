@@ -19,10 +19,16 @@ import { SortableItem } from './item';
 interface ISortableListProps<T extends { id: string }> {
     items: T[];
     renderItem: (item: T, index: number) => JSX.Element;
+    renderFooter?: (item: T, index: number) => JSX.Element;
     onItemsChange: (items: T[]) => void;
 }
 
-export const SortableList = <T extends { id: string }>({ items, onItemsChange, renderItem }: ISortableListProps<T>) => {
+export const SortableList = <T extends { id: string }>({
+    items,
+    onItemsChange,
+    renderItem,
+    renderFooter,
+}: ISortableListProps<T>) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
@@ -44,7 +50,7 @@ export const SortableList = <T extends { id: string }>({ items, onItemsChange, r
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
                 {items.map((item, idx) => (
-                    <SortableItem id={item.id} key={item.id}>
+                    <SortableItem id={item.id} key={item.id} footer={renderFooter?.(item, idx)}>
                         {renderItem(item, idx)}
                     </SortableItem>
                 ))}

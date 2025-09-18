@@ -9,7 +9,11 @@ import { Coordinates } from '../map.types';
 import { AnyObject } from '@chirp/ui/helpers/global';
 import { customRouteDrawStyles, typedGeodesicDraw } from '../constance';
 import { BaseMap, IBaseMapProps } from '../base-map';
-import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../svg-containers';
+import {
+    mapMarkerEndSvgContainer,
+    mapMarkerStartSvgContainer,
+    mapMarkerWarehouseSvgContainer,
+} from '../svg-containers';
 import { useTheme } from '@mui/material';
 import { customDrawLineStringMode } from './custom-modes/custom-draw-line-string-mode';
 
@@ -24,13 +28,14 @@ interface IDrawRouteMapProps extends Omit<IBaseMapProps, 'mapRef' | 'onMapLoad'>
     data?: GeoJSON.GeoJSON | null; // only one feature, if you want provide feature collection - develop it
     isSingleDraw?: boolean; // чdraw only one feature, after draw mode change - delete all features
     shouldFinishDrawing?: boolean;
+    warehouseСoords?: GeoJSON.Position[] | null;
     getMapStyleId?: (themeMode: string) => string;
     onChange?: (value: GeoJSON.GeoJSON) => void;
     onDrawingFinished?: () => void;
 }
 
 export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
-    const { data, onChange = () => {}, shouldFinishDrawing, onDrawingFinished, ...baseProps } = props;
+    const { data, onChange = () => {}, shouldFinishDrawing, onDrawingFinished, warehouseСoords, ...baseProps } = props;
 
     const theme = useTheme();
     const markersRef = useRef<HTMLDivElement[]>([]);
@@ -98,6 +103,73 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
         addDataToMap();
     };
 
+    // Функция для определения, является ли отрезок ведущим к складу
+    const isWarehouseSegment = useCallback(
+        (coord2: GeoJSON.Position): boolean => {
+            if (!warehouseСoords) return false;
+
+            const isCoord2Warehouse = warehouseСoords.some(
+                (warehouseCoord) => warehouseCoord[0] === coord2[0] && warehouseCoord[1] === coord2[1],
+            );
+
+            return isCoord2Warehouse;
+        },
+        [warehouseСoords],
+    );
+
+    // Функция для добавления сегментов к складу напрямую на карту
+    const addWarehouseSegmentsToMap = useCallback(
+        (coordinates: GeoJSON.Position[]) => {
+            if (!map.current || !warehouseСoords || coordinates.length < 2) return;
+
+            // Удаляем предыдущие слои складов, если они есть
+            if (map.current.getLayer('warehouse-segments')) {
+                map.current.removeLayer('warehouse-segments');
+            }
+
+            if (map.current.getSource('warehouse-segments')) {
+                map.current.removeSource('warehouse-segments');
+            }
+
+            const warehouseSegments: GeoJSON.Feature<GeoJSON.LineString>[] = [];
+
+            for (let i = 0; i < coordinates.length - 1; i++) {
+                if (isWarehouseSegment(coordinates[i + 1])) {
+                    const segment: GeoJSON.Feature<GeoJSON.LineString> = {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: [coordinates[i], coordinates[i + 1]],
+                        },
+                    };
+                    warehouseSegments.push(segment);
+                }
+            }
+
+            if (warehouseSegments.length > 0) {
+                map.current.addSource('warehouse-segments', {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: warehouseSegments,
+                    },
+                });
+
+                map.current.addLayer({
+                    id: 'warehouse-segments',
+                    type: 'line',
+                    source: 'warehouse-segments',
+                    paint: {
+                        'line-color': theme.palette.additionalColors.yellow,
+                        'line-width': 4,
+                    },
+                });
+            }
+        },
+        [warehouseСoords, isWarehouseSegment, theme.palette.additionalColors.yellow],
+    );
+
     const addDataToMap = useCallback(() => {
         if (!map.current || !drawRef.current) return;
 
@@ -117,17 +189,27 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
 
         if (data.type === 'Feature') {
             if (data.geometry.type === 'LineString') {
+                const filteredCoords = data.geometry.coordinates.filter(
+                    (coord) =>
+                        !warehouseСoords?.some(
+                            (warehouseCoord) => warehouseCoord[0] === coord[0] && warehouseCoord[1] === coord[1],
+                        ),
+                );
                 // Добавляем номера к точкам маршрута
                 data.properties = data.properties || {};
                 data.properties.points = data.geometry.coordinates.map((_, index) => ({
                     number: index + 1,
                 }));
-                const coordsLen = data.geometry.coordinates.length;
 
-                const [startPoint, endPoint] = [
-                    data.geometry.coordinates[0],
-                    data.geometry.coordinates[data.geometry.coordinates.length - 1],
-                ];
+                // Добавляем основные сегменты маршрута
+                drawRef.current.add(data);
+
+                // Добавляем сегменты к складу напрямую на карту
+                addWarehouseSegmentsToMap(data.geometry.coordinates);
+
+                const coordsLen = filteredCoords.length;
+
+                const [startPoint, endPoint] = [filteredCoords[0], filteredCoords[filteredCoords.length - 1]];
                 markersRef.current.forEach((marker) => marker.remove());
                 // Создаем стартовый маркер
                 const startMarker = document.createElement('div');
@@ -143,7 +225,7 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
 
                 // Добавляем нумерацию к точкам маршрута
                 data.properties = data.properties || {};
-                data.properties.points = data.geometry.coordinates.map((_, index) => ({
+                data.properties.points = filteredCoords.map((_, index) => ({
                     number: index + 1,
                 }));
 
@@ -151,8 +233,18 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 new mapboxgl.Marker(startMarker).setLngLat(startPoint as [number, number]).addTo(currentMap);
                 allMarkers.push(startMarker);
 
+                warehouseСoords?.forEach((warehouseCoord) => {
+                    const warehouseMarker = document.createElement('div');
+                    warehouseMarker.classList.add('warehouse-marker');
+                    warehouseMarker.innerHTML = mapMarkerWarehouseSvgContainer(theme.palette);
+                    new mapboxgl.Marker(warehouseMarker)
+                        .setLngLat(warehouseCoord as [number, number])
+                        .addTo(currentMap);
+                    allMarkers.push(warehouseMarker);
+                });
+
                 // Добавляем нумерованные маркеры для промежуточных точек
-                data.geometry.coordinates.slice(1, -1).forEach((coord, index) => {
+                filteredCoords.slice(1, -1).forEach((coord, index) => {
                     const marker = document.createElement('div');
                     marker.classList.add('numbered-marker');
                     const numberSpan = document.createElement('span');
@@ -174,12 +266,11 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 markersRef.current = allMarkers;
             }
         }
-        drawRef.current.add(data);
 
         const bbox = bboxTurf(data, { recompute: true });
         const [west, south, east, north] = bbox;
         map.current.fitBounds([west, south, east, north], { padding: 50 });
-    }, [theme.palette, data]);
+    }, [theme.palette, data, warehouseСoords, addWarehouseSegmentsToMap]);
 
     const showDeleteLastPointMarker = useCallback((feature: GeoJSON.Feature) => {
         if (
