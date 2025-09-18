@@ -646,8 +646,13 @@ export const MapContainer = styled(Box, {
         },
     },
 
+    '.warehouse-marker': {
+        width: '45px',
+        height: '49px',
+        left: '0px',
+        top: '-15px',
+    },
     '.numbered-marker': {
-        // position: 'relative',
         width: '44px',
         height: '49px',
         left: '22px',

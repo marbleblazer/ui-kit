@@ -97,25 +97,6 @@ export const customRouteDrawStyles = (theme: Palette) => [
         },
     },
     {
-        id: 'gl-draw-polygon-fill-inactive',
-        type: 'fill',
-        filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
-        paint: {
-            'fill-color': `${theme.base.color6}`,
-            'fill-opacity': 0.1,
-        },
-    },
-    {
-        id: 'gl-draw-polygon-outline-inactive',
-        type: 'line',
-        filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
-        paint: {
-            'line-color': `${theme.base.color6}`,
-            'line-width': 2,
-        },
-    },
-
-    {
         id: 'gl-draw-line-active',
         type: 'line',
         filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
@@ -125,21 +106,12 @@ export const customRouteDrawStyles = (theme: Palette) => [
         },
     },
     {
-        id: 'gl-draw-polygon-fill-active',
-        type: 'fill',
-        filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
-        paint: {
-            'fill-color': `${theme.base.color6}`,
-            'fill-opacity': 0.1,
-        },
-    },
-    {
-        id: 'gl-draw-polygon-outline-active',
+        id: 'gl-draw-line-warehouse',
         type: 'line',
-        filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
+        filter: ['all', ['==', '$type', 'LineString'], ['==', 'isWarehouseSegment', 'true']],
         paint: {
-            'line-color': `${theme.base.color6}`,
-            'line-width': 2,
+            'line-color': theme.additionalColors.yellow,
+            'line-width': 4,
         },
     },
 ];
@@ -181,3 +153,4 @@ export const customTripDrawStyles = (theme: Palette) => {
         },
     ];
 };
+
