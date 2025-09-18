@@ -97,46 +97,9 @@ export const customRouteDrawStyles = (theme: Palette) => [
         },
     },
     {
-        id: 'gl-draw-polygon-fill-inactive',
-        type: 'fill',
-        filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
-        paint: {
-            'fill-color': `${theme.base.color6}`,
-            'fill-opacity': 0.1,
-        },
-    },
-    {
-        id: 'gl-draw-polygon-outline-inactive',
-        type: 'line',
-        filter: ['all', ['==', '$type', 'Polygon'], ['!=', 'active', 'true']],
-        paint: {
-            'line-color': `${theme.base.color6}`,
-            'line-width': 2,
-        },
-    },
-
-    {
         id: 'gl-draw-line-active',
         type: 'line',
         filter: ['all', ['==', '$type', 'LineString'], ['==', 'active', 'true']],
-        paint: {
-            'line-color': `${theme.base.color6}`,
-            'line-width': 2,
-        },
-    },
-    {
-        id: 'gl-draw-polygon-fill-active',
-        type: 'fill',
-        filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
-        paint: {
-            'fill-color': `${theme.base.color6}`,
-            'fill-opacity': 0.1,
-        },
-    },
-    {
-        id: 'gl-draw-polygon-outline-active',
-        type: 'line',
-        filter: ['all', ['==', '$type', 'Polygon'], ['==', 'active', 'true']],
         paint: {
             'line-color': `${theme.base.color6}`,
             'line-width': 2,

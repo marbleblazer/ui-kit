@@ -69,6 +69,7 @@ export const ClearData: Story = {
                 <DrawRouteMap
                     onChange={setDrawState}
                     data={drawState}
+                    warehouseСoords={[[22.78341174564946, 52.400439823673565]]}
                     coordinates={{ lon: 49.108891, lat: 55.796391 }}
                 />
             </Box>

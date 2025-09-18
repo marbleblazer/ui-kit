@@ -48,7 +48,19 @@ export const processRouteData = ({ data }: IProcessRouteData): TProcessedRoute =
     let nextWaypointIndex = -1;
     let nextWaypointLabel = '';
 
-    waypoints.forEach((waypoint, index) => {
+    data.warehouse_coords?.forEach((coord) => {
+        features.push({
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: coord },
+            properties: { featureType: 'point', pointType: 'warehouse' },
+        });
+    });
+
+    const filteredWaypoints = waypoints.filter(
+        (w) => !data.warehouse_coords?.some((c) => c.join(',') === w.geometry.coordinates.join(',')),
+    );
+
+    filteredWaypoints.forEach((waypoint, index) => {
         const coordString = waypoint.geometry.coordinates.join(',');
         let pointType: TPointType;
         let label: string;

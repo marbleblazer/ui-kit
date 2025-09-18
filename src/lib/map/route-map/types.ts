@@ -5,6 +5,7 @@ export type TPointType =
     | 'waypoint_next'
     | 'waypoint_future'
     | 'driver'
+    | 'warehouse'
     | 'time_label';
 
 export type TTimeLabelType = 'planned' | 'alt';
@@ -91,6 +92,7 @@ export interface IRouteDetail {
     }[];
     status: RouteStatuses;
     planned_route: IOSRMRoute | null;
+    warehouse_coords: [number, number][] | null;
     alt_route: IOSRMRoute | null;
     completed_route: ICompletedRoute[] | null;
     rejected_routes: IRejectedRoute[] | null;

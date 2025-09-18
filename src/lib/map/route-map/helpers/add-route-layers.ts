@@ -11,7 +11,14 @@ interface IAddRouteMarkerImages {
 }
 
 /** Слои с линиями */
-const LINE_TYPES_PRIORITY = ['rejected', 'alt_route', 'future_leg', 'completed', 'next_leg'] as const;
+const LINE_TYPES_PRIORITY = [
+    'rejected',
+    'alt_route',
+    'future_leg',
+    'completed',
+    'next_leg',
+    'warehouse_route',
+] as const;
 
 type LineType = (typeof LINE_TYPES_PRIORITY)[number];
 
@@ -26,6 +33,11 @@ const styleByType = (t: LineType, theme: Theme) => {
             return {
                 border: { color: theme.palette.base.color6, width: 6 },
                 line: { color: theme.palette.base.color1, width: 2, dash: [1, 2] as [number, number] },
+            };
+        case 'warehouse_route':
+            return {
+                border: { color: theme.palette.base.colorNewYellow_20, width: 6 },
+                line: { color: theme.palette.base.colorNewYellow, width: 2 },
             };
         case 'future_leg':
             return {
@@ -251,35 +263,6 @@ export const addRouteClusterLayers = ({ mapCurrent, theme }: IAddRouteLayers) =>
                 'text-color': theme.palette.base.color1,
             },
         });
-
-    // Слой кластеров
-    // if (!mapCurrent.getLayer('route-clusters')) {
-    //     mapCurrent.addLayer({
-    //         id: 'route-clusters',
-    //         type: 'circle',
-    //         source: 'route-points-source',
-    //         filter: ['has', 'point_count'],
-    //         paint: {
-    //             'circle-color': ['step', ['get', 'point_count'], '#51bbd6', 100, '#f1f075', 750, '#f28cb1'],
-    //             'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 750, 40],
-    //         },
-    //     });
-    // }
-
-    // // Слой счетчика кластеров
-    // if (!mapCurrent.getLayer('route-cluster-count')) {
-    //     mapCurrent.addLayer({
-    //         id: 'route-cluster-count',
-    //         type: 'symbol',
-    //         source: 'route-points-source',
-    //         filter: ['has', 'point_count'],
-    //         layout: {
-    //             'text-field': '{point_count_abbreviated}',
-    //             'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-    //             'text-size': 12,
-    //         },
-    //     });
-    // }
 };
 
 /** Добавление изображений маркеров в стиль карты */
