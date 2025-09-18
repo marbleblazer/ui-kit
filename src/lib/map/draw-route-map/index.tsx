@@ -90,6 +90,12 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
             deleteLastPointMarkerRef.current?.remove();
         });
 
+        map.current.on('draw.modechange' as MapEventType, (e: AnyObject) => {
+            if (e.mode === 'simple_select') {
+                drawRef.current?.changeMode('draw_line_string');
+            }
+        });
+
         if (defaultDrawMode) {
             drawRef.current.changeMode(defaultDrawMode);
         }
