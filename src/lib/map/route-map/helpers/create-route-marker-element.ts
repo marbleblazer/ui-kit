@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material';
+import { Palette, Theme } from '@mui/material';
 import { mapMarkerTruckSvgString, mapMarkerWarehouseLayerSvgString } from '../../mp-marker-string';
 import { mapMarkerEndSvgContainer, mapMarkerStartSvgContainer } from '../../svg-containers';
 import { RouteStatuses, TPointType } from '../types';
@@ -8,10 +8,16 @@ interface ICreateMarkerElementProps {
     pointType: TPointType;
     label?: string;
     status?: RouteStatuses;
+    specificDriverIcon?: (theme: Palette) => string;
 }
 
 /** Создание маркера: начальная/конечная точки, промежуточные точки, иконка водителя */
-export const createRouteMarkerElement = ({ theme, pointType, status }: ICreateMarkerElementProps): HTMLDivElement => {
+export const createRouteMarkerElement = ({
+    theme,
+    pointType,
+    status,
+    specificDriverIcon,
+}: ICreateMarkerElementProps): HTMLDivElement => {
     const el = document.createElement('div');
     let svgString = '';
 
@@ -29,7 +35,9 @@ export const createRouteMarkerElement = ({ theme, pointType, status }: ICreateMa
             break;
         case 'driver':
             if (status === RouteStatuses.InProgress) {
-                svgString = mapMarkerTruckSvgString(theme.palette);
+                svgString = specificDriverIcon
+                    ? specificDriverIcon(theme.palette)
+                    : mapMarkerTruckSvgString(theme.palette);
                 el.classList.add('truck-marker');
             }
             break;
