@@ -97,6 +97,73 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
         addDataToMap();
     };
 
+    // Функция для определения, является ли отрезок ведущим к складу
+    const isWarehouseSegment = useCallback(
+        (coord2: GeoJSON.Position): boolean => {
+            if (!warehouseСoords) return false;
+
+            const isCoord2Warehouse = warehouseСoords.some(
+                (warehouseCoord) => warehouseCoord[0] === coord2[0] && warehouseCoord[1] === coord2[1],
+            );
+
+            return isCoord2Warehouse;
+        },
+        [warehouseСoords],
+    );
+
+    // Функция для добавления сегментов к складу напрямую на карту
+    const addWarehouseSegmentsToMap = useCallback(
+        (coordinates: GeoJSON.Position[]) => {
+            if (!map.current || !warehouseСoords || coordinates.length < 2) return;
+
+            // Удаляем предыдущие слои складов, если они есть
+            if (map.current.getLayer('warehouse-segments')) {
+                map.current.removeLayer('warehouse-segments');
+            }
+
+            if (map.current.getSource('warehouse-segments')) {
+                map.current.removeSource('warehouse-segments');
+            }
+
+            const warehouseSegments: GeoJSON.Feature<GeoJSON.LineString>[] = [];
+
+            for (let i = 0; i < coordinates.length - 1; i++) {
+                if (isWarehouseSegment(coordinates[i + 1])) {
+                    const segment: GeoJSON.Feature<GeoJSON.LineString> = {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: [coordinates[i], coordinates[i + 1]],
+                        },
+                    };
+                    warehouseSegments.push(segment);
+                }
+            }
+
+            if (warehouseSegments.length > 0) {
+                map.current.addSource('warehouse-segments', {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: warehouseSegments,
+                    },
+                });
+
+                map.current.addLayer({
+                    id: 'warehouse-segments',
+                    type: 'line',
+                    source: 'warehouse-segments',
+                    paint: {
+                        'line-color': theme.palette.additionalColors.yellow,
+                        'line-width': 4,
+                    },
+                });
+            }
+        },
+        [warehouseСoords, isWarehouseSegment, theme.palette.additionalColors.yellow],
+    );
+
     const addDataToMap = useCallback(() => {
         if (!map.current || !drawRef.current) return;
 
@@ -122,12 +189,18 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                             (warehouseCoord) => warehouseCoord[0] === coord[0] && warehouseCoord[1] === coord[1],
                         ),
                 );
-                console.log(data.geometry.coordinates);
                 // Добавляем номера к точкам маршрута
                 data.properties = data.properties || {};
                 data.properties.points = data.geometry.coordinates.map((_, index) => ({
                     number: index + 1,
                 }));
+
+                // Добавляем основные сегменты маршрута
+                drawRef.current.add(data);
+
+                // Добавляем сегменты к складу напрямую на карту
+                addWarehouseSegmentsToMap(data.geometry.coordinates);
+
                 const coordsLen = filteredCoords.length;
 
                 const [startPoint, endPoint] = [filteredCoords[0], filteredCoords[filteredCoords.length - 1]];
@@ -187,12 +260,11 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 markersRef.current = allMarkers;
             }
         }
-        drawRef.current.add(data);
 
         const bbox = bboxTurf(data, { recompute: true });
         const [west, south, east, north] = bbox;
         map.current.fitBounds([west, south, east, north], { padding: 50 });
-    }, [theme.palette, data, warehouseСoords]);
+    }, [theme.palette, data, warehouseСoords, addWarehouseSegmentsToMap]);
 
     const showDeleteLastPointMarker = useCallback((feature: GeoJSON.Feature) => {
         if (

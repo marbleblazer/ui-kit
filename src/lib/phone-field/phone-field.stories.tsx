@@ -21,8 +21,6 @@ export const Default: Story = {
     render: () => {
         const [value, setValue] = useState<string>('+79083350556');
 
-        console.log(value);
-
         return (
             <Stack>
                 {applyInternationalPhoneMask(value)}

@@ -21,7 +21,7 @@ export const createRouteMarkerElement = ({
     const el = document.createElement('div');
     let svgString = '';
 
-    const endMarkerColor = status === RouteStatuses.Done ? theme.palette.text.titleInput : theme.palette.base.color6;
+    const endMarkerColor = status === RouteStatuses.Done ? theme.palette.text.titleInput : theme.palette.base.color9;
 
     switch (pointType) {
         case 'start':

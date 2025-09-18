@@ -105,6 +105,15 @@ export const customRouteDrawStyles = (theme: Palette) => [
             'line-width': 2,
         },
     },
+    {
+        id: 'gl-draw-line-warehouse',
+        type: 'line',
+        filter: ['all', ['==', '$type', 'LineString'], ['==', 'isWarehouseSegment', 'true']],
+        paint: {
+            'line-color': theme.additionalColors.yellow,
+            'line-width': 4,
+        },
+    },
 ];
 
 export const typedGeodesicDraw = GeodesicDraw as unknown as GeodesicDrawType;
@@ -144,3 +153,4 @@ export const customTripDrawStyles = (theme: Palette) => {
         },
     ];
 };
+
