@@ -80,6 +80,39 @@ export const ClearData: Story = {
     },
 };
 
+export const OnlyWarehouses: Story = {
+    render: () => {
+        const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>({
+            type: 'Feature',
+            properties: {
+                points: [],
+            },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [9.56413004748697, 51.65120378622913],
+                    [9.555862, 51.639113],
+                ],
+            },
+        });
+
+        return (
+            <Box sx={{ width: '1200px', height: '1200px' }}>
+                <button onClick={() => setDrawState(null)}>Clear data</button>
+                <DrawRouteMap
+                    onChange={setDrawState}
+                    data={drawState}
+                    warehouseСoords={[
+                        [9.56413004748697, 51.65120378622913],
+                        [9.555862, 51.639113],
+                    ]}
+                    coordinates={{ lon: 49.108891, lat: 55.796391 }}
+                />
+            </Box>
+        );
+    },
+};
+
 export const EmptyDrawable: Story = {
     render: () => {
         const [drawState, setDrawState] = useState<GeoJSON.GeoJSON | null>(null);
