@@ -36,7 +36,7 @@ const styleByType = (t: LineType, theme: Theme) => {
             };
         case 'warehouse_route':
             return {
-                border: { color: theme.palette.base.colorNewYellow_20, width: 6 },
+                border: { color: theme.palette.base.colorYellowBorderMap, width: 6 },
                 line: { color: theme.palette.base.colorNewYellow, width: 2 },
             };
         case 'future_leg':
