@@ -36,7 +36,7 @@ const styleByType = (t: LineType, theme: Theme) => {
             };
         case 'warehouse_route':
             return {
-                border: { color: theme.palette.base.colorNewYellow_20, width: 6 },
+                border: { color: theme.palette.base.colorYellowBorderMap, width: 6 },
                 line: { color: theme.palette.base.colorNewYellow, width: 2 },
             };
         case 'future_leg':
@@ -104,6 +104,29 @@ export const addRouteLayers = ({ mapCurrent, theme }: IAddRouteLayers) => {
                 },
                 filter: ['==', ['get', 'user_lineType'], type],
             });
+        }
+
+        // Для увеличения зоны триггера появления popup
+        if (type === 'warehouse_route') {
+            const hitboxId = `${type}-hitbox`;
+
+            if (!mapCurrent.getLayer(hitboxId)) {
+                mapCurrent.addLayer({
+                    id: hitboxId,
+                    type: 'line',
+                    source,
+                    layout: {
+                        'line-cap': 'round',
+                        'line-join': 'round',
+                    },
+                    paint: {
+                        'line-color': 'transparent',
+                        'line-width': 25,
+                        'line-opacity': 0,
+                    },
+                    filter: ['==', ['get', 'user_lineType'], type],
+                });
+            }
         }
     });
 };
