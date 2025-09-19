@@ -7,8 +7,6 @@ interface IDrawPolygonModeState extends IDrawModeState {
         coordinates: [number, number][][];
         type: 'Polygon';
     };
-    fakeDuplicateAdded?: boolean;
-    isContinued: boolean;
 }
 
 export type ICustomDrawPolygonMode = ICustomDrawMode<IDrawPolygonModeState>;
