@@ -173,6 +173,14 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
     const addDataToMap = useCallback(() => {
         if (!map.current || !drawRef.current) return;
 
+        if (map.current.getLayer('warehouse-segments')) {
+            map.current.removeLayer('warehouse-segments');
+        }
+
+        if (map.current.getSource('warehouse-segments')) {
+            map.current.removeSource('warehouse-segments');
+        }
+
         drawRef.current.deleteAll();
 
         if (drawMode) {
