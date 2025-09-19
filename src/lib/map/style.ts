@@ -493,6 +493,27 @@ export const MapContainer = styled(Box, {
         },
     },
 
+    '.mapboxgl-popup.warehouse-popup': {
+        width: '225px',
+        height: '32px',
+
+        '.mapboxgl-popup-tip': {
+            display: 'none',
+        },
+
+        '& .mapboxgl-popup-content': {
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '8px 16px !important',
+            borderRadius: '8px !important',
+            color: theme.palette.text.text2,
+            background: theme.palette.background.background15,
+            border: `1px solid ${theme.palette.border.border3} !important`,
+            backdropFilter: 'blur(10px)',
+            ...theme.typography.caption12,
+        },
+    },
+
     '.mapbox-control-ruler.mapbox-control-ruler.mapbox-control-ruler': {
         svg: {
             display: 'none',
