@@ -230,7 +230,8 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 }));
 
                 // Добавляем стартовый маркер
-                new mapboxgl.Marker(startMarker).setLngLat(startPoint as [number, number]).addTo(currentMap);
+                startPoint &&
+                    new mapboxgl.Marker(startMarker).setLngLat(startPoint as [number, number]).addTo(currentMap);
                 allMarkers.push(startMarker);
 
                 warehouseСoords?.forEach((warehouseCoord) => {
