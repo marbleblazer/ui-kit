@@ -114,6 +114,16 @@ export const customRouteDrawStyles = (theme: Palette) => [
             'line-width': 4,
         },
     },
+    // Без слоя ниже кастомный clickOnVertex не отработает
+    {
+        id: 'gl-draw-point-static',
+        type: 'circle',
+        filter: ['==', '$type', 'Point'],
+        paint: {
+            'circle-radius': 4,
+            'circle-color': theme.base.color6,
+        },
+    },
 ];
 
 export const typedGeodesicDraw = GeodesicDraw as unknown as GeodesicDrawType;
@@ -153,4 +163,3 @@ export const customTripDrawStyles = (theme: Palette) => {
         },
     ];
 };
-
