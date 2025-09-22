@@ -8,11 +8,12 @@ import { useTranslation } from 'react-i18next';
 
 interface ISortableItemProps {
     id: string;
+    disabled?: boolean;
     footer?: ReactNode;
 }
 
-export const SortableItem: FC<PropsWithChildren<ISortableItemProps>> = ({ id, children, footer }) => {
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+export const SortableItem: FC<PropsWithChildren<ISortableItemProps>> = ({ id, children, footer, disabled }) => {
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id, disabled });
     const { t } = useTranslation('uiKit');
     const theme = useTheme();
 
@@ -28,7 +29,8 @@ export const SortableItem: FC<PropsWithChildren<ISortableItemProps>> = ({ id, ch
                     sx={{
                         '&:hover': {
                             svg: {
-                                color: theme.palette.text.text4,
+                                color: disabled ? theme.palette.text.text8 : theme.palette.text.text4,
+                                cursor: disabled ? 'not-allowed' : 'grab',
                             },
                         },
                     }}
@@ -36,9 +38,13 @@ export const SortableItem: FC<PropsWithChildren<ISortableItemProps>> = ({ id, ch
                     {...listeners}
                     style={{ cursor: 'grab', height: '40px' }}
                 >
-                    <Tooltip title={t('Drag to reorder')}>
+                    {disabled ? (
                         <DragIcon color={theme.palette.text.text8} />
-                    </Tooltip>
+                    ) : (
+                        <Tooltip title={t('Drag to reorder')}>
+                            <DragIcon color={theme.palette.text.text8} />
+                        </Tooltip>
+                    )}
                 </Box>
                 {children}
             </Stack>

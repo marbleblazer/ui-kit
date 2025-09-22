@@ -19,7 +19,7 @@ type Story = StoryObj<typeof SortableList>;
 export const Default: Story = {
     render: () => {
         const [value, setValue] = useState([
-            { id: '1', title: 'Item 1', subtitle: 'Subtitle 1' },
+            { id: '1', title: 'Item 1', subtitle: 'Subtitle 1', disabled: true },
             { id: '2', title: 'Item 2' },
             { id: '3', title: 'Item 3' },
             { id: '4', title: 'Item 4' },
