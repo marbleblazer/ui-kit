@@ -9,6 +9,7 @@ import { ConnectWalletBanner } from '../connect-wallet-banner';
 import { Typography } from '../typogrpahy';
 import { useTranslation } from 'react-i18next';
 import { ILanguageSelectorProps, LanguageSelector } from '../language-selector';
+import { Tooltip } from '../tooltip';
 
 interface UserPopupProps {
     languageSelectorProps: ILanguageSelectorProps;
@@ -64,9 +65,15 @@ export const UserPopup: FC<UserPopupProps> = ({
                     avatarUrl={avatarUrl}
                     userName={userNameForAvatar ?? ''}
                 />
-                <Typography variant="body1" color="text.text4" sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                    {name}
-                </Typography>
+                <Tooltip title={name}>
+                    <Typography
+                        variant="body1"
+                        color="text.text4"
+                        sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}
+                    >
+                        {name}
+                    </Typography>
+                </Tooltip>
             </Stack>
 
             <Popover
