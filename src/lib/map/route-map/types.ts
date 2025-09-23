@@ -1,5 +1,6 @@
 export type TPointType =
     | 'start'
+    | 'red-start'
     | 'end'
     | 'waypoint_passed'
     | 'waypoint_next'

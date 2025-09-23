@@ -70,7 +70,7 @@ export const ClearData: Story = {
                     onChange={setDrawState}
                     data={drawState}
                     warehouseСoords={[
-                        [22.78341174564946, 52.400439823673565],
+                        [18.36757031342043, 49.58805663850933],
                         [39.904827800820726, 52.33581991843607],
                     ]}
                     coordinates={{ lon: 49.108891, lat: 55.796391 }}

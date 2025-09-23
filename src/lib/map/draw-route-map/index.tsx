@@ -196,6 +196,13 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                             (warehouseCoord) => warehouseCoord[0] === coord[0] && warehouseCoord[1] === coord[1],
                         ),
                 );
+
+                const allCoordinates = data.geometry.coordinates;
+
+                const isSecondPointWarehouse =
+                    allCoordinates?.length > 1 &&
+                    warehouseСoords?.find((warehouseCoord) => allCoordinates[1].join(',') === warehouseCoord.join(','));
+
                 // Добавляем номера к точкам маршрута
                 data.properties = data.properties || {};
                 data.properties.points = data.geometry.coordinates.map((_, index) => ({
@@ -215,7 +222,10 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
                 // Создаем стартовый маркер
                 const startMarker = document.createElement('div');
                 startMarker.classList.add('start-end-line-marker');
-                startMarker.innerHTML = mapMarkerStartSvgContainer(theme.palette, theme.palette.base.colorPointA);
+                startMarker.innerHTML = mapMarkerStartSvgContainer(
+                    theme.palette,
+                    isSecondPointWarehouse ? theme.palette.base.color7 : theme.palette.base.colorPointA,
+                );
 
                 const currentMap = map.current;
 
