@@ -16,14 +16,14 @@ import {
 } from '@dnd-kit/sortable';
 import { SortableItem } from './item';
 
-interface ISortableListProps<T extends { id: string }> {
+interface ISortableListProps<T extends { id: string; disabled?: boolean }> {
     items: T[];
     renderItem: (item: T, index: number) => JSX.Element;
     renderFooter?: (item: T, index: number) => JSX.Element;
     onItemsChange: (items: T[]) => void;
 }
 
-export const SortableList = <T extends { id: string }>({
+export const SortableList = <T extends { id: string; disabled?: boolean }>({
     items,
     onItemsChange,
     renderItem,
@@ -50,7 +50,12 @@ export const SortableList = <T extends { id: string }>({
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
                 {items.map((item, idx) => (
-                    <SortableItem id={item.id} key={item.id} footer={renderFooter?.(item, idx)}>
+                    <SortableItem
+                        id={item.id}
+                        disabled={item.disabled}
+                        key={item.id}
+                        footer={renderFooter?.(item, idx)}
+                    >
                         {renderItem(item, idx)}
                     </SortableItem>
                 ))}

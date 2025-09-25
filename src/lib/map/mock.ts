@@ -5560,7 +5560,7 @@ export const mockRouteData: IRouteDetail = {
     calendar_id: null,
     id: 1,
     devices: [],
-    warehouse_coords: [[17.0385, 51.1079]],
+    warehouse_coords: [[19.0402, 47.4979]],
     status: RouteStatuses.InProgress,
 
     area: {
