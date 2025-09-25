@@ -11,12 +11,21 @@ import { Tooltip } from '../tooltip';
 
 interface IGeolocateSearchProps {
     selectedValue: null | GeocodeFeature['geometry']['coordinates'];
-    onSelect: (location: GeocodeFeature | null) => void;
+
+    disabled?: boolean;
     textFieldProps?: StandardTextFieldProps;
     sx?: SxProps;
+
+    onSelect: (location: GeocodeFeature | null) => void;
 }
 
-export const GeolocateSearch: FC<IGeolocateSearchProps> = ({ sx, selectedValue, textFieldProps, onSelect }) => {
+export const GeolocateSearch: FC<IGeolocateSearchProps> = ({
+    sx,
+    selectedValue,
+    textFieldProps,
+    onSelect,
+    disabled,
+}) => {
     const { i18n } = useTranslation();
 
     const ref = useRef<HTMLTableCellElement>(null);
@@ -72,7 +81,7 @@ export const GeolocateSearch: FC<IGeolocateSearchProps> = ({ sx, selectedValue, 
             fullWidth
             freeSolo
             filterOptions={(x) => x}
-            disabled={false}
+            disabled={disabled}
             value={localSelectedValue}
             sx={{ ...sx, '.MuiInputBase-root input.MuiInputBase-input': { pr: '48px' } }}
             options={locationsState}

@@ -573,7 +573,7 @@ export const RouteMapExampleWithPreliminaryData: Story = {
 
         return (
             <Box sx={{ width: '800px', height: '800px' }}>
-                <RouteMap data={processPreliminaryRoute(drawedData)} />
+                <RouteMap data={{ ...processPreliminaryRoute(drawedData) }} />
             </Box>
         );
     },
