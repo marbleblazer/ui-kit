@@ -182,11 +182,38 @@ export const RouteMap: React.FC<IRouteMapProps> = ({ data, ...baseProps }) => {
     );
 
     const onMapLoad = useCallback(() => {
-        if (!map.current) return;
+        const mapInstance = map.current;
+
+        if (!mapInstance) return;
 
         const finalData = pendingData.current || data?.features;
         pendingData.current = null;
         addDataToMap(finalData);
+
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            closeOnMove: false,
+            className: 'warehouse-popup',
+        }).trackPointer();
+
+        const handleEnter = (e: mapboxgl.MapMouseEvent) => {
+            mapInstance.getCanvas().style.cursor = 'pointer';
+            popup.setLngLat(e.lngLat).setHTML('Planned return to the warehouse').addTo(mapInstance);
+        };
+
+        const handleLeave = () => {
+            mapInstance.getCanvas().style.cursor = '';
+            popup.remove();
+        };
+
+        mapInstance.on('mouseenter', 'warehouse_route-hitbox', handleEnter);
+        mapInstance.on('mouseleave', 'warehouse_route-hitbox', handleLeave);
+
+        return () => {
+            mapInstance.off('mouseenter', 'warehouse_route-hitbox', handleEnter);
+            mapInstance.off('mouseleave', 'warehouse_route-hitbox', handleLeave);
+        };
     }, [addDataToMap, data]);
 
     useEffect(() => {

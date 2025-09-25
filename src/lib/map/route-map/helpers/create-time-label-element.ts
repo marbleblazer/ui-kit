@@ -39,7 +39,9 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
     });
 
     await Promise.all(
-        Array.from(uniqueIcons.entries()).map(([iconId, { type, text, flip }]) => {
+        Array.from(uniqueIcons.entries()).map(async ([iconId, { type, text, flip }]) => {
+            const svgString = await dynamicTimeLabelSvg(type, text, flip, theme, scale);
+
             return new Promise<void>((resolve) => {
                 const img = new Image();
 
@@ -50,7 +52,7 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
                     resolve();
                 };
                 img.onerror = () => resolve();
-                img.src = svgToBase64(dynamicTimeLabelSvg(type, text, flip, theme, scale));
+                img.src = svgToBase64(svgString);
             });
         }),
     );
@@ -62,6 +64,7 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
             features,
         },
     });
+
     map.addLayer({
         id: 'route-labels-layer',
         type: 'symbol',
@@ -79,10 +82,8 @@ export const createTimeLabelElement = async ({ map, features, theme }: ICreateTi
 };
 
 const svgToBase64 = (svg: string) => {
-    const encoder = new TextEncoder();
-    const svgBuffer = encoder.encode(svg);
-    let binary = '';
-    svgBuffer.forEach((b) => (binary += String.fromCharCode(b)));
-
-    return 'data:image/svg+xml;base64,' + btoa(binary);
+    return (
+        'data:image/svg+xml;base64,' +
+        btoa(new TextEncoder().encode(svg).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+    );
 };

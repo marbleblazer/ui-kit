@@ -174,6 +174,14 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
     const addDataToMap = useCallback(() => {
         if (!map.current || !drawRef.current) return;
 
+        if (map.current.getLayer('warehouse-segments')) {
+            map.current.removeLayer('warehouse-segments');
+        }
+
+        if (map.current.getSource('warehouse-segments')) {
+            map.current.removeSource('warehouse-segments');
+        }
+
         drawRef.current.deleteAll();
 
         if (drawMode) {
@@ -285,12 +293,7 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
     }, [theme.palette, data, warehouseСoords, addWarehouseSegmentsToMap]);
 
     const showDeleteLastPointMarker = useCallback((feature: GeoJSON.Feature) => {
-        if (
-            !map.current ||
-            !drawRef.current ||
-            (feature.geometry.type !== 'LineString' && feature.geometry.type !== 'Polygon')
-        )
-            return;
+        if (!map.current || !drawRef.current || feature.geometry.type !== 'LineString') return;
 
         const coords = [...(feature.geometry.coordinates as [number, number][])];
 
@@ -304,9 +307,12 @@ export const DrawRouteMap: React.FC<IDrawRouteMapProps> = memo((props) => {
             !lastPoint?.length ||
             (lastPoint[0] === deleteLastPointMarkerRef.current?.getLngLat().lng &&
                 lastPoint[1] === deleteLastPointMarkerRef.current?.getLngLat().lat)
-        )
-            return; // Удалить предыдущий маркер, если есть
-        else deleteLastPointMarkerRef.current?.remove();
+        ) {
+            return;
+        } else {
+            // Удалить предыдущий маркер, если есть
+            deleteLastPointMarkerRef.current?.remove();
+        }
 
         const markerEl = document.createElement('div');
         markerEl.className = 'delete-marker';
