@@ -7,7 +7,6 @@ interface IDrawLineStringModeState extends IDrawModeState {
         coordinates: [number, number][];
         type: 'LineString';
     };
-    fakeDuplicateAdded?: boolean;
 }
 
 export type ICustomDrawLineStringMode = ICustomDrawMode<IDrawLineStringModeState>;
