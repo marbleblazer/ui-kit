@@ -1,7 +1,8 @@
-import { MenuItem, SelectChangeEvent } from '@mui/material';
+import { MenuItem, SelectChangeEvent, Stack } from '@mui/material';
 
 import * as S from './style';
 import { FC } from 'react';
+import { LANGUAGE_ICONS } from './constances';
 
 export interface ILanguageSelectorProps {
     currentLanguage: string;
@@ -30,7 +31,10 @@ export const LanguageSelector: FC<ILanguageSelectorProps> = ({ currentLanguage, 
             >
                 {Object.entries(languages).map(([value, label]) => (
                     <MenuItem key={value} value={value}>
-                        {label}
+                        <Stack direction="row" alignItems="center" gap={1}>
+                            <div>{value in LANGUAGE_ICONS ? LANGUAGE_ICONS[value] : null}</div>
+                            {label}
+                        </Stack>
                     </MenuItem>
                 ))}
             </S.Select>
